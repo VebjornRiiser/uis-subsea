@@ -1,9 +1,13 @@
-import pygame, time, sys
+import pygame, time, sys, os
 DPAD = 1538
 BUTTON_DOWN = 1539
 BUTTON_UP = 1540
 JOYSTICK = 1536
 
+
+def clear_screen():
+    pass
+    os.system("cls")
 
 class Controller:
     def __init__(self, connection, joystick_deadzone=7) -> None:
@@ -29,9 +33,11 @@ class Controller:
     def wait_for_controller(self):
         while True:    
             try:
-                print("Attempting to Connect to controller")
                 if not self.first_run:
                     pygame.joystick.quit()
+                else:
+                    clear_screen()
+                    print("Attempting to Connect to controller")
                 pygame.joystick.init()
                 global joystick
                 if pygame.joystick.get_count() > 1:
@@ -45,23 +51,33 @@ class Controller:
                         sys.stdout.write("\r" + f"Could not find controller. if it is already connected, try reconnecting it! retrying in {sec} seconds")
                         time.sleep(1)
                         sys.stdout.flush()
-                print("")
         joystick.init()
+
+    def get_new_range(self, value, min, max, scale=100):
+        return((value-min)/(max-min))*scale
 
     def normalize_joysticks(self, event):
         # (x-min)/(max-min)
-        if event.axis == 4 or event.axis == 5:
-            return round((event.value--self.controller_stop_point)/(self.controller_stop_point--self.controller_stop_point)*100)
+        if event.axis == 1:
+            return -round((2*(event.value--self.controller_stop_point)/(self.controller_stop_point--self.controller_stop_point)-1)*100)
+        elif event.axis == 4:
+            return round(self.get_new_range(event.value,-self.controller_stop_point, self.controller_stop_point))
+
+        elif event.axis == 5: # opp og ned på roboten har range fra 0 til 100 og 0 til -100
+            # return round((event.value--self.controller_stop_point)/(self.controller_stop_point--self.controller_stop_point)*100)
+            return round(self.get_new_range(event.value,-self.controller_stop_point, self.controller_stop_point))
+
         return round((2*(event.value--self.controller_stop_point)/(self.controller_stop_point--self.controller_stop_point)-1)*100)
 
-    def write_controller_values(self):
+    def write_controller_values(self, local=False):
         writestring = f"{self.buttons} - {self.joysticks} - {self.dpad}"
-        return writestring
+        if not local:
+            return writestring
         
         # for i in range(len(self.joysticks)):
         #     writestring += f"axis {i} : {self.joysticks}%"
-        # sys.stdout.write("\r" + f"{writestring}")
-        # sys.stdout.flush()
+        sys.stdout.write("\r" + f"{writestring}                                     ")
+        sys.stdout.flush()
         # sys.stdout.write("\r" + f"{self.buttons} - {self.joysticks}                     ")
         # sys.stdout.flush()
 
@@ -83,7 +99,7 @@ class Controller:
                     if debug_all:
                         if event.button == 0:
                             print("A")
-                            pygame.joystick.Joystick.rumble(1,1,1)
+                            # pygame.joystick.Joystick.rumble(1,1,1)
 
                         if event.button == 1:
                             print("B")
@@ -111,7 +127,7 @@ class Controller:
                     
                     if debug_all:
                         if event.button == 0:
-                            pygame.joystick.Joystick.stop_rumble()
+                            # pygame.joystick.Joystick.stop_rumble()
                             print("A up")
                         if event.button == 1:
                             print("B up")
@@ -137,32 +153,35 @@ class Controller:
                     self.joysticks[event.axis] = self.normalize_joysticks(event)
                     
                     if debug_all:
-                        if event.axis == 0:
-                            if event.value > 0:
-                                print(f"Roboten kjører mot høyre med {self.normalize_joysticks(event)}% kraft")
-                            else:
-                                print(f"Roboten kjører mot venstre med {self.normalize_joysticks(event)}% kraft")
-                        elif event.axis == 1:
-                            if event.value > 0:
-                                print(f"Roboten kjører framover med {self.normalize_joysticks(event)}% kraft")
-                            else:
-                                print(f"Roboten kjører bakover med {self.normalize_joysticks(event)}% kraft")
-                        elif event.axis == 2:
-                            if event.value > 0:
-                                print(f"Roboten roterer mot klokka med {self.normalize_joysticks(event)}% kraft")
-                            else:
-                                print(f"Roboten roterer med klokka med {self.normalize_joysticks(event)}% kraft")
-                        elif event.axis == 3:
-                            if event.value > 0:
-                                print(f"Roboten tilter kamera med {self.normalize_joysticks(event)}% kraft")
-                            else:
-                                print(f"Roboten tilter kamera med {self.normalize_joysticks(event)}% kraft")
-                        elif event.axis == 4:
-                                print(f"Roboten går ned med {self.normalize_joysticks(event)}% kraft")
-                        elif event.axis == 5:
-                                print(f"Roboten går opp med {self.normalize_joysticks(event)}% kraft")
-                if debug:
+                        # if event.axis == 0:
+                        #     if event.value > 0:
+                        #         print(f"Roboten kjører mot høyre med {self.normalize_joysticks(event)}% kraft")
+                        #     else:
+                        #         print(f"Roboten kjører mot venstre med {self.normalize_joysticks(event)}% kraft")
+                        if event.axis == 1:
+                            print(event.value)
+                        #     if event.value > 0:
+                        #         print(f"Roboten kjører framover med {self.normalize_joysticks(event)}% kraft")
+                        #     else:
+                        #         print(f"Roboten kjører bakover med {self.normalize_joysticks(event)}% kraft")
+                        # elif event.axis == 2:
+                        #     if event.value > 0:
+                        #         print(f"Roboten roterer mot klokka med {self.normalize_joysticks(event)}% kraft")
+                        #     else:
+                        #         print(f"Roboten roterer med klokka med {self.normalize_joysticks(event)}% kraft")
+                        # elif event.axis == 3:
+                        #     if event.value > 0:
+                        #         print(f"Roboten tilter kamera med {self.normalize_joysticks(event)}% kraft")
+                        #     else:
+                        #         print(f"Roboten tilter kamera med {self.normalize_joysticks(event)}% kraft")
+                        # elif event.axis == 4:
+                        #         print(f"Roboten går ned med {self.normalize_joysticks(event)}% kraft")
+                        # elif event.axis == 5:
+                        #         print(f"Roboten går opp med {self.normalize_joysticks(event)}% kraft")
+                if debug and self.connection is not None:
                     self.connection.send([self.buttons, self.dpad, self.joysticks])
+                elif debug and self.connection is None: 
+                    self.write_controller_values(local=True)
                     # self.connection.close()
 
 
@@ -171,5 +190,6 @@ def run(connection, debug=True, debug_all=False):
     c.get_events_loop(debug=debug, debug_all=debug_all)
 
 if __name__ == "__main__":
-    c = Controller()
-    c.get_events_loop(debug=True)
+    # c = Controller(None)
+    run(None, True)
+    # c.get_events_loop(debug=True, debug_all=False)
