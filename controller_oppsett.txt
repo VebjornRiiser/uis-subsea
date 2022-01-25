@@ -1,0 +1,20 @@
+venstre tommel:
+axis 0: høyre venstre, range: -100 til 100
+axis 1: fram, tilbake, range: -100 til 100
+
+høyre tommel:
+axis 2: rotere rov'en, range: -100 til 100
+axis 3: kamera, range: -30 til 30
+
+dpad:
+manipulator, range -1 til 1
+
+y_knapp: toggle hvilket kamera man kontrollerer
+x_knapp: stille kamera minusgrader
+b_button: stille kamera plussgrader
+
+left toggle: ned, range 0 til 100
+right toggle: opp, range 0 til 100
+
+left button: slippe manipulator
+right button: gripe manipulator

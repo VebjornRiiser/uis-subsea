@@ -19,11 +19,11 @@ def send_data_to_rov():
 def receive_data_from_rov():
     pass
 
-def relay_data_from_controller(connection, relay=True):
+def relay_data_from_controller(connection_controller, relay=True):
     thread = threading.current_thread()
     # while getattr(thread, "run", True):
     while True:
-        controller_data = connection.recv()
+        controller_data = connection_controller.recv()
         print(controller_data, end="                          \r")
         if relay:
             # requests.post("http://10.0.0.16:5000/update_data", json.dumps(controller_data))

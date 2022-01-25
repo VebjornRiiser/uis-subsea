@@ -15,8 +15,9 @@ class Controller:
         self.connection = connection
         self.buttons = [0]*10
         self.joysticks = [0]*6
-        self.dpad = [0]*2
+        self.dpad = (0,0)
         self.controller_stop_point = 1.000030518509476
+        self.boyancy = 0
         self.first_run = True
         self.button_names = {0: "A", 1: "B", 2: "X", 3: "Y", 4: "Left button back", 5: "Right button back", 6: "Back", 7: "Start", 8: "Thumb button left", 9: "Thumb button right"}
         self.canbus_id = {}
@@ -60,17 +61,26 @@ class Controller:
         # (x-min)/(max-min)
         if event.axis == 1:
             return -round((2*(event.value--self.controller_stop_point)/(self.controller_stop_point--self.controller_stop_point)-1)*100)
-        elif event.axis == 4:
-            return round(self.get_new_range(event.value,-self.controller_stop_point, self.controller_stop_point))
 
-        elif event.axis == 5: # opp og ned på roboten har range fra 0 til 100 og 0 til -100
+        if event.axis == 3:
+            return -round((2*(event.value--self.controller_stop_point)/(self.controller_stop_point--self.controller_stop_point)-1)*30)
+
+
+        if event.axis == 4:
+            return -round(self.get_new_range(event.value,-self.controller_stop_point, self.controller_stop_point)) # opp og ned på roboten har range fra 0 til 100 og 0 til -100
             # return round((event.value--self.controller_stop_point)/(self.controller_stop_point--self.controller_stop_point)*100)
-            return round(self.get_new_range(event.value,-self.controller_stop_point, self.controller_stop_point))
+        if event.axis == 5:
+            return round(self.get_new_range(event.value,-self.controller_stop_point, self.controller_stop_point)) # opp og ned på roboten har range fra 0 til 100 og 0 til -100
+            # return round((event.value--self.controller_stop_point)/(self.controller_stop_point--self.controller_stop_point)*100)
 
         return round((2*(event.value--self.controller_stop_point)/(self.controller_stop_point--self.controller_stop_point)-1)*100)
 
+        # return round(self.get_new_range(event.value,-self.controller_stop_point, self.controller_stop_point))
+
+
     def write_controller_values(self, local=False):
-        writestring = f"{self.buttons} - {self.joysticks} - {self.dpad}"
+        # writestring = self.joysticks
+        writestring = f"{self.buttons} - {self.dpad} - {self.joysticks}"
         if not local:
             return writestring
         
@@ -90,6 +100,7 @@ class Controller:
             duration = self.clock.tick(20)
             # print(duration)
             for event in pygame.event.get():
+                # print("entered event check")
                 if event.type == DPAD: #dpad (both up and down)
                     self.dpad = event.value
 
@@ -149,8 +160,13 @@ class Controller:
                             print("Thumb button right up")
                     self.reset_button(event)
 
-                elif event.type == JOYSTICK: #joystick movement
+                # There is a bug where only one joystick is registered if the program has been started, but no buttons or dpad has been pressed yet.
+                # this is "solved" by the fact that the other joystick reduces the value of the first joystick that was pressed. Since we add up the
+                # joystick values to get total trust. Example: axis 4: -50, axis 5: 100. Value we get is 50. With bug: axis 4: 0, axis 5: 50.
+                if event.type == JOYSTICK: #joystick movement
                     self.joysticks[event.axis] = self.normalize_joysticks(event)
+                    self.boyancy = self.joysticks[4] + self.joysticks[5]
+
                     
                     if debug_all:
                         # if event.axis == 0:
@@ -158,8 +174,8 @@ class Controller:
                         #         print(f"Roboten kjører mot høyre med {self.normalize_joysticks(event)}% kraft")
                         #     else:
                         #         print(f"Roboten kjører mot venstre med {self.normalize_joysticks(event)}% kraft")
-                        if event.axis == 1:
-                            print(event.value)
+                        if event.axis == 4 or event.axis == 5:
+                            print(f"{event.axis} signal: {event.value}, normalized: {self.normalize_joysticks(event)}")
                         #     if event.value > 0:
                         #         print(f"Roboten kjører framover med {self.normalize_joysticks(event)}% kraft")
                         #     else:
@@ -179,10 +195,10 @@ class Controller:
                         # elif event.axis == 5:
                         #         print(f"Roboten går opp med {self.normalize_joysticks(event)}% kraft")
                 if debug and self.connection is not None:
-                    self.connection.send([self.buttons, self.dpad, self.joysticks])
+                    self.connection.send([self.buttons, self.dpad, self.joysticks, self.boyancy])
                 elif debug and self.connection is None: 
                     self.write_controller_values(local=True)
-                    # self.connection.close()
+                    # self.connection.close()            
 
 
 def run(connection, debug=True, debug_all=False):
@@ -191,5 +207,5 @@ def run(connection, debug=True, debug_all=False):
 
 if __name__ == "__main__":
     # c = Controller(None)
-    run(None, True)
+    run(None, True, False)
     # c.get_events_loop(debug=True, debug_all=False)
