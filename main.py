@@ -1,9 +1,6 @@
 import json
-from flask import Flask
-import controller, nettverkskommunikasjon, requests, threading
+import controller, nettverkskommunikasjon, requests, threading, os
 from multiprocessing import Pipe, Process
-import app
-
 
 def controllerdata_to_json(controll_data):
     pass   
@@ -24,9 +21,13 @@ def relay_data_from_controller(connection_controller, relay=True):
     # while getattr(thread, "run", True):
     while True:
         controller_data = connection_controller.recv()
-        print(controller_data, end="                          \r")
+        # os.system("cls")
+        print(str(controller_data)[1:-1], end="    \r")
+        # sys.stdout.write(f"{controller_data}"+"\r")
+        # sys.stdout.flush()
         if relay:
             # requests.post("http://10.0.0.16:5000/update_data", json.dumps(controller_data))
+            # requests.post("http://10.0.0.2:5000/update_data", json.dumps(controller_data))
             requests.post("http://127.0.0.1:5000/update_data", json.dumps(controller_data))
 
 

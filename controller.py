@@ -1,9 +1,14 @@
+# import threading
 import pygame, time, sys, os
 DPAD = 1538
 BUTTON_DOWN = 1539
 BUTTON_UP = 1540
 JOYSTICK = 1536
 
+BUTTON_A = 0
+BUTTON_B = 1
+BUTTON_X = 2
+BUTTON_Y = 3
 
 def clear_screen():
     pass
@@ -18,13 +23,17 @@ class Controller:
         self.dpad = (0,0)
         self.controller_stop_point = 1.000030518509476
         self.boyancy = 0
+        self.camera_motor = 0
         self.first_run = True
         self.button_names = {0: "A", 1: "B", 2: "X", 3: "Y", 4: "Left button back", 5: "Right button back", 6: "Back", 7: "Start", 8: "Thumb button left", 9: "Thumb button right"}
-        self.canbus_id = {}
+        self.duration = -1
         pygame.init()
         self.clock = pygame.time.Clock()
         self.wait_for_controller()
 
+    def pack_controller_values(self):
+        values = {"joysticks": self.joysticks, "buttons": self.buttons, "dpad": self.dpad, "camera_to_control": self.camera_motor, "time_between_updates":self.duration}
+        return values
 
     def reset_button(self, event) -> None:
         self.buttons[event.button] = 0 
@@ -92,12 +101,16 @@ class Controller:
         # sys.stdout.flush()
 
 
+    def lekkasje(self, duration=250, loops=3, pause_duration=500):
+        for i in range(loops):
+            joystick.rumble(1,1,duration)
+            time.sleep((duration+pause_duration)/1000)
+
     def get_events_loop(self, debug=False, debug_all=False):
         while True:
             if pygame.joystick.get_count() < 1:
                 self.wait_for_controller()
-            can = {}
-            duration = self.clock.tick(20)
+            self.duration = self.clock.tick(20)
             # print(duration)
             for event in pygame.event.get():
                 # print("entered event check")
@@ -107,16 +120,19 @@ class Controller:
                 if event.type == BUTTON_DOWN: #button down
                     self.buttons[event.button] = 1
 
-                    if debug_all:
-                        if event.button == 0:
-                            print("A")
-                            # pygame.joystick.Joystick.rumble(1,1,1)
+                    if self.buttons[BUTTON_Y] == 1:
+                        pass
+                        # threading.Thread(target=self.lekkasje).start()
 
-                        if event.button == 1:
+                    if debug_all:
+                        if event.button == BUTTON_A:
+                            print("A")
+
+                        if event.button == BUTTON_B:
                             print("B")
-                        if event.button == 2:
+                        if event.button == BUTTON_X:
                             print("X")
-                        if event.button == 3:
+                        if event.button == BUTTON_Y:
                             print("Y")
                         if event.button == 4:
                             print("Left button")
@@ -195,7 +211,7 @@ class Controller:
                         # elif event.axis == 5:
                         #         print(f"Roboten går opp med {self.normalize_joysticks(event)}% kraft")
                 if debug and self.connection is not None:
-                    self.connection.send([self.buttons, self.dpad, self.joysticks, self.boyancy])
+                    self.connection.send(self.pack_controller_values())
                 elif debug and self.connection is None: 
                     self.write_controller_values(local=True)
                     # self.connection.close()            
