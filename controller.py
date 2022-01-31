@@ -46,7 +46,7 @@ class Controller:
                 if not self.first_run:
                     pygame.joystick.quit()
                 else:
-                    clear_screen()
+                    # clear_screen()
                     print("Attempting to Connect to controller")
                 pygame.joystick.init()
                 global joystick
@@ -56,7 +56,7 @@ class Controller:
                 print(f"Connected to {joystick.get_name()}")
                 break
             except:
-                self.first_run = False
+                self.first_run = False # move up after connectiong ?
                 for sec in range(5,0,-1):
                         sys.stdout.write("\r" + f"Could not find controller. if it is already connected, try reconnecting it! retrying in {sec} seconds")
                         time.sleep(1)
