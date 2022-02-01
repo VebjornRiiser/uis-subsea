@@ -27,7 +27,7 @@
   <property name="styleSheet">
    <string notr="true">QPushButton{background-color:black}</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
+  <widget class="StackedWidget" name="centralwidget">
    <property name="minimumSize">
     <size>
      <width>1700</width>

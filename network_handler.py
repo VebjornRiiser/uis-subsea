@@ -36,6 +36,7 @@ class Network:
         self.conn = None
         self.waiting_for_conn = True
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
         if self.is_server:
             print(f"trying to bind with {self.bind_addr, self.port}")
