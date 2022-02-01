@@ -81,7 +81,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_10.setObjectName("verticalLayout_10")
         self.frame_18 = QtWidgets.QFrame(self.title_bar)
         self.frame_18.setMinimumSize(QtCore.QSize(0, 50))
-        self.frame_18.setMaximumSize(QtCore.QSize(1000, 65))
+        self.frame_18.setMaximumSize(QtCore.QSize(1300, 65))
         self.frame_18.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.frame_18.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_18.setObjectName("frame_18")
