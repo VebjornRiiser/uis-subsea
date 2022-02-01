@@ -1,5 +1,9 @@
 # import threading
-import pygame, time, sys, os
+import os
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
+import pygame
+import time
+import sys
 DPAD = 1538
 BUTTON_DOWN = 1539
 BUTTON_UP = 1540

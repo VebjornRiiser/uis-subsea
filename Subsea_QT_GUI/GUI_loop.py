@@ -17,7 +17,8 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         super().__init__(parent)
         self.setupUi(self)
         self.btn_manuell.clicked.connect(self.button_test)
-        threading.Thread(target=lambda: self.recieve_and_set_text(self.conn)).start()
+        self.recieve = threading.Thread(target=lambda: self.recieve_and_set_text(self.conn))
+        self.recieve.start()
 
     def recieve_and_set_text(self, conn):
         # while not self.thread.should_stop:
