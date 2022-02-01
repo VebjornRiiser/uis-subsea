@@ -5,6 +5,7 @@ import controller
 import threading
 import random
 import time
+import json
 
 def controllerdata_to_json(controll_data):
     pass
@@ -77,6 +78,7 @@ if __name__ == "__main__":
 
     gui_parent_pipe, gui_child_pipe = Pipe() # starts the gui program. gui_parent_pipe should get the sensor data
     gui_loop = Process(target=GUI_loop.run, args=(gui_child_pipe,)) # and should recieve commands from the gui
+    # gui_loop.should_stop = False
     gui_loop.start()
 
     # recv_from_gui = threading.Thread(target=lambda: recieve_commands_from_gui(gui_parent_pipe))
@@ -87,3 +89,4 @@ if __name__ == "__main__":
 
     recv_frm_cnt = threading.Thread(target=relay_data_from_controller, daemon=True, args=(parent_conn, True))
     recv_frm_cnt.start()
+    controller_process.join()

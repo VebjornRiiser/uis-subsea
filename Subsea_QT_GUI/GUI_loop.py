@@ -1,25 +1,31 @@
-import random, time
-import Subsea_QT_GUI.SUBSEAGUI, sys, threading
 from PyQt5 import QtCore, QtGui, QtWidgets
-from multiprocessing import Pipe
-
 from PyQt5.QtWidgets import QMainWindow
-
+from multiprocessing import Pipe
+import random
+import time
+import sys
+import threading
+import json
+import os
 import Subsea_QT_GUI.SUBSEAGUI as SUBSEAGUI
 
 class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     def __init__(self, conn, parent=None):
+        print(os.path.dirname(os.path.realpath(__file__)))
+        self.thread = threading.current_thread()
         super().__init__(parent)
         self.setupUi(self)
-        self.btn_paa_5.clicked.connect(self.button_test)
+        self.btn_manuell.clicked.connect(self.button_test)
         threading.Thread(target=lambda: self.recieve_and_set_text(conn)).start()
 
     def recieve_and_set_text(self, conn):
         print("trying to take out of pipe")
+        # while not self.thread.should_stop:
         while True:
             data = conn.recv()
-            data = json.loads(str(""))
-            self.dybde.setText(str(data))
+            data = json.loads(str(data))
+            print(data)
+            # self.dybde.setText(str(data["dybde"]))
 
 
     def button_test(self):
@@ -41,9 +47,14 @@ def run(conn=None):
 
 def generate_data(conn):
     while True:
-        time.sleep(1)
-        print("tring to send on pipe")
-        conn.send((random.randrange(65,97)))
+        try:
+            time.sleep(1)
+            print("tring to send on pipe")
+            conn.send((random.randrange(65,97)))
+        except KeyboardInterrupt:
+            exit(0)
 
 if __name__ == "__main__":
+    import SUBSEAGUI
+
     run()
