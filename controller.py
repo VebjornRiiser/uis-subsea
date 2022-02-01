@@ -37,7 +37,6 @@ class Controller:
 
     def reset_button(self, event) -> None:
         self.buttons[event.button] = 0 
-        # self.buttons = [0]*10
 
     # wait_for_controller will attempt to connect to the controller until it can find it
     def wait_for_controller(self):

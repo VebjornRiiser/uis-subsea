@@ -1,10 +1,10 @@
 from Subsea_QT_GUI import GUI_loop
-import controller
-import threading
-import socket
 from multiprocessing import Pipe, Process
 from Subsea_QT_GUI import *
-
+import controller
+import threading
+import random
+import time
 
 def controllerdata_to_json(controll_data):
     pass
@@ -35,8 +35,37 @@ def relay_data_from_controller(connection_controller, relay=True):
         if relay:
             pass
 
+def recieve_commands_from_gui(conn):
+    while True:
+        try:
+            print(conn.recv())
+        except KeyboardInterrupt:
+            return
+
+def create_test_sensordata(delta, old_sensordata=None):
+    sensordata = {}
+    if old_sensordata is None:
+        sensordata = {"tid": int(time.time-start_time_sec), "dybde": -2500, "spenning": 48, "temp_vann": 26.0}
+    else:
+        sensordata["tid"] = int(time.time-start_time_sec)
+        sensordata["dybde"] = old_sensordata["dybde"] + 10
+        sensordata["spenning"] = old_sensordata["spenning"] + 0.4*delta
+        sensordata["temp_vann"] = old_sensordata["temp_vann"] + 0.3*delta
+
+def send_sensordata_to_gui(conn):
+    sensordata = {""}
+    while True:
+        delta = random.randint(-1,1)
+        try:
+            conn.send()
+            time.sleep(0.2)
+        except KeyboardInterrupt:
+            return
+
 
 if __name__ == "__main__":
+    global start_time_sec
+    start_time_sec = time.time()
     print("starting")
     # with open("config.txt", 'r') as config:
         # print(config.read()[1])
@@ -46,10 +75,15 @@ if __name__ == "__main__":
     controller_process = Process(target=controller.run, args=(child_conn, True,))
     controller_process.start()
 
-    gui_parent_pipe, gui_child_pipe = Pipe()
-
-    gui_loop = Process(target=GUI_loop.run, args=(gui_child_pipe,))
+    gui_parent_pipe, gui_child_pipe = Pipe() # starts the gui program. gui_parent_pipe should get the sensor data
+    gui_loop = Process(target=GUI_loop.run, args=(gui_child_pipe,)) # and should recieve commands from the gui
     gui_loop.start()
+
+    # recv_from_gui = threading.Thread(target=lambda: recieve_commands_from_gui(gui_parent_pipe))
+    # recv_from_gui.start()
+
+    # send_to_gui = threading.Thread(target=lambda:send_sensordata_to_gui(gui_parent_pipe))
+    # send_to_gui.start()
 
     recv_frm_cnt = threading.Thread(target=relay_data_from_controller, daemon=True, args=(parent_conn, True))
     recv_frm_cnt.start()

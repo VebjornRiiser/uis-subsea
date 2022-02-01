@@ -18,6 +18,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         print("trying to take out of pipe")
         while True:
             data = conn.recv()
+            data = json.loads(str(""))
             self.dybde.setText(str(data))
 
 
