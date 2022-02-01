@@ -16,6 +16,11 @@
     <height>900</height>
    </size>
   </property>
+  <property name="font">
+   <font>
+    <family>Arial</family>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -336,6 +341,7 @@
                   </property>
                   <property name="font">
                    <font>
+                    <family>Arial</family>
                     <pointsize>14</pointsize>
                    </font>
                   </property>
@@ -366,6 +372,7 @@
                </property>
                <property name="font">
                 <font>
+                 <family>Arial</family>
                  <pointsize>14</pointsize>
                 </font>
                </property>
@@ -409,6 +416,7 @@
                </property>
                <property name="font">
                 <font>
+                 <family>Arial</family>
                  <pointsize>14</pointsize>
                 </font>
                </property>
@@ -452,6 +460,7 @@
                </property>
                <property name="font">
                 <font>
+                 <family>Arial</family>
                  <pointsize>14</pointsize>
                 </font>
                </property>
@@ -600,140 +609,6 @@ QPushButton { background-color: grey; color: red; }</string>
                 <property name="horizontalSpacing">
                  <number>-1</number>
                 </property>
-                <item row="0" column="0">
-                 <widget class="QFrame" name="container2">
-                  <property name="maximumSize">
-                   <size>
-                    <width>16777215</width>
-                    <height>600</height>
-                   </size>
-                  </property>
-                  <property name="autoFillBackground">
-                   <bool>false</bool>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">QPushButton{background-color: grey; color: white;}</string>
-                  </property>
-                  <property name="frameShape">
-                   <enum>QFrame::NoFrame</enum>
-                  </property>
-                  <property name="frameShadow">
-                   <enum>QFrame::Raised</enum>
-                  </property>
-                  <layout class="QVBoxLayout" name="verticalLayout_8">
-                   <item>
-                    <widget class="QFrame" name="frame_10">
-                     <property name="minimumSize">
-                      <size>
-                       <width>0</width>
-                       <height>0</height>
-                      </size>
-                     </property>
-                     <property name="maximumSize">
-                      <size>
-                       <width>16777215</width>
-                       <height>190</height>
-                      </size>
-                     </property>
-                     <property name="frameShape">
-                      <enum>QFrame::NoFrame</enum>
-                     </property>
-                     <property name="frameShadow">
-                      <enum>QFrame::Raised</enum>
-                     </property>
-                     <layout class="QVBoxLayout" name="verticalLayout_13">
-                      <item>
-                       <widget class="QLabel" name="kontroller_7">
-                        <property name="minimumSize">
-                         <size>
-                          <width>0</width>
-                          <height>50</height>
-                         </size>
-                        </property>
-                        <property name="maximumSize">
-                         <size>
-                          <width>1000</width>
-                          <height>20</height>
-                         </size>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <pointsize>16</pointsize>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">background-color: none;</string>
-                        </property>
-                        <property name="text">
-                         <string>KJØRING</string>
-                        </property>
-                        <property name="textFormat">
-                         <enum>Qt::PlainText</enum>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QFrame" name="frame_8">
-                        <property name="minimumSize">
-                         <size>
-                          <width>0</width>
-                          <height>0</height>
-                         </size>
-                        </property>
-                        <property name="maximumSize">
-                         <size>
-                          <width>16777215</width>
-                          <height>16777215</height>
-                         </size>
-                        </property>
-                        <property name="frameShape">
-                         <enum>QFrame::NoFrame</enum>
-                        </property>
-                        <property name="frameShadow">
-                         <enum>QFrame::Raised</enum>
-                        </property>
-                        <layout class="QVBoxLayout" name="verticalLayout_4">
-                         <item>
-                          <widget class="QPushButton" name="btn_manuell">
-                           <property name="maximumSize">
-                            <size>
-                             <width>16777215</width>
-                             <height>30</height>
-                            </size>
-                           </property>
-                           <property name="styleSheet">
-                            <string notr="true">background-color: rgb(92, 114, 194);</string>
-                           </property>
-                           <property name="text">
-                            <string>Manuell</string>
-                           </property>
-                          </widget>
-                         </item>
-                         <item>
-                          <widget class="QPushButton" name="btn_auto">
-                           <property name="maximumSize">
-                            <size>
-                             <width>16777215</width>
-                             <height>30</height>
-                            </size>
-                           </property>
-                           <property name="styleSheet">
-                            <string notr="true">background-color: rgb(92, 114, 194);</string>
-                           </property>
-                           <property name="text">
-                            <string>Auto</string>
-                           </property>
-                          </widget>
-                         </item>
-                        </layout>
-                       </widget>
-                      </item>
-                     </layout>
-                    </widget>
-                   </item>
-                  </layout>
-                 </widget>
-                </item>
                 <item row="0" column="1">
                  <widget class="QFrame" name="container9">
                   <property name="maximumSize">
@@ -786,6 +661,7 @@ QPushButton { background-color: grey; color: red; }</string>
                         </property>
                         <property name="font">
                          <font>
+                          <family>Arial</family>
                           <pointsize>16</pointsize>
                          </font>
                         </property>
@@ -835,6 +711,11 @@ QPushButton { background-color: grey; color: red; }</string>
                              <height>40</height>
                             </size>
                            </property>
+                           <property name="font">
+                            <font>
+                             <family>Arial</family>
+                            </font>
+                           </property>
                            <property name="styleSheet">
                             <string notr="true">background-color: rgb(92, 114, 194);</string>
                            </property>
@@ -851,6 +732,11 @@ QPushButton { background-color: grey; color: red; }</string>
                              <height>40</height>
                             </size>
                            </property>
+                           <property name="font">
+                            <font>
+                             <family>Arial</family>
+                            </font>
+                           </property>
                            <property name="styleSheet">
                             <string notr="true">background-color: rgb(92, 114, 194);</string>
                            </property>
@@ -866,6 +752,11 @@ QPushButton { background-color: grey; color: red; }</string>
                              <width>16777215</width>
                              <height>40</height>
                             </size>
+                           </property>
+                           <property name="font">
+                            <font>
+                             <family>Arial</family>
+                            </font>
                            </property>
                            <property name="styleSheet">
                             <string notr="true">background-color: rgb(92, 114, 194);</string>
@@ -937,6 +828,151 @@ QPushButton { background-color: grey; color: red; }</string>
                      <property name="scaledContents">
                       <bool>true</bool>
                      </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QFrame" name="container2">
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>600</height>
+                   </size>
+                  </property>
+                  <property name="autoFillBackground">
+                   <bool>false</bool>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton{background-color: grey; color: white;}</string>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::NoFrame</enum>
+                  </property>
+                  <property name="frameShadow">
+                   <enum>QFrame::Raised</enum>
+                  </property>
+                  <layout class="QVBoxLayout" name="verticalLayout_8">
+                   <item>
+                    <widget class="QFrame" name="frame_10">
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>190</height>
+                      </size>
+                     </property>
+                     <property name="frameShape">
+                      <enum>QFrame::NoFrame</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Raised</enum>
+                     </property>
+                     <layout class="QVBoxLayout" name="verticalLayout_13">
+                      <item>
+                       <widget class="QLabel" name="kontroller_7">
+                        <property name="minimumSize">
+                         <size>
+                          <width>0</width>
+                          <height>50</height>
+                         </size>
+                        </property>
+                        <property name="maximumSize">
+                         <size>
+                          <width>1000</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                        <property name="font">
+                         <font>
+                          <family>Arial</family>
+                          <pointsize>16</pointsize>
+                         </font>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">background-color: none;</string>
+                        </property>
+                        <property name="text">
+                         <string>KJØRING</string>
+                        </property>
+                        <property name="textFormat">
+                         <enum>Qt::PlainText</enum>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QFrame" name="frame_8">
+                        <property name="minimumSize">
+                         <size>
+                          <width>0</width>
+                          <height>0</height>
+                         </size>
+                        </property>
+                        <property name="maximumSize">
+                         <size>
+                          <width>16777215</width>
+                          <height>16777215</height>
+                         </size>
+                        </property>
+                        <property name="frameShape">
+                         <enum>QFrame::NoFrame</enum>
+                        </property>
+                        <property name="frameShadow">
+                         <enum>QFrame::Raised</enum>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_4">
+                         <item>
+                          <widget class="QPushButton" name="btn_manuell">
+                           <property name="maximumSize">
+                            <size>
+                             <width>16777215</width>
+                             <height>30</height>
+                            </size>
+                           </property>
+                           <property name="font">
+                            <font>
+                             <family>Arial</family>
+                            </font>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true">background-color: rgb(92, 114, 194);</string>
+                           </property>
+                           <property name="text">
+                            <string>Manuell</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QPushButton" name="btn_auto">
+                           <property name="maximumSize">
+                            <size>
+                             <width>16777215</width>
+                             <height>30</height>
+                            </size>
+                           </property>
+                           <property name="font">
+                            <font>
+                             <family>Arial</family>
+                            </font>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true">background-color: rgb(92, 114, 194);</string>
+                           </property>
+                           <property name="text">
+                            <string>Auto</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                     </layout>
                     </widget>
                    </item>
                   </layout>
@@ -1035,6 +1071,11 @@ QPushButton { background-color: grey; color: red; }</string>
                      <layout class="QGridLayout" name="gridLayout_8">
                       <item row="2" column="0">
                        <widget class="QLabel" name="label_spenning">
+                        <property name="font">
+                         <font>
+                          <family>Arial</family>
+                         </font>
+                        </property>
                         <property name="text">
                          <string>Spenning:</string>
                         </property>
@@ -1045,6 +1086,11 @@ QPushButton { background-color: grey; color: red; }</string>
                       </item>
                       <item row="6" column="1">
                        <widget class="QLabel" name="temp_vann">
+                        <property name="font">
+                         <font>
+                          <family>Arial</family>
+                         </font>
+                        </property>
                         <property name="styleSheet">
                          <string notr="true">background-color: grey; border-radius: 5px;</string>
                         </property>
@@ -1058,6 +1104,11 @@ QPushButton { background-color: grey; color: red; }</string>
                       </item>
                       <item row="6" column="0">
                        <widget class="QLabel" name="label_temp_vann">
+                        <property name="font">
+                         <font>
+                          <family>Arial</family>
+                         </font>
+                        </property>
                         <property name="text">
                          <string>Temp vann:</string>
                         </property>
@@ -1068,6 +1119,11 @@ QPushButton { background-color: grey; color: red; }</string>
                       </item>
                       <item row="0" column="0">
                        <widget class="QLabel" name="label_tid">
+                        <property name="font">
+                         <font>
+                          <family>Arial</family>
+                         </font>
+                        </property>
                         <property name="text">
                          <string>Tid:</string>
                         </property>
@@ -1078,6 +1134,11 @@ QPushButton { background-color: grey; color: red; }</string>
                       </item>
                       <item row="0" column="1">
                        <widget class="QLabel" name="tid">
+                        <property name="font">
+                         <font>
+                          <family>Arial</family>
+                         </font>
+                        </property>
                         <property name="styleSheet">
                          <string notr="true">background-color: grey; border-radius: 5px;</string>
                         </property>
@@ -1091,6 +1152,11 @@ QPushButton { background-color: grey; color: red; }</string>
                       </item>
                       <item row="1" column="0">
                        <widget class="QLabel" name="label_dybde">
+                        <property name="font">
+                         <font>
+                          <family>Arial</family>
+                         </font>
+                        </property>
                         <property name="text">
                          <string>Dybde:</string>
                         </property>
@@ -1101,6 +1167,11 @@ QPushButton { background-color: grey; color: red; }</string>
                       </item>
                       <item row="2" column="1">
                        <widget class="QLabel" name="spenning">
+                        <property name="font">
+                         <font>
+                          <family>Arial</family>
+                         </font>
+                        </property>
                         <property name="styleSheet">
                          <string notr="true">background-color: grey; border-radius: 5px;</string>
                         </property>
@@ -1114,6 +1185,11 @@ QPushButton { background-color: grey; color: red; }</string>
                       </item>
                       <item row="5" column="0">
                        <widget class="QLabel" name="label_orientering">
+                        <property name="font">
+                         <font>
+                          <family>Arial</family>
+                         </font>
+                        </property>
                         <property name="text">
                          <string>Orientering:</string>
                         </property>
@@ -1124,6 +1200,11 @@ QPushButton { background-color: grey; color: red; }</string>
                       </item>
                       <item row="4" column="1">
                        <widget class="QLabel" name="strom2">
+                        <property name="font">
+                         <font>
+                          <family>Arial</family>
+                         </font>
+                        </property>
                         <property name="styleSheet">
                          <string notr="true">background-color: grey; border-radius: 5px;</string>
                         </property>
@@ -1137,6 +1218,11 @@ QPushButton { background-color: grey; color: red; }</string>
                       </item>
                       <item row="3" column="0">
                        <widget class="QLabel" name="label_strom1">
+                        <property name="font">
+                         <font>
+                          <family>Arial</family>
+                         </font>
+                        </property>
                         <property name="text">
                          <string>Strøm 1:</string>
                         </property>
@@ -1147,6 +1233,11 @@ QPushButton { background-color: grey; color: red; }</string>
                       </item>
                       <item row="4" column="0">
                        <widget class="QLabel" name="label_strom">
+                        <property name="font">
+                         <font>
+                          <family>Arial</family>
+                         </font>
+                        </property>
                         <property name="text">
                          <string>Strøm 2:</string>
                         </property>
@@ -1157,6 +1248,11 @@ QPushButton { background-color: grey; color: red; }</string>
                       </item>
                       <item row="1" column="1">
                        <widget class="QLabel" name="dybde">
+                        <property name="font">
+                         <font>
+                          <family>Arial</family>
+                         </font>
+                        </property>
                         <property name="styleSheet">
                          <string notr="true">background-color: grey; border-radius: 5px;</string>
                         </property>
@@ -1170,6 +1266,11 @@ QPushButton { background-color: grey; color: red; }</string>
                       </item>
                       <item row="5" column="1">
                        <widget class="QLabel" name="orientering">
+                        <property name="font">
+                         <font>
+                          <family>Arial</family>
+                         </font>
+                        </property>
                         <property name="styleSheet">
                          <string notr="true">background-color: grey; border-radius: 5px;</string>
                         </property>
@@ -1183,6 +1284,11 @@ QPushButton { background-color: grey; color: red; }</string>
                       </item>
                       <item row="3" column="1">
                        <widget class="QLabel" name="strom1">
+                        <property name="font">
+                         <font>
+                          <family>Arial</family>
+                         </font>
+                        </property>
                         <property name="styleSheet">
                          <string notr="true">background-color: grey; border-radius: 5px;</string>
                         </property>
@@ -1235,6 +1341,11 @@ QPushButton { background-color: grey; color: red; }</string>
                         <layout class="QGridLayout" name="gridLayout_3">
                          <item row="2" column="4">
                           <widget class="QLabel" name="manipulator_9">
+                           <property name="font">
+                            <font>
+                             <family>Arial</family>
+                            </font>
+                           </property>
                            <property name="text">
                             <string>Manipulator</string>
                            </property>
@@ -1245,6 +1356,11 @@ QPushButton { background-color: grey; color: red; }</string>
                          </item>
                          <item row="3" column="4">
                           <widget class="QLabel" name="dybdereg_5">
+                           <property name="font">
+                            <font>
+                             <family>Arial</family>
+                            </font>
+                           </property>
                            <property name="text">
                             <string>Dybde regulator</string>
                            </property>
@@ -1255,6 +1371,11 @@ QPushButton { background-color: grey; color: red; }</string>
                          </item>
                          <item row="8" column="4">
                           <widget class="QLabel" name="helningreg_5">
+                           <property name="font">
+                            <font>
+                             <family>Arial</family>
+                            </font>
+                           </property>
                            <property name="text">
                             <string>Helningsregulator</string>
                            </property>
@@ -1265,6 +1386,11 @@ QPushButton { background-color: grey; color: red; }</string>
                          </item>
                          <item row="0" column="4">
                           <widget class="QLabel" name="lys_5">
+                           <property name="font">
+                            <font>
+                             <family>Arial</family>
+                            </font>
+                           </property>
                            <property name="text">
                             <string>Lys</string>
                            </property>
@@ -1280,6 +1406,11 @@ QPushButton { background-color: grey; color: red; }</string>
                              <width>40</width>
                              <height>16777215</height>
                             </size>
+                           </property>
+                           <property name="font">
+                            <font>
+                             <family>Arial</family>
+                            </font>
                            </property>
                            <property name="styleSheet">
                             <string notr="true">background-color:rgb(188, 60, 75)</string>
@@ -1303,6 +1434,11 @@ QPushButton { background-color: grey; color: red; }</string>
                              <height>16777215</height>
                             </size>
                            </property>
+                           <property name="font">
+                            <font>
+                             <family>Arial</family>
+                            </font>
+                           </property>
                            <property name="styleSheet">
                             <string notr="true">background-color: rgb(109, 156, 113)</string>
                            </property>
@@ -1318,6 +1454,11 @@ QPushButton { background-color: grey; color: red; }</string>
                              <width>40</width>
                              <height>16777215</height>
                             </size>
+                           </property>
+                           <property name="font">
+                            <font>
+                             <family>Arial</family>
+                            </font>
                            </property>
                            <property name="styleSheet">
                             <string notr="true">background-color:rgb(188, 60, 75)</string>
@@ -1335,6 +1476,11 @@ QPushButton { background-color: grey; color: red; }</string>
                              <height>16777215</height>
                             </size>
                            </property>
+                           <property name="font">
+                            <font>
+                             <family>Arial</family>
+                            </font>
+                           </property>
                            <property name="styleSheet">
                             <string notr="true">background-color: rgb(109, 156, 113)</string>
                            </property>
@@ -1350,6 +1496,11 @@ QPushButton { background-color: grey; color: red; }</string>
                              <width>40</width>
                              <height>16777215</height>
                             </size>
+                           </property>
+                           <property name="font">
+                            <font>
+                             <family>Arial</family>
+                            </font>
                            </property>
                            <property name="styleSheet">
                             <string notr="true">background-color:rgb(188, 60, 75)</string>
@@ -1367,6 +1518,11 @@ QPushButton { background-color: grey; color: red; }</string>
                              <height>16777215</height>
                             </size>
                            </property>
+                           <property name="font">
+                            <font>
+                             <family>Arial</family>
+                            </font>
+                           </property>
                            <property name="styleSheet">
                             <string notr="true">background-color: rgb(109, 156, 113)</string>
                            </property>
@@ -1383,6 +1539,11 @@ QPushButton { background-color: grey; color: red; }</string>
                              <height>16777215</height>
                             </size>
                            </property>
+                           <property name="font">
+                            <font>
+                             <family>Arial</family>
+                            </font>
+                           </property>
                            <property name="styleSheet">
                             <string notr="true">background-color: rgb(109, 156, 113)</string>
                            </property>
@@ -1398,6 +1559,11 @@ QPushButton { background-color: grey; color: red; }</string>
                              <width>40</width>
                              <height>16777215</height>
                             </size>
+                           </property>
+                           <property name="font">
+                            <font>
+                             <family>Arial</family>
+                            </font>
                            </property>
                            <property name="styleSheet">
                             <string notr="true">background-color:rgb(188, 60, 75)</string>
@@ -1429,6 +1595,7 @@ QPushButton { background-color: grey; color: red; }</string>
                      </property>
                      <property name="font">
                       <font>
+                       <family>Arial</family>
                        <pointsize>16</pointsize>
                       </font>
                      </property>
@@ -1477,6 +1644,7 @@ QPushButton { background-color: grey; color: red; }</string>
                      </property>
                      <property name="font">
                       <font>
+                       <family>Arial</family>
                        <pointsize>16</pointsize>
                       </font>
                      </property>
@@ -1554,6 +1722,11 @@ QPushButton { background-color: grey; color: red; }</string>
                         <width>81</width>
                         <height>21</height>
                        </rect>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <family>Arial</family>
+                       </font>
                       </property>
                       <property name="text">
                        <string>75%</string>
@@ -1743,6 +1916,11 @@ QPushButton { background-color: grey; color: red; }</string>
                         <height>21</height>
                        </rect>
                       </property>
+                      <property name="font">
+                       <font>
+                        <family>Arial</family>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>75%</string>
                       </property>
@@ -1755,6 +1933,11 @@ QPushButton { background-color: grey; color: red; }</string>
                         <width>81</width>
                         <height>21</height>
                        </rect>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <family>Arial</family>
+                       </font>
                       </property>
                       <property name="text">
                        <string>75%</string>
@@ -1769,6 +1952,11 @@ QPushButton { background-color: grey; color: red; }</string>
                         <height>21</height>
                        </rect>
                       </property>
+                      <property name="font">
+                       <font>
+                        <family>Arial</family>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>75%</string>
                       </property>
@@ -1781,6 +1969,11 @@ QPushButton { background-color: grey; color: red; }</string>
                         <width>81</width>
                         <height>21</height>
                        </rect>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <family>Arial</family>
+                       </font>
                       </property>
                       <property name="text">
                        <string>75%</string>
@@ -1795,6 +1988,11 @@ QPushButton { background-color: grey; color: red; }</string>
                         <height>21</height>
                        </rect>
                       </property>
+                      <property name="font">
+                       <font>
+                        <family>Arial</family>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>75%</string>
                       </property>
@@ -1808,6 +2006,11 @@ QPushButton { background-color: grey; color: red; }</string>
                         <height>21</height>
                        </rect>
                       </property>
+                      <property name="font">
+                       <font>
+                        <family>Arial</family>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>75%</string>
                       </property>
@@ -1820,6 +2023,11 @@ QPushButton { background-color: grey; color: red; }</string>
                         <width>81</width>
                         <height>21</height>
                        </rect>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <family>Arial</family>
+                       </font>
                       </property>
                       <property name="text">
                        <string>75%</string>
@@ -1864,6 +2072,7 @@ QPushButton { background-color: grey; color: red; }</string>
                   </property>
                   <property name="font">
                    <font>
+                    <family>Arial</family>
                     <pointsize>16</pointsize>
                    </font>
                   </property>
@@ -1883,6 +2092,11 @@ QPushButton { background-color: grey; color: red; }</string>
                     <height>20</height>
                    </size>
                   </property>
+                  <property name="font">
+                   <font>
+                    <family>Arial</family>
+                   </font>
+                  </property>
                   <property name="frameShadow">
                    <enum>QFrame::Sunken</enum>
                   </property>
@@ -1901,6 +2115,11 @@ QPushButton { background-color: grey; color: red; }</string>
                     <width>16777215</width>
                     <height>20</height>
                    </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Arial</family>
+                   </font>
                   </property>
                   <property name="frameShadow">
                    <enum>QFrame::Sunken</enum>
@@ -2026,6 +2245,7 @@ QPushButton { background-color: grey; color: red; }</string>
                   </property>
                   <property name="font">
                    <font>
+                    <family>Arial</family>
                     <pointsize>16</pointsize>
                    </font>
                   </property>
@@ -2060,6 +2280,11 @@ QPushButton { background-color: grey; color: red; }</string>
                        <height>30</height>
                       </size>
                      </property>
+                     <property name="font">
+                      <font>
+                       <family>Arial</family>
+                      </font>
+                     </property>
                      <property name="styleSheet">
                       <string notr="true">background-color: rgb(92, 114, 194);</string>
                      </property>
@@ -2075,6 +2300,11 @@ QPushButton { background-color: grey; color: red; }</string>
                        <width>16777215</width>
                        <height>20</height>
                       </size>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <family>Arial</family>
+                      </font>
                      </property>
                      <property name="text">
                       <string>Siste bilde analyseres</string>
@@ -2098,6 +2328,11 @@ QPushButton { background-color: grey; color: red; }</string>
                        <height>20</height>
                       </size>
                      </property>
+                     <property name="font">
+                      <font>
+                       <family>Arial</family>
+                      </font>
+                     </property>
                      <property name="frameShadow">
                       <enum>QFrame::Plain</enum>
                      </property>
@@ -2116,6 +2351,11 @@ QPushButton { background-color: grey; color: red; }</string>
                        <width>16777215</width>
                        <height>20</height>
                       </size>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <family>Arial</family>
+                      </font>
                      </property>
                      <property name="text">
                       <string>Siste bilde analyseres</string>
@@ -2136,6 +2376,11 @@ QPushButton { background-color: grey; color: red; }</string>
                        <height>30</height>
                       </size>
                      </property>
+                     <property name="font">
+                      <font>
+                       <family>Arial</family>
+                      </font>
+                     </property>
                      <property name="styleSheet">
                       <string notr="true">background-color: rgb(92, 114, 194);</string>
                      </property>
@@ -2151,6 +2396,11 @@ QPushButton { background-color: grey; color: red; }</string>
                        <width>0</width>
                        <height>30</height>
                       </size>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <family>Arial</family>
+                      </font>
                      </property>
                      <property name="styleSheet">
                       <string notr="true">background-color: rgb(92, 114, 194);</string>
@@ -2197,6 +2447,7 @@ QPushButton { background-color: grey; color: red; }</string>
                   </property>
                   <property name="font">
                    <font>
+                    <family>Arial</family>
                     <pointsize>16</pointsize>
                    </font>
                   </property>
@@ -2330,6 +2581,11 @@ QPushButton { background-color: grey; color: red; }</string>
                      <height>60</height>
                     </size>
                    </property>
+                   <property name="font">
+                    <font>
+                     <family>Arial</family>
+                    </font>
+                   </property>
                    <property name="styleSheet">
                     <string notr="true">border: 3px solid white; border-radius: 24;</string>
                    </property>
@@ -2349,6 +2605,11 @@ QPushButton { background-color: grey; color: red; }</string>
                      <height>21</height>
                     </rect>
                    </property>
+                   <property name="font">
+                    <font>
+                     <family>Arial</family>
+                    </font>
+                   </property>
                    <property name="text">
                     <string>75%</string>
                    </property>
@@ -2361,6 +2622,11 @@ QPushButton { background-color: grey; color: red; }</string>
                      <width>81</width>
                      <height>21</height>
                     </rect>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>Arial</family>
+                    </font>
                    </property>
                    <property name="text">
                     <string>75%</string>
