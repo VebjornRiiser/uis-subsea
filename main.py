@@ -1,24 +1,26 @@
 from Subsea_QT_GUI import GUI_loop
-import controller, nettverkskommunikasjon, requests, threading, os, socket, json
+import controller
+import threading
+import socket
 from multiprocessing import Pipe, Process
-
 from Subsea_QT_GUI import *
 
-def controllerdata_to_json(controll_data):
-    pass   
-    can = {}
-    # return json.dumps()
 
-# socket.create_connection()
+def controllerdata_to_json(controll_data):
+    pass
+
 
 def run_webapp(connection):
     pass
 
+
 def send_data_to_rov():
     pass
 
+
 def receive_data_from_rov():
     pass
+
 
 def recieve_commands_from_webapp(host="127.0.0.1", port=9999):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -36,7 +38,7 @@ def recieve_commands_from_webapp(host="127.0.0.1", port=9999):
 
 
 def relay_data_from_controller(connection_controller, relay=True):
-    thread = threading.current_thread()
+    # thread = threading.current_thread()
     # while getattr(thread, "run", True):
     while True:
         controller_data = connection_controller.recv()
@@ -48,10 +50,6 @@ def relay_data_from_controller(connection_controller, relay=True):
         if relay:
             pass
 
-
-
-def send_data_to_rov():
-    pass
 
 if __name__ == "__main__":
     print("starting")
@@ -65,10 +63,9 @@ if __name__ == "__main__":
 
     gui_loop = Process(target=GUI_loop.run, args=(gui_child_pipe,))
     gui_loop.start()
-    
 
     recv_frm_cnt = threading.Thread(target=relay_data_from_controller, daemon=True, args=(parent_conn, True))
     recv_frm_cnt.start()
-    
+
     recv_frm_web_app = threading.Thread(target=recieve_commands_from_webapp)
     recv_frm_web_app.start()
