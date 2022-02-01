@@ -1,5 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtMultimediaWidgets import QVideoWidget
+from PyQt5.QtWidgets import QTextBrowser
 from multiprocessing import Pipe
 import random
 import time
@@ -11,15 +13,19 @@ import Subsea_QT_GUI.SUBSEAGUI as SUBSEAGUI
 
 class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     def __init__(self, conn, parent=None):
+        # self.stackedWidget.addWidget(self.informasjon)
+        # self.stackedWidget.addWidget(self.kontroller)
+
         print(os.path.dirname(os.path.realpath(__file__)))
         self.thread = threading.current_thread()
         self.conn = conn
         super().__init__(parent)
         self.setupUi(self)
         self.btn_manuell.clicked.connect(self.button_test)
-        self.pushButton_5.clicked.connect(self.button_test)
+        self.pushButton_5.clicked.connect(lambda: self.change_current_widget(0))
         self.recieve = threading.Thread(target=lambda: self.recieve_and_set_text(self.conn), daemon=True)
         self.recieve.start()
+        self.change_current_widget(0)
 
     def recieve_and_set_text(self, conn):
         # while not self.thread.should_stop:
@@ -38,6 +44,10 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
     def button_test(self):
         print("Clicked on button")
+
+    def change_current_widget(self, index):
+        print(f"should change to widget {index}")
+        self.stackedWidget.setCurrentIndex(index)
 
 
 def run(conn=None):
