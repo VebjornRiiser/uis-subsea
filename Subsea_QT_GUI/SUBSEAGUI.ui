@@ -313,7 +313,7 @@
                    <enum>Qt::AutoText</enum>
                   </property>
                   <property name="pixmap">
-                   <pixmap>../../Downloads/logo.png</pixmap>
+                   <pixmap>images/logo.png</pixmap>
                   </property>
                   <property name="scaledContents">
                    <bool>true</bool>
@@ -383,7 +383,7 @@
                </property>
                <property name="icon">
                 <iconset>
-                 <normaloff>../../UiS-Subsea-GUI/images/camera.png</normaloff>../../UiS-Subsea-GUI/images/camera.png</iconset>
+                 <normaloff>images/camera.png</normaloff>images/camera.png</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -426,7 +426,7 @@
                </property>
                <property name="icon">
                 <iconset>
-                 <normaloff>../../UiS-Subsea-GUI/images/camera.png</normaloff>../../UiS-Subsea-GUI/images/camera.png</iconset>
+                 <normaloff>images/camera.png</normaloff>images/camera.png</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -469,7 +469,7 @@
                </property>
                <property name="icon">
                 <iconset>
-                 <normaloff>../../UiS-Subsea-GUI/images/kontroller.png</normaloff>../../UiS-Subsea-GUI/images/kontroller.png</iconset>
+                 <normaloff>images/kontroller.png</normaloff>images/kontroller.png</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -542,12 +542,6 @@ QPushButton { background-color: grey; color: red; }</string>
               <height>16777215</height>
              </size>
             </property>
-            <property name="font">
-             <font>
-              <family>Roboto</family>
-              <pointsize>18</pointsize>
-             </font>
-            </property>
             <property name="styleSheet">
              <string notr="true">#container3 { background-color:  rgba(0, 0, 0, 30);} #container4 { background-color:  rgba(0, 0, 0, 30);}  #container6 { background-color:  rgba(0, 0, 0, 30);}</string>
             </property>
@@ -581,12 +575,6 @@ QPushButton { background-color: grey; color: red; }</string>
                  <height>500</height>
                 </size>
                </property>
-               <property name="font">
-                <font>
-                 <family>Roboto</family>
-                 <pointsize>18</pointsize>
-                </font>
-               </property>
                <property name="autoFillBackground">
                 <bool>false</bool>
                </property>
@@ -619,12 +607,6 @@ QPushButton { background-color: grey; color: red; }</string>
                     <width>16777215</width>
                     <height>600</height>
                    </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <family>Roboto</family>
-                    <pointsize>18</pointsize>
-                   </font>
                   </property>
                   <property name="autoFillBackground">
                    <bool>false</bool>
@@ -910,12 +892,6 @@ QPushButton { background-color: grey; color: red; }</string>
                     <height>300</height>
                    </size>
                   </property>
-                  <property name="font">
-                   <font>
-                    <family>Roboto</family>
-                    <pointsize>18</pointsize>
-                   </font>
-                  </property>
                   <property name="styleSheet">
                    <string notr="true">QPushButton{background-color: grey; color: white;}</string>
                   </property>
@@ -956,7 +932,7 @@ QPushButton { background-color: grey; color: red; }</string>
                       <string/>
                      </property>
                      <property name="pixmap">
-                      <pixmap>../../Downloads/1b70d283464471.5d3d8b2c3e11f.png</pixmap>
+                      <pixmap>images/eksempelbilde.png</pixmap>
                      </property>
                      <property name="scaledContents">
                       <bool>true</bool>
@@ -1006,12 +982,6 @@ QPushButton { background-color: grey; color: red; }</string>
                     <width>16777215</width>
                     <height>500</height>
                    </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <family>Roboto</family>
-                    <pointsize>18</pointsize>
-                   </font>
                   </property>
                   <property name="autoFillBackground">
                    <bool>false</bool>
@@ -1075,12 +1045,6 @@ QPushButton { background-color: grey; color: red; }</string>
                       </item>
                       <item row="6" column="1">
                        <widget class="QLabel" name="temp_vann">
-                        <property name="font">
-                         <font>
-                          <family>Roboto</family>
-                          <pointsize>14</pointsize>
-                         </font>
-                        </property>
                         <property name="styleSheet">
                          <string notr="true">background-color: grey; border-radius: 5px;</string>
                         </property>
@@ -1114,12 +1078,6 @@ QPushButton { background-color: grey; color: red; }</string>
                       </item>
                       <item row="0" column="1">
                        <widget class="QLabel" name="tid">
-                        <property name="font">
-                         <font>
-                          <family>Roboto</family>
-                          <pointsize>14</pointsize>
-                         </font>
-                        </property>
                         <property name="styleSheet">
                          <string notr="true">background-color: grey; border-radius: 5px;</string>
                         </property>
@@ -1143,12 +1101,6 @@ QPushButton { background-color: grey; color: red; }</string>
                       </item>
                       <item row="2" column="1">
                        <widget class="QLabel" name="spenning">
-                        <property name="font">
-                         <font>
-                          <family>Roboto</family>
-                          <pointsize>14</pointsize>
-                         </font>
-                        </property>
                         <property name="styleSheet">
                          <string notr="true">background-color: grey; border-radius: 5px;</string>
                         </property>
@@ -1172,12 +1124,6 @@ QPushButton { background-color: grey; color: red; }</string>
                       </item>
                       <item row="4" column="1">
                        <widget class="QLabel" name="strom2">
-                        <property name="font">
-                         <font>
-                          <family>Roboto</family>
-                          <pointsize>14</pointsize>
-                         </font>
-                        </property>
                         <property name="styleSheet">
                          <string notr="true">background-color: grey; border-radius: 5px;</string>
                         </property>
@@ -1211,12 +1157,6 @@ QPushButton { background-color: grey; color: red; }</string>
                       </item>
                       <item row="1" column="1">
                        <widget class="QLabel" name="dybde">
-                        <property name="font">
-                         <font>
-                          <family>Roboto</family>
-                          <pointsize>14</pointsize>
-                         </font>
-                        </property>
                         <property name="styleSheet">
                          <string notr="true">background-color: grey; border-radius: 5px;</string>
                         </property>
@@ -1230,12 +1170,6 @@ QPushButton { background-color: grey; color: red; }</string>
                       </item>
                       <item row="5" column="1">
                        <widget class="QLabel" name="orientering">
-                        <property name="font">
-                         <font>
-                          <family>Roboto</family>
-                          <pointsize>14</pointsize>
-                         </font>
-                        </property>
                         <property name="styleSheet">
                          <string notr="true">background-color: grey; border-radius: 5px;</string>
                         </property>
@@ -1249,12 +1183,6 @@ QPushButton { background-color: grey; color: red; }</string>
                       </item>
                       <item row="3" column="1">
                        <widget class="QLabel" name="strom1">
-                        <property name="font">
-                         <font>
-                          <family>Roboto</family>
-                          <pointsize>14</pointsize>
-                         </font>
-                        </property>
                         <property name="styleSheet">
                          <string notr="true">background-color: grey; border-radius: 5px;</string>
                         </property>
@@ -1526,12 +1454,6 @@ QPushButton { background-color: grey; color: red; }</string>
                     <height>600</height>
                    </size>
                   </property>
-                  <property name="font">
-                   <font>
-                    <family>Roboto</family>
-                    <pointsize>18</pointsize>
-                   </font>
-                  </property>
                   <property name="autoFillBackground">
                    <bool>false</bool>
                   </property>
@@ -1632,12 +1554,6 @@ QPushButton { background-color: grey; color: red; }</string>
                         <width>81</width>
                         <height>21</height>
                        </rect>
-                      </property>
-                      <property name="font">
-                       <font>
-                        <family>Roboto</family>
-                        <pointsize>12</pointsize>
-                       </font>
                       </property>
                       <property name="text">
                        <string>75%</string>
@@ -1827,12 +1743,6 @@ QPushButton { background-color: grey; color: red; }</string>
                         <height>21</height>
                        </rect>
                       </property>
-                      <property name="font">
-                       <font>
-                        <family>Roboto</family>
-                        <pointsize>12</pointsize>
-                       </font>
-                      </property>
                       <property name="text">
                        <string>75%</string>
                       </property>
@@ -1845,12 +1755,6 @@ QPushButton { background-color: grey; color: red; }</string>
                         <width>81</width>
                         <height>21</height>
                        </rect>
-                      </property>
-                      <property name="font">
-                       <font>
-                        <family>Roboto</family>
-                        <pointsize>12</pointsize>
-                       </font>
                       </property>
                       <property name="text">
                        <string>75%</string>
@@ -1865,12 +1769,6 @@ QPushButton { background-color: grey; color: red; }</string>
                         <height>21</height>
                        </rect>
                       </property>
-                      <property name="font">
-                       <font>
-                        <family>Roboto</family>
-                        <pointsize>12</pointsize>
-                       </font>
-                      </property>
                       <property name="text">
                        <string>75%</string>
                       </property>
@@ -1883,12 +1781,6 @@ QPushButton { background-color: grey; color: red; }</string>
                         <width>81</width>
                         <height>21</height>
                        </rect>
-                      </property>
-                      <property name="font">
-                       <font>
-                        <family>Roboto</family>
-                        <pointsize>12</pointsize>
-                       </font>
                       </property>
                       <property name="text">
                        <string>75%</string>
@@ -1903,12 +1795,6 @@ QPushButton { background-color: grey; color: red; }</string>
                         <height>21</height>
                        </rect>
                       </property>
-                      <property name="font">
-                       <font>
-                        <family>Roboto</family>
-                        <pointsize>12</pointsize>
-                       </font>
-                      </property>
                       <property name="text">
                        <string>75%</string>
                       </property>
@@ -1922,12 +1808,6 @@ QPushButton { background-color: grey; color: red; }</string>
                         <height>21</height>
                        </rect>
                       </property>
-                      <property name="font">
-                       <font>
-                        <family>Roboto</family>
-                        <pointsize>12</pointsize>
-                       </font>
-                      </property>
                       <property name="text">
                        <string>75%</string>
                       </property>
@@ -1940,12 +1820,6 @@ QPushButton { background-color: grey; color: red; }</string>
                         <width>81</width>
                         <height>21</height>
                        </rect>
-                      </property>
-                      <property name="font">
-                       <font>
-                        <family>Roboto</family>
-                        <pointsize>12</pointsize>
-                       </font>
                       </property>
                       <property name="text">
                        <string>75%</string>
@@ -1966,12 +1840,6 @@ QPushButton { background-color: grey; color: red; }</string>
                  <width>16777215</width>
                  <height>600</height>
                 </size>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Roboto</family>
-                 <pointsize>18</pointsize>
-                </font>
                </property>
                <property name="autoFillBackground">
                 <bool>false</bool>
@@ -2015,11 +1883,6 @@ QPushButton { background-color: grey; color: red; }</string>
                     <height>20</height>
                    </size>
                   </property>
-                  <property name="font">
-                   <font>
-                    <family>Roboto</family>
-                   </font>
-                  </property>
                   <property name="frameShadow">
                    <enum>QFrame::Sunken</enum>
                   </property>
@@ -2039,16 +1902,11 @@ QPushButton { background-color: grey; color: red; }</string>
                     <height>20</height>
                    </size>
                   </property>
-                  <property name="font">
-                   <font>
-                    <family>Roboto</family>
-                   </font>
-                  </property>
                   <property name="frameShadow">
                    <enum>QFrame::Sunken</enum>
                   </property>
                   <property name="text">
-                   <string>Temperatur: 3 temperaturer (gj.snittstemp: ---)</string>
+                   <string>Temperatur:</string>
                   </property>
                   <property name="textFormat">
                    <enum>Qt::RichText</enum>
@@ -2090,12 +1948,6 @@ QPushButton { background-color: grey; color: red; }</string>
               <width>0</width>
               <height>0</height>
              </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>Roboto</family>
-              <pointsize>18</pointsize>
-             </font>
             </property>
             <property name="toolTipDuration">
              <number>4</number>
@@ -2144,12 +1996,6 @@ QPushButton { background-color: grey; color: red; }</string>
                  <width>600</width>
                  <height>200</height>
                 </size>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Roboto</family>
-                 <pointsize>18</pointsize>
-                </font>
                </property>
                <property name="autoFillBackground">
                 <bool>false</bool>
@@ -2328,12 +2174,6 @@ QPushButton { background-color: grey; color: red; }</string>
                  <height>300</height>
                 </size>
                </property>
-               <property name="font">
-                <font>
-                 <family>Roboto</family>
-                 <pointsize>18</pointsize>
-                </font>
-               </property>
                <property name="autoFillBackground">
                 <bool>false</bool>
                </property>
@@ -2509,12 +2349,6 @@ QPushButton { background-color: grey; color: red; }</string>
                      <height>21</height>
                     </rect>
                    </property>
-                   <property name="font">
-                    <font>
-                     <family>Roboto</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
                    <property name="text">
                     <string>75%</string>
                    </property>
@@ -2527,12 +2361,6 @@ QPushButton { background-color: grey; color: red; }</string>
                      <width>81</width>
                      <height>21</height>
                     </rect>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>Roboto</family>
-                     <pointsize>12</pointsize>
-                    </font>
                    </property>
                    <property name="text">
                     <string>75%</string>
@@ -2549,12 +2377,6 @@ QPushButton { background-color: grey; color: red; }</string>
                   <width>81</width>
                   <height>21</height>
                  </rect>
-                </property>
-                <property name="font">
-                 <font>
-                  <family>Roboto</family>
-                  <pointsize>12</pointsize>
-                 </font>
                 </property>
                 <property name="text">
                  <string>75%</string>
