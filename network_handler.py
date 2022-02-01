@@ -3,6 +3,7 @@ import socket
 import sys
 import time
 import json
+import subprocess
 
 global local
 local = False
@@ -123,6 +124,10 @@ if sys.platform != "win32":
             continue
         print(data)
 else:
+    # a = subprocess.call("ssh rov python3 ~/socket_testing/network_handler.py")
+    # a = subprocess.Popen("ssh rov touch test")
+    # print(os.system("ssh rov touch test")) # python3 ~/socket_testing/network_handler.py"))
+    # exit()
     client_conn = Network(connect_addr="10.0.0.2")
     send_thread = threading.Thread(target=lambda: send_forever(client_conn))
     send_thread.start()
