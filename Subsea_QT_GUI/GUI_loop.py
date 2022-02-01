@@ -17,7 +17,8 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         super().__init__(parent)
         self.setupUi(self)
         self.btn_manuell.clicked.connect(self.button_test)
-        self.recieve = threading.Thread(target=lambda: self.recieve_and_set_text(self.conn))
+        self.pushButton_5.clicked.connect(self.button_test)
+        self.recieve = threading.Thread(target=lambda: self.recieve_and_set_text(self.conn), daemon=True)
         self.recieve.start()
 
     def recieve_and_set_text(self, conn):
@@ -43,7 +44,7 @@ def run(conn=None):
     if conn is None:
         send_to_GUI, receive_from_GUI = Pipe()
         conn = send_to_GUI
-        data_thread = threading.Thread(target=generate_data, args=(receive_from_GUI,))
+        data_thread = threading.Thread(target=generate_data, args=(receive_from_GUI,), daemon=True)
         data_thread.start()
 
     app = QtWidgets.QApplication(sys.argv)
