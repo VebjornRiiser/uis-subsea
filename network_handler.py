@@ -76,6 +76,7 @@ class Network:
         # print(f"waiting for conn: {self.waiting_for_conn}")
         if self.waiting_for_conn:
             print("waiting for conn")
+            time.sleep(0.1)
             return
         try:
             if type(bytes_to_send) != bytes:
@@ -103,7 +104,7 @@ class Network:
         self.conn.close()
 
 # Do not get error here if
-def send_forever(conn):
+def send_forever(conn: socket.socket):
     print("sending forever")
     data = {"test": 2, "abc": [1,2,34]}
     data = bytes(json.dumps(data), "utf-8")
