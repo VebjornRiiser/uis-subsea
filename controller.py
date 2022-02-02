@@ -1,4 +1,4 @@
-# import threading
+from main import Threadwatcher
 import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
 import pygame
@@ -19,15 +19,18 @@ def clear_screen():
     os.system("cls")
 
 class Controller:
-    def __init__(self, connection, joystick_deadzone=7) -> None:
-        self.joystick_deadzone = joystick_deadzone # deadzone in percent
+    def __init__(self, connection, t_watch: Threadwatcher, id, joystick_deadzone=7) -> None:
         self.connection = connection
+
+        self.joystick_deadzone = joystick_deadzone # deadzone in percent
         self.buttons = [0]*10
-        self.joysticks = [0]*6
+        self.joysticks = [0]*7
         self.dpad = (0,0)
         self.controller_stop_point = 1.000030518509476
-        self.boyancy = 0
+
         self.camera_motor = 0
+
+        self.boyancy = 0
         self.first_run = True
         self.button_names = {0: "A", 1: "B", 2: "X", 3: "Y", 4: "Left button back", 5: "Right button back", 6: "Back", 7: "Start", 8: "Thumb button left", 9: "Thumb button right"}
         self.duration = -1
@@ -89,6 +92,10 @@ class Controller:
 
         # return round(self.get_new_range(event.value,-self.controller_stop_point, self.controller_stop_point))
 
+    def deadzone_adjustment(self, value) -> int:
+        if abs(value) < self.joystick_deadzone:
+            return 0
+        return value
 
     def write_controller_values(self, local=False):
         # writestring = self.joysticks
@@ -184,35 +191,35 @@ class Controller:
                 # joystick values to get total trust. Example: axis 4: -50, axis 5: 100. Value we get is 50. With bug: axis 4: 0, axis 5: 50.
                 if event.type == JOYSTICK: #joystick movement
                     self.joysticks[event.axis] = self.normalize_joysticks(event)
-                    self.boyancy = self.joysticks[4] + self.joysticks[5]
+                    self.joysticks[6] = self.joysticks[4] + self.joysticks[5]
 
                     
                     if debug_all:
-                        # if event.axis == 0:
-                        #     if event.value > 0:
-                        #         print(f"Roboten kjører mot høyre med {self.normalize_joysticks(event)}% kraft")
-                        #     else:
-                        #         print(f"Roboten kjører mot venstre med {self.normalize_joysticks(event)}% kraft")
+                        if event.axis == 0:
+                            if event.value > 0:
+                                print(f"Roboten kjører mot høyre med {self.normalize_joysticks(event)}% kraft")
+                            else:
+                                print(f"Roboten kjører mot venstre med {self.normalize_joysticks(event)}% kraft")
                         if event.axis == 4 or event.axis == 5:
                             print(f"{event.axis} signal: {event.value}, normalized: {self.normalize_joysticks(event)}")
-                        #     if event.value > 0:
-                        #         print(f"Roboten kjører framover med {self.normalize_joysticks(event)}% kraft")
-                        #     else:
-                        #         print(f"Roboten kjører bakover med {self.normalize_joysticks(event)}% kraft")
-                        # elif event.axis == 2:
-                        #     if event.value > 0:
-                        #         print(f"Roboten roterer mot klokka med {self.normalize_joysticks(event)}% kraft")
-                        #     else:
-                        #         print(f"Roboten roterer med klokka med {self.normalize_joysticks(event)}% kraft")
-                        # elif event.axis == 3:
-                        #     if event.value > 0:
-                        #         print(f"Roboten tilter kamera med {self.normalize_joysticks(event)}% kraft")
-                        #     else:
-                        #         print(f"Roboten tilter kamera med {self.normalize_joysticks(event)}% kraft")
-                        # elif event.axis == 4:
-                        #         print(f"Roboten går ned med {self.normalize_joysticks(event)}% kraft")
-                        # elif event.axis == 5:
-                        #         print(f"Roboten går opp med {self.normalize_joysticks(event)}% kraft")
+                            if event.value > 0:
+                                print(f"Roboten kjører framover med {self.normalize_joysticks(event)}% kraft")
+                            else:
+                                print(f"Roboten kjører bakover med {self.normalize_joysticks(event)}% kraft")
+                        elif event.axis == 2:
+                            if event.value > 0:
+                                print(f"Roboten roterer mot klokka med {self.normalize_joysticks(event)}% kraft")
+                            else:
+                                print(f"Roboten roterer med klokka med {self.normalize_joysticks(event)}% kraft")
+                        elif event.axis == 3:
+                            if event.value > 0:
+                                print(f"Roboten tilter kamera med {self.normalize_joysticks(event)}% kraft")
+                            else:
+                                print(f"Roboten tilter kamera med {self.normalize_joysticks(event)}% kraft")
+                        elif event.axis == 4:
+                                print(f"Roboten går ned med {self.normalize_joysticks(event)}% kraft")
+                        elif event.axis == 5:
+                                print(f"Roboten går opp med {self.normalize_joysticks(event)}% kraft")
                 if debug and self.connection is not None:
                     self.connection.send(self.pack_controller_values())
                 elif debug and self.connection is None: 
@@ -220,8 +227,8 @@ class Controller:
                     # self.connection.close()            
 
 
-def run(connection, debug=True, debug_all=False):
-    c = Controller(connection)
+def run(connection, t_watch: Threadwatcher, id, debug=True, debug_all=False):
+    c = Controller(connection, t_watch, id)
     c.get_events_loop(debug=debug, debug_all=debug_all)
 
 if __name__ == "__main__":

@@ -74,15 +74,17 @@ class Network:
         if self.conn is None and not self.waiting_for_conn:
             raise Exception("Client tried sending with a non existing connection")
         # print(f"waiting for conn: {self.waiting_for_conn}")
-        if self.waiting_for_conn:
-            print("waiting for conn")
-            return
+        wait_counter = 0
+        while self.waiting_for_conn:
+            print("waiting for conn"+(wait_counter*"."), end="                 \r")
+            wait_counter += 1
+            time.sleep(0.3)
         try:
             if type(bytes_to_send) != bytes:
                 print(f"tried sending something that was not bytes: {bytes_to_send} type: {type(bytes_to_send)}")
                 exit(1)
             self.conn.sendall(bytes_to_send)
-        except socket.error as e: # need to define the actual exceptions we should handle
+        except (socket.error, BrokenPipeError)  as e: # need to define the actual exceptions we should handle
             print(f"line (56) Tried sending, but got an error \n{e}")
             print(f"conn = {self.conn}, waiting for conn: {self.waiting_for_conn}")
             if not self.waiting_for_conn:
@@ -103,7 +105,7 @@ class Network:
         self.conn.close()
 
 # Do not get error here if
-def send_forever(conn):
+def send_forever(conn: socket.socket):
     print("sending forever")
     data = {"test": 2, "abc": [1,2,34]}
     data = bytes(json.dumps(data), "utf-8")
@@ -130,9 +132,9 @@ else:
     # print(os.system("ssh rov touch test")) # python3 ~/socket_testing/network_handler.py"))
     # exit()
     client_conn = Network(connect_addr="10.0.0.2")
-    send_thread = threading.Thread(target=lambda: send_forever(client_conn))
-    send_thread.start()
-    send_thread.join()
-    while True:
-        time.sleep(1)
+    # send_thread = threading.Thread(target=lambda: send_forever(client_conn))
+    # send_thread.start()
+    # send_thread.join()
+    # while True:
+    #     time.sleep(1)
     

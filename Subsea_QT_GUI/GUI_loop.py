@@ -154,6 +154,4 @@ def generate_data(conn):
             exit(0)
 
 if __name__ == "__main__":
-    import SUBSEAGUI
-
     run()
