@@ -1,1 +1,39 @@
 joysticks
+
+id:1
+
+0x0001;-75
+
+id'er er foreløpige
+
+id, "menneskelig navn på funksjon", min, max
+kommandoer: CAN {
+    999: {"navn": "menneskelig navn på funksjon", minimumsverdi, maximumsverdi}
+}
+
+kommandoer: {
+CAN: {
+    0: {"id": 0, "navn": "y akse (-venstre +høyre)", "min": -100, "max": 100}
+    1: {"id": 1, "navn": "x akse (+fram -bak)", "min": -100, "max": 100}
+    2: {"id": 2, "navn": "rotasjon om z aksen (positivt med klokka)", "min": -100, "max": 100}
+    3: {"id": 3, "navn": "translasjon i z aksen (opp og ned)", "min": -100, "max": 100}
+    4: {"id": 4, "navn": "inn og ut manipulator", "min": -100, "max": 100}
+    5: {"id": 5, "navn": "roter manipulator om x aksen", "min": -100, "max": 100}
+    6: {"id": 6, "navn": "manipulator åpne", "min": 0, "max": 1}
+    7: {"id": 7, "navn": "manipulator lukke", "min": 0, "max": 1}
+},
+TILT: {
+    0xffff1: {"id": 0xffff1, "navn": "kamera1 tilt i grader (faktisk verdi i grader ikke forandring)", "min": -30, "max": 30}
+    0xffff1: {"id": 0xffff2, "navn": "kamera2 tilt i grader (faktisk verdi i grader ikke forandring)", "min": -30, "max": 30}
+}, 
+KAMERA: {
+    0xffff1: {"id": 0xffff1, "navn": "kamera1", "enabled": {"min": 0, "max": 1}, "bildebehandlingsmodus": {"min": 0, "max": 3}, "tilt": {"min": -30, "max": 30}}
+    0xffff2: {"id": 0xffff2, "navn": "kamera2", "enabled": {"min": 0, "max": 1}, "bildebehandlingsmodus": {"min": 0, "max": 3}, "tilt": {"min": -30, "max": 30}}
+}
+}
+
+bruk id, skill ut de id'ene som ikke skal til canbussen og send egne typer pakker for de. (kamera for å starte bildebehandling og tilt for å stille på kameramotr)
+
+info som skal ned: 
+    skal det til canbus eller kamera?
+        hvis canbus: id
