@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtMultimediaWidgets import QVideoWidget
 from PyQt5.QtWidgets import QTextBrowser
 from multiprocessing import Pipe, Value
+from main import Threadwatcher
 import random
 import time
 import sys
@@ -131,27 +132,12 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         # APPLY STYLESHEET WITH NEW VALUES
         widget.setStyleSheet(newStylesheet)
 
-def run(conn=None):
-    if conn is None:
-        send_to_GUI, receive_from_GUI = Pipe()
-        conn = send_to_GUI
-        data_thread = threading.Thread(target=generate_data, args=(receive_from_GUI,), daemon=True)
-        data_thread.start()
-
+def run(conn, t_watch: Threadwatcher, id):
     app = QtWidgets.QApplication(sys.argv)
     win = Window(conn)
     win.show()
     sys.exit(app.exec())
 
-
-def generate_data(conn):
-    while True:
-        try:
-            time.sleep(1)
-            # print("tring to send on pipe")
-            conn.send((random.randrange(65,97)))
-        except KeyboardInterrupt:
-            exit(0)
 
 if __name__ == "__main__":
     run()
