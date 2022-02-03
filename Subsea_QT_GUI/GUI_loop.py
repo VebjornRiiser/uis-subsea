@@ -17,25 +17,22 @@ class AnotherWindow(QWidget):
     This "window" is a QWidget. If it has no parent, it
     will appear as a free-floating window as we want.
     """
-    def __init__(self):
+    def __init__(self, port):
         super().__init__()
         layout = QHBoxLayout()
         self.label = QLabel("Another Window")
         self.setWindowTitle("Camera 1")
 
-
+        self.url = f"http://10.0.0.2:{port}/cam.html"
         self.stream1 = QWebEngineView(self)
-        self.stream1.load(QUrl("http://10.0.0.2:6889/cam.html"))
-        self.stream2 = QWebEngineView(self)
-        self.stream2.load(QUrl("http://10.0.0.2:6888/cam.html"))
-        # # self.stream1.resize(1920,1080)
-        # self.horizontalLayout_6.addWidget(self.stream1)
-        # self.horizontalLayout_6.addWidget(self.stream2)
-
+        self.stream1.load(QUrl(self.url))
+        # self.stream2 = QWebEngineView(self)
+        # self.stream2.load(QUrl("http://10.0.0.2:6888/cam.html"))
 
         layout.addWidget(self.stream1)
-        layout.addWidget(self.stream2)
+        # layout.addWidget(self.stream2)
         self.setLayout(layout)
+        # self.  .resize(1920,1080)
 
 
 class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
@@ -57,7 +54,6 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.btn_manuell.clicked.connect(self.button_test)
         self.pushButton_5.clicked.connect(lambda: self.change_current_widget(0))
         self.pushButton_6.clicked.connect(lambda: self.change_current_widget(1))
-
 
         # ------
 
@@ -84,8 +80,10 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         self.recieve = threading.Thread(target=lambda: self.recieve_and_set_text(self.conn), daemon=True)
         self.recieve.start()
-        self.w = AnotherWindow()
-        self.w.show()
+        self.w1 = AnotherWindow(6888)
+        self.w1.show()
+        self.w2 = AnotherWindow(6889)
+        self.w2.show()
         
 
     def update_gui(self, data):
@@ -105,7 +103,9 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
 
     def button_test(self):
-        print("Clicked on button")
+        # print("Clicked on button")
+        self.w1.stream1.load(Qurl("http://vg.no"))
+        self.w2.stream1.load(Qurl("http://vg.no"))
 
     def change_current_widget(self, index):
         print(f"should change to widget {index}")
