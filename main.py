@@ -1,6 +1,7 @@
 from Subsea_QT_GUI import GUI_loop
 from multiprocessing import Pipe, Process, connection
 from Subsea_QT_GUI import *
+from Threadwatch import Threadwatcher
 import controller
 import threading
 import random
@@ -8,31 +9,6 @@ import time
 import json
 import sys
 
-
-global thread_should_run
-thread_should_run = []
-
-class Threadwatcher:
-    def __init__(self) -> None:
-        self.id = -1
-        self.threads = {}
-
-    def add_thread(self) -> int:
-        self.id += 1
-        self.threads[self.id] = True
-        return self.id
-
-    def should_run(self, id):
-        if id in self.threads:
-            return self.threads[id]
-        return True
-
-    def stop_thread(self, id):
-        self.threads[id] = False
-
-    def stop_all_threads(self):
-        for i in range(len(self.threads)):
-            self.stop_thread(id)
 
 def controllerdata_to_json(controll_data: dict) -> str:
 

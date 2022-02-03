@@ -1,4 +1,4 @@
-from main import Threadwatcher
+from Threadwatch import Threadwatcher
 import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
 import pygame

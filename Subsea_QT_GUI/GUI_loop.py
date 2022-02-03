@@ -1,8 +1,9 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMainWindow
-from PyQt5.QtMultimediaWidgets import QVideoWidget
-from PyQt5.QtWidgets import QTextBrowser
+from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QLabel
+from PyQt5.QtWebEngineWidgets import *
+from PyQt5.Qt import *
 from multiprocessing import Pipe, Value
+from Threadwatch import Threadwatcher
 import random
 import time
 import sys
@@ -11,16 +12,48 @@ import json
 import os
 import Subsea_QT_GUI.SUBSEAGUI as SUBSEAGUI
 
+class AnotherWindow(QWidget):
+    """
+    This "window" is a QWidget. If it has no parent, it
+    will appear as a free-floating window as we want.
+    """
+    def __init__(self):
+        super().__init__()
+        layout = QHBoxLayout()
+        self.label = QLabel("Another Window")
+        self.setWindowTitle("Camera 1")
+
+
+        self.stream1 = QWebEngineView(self)
+        self.stream1.load(QUrl("http://10.0.0.2:6889/cam.html"))
+        self.stream2 = QWebEngineView(self)
+        self.stream2.load(QUrl("http://10.0.0.2:6888/cam.html"))
+        # # self.stream1.resize(1920,1080)
+        # self.horizontalLayout_6.addWidget(self.stream1)
+        # self.horizontalLayout_6.addWidget(self.stream2)
+
+
+        layout.addWidget(self.stream1)
+        layout.addWidget(self.stream2)
+        self.setLayout(layout)
+
+
 class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     def __init__(self, conn, parent=None):
-        # self.stackedWidget.addWidget(self.informasjon)
-        # self.stackedWidget.addWidget(self.kontroller)
+        super().__init__(parent)
 
-        print(os.path.dirname(os.path.realpath(__file__)))
         self.thread = threading.current_thread()
         self.conn = conn
-        super().__init__(parent)
+
         self.setupUi(self)
+        # self.stream1 = QWebEngineView(self)
+        # self.stream1.load(QUrl("http://10.0.0.2:6889/cam.html"))
+        # self.stream2 = QWebEngineView(self)
+        # self.stream2.load(QUrl("http://10.0.0.2:6888/cam.html"))
+        # # self.stream1.resize(1920,1080)
+        # self.horizontalLayout_6.addWidget(self.stream1)
+        # self.horizontalLayout_6.addWidget(self.stream2)
+
         self.btn_manuell.clicked.connect(self.button_test)
         self.pushButton_5.clicked.connect(lambda: self.change_current_widget(0))
         self.pushButton_6.clicked.connect(lambda: self.change_current_widget(1))
@@ -51,7 +84,15 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         self.recieve = threading.Thread(target=lambda: self.recieve_and_set_text(self.conn), daemon=True)
         self.recieve.start()
+        self.w = AnotherWindow()
+        self.w.show()
+        
 
+    def update_gui(self, data):
+        self.dybde.setText(str(round(data["dybde"],4)))
+        self.tid.setText(str(data["tid"]))
+        self.spenning.setText(str(round(data["spenning"],4)))
+        self.temp_vann.setText(str(round(data["temp_vann"],4)))
 
     def recieve_and_set_text(self, conn):
         # while not self.thread.should_stop:
@@ -61,11 +102,6 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             # print(sensordata)
             self.update_gui(sensordata)
 
-    def update_gui(self, data):
-        self.dybde.setText(str(round(data["dybde"],4)))
-        self.tid.setText(str(data["tid"]))
-        self.spenning.setText(str(round(data["spenning"],4)))
-        self.temp_vann.setText(str(round(data["temp_vann"],4)))
 
 
     def button_test(self):
@@ -112,27 +148,12 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         # APPLY STYLESHEET WITH NEW VALUES
         widget.setStyleSheet(newStylesheet)
 
-def run(conn=None):
-    if conn is None:
-        send_to_GUI, receive_from_GUI = Pipe()
-        conn = send_to_GUI
-        data_thread = threading.Thread(target=generate_data, args=(receive_from_GUI,), daemon=True)
-        data_thread.start()
-
+def run(conn, t_watch: Threadwatcher, id):
     app = QtWidgets.QApplication(sys.argv)
     win = Window(conn)
     win.show()
     sys.exit(app.exec())
 
-
-def generate_data(conn):
-    while True:
-        try:
-            time.sleep(1)
-            # print("tring to send on pipe")
-            conn.send((random.randrange(65,97)))
-        except KeyboardInterrupt:
-            exit(0)
 
 if __name__ == "__main__":
     import SUBSEAGUI
