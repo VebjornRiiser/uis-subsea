@@ -78,9 +78,6 @@ if __name__ == "__main__":
 
     t_watch = Threadwatcher()
 
-    
-
-
     id = t_watch.add_thread()
     parent_conn, child_conn = Pipe() # takes in controller data and sends it into child_conn
     controller_process = Process(target=controller.run, args=(child_conn, True, False, t_watch, id), daemon=True)
