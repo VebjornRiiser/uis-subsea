@@ -1750,7 +1750,7 @@ QPushButton { background-color: grey; color: red; }</string>
                          </rect>
                         </property>
                         <property name="styleSheet">
-                         <string notr="true">QFrame { border-radius: 30px; background-color: rgb(77, 77, 127, 100); }</string>
+                         <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
                         </property>
                         <property name="frameShape">
                          <enum>QFrame::NoFrame</enum>
@@ -1769,7 +1769,7 @@ QPushButton { background-color: grey; color: red; }</string>
                          </rect>
                         </property>
                         <property name="styleSheet">
-                         <string notr="true">QFrame { border-radius: 25px; background-color: rgb(77, 77, 127); }</string>
+                         <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
                         </property>
                         <property name="frameShape">
                          <enum>QFrame::StyledPanel</enum>
@@ -1807,7 +1807,7 @@ QPushButton { background-color: grey; color: red; }</string>
                         </widget>
                        </widget>
                       </widget>
-                      <widget class="QSlider" name="slider_2">
+                      <widget class="QSlider" name="slider2">
                        <property name="geometry">
                         <rect>
                          <x>370</x>
@@ -1972,7 +1972,7 @@ QPushButton { background-color: grey; color: red; }</string>
                           </rect>
                          </property>
                          <property name="styleSheet">
-                          <string notr="true">QFrame { border-radius: 30px; background-color: rgb(77, 77, 127, 100); }</string>
+                          <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
                          </property>
                          <property name="frameShape">
                           <enum>QFrame::NoFrame</enum>
@@ -1991,7 +1991,7 @@ QPushButton { background-color: grey; color: red; }</string>
                           </rect>
                          </property>
                          <property name="styleSheet">
-                          <string notr="true">QFrame { border-radius: 25px; background-color: rgb(77, 77, 127); }</string>
+                          <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
                          </property>
                          <property name="frameShape">
                           <enum>QFrame::StyledPanel</enum>
@@ -2067,7 +2067,7 @@ QPushButton { background-color: grey; color: red; }</string>
                           </rect>
                          </property>
                          <property name="styleSheet">
-                          <string notr="true">QFrame { border-radius: 30px; background-color: rgb(77, 77, 127, 100); }</string>
+                          <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
                          </property>
                          <property name="frameShape">
                           <enum>QFrame::NoFrame</enum>
@@ -2086,7 +2086,7 @@ QPushButton { background-color: grey; color: red; }</string>
                           </rect>
                          </property>
                          <property name="styleSheet">
-                          <string notr="true">QFrame { border-radius: 25px; background-color: rgb(77, 77, 127); }</string>
+                          <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
                          </property>
                          <property name="frameShape">
                           <enum>QFrame::StyledPanel</enum>
@@ -2198,7 +2198,7 @@ QPushButton { background-color: grey; color: red; }</string>
                          </rect>
                         </property>
                         <property name="styleSheet">
-                         <string notr="true">QFrame { border-radius: 30px; background-color: rgb(77, 77, 127, 100); }</string>
+                         <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
                         </property>
                         <property name="frameShape">
                          <enum>QFrame::NoFrame</enum>
@@ -2293,7 +2293,7 @@ QPushButton { background-color: grey; color: red; }</string>
                          </rect>
                         </property>
                         <property name="styleSheet">
-                         <string notr="true">QFrame { border-radius: 30px; background-color: rgb(77, 77, 127, 100); }</string>
+                         <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
                         </property>
                         <property name="frameShape">
                          <enum>QFrame::NoFrame</enum>
@@ -2388,7 +2388,7 @@ QPushButton { background-color: grey; color: red; }</string>
                          </rect>
                         </property>
                         <property name="styleSheet">
-                         <string notr="true">QFrame { border-radius: 30px; background-color: rgb(77, 77, 127, 100); }</string>
+                         <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
                         </property>
                         <property name="frameShape">
                          <enum>QFrame::NoFrame</enum>
@@ -2483,7 +2483,7 @@ QPushButton { background-color: grey; color: red; }</string>
                          </rect>
                         </property>
                         <property name="styleSheet">
-                         <string notr="true">QFrame { border-radius: 30px; background-color: rgb(77, 77, 127, 100); }</string>
+                         <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
                         </property>
                         <property name="frameShape">
                          <enum>QFrame::NoFrame</enum>
@@ -2578,7 +2578,7 @@ QPushButton { background-color: grey; color: red; }</string>
                          </rect>
                         </property>
                         <property name="styleSheet">
-                         <string notr="true">QFrame { border-radius: 30px; background-color: rgb(77, 77, 127, 100); }</string>
+                         <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
                         </property>
                         <property name="frameShape">
                          <enum>QFrame::NoFrame</enum>
@@ -2673,7 +2673,7 @@ QPushButton { background-color: grey; color: red; }</string>
                          </rect>
                         </property>
                         <property name="styleSheet">
-                         <string notr="true">QFrame { border-radius: 30px; background-color: rgb(77, 77, 127, 100); }</string>
+                         <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
                         </property>
                         <property name="frameShape">
                          <enum>QFrame::NoFrame</enum>
@@ -3053,7 +3053,7 @@ QPushButton { background-color: grey; color: red; }</string>
                       </rect>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">QFrame { border-radius: 30px; background-color: rgb(77, 77, 127, 100); }</string>
+                      <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
                      </property>
                      <property name="frameShape">
                       <enum>QFrame::NoFrame</enum>
@@ -3072,7 +3072,7 @@ QPushButton { background-color: grey; color: red; }</string>
                       </rect>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">QFrame { border-radius: 25px; background-color: rgb(77, 77, 127); }</string>
+                      <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
                      </property>
                      <property name="frameShape">
                       <enum>QFrame::StyledPanel</enum>
@@ -3154,7 +3154,7 @@ QPushButton { background-color: grey; color: red; }</string>
                       </rect>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">QFrame { border-radius: 30px; background-color: rgb(77, 77, 127, 100); }</string>
+                      <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
                      </property>
                      <property name="frameShape">
                       <enum>QFrame::NoFrame</enum>
@@ -3173,7 +3173,7 @@ QPushButton { background-color: grey; color: red; }</string>
                       </rect>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">QFrame { border-radius: 25px; background-color: rgb(77, 77, 127); }</string>
+                      <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
                      </property>
                      <property name="frameShape">
                       <enum>QFrame::StyledPanel</enum>
@@ -3255,7 +3255,7 @@ QPushButton { background-color: grey; color: red; }</string>
                       </rect>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">QFrame { border-radius: 30px; background-color: rgb(77, 77, 127, 100); }</string>
+                      <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
                      </property>
                      <property name="frameShape">
                       <enum>QFrame::NoFrame</enum>
@@ -3274,7 +3274,7 @@ QPushButton { background-color: grey; color: red; }</string>
                       </rect>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">QFrame { border-radius: 25px; background-color: rgb(77, 77, 127); }</string>
+                      <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
                      </property>
                      <property name="frameShape">
                       <enum>QFrame::StyledPanel</enum>
@@ -3585,7 +3585,7 @@ QPushButton { background-color: grey; color: red; }</string>
                       </rect>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">QFrame { border-radius: 30px; background-color: rgb(77, 77, 127, 100); }</string>
+                      <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
                      </property>
                      <property name="frameShape">
                       <enum>QFrame::NoFrame</enum>
@@ -3604,7 +3604,7 @@ QPushButton { background-color: grey; color: red; }</string>
                       </rect>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">QFrame { border-radius: 25px; background-color: rgb(77, 77, 127); }</string>
+                      <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
                      </property>
                      <property name="frameShape">
                       <enum>QFrame::StyledPanel</enum>

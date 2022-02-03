@@ -55,28 +55,8 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.pushButton_5.clicked.connect(lambda: self.change_current_widget(0))
         self.pushButton_6.clicked.connect(lambda: self.change_current_widget(1))
 
-        # ------
-
-        ## ==> SET VALUES TO DEF progressBarValue
-        def setValue(self, slider, labelPercentage, progressBarName, color):
-            # GET SLIDER VALUE
-            value = slider.value()
-            # CONVERT VALUE TO INT
-            sliderValue = int(value)
-            # HTML TEXT PERCENTAGE
-            htmlText = """<p align="center"><span style=" font-size:14pt;">{VALUE}</span><span style=" font-size:14pt; vertical-align:super;">%</span></p>"""
-            labelPercentage.setText(htmlText.replace("{VALUE}", str(sliderValue)))
-
-            # CALL DEF progressBarValue
-            self.progressBarValue(sliderValue, progressBarName, color)
-
-        ## ==> APPLY VALUES TO PROGREESBAR
-        self.slider.valueChanged.connect(lambda: setValue(self, self.slider, self.labelPercentage, self.circularProgress, "rgba(85, 170, 255, 255)"))
-
-        ## ==> DEF START VALUES
-        self.slider.setValue(0)
-
-        # ------
+        # APPLY VALUES TO PROGREESBAR
+        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.labelPercentage, self.circularProgress, "rgba(85, 170, 255, 255)"))
 
         self.recieve = threading.Thread(target=lambda: self.recieve_and_set_text(self.conn), daemon=True)
         self.recieve.start()
@@ -85,7 +65,6 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.w2 = AnotherWindow(6889)
         self.w2.show()
         
-
     def update_gui(self, data):
         self.dybde.setText(str(round(data["dybde"],4)))
         self.tid.setText(str(data["tid"]))
@@ -100,8 +79,6 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             # print(sensordata)
             self.update_gui(sensordata)
 
-
-
     def button_test(self):
         # print("Clicked on button")
         self.w1.stream1.load(Qurl("http://vg.no"))
@@ -110,11 +87,23 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     def change_current_widget(self, index):
         print(f"should change to widget {index}")
         self.stackedWidget.setCurrentIndex(index)
-    
-    ## DEF PROGRESS BAR VALUE
-    ########################################################################
-    def progressBarValue(self, value, widget, color):
 
+
+    ## SET VALUES TO DEF progressBarValue
+    def setValue(self, slider, labelPercentage, progressBarName, color):
+        # GET SLIDER VALUE
+        value = slider.value()
+        # CONVERT VALUE TO INT
+        sliderValue = int(value)
+        # HTML TEXT PERCENTAGE
+        htmlText = """<p align="center"><span style=" font-size:14pt;">{VALUE}</span><span style=" font-size:14pt; vertical-align:super;">%</span></p>"""
+        labelPercentage.setText(htmlText.replace("{VALUE}", str(sliderValue)))
+
+        # CALL DEF progressBarValue
+        self.progressBarValue(sliderValue, progressBarName, color)
+
+    ## DEF PROGRESS BAR VALUE
+    def progressBarValue(self, value, widget, color):
         # PROGRESSBAR STYLESHEET BASE
         styleSheet = """
         QFrame{
