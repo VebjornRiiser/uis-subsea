@@ -104,21 +104,29 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
     ## DEF PROGRESS BAR VALUE
     def progressBarValue(self, value, widget, color):
-        # PROGRESSBAR STYLESHEET BASE
-        styleSheet = """
-        QFrame{
-        	border-radius: 30px;
-        	background-color: qconicalgradient(cx:0.5, cy:0.5, angle:90, stop:{STOP_1} rgba(255, 0, 127, 0), stop:{STOP_2} {COLOR});
-        }
-        """
         # GET PROGRESS BAR VALUE, CONVERT TO FLOAT AND INVERT VALUES
         # stop works of 1.000 to 0.000
         progress = (100 - value) / 100.0
         if value >= 0:
+            # PROGRESSBAR STYLESHEET BASE
+            styleSheet = """
+            QFrame{
+                border-radius: 30px;
+                background-color: qconicalgradient(cx:0.5, cy:0.5, angle:90, stop:{STOP_1} rgba(255, 0, 127, 0), stop:{STOP_2} {COLOR});
+            }
+            """
             # GET NEW VALUES
             stop_1 = str(progress - 0.001)
             stop_2 = str(progress)
         else:
+            # PROGRESSBAR STYLESHEET BASE
+            styleSheet = """
+            QFrame{
+                border-radius: 30px;
+                background-color: qconicalgradient(cx:0.5, cy:0.5, angle:90, stop:{STOP_1} rgba(255, 0, 127, 0), stop:{STOP_2} rgb(226, 47, 53));
+            }
+            """
+            
             # GET NEW VALUES
             stop_1 = str(progress - 1)
             stop_2 = str(progress - 0.001 -1)
@@ -127,9 +135,6 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         if value == 100:
             stop_1 = "1.000"
             stop_2 = "1.000"
-
-        # SET VALUES TO NEW STYLESHEET
-        newStylesheet = styleSheet.replace("{STOP_1}", stop_1).replace("{STOP_2}", stop_2).replace("{COLOR}", color)
 
         # SET VALUES TO NEW STYLESHEET
         newStylesheet = styleSheet.replace("{STOP_1}", stop_1).replace("{STOP_2}", stop_2).replace("{COLOR}", color)
