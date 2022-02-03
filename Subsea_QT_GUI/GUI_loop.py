@@ -41,8 +41,9 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         self.thread = threading.current_thread()
         self.conn = conn
-
+        os.chdir("Subsea_QT_GUI")
         self.setupUi(self)
+        os.chdir("..")
         # self.stream1 = QWebEngineView(self)
         # self.stream1.load(QUrl("http://10.0.0.2:6889/cam.html"))
         # self.stream2 = QWebEngineView(self)
