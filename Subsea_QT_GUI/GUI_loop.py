@@ -122,47 +122,28 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         	background-color: qconicalgradient(cx:0.5, cy:0.5, angle:90, stop:{STOP_1} rgba(255, 0, 127, 0), stop:{STOP_2} {COLOR});
         }
         """
+        # GET PROGRESS BAR VALUE, CONVERT TO FLOAT AND INVERT VALUES
+        # stop works of 1.000 to 0.000
+        progress = (100 - value) / 100.0
         if value >= 0:
-            # GET PROGRESS BAR VALUE, CONVERT TO FLOAT AND INVERT VALUES
-            # stop works of 1.000 to 0.000
-            progress = (100 - value) / 100.0
-
-            
             # GET NEW VALUES
             stop_1 = str(progress - 0.001)
             stop_2 = str(progress)
-
-            # FIX MAX VALUE
-            if value == 100:
-                stop_1 = "1.000"
-                stop_2 = "1.000"
-
-            print("1: ", stop_1)
-            print("2: ", stop_2)
-
-            # SET VALUES TO NEW STYLESHEET
-            newStylesheet = styleSheet.replace("{STOP_1}", stop_1).replace("{STOP_2}", stop_2).replace("{COLOR}", color)
-
         else:
-            print("value", value)
-            progress = (100 - value) / 100.0
             # GET NEW VALUES
-            stop_1 = str(progress - 0.001)
-            stop_2 = str(progress)
+            stop_1 = str(progress - 1)
+            stop_2 = str(progress - 0.001 -1)
 
-            # FIX MAX VALUE
-            if value == -100:
-                stop_1 = "1.000"
-                stop_2 = "1.000"
+        # FIX MAX VALUE
+        if value == 100:
+            stop_1 = "1.000"
+            stop_2 = "1.000"
 
-            print("-1: ", stop_1)
-            print("-2: ", stop_2)
-            
-            # SET VALUES TO NEW STYLESHEET
-            newStylesheet = styleSheet.replace("{STOP_1}", stop_1).replace("{STOP_2}", stop_2).replace("{COLOR}", color)
+        # SET VALUES TO NEW STYLESHEET
+        newStylesheet = styleSheet.replace("{STOP_1}", stop_1).replace("{STOP_2}", stop_2).replace("{COLOR}", color)
 
-
-
+        # SET VALUES TO NEW STYLESHEET
+        newStylesheet = styleSheet.replace("{STOP_1}", stop_1).replace("{STOP_2}", stop_2).replace("{COLOR}", color)
 
         # APPLY STYLESHEET WITH NEW VALUES
         widget.setStyleSheet(newStylesheet)
@@ -175,4 +156,6 @@ def run(conn, t_watch: Threadwatcher, id):
 
 
 if __name__ == "__main__":
+    import SUBSEAGUI
+
     run()
