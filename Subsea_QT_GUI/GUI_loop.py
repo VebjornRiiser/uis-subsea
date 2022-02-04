@@ -63,6 +63,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.recieve.start()
         self.w1 = AnotherWindow(6888)
         self.w1.show()
+
         self.w2 = AnotherWindow(6889)
         self.w2.show()
         
@@ -145,12 +146,14 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
 def run(conn, t_watch: Threadwatcher, id):
     app = QtWidgets.QApplication(sys.argv)
+    
     win = Window(conn)
+    win.setWindowTitle("UiS Subsea")
+    win.showMaximized()
     win.show()
     sys.exit(app.exec())
 
 
 if __name__ == "__main__":
     import SUBSEAGUI
-
     run()
