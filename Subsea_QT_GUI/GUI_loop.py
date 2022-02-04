@@ -149,7 +149,8 @@ def run(conn, t_watch: Threadwatcher, id):
     
     win = Window(conn)
     win.setWindowTitle("UiS Subsea")
-    win.showMaximized()
+    win.showMaximized() # for windows
+    #win.showFullScreen() # for mac
     win.show()
     sys.exit(app.exec())
 
