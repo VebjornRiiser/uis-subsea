@@ -57,7 +57,23 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.pushButton_6.clicked.connect(lambda: self.change_current_widget(1))
 
         # APPLY VALUES TO PROGREESBAR
-        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.labelPercentage, self.circularProgress, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.VHF_percentage, self.VHF, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.HVF_percentage, self.HVF, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.VVF_percentage, self.VVF, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.HHF_percentage, self.HHF, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.HVF_percentage, self.HVF, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.VVB_percentage, self.VVB, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.HVB_percentage, self.HVB, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.HVB_percentage, self.HVB, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.VHB_percentage, self.VHB, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.HHB_percentage, self.HHB, "rgba(85, 170, 255, 255)"))
+
+        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.mani_percentage1, self.mani1, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.mani_percentage2, self.mani2, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.mani_percentage3, self.mani3, "rgba(85, 170, 255, 255)"))
+
+
+        self.slider2.valueChanged.connect(lambda: self.setValue(self.slider2, self.lys_percentage, self.lys_circular, "rgba(85, 170, 255, 255)"))
 
         self.recieve = threading.Thread(target=lambda: self.recieve_and_set_text(self.conn), daemon=True)
         self.recieve.start()
