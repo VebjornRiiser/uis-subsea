@@ -21,7 +21,8 @@ def clear_screen():
 class Controller:
     def __init__(self, connection, t_watch: Threadwatcher, id, joystick_deadzone=7) -> None:
         self.connection = connection
-
+        self.t_watch = t_watch
+        self.id = id
         self.joystick_deadzone = joystick_deadzone # deadzone in percent
         self.buttons = [0]*10
         self.joysticks = [0]*7
@@ -47,7 +48,7 @@ class Controller:
 
     # wait_for_controller will attempt to connect to the controller until it can find it
     def wait_for_controller(self):
-        while True:    
+        while self.t_watch.should_run(self.id):    
             try:
                 if not self.first_run:
                     pygame.joystick.quit()
@@ -116,8 +117,8 @@ class Controller:
             joystick.rumble(1,1,duration)
             time.sleep((duration+pause_duration)/1000)
 
-    def get_events_loop(self, debug=False, debug_all=False):
-        while True:
+    def get_events_loop(self, t_watch: Threadwatcher, id: int, debug=False, debug_all=False):
+        while t_watch.should_run(id):
             if pygame.joystick.get_count() < 1:
                 self.wait_for_controller()
             self.duration = self.clock.tick(20)
@@ -220,18 +221,22 @@ class Controller:
                                 print(f"Roboten går ned med {self.normalize_joysticks(event)}% kraft")
                         elif event.axis == 5:
                                 print(f"Roboten går opp med {self.normalize_joysticks(event)}% kraft")
-                if debug and self.connection is not None:
+                if self.connection is not None:
                     self.connection.send(self.pack_controller_values())
+                    # print("sending controller values over pipe")
                 elif debug and self.connection is None: 
                     self.write_controller_values(local=True)
-                    # self.connection.close()            
+        print("closed connection")
+        self.connection.close()            
 
 
 def run(connection, t_watch: Threadwatcher, id, debug=True, debug_all=False):
+    debug_all = False
     c = Controller(connection, t_watch, id)
-    c.get_events_loop(debug=debug, debug_all=debug_all)
+    c.get_events_loop(t_watch, id, debug=debug, debug_all=debug_all)
 
 if __name__ == "__main__":
+    pass
     # c = Controller(None)
-    run(None, True, False)
+    # run(None, True, False)
     # c.get_events_loop(debug=True, debug_all=False)

@@ -17,7 +17,7 @@ class AnotherWindow(QWidget):
     This "window" is a QWidget. If it has no parent, it
     will appear as a free-floating window as we want.
     """
-    def __init__(self, port):
+    def __init__(self, port, motor_widget: QWidget):
         super().__init__()
         layout = QHBoxLayout()
         self.label = QLabel("Another Window")
@@ -25,25 +25,28 @@ class AnotherWindow(QWidget):
 
         self.url = f"http://10.0.0.2:{port}/cam.html"
         self.stream1 = QWebEngineView(self)
+        # self.stream1.setMinimumWidth(640)
+        # self.stream1.setMinimumHeight(480)
         self.stream1.load(QUrl(self.url))
         # self.stream2 = QWebEngineView(self)
         # self.stream2.load(QUrl("http://10.0.0.2:6888/cam.html"))
-
-        layout.addWidget(self.stream1)
+        layout.addWidget(self.stream1.setMinimumWidth(1000))
+        layout.addWidget(motor_widget)
         # layout.addWidget(self.stream2)
         self.setLayout(layout)
         # self.  .resize(1920,1080)
 
 
 class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
-    def __init__(self, conn, parent=None):
+    def __init__(self, conn, t_watch: Threadwatcher, id: int, parent=None):
         super().__init__(parent)
-
         self.thread = threading.current_thread()
         self.conn = conn
         os.chdir("Subsea_QT_GUI")
         self.setupUi(self)
         os.chdir("..")
+        self.t_watch = t_watch
+        self.id = id
         # self.stream1 = QWebEngineView(self)
         # self.stream1.load(QUrl("http://10.0.0.2:6889/cam.html"))
         # self.stream2 = QWebEngineView(self)
@@ -75,12 +78,13 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         self.slider2.valueChanged.connect(lambda: self.setValue(self.slider2, self.lys_percentage, self.lys_circular, "rgba(85, 170, 255, 255)"))
 
-        self.recieve = threading.Thread(target=lambda: self.recieve_and_set_text(self.conn), daemon=True)
+        self.recieve = threading.Thread(target=self.recieve_and_set_text, daemon=True, args=(self.conn,))
         self.recieve.start()
-        self.w1 = AnotherWindow(6888)
+        # print(f"type of self.widget: {type(self.widget)}")
+        self.w1 = AnotherWindow(6888, self.widget)
         self.w1.show()
 
-        self.w2 = AnotherWindow(6889)
+        self.w2 = AnotherWindow(6889, self.widget)
         self.w2.show()
         
     def update_gui(self, data):
@@ -91,11 +95,14 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
     def recieve_and_set_text(self, conn):
         # while not self.thread.should_stop:
-        while True:
+        while self.t_watch.should_run(self.id):
             # print("trying to take out of pipe")
             sensordata = conn.recv()
             # print(sensordata)
             self.update_gui(sensordata)
+        print("recieved close thread. trying to close")
+        self.close()
+        
 
     def button_test(self):
         # print("Clicked on button")
@@ -163,13 +170,13 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 def run(conn, t_watch: Threadwatcher, id):
     app = QtWidgets.QApplication(sys.argv)
     
-    win = Window(conn)
+    win = Window(conn, t_watch, id)
     win.setWindowTitle("UiS Subsea")
     win.showMaximized() # for windows
     #win.showFullScreen() # for mac
     win.show()
-    sys.exit(app.exec())
-
+    # win.close()
+    sys.exit(app.exec())    
 
 if __name__ == "__main__":
     import SUBSEAGUI
