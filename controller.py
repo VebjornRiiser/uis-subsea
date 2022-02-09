@@ -19,7 +19,7 @@ def clear_screen():
     os.system("cls")
 
 class Controller:
-    def __init__(self, connection, t_watch: Threadwatcher, id, joystick_deadzone=7) -> None:
+    def __init__(self, connection, t_watch: Threadwatcher, id, joystick_deadzone=9) -> None:
         self.connection = connection
         self.t_watch = t_watch
         self.id = id
@@ -40,7 +40,10 @@ class Controller:
         self.wait_for_controller()
 
     def pack_controller_values(self):
-        values = {"joysticks": self.joysticks, "buttons": self.buttons, "dpad": self.dpad, "camera_to_control": self.camera_motor, "time_between_updates":self.duration}
+        joysticks_and_boyancy = self.joysticks[:4]
+        joysticks_and_boyancy.append(self.joysticks[6]) 
+        values = {"joysticks": joysticks_and_boyancy, "camera_movement": self.joysticks[3],  "buttons": self.buttons, "dpad": self.dpad, "camera_to_control": self.camera_motor, "time_between_updates": self.duration}
+        # print(values)
         return values
 
     def reset_button(self, event) -> None:
@@ -76,25 +79,25 @@ class Controller:
     def normalize_joysticks(self, event):
         # (x-min)/(max-min)
         if event.axis == 1:
-            return -round((2*(event.value--self.controller_stop_point)/(self.controller_stop_point--self.controller_stop_point)-1)*100)
+            return self.deadzone_adjustment(-round((2*(event.value--self.controller_stop_point)/(self.controller_stop_point--self.controller_stop_point)-1)*100))
 
         if event.axis == 3:
-            return -round((2*(event.value--self.controller_stop_point)/(self.controller_stop_point--self.controller_stop_point)-1)*30)
+            return self.deadzone_adjustment(-round((2*(event.value--self.controller_stop_point)/(self.controller_stop_point--self.controller_stop_point)-1)*100))
 
 
         if event.axis == 4:
-            return -round(self.get_new_range(event.value,-self.controller_stop_point, self.controller_stop_point)) # opp og ned på roboten har range fra 0 til 100 og 0 til -100
+            return self.deadzone_adjustment(-round(self.get_new_range(event.value,-self.controller_stop_point, self.controller_stop_point))) # opp og ned på roboten har range fra 0 til 100 og 0 til -100
             # return round((event.value--self.controller_stop_point)/(self.controller_stop_point--self.controller_stop_point)*100)
         if event.axis == 5:
-            return round(self.get_new_range(event.value,-self.controller_stop_point, self.controller_stop_point)) # opp og ned på roboten har range fra 0 til 100 og 0 til -100
+            return self.deadzone_adjustment(round(self.get_new_range(event.value,-self.controller_stop_point, self.controller_stop_point))) # opp og ned på roboten har range fra 0 til 100 og 0 til -100
             # return round((event.value--self.controller_stop_point)/(self.controller_stop_point--self.controller_stop_point)*100)
 
-        return round((2*(event.value--self.controller_stop_point)/(self.controller_stop_point--self.controller_stop_point)-1)*100)
+        return self.deadzone_adjustment(round((2*(event.value--self.controller_stop_point)/(self.controller_stop_point--self.controller_stop_point)-1)*100))
 
         # return round(self.get_new_range(event.value,-self.controller_stop_point, self.controller_stop_point))
 
     def deadzone_adjustment(self, value) -> int:
-        if abs(value) < self.joystick_deadzone:
+        if abs(value) < self.joystick_deadzone+1:
             return 0
         return value
 
@@ -162,6 +165,7 @@ class Controller:
                     # print(event.button)
                 if event.type == BUTTON_UP: #button up
                     self.reset_button(event)
+                    self.lekkasje()
                     
                     if debug_all:
                         if event.button == 0:
@@ -221,13 +225,13 @@ class Controller:
                                 print(f"Roboten går ned med {self.normalize_joysticks(event)}% kraft")
                         elif event.axis == 5:
                                 print(f"Roboten går opp med {self.normalize_joysticks(event)}% kraft")
-                if self.connection is not None:
-                    self.connection.send(self.pack_controller_values())
-                    # print("sending controller values over pipe")
-                elif debug and self.connection is None: 
-                    self.write_controller_values(local=True)
+            if self.connection is not None:
+                # print("sending to main")
+                self.connection.send(self.pack_controller_values())
+            elif debug and self.connection is None: 
+                self.write_controller_values(local=True)
         print("closed connection")
-        self.connection.close()            
+        # self.connection.close()            
 
 
 def run(connection, t_watch: Threadwatcher, id, debug=True, debug_all=False):

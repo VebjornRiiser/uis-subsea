@@ -80,7 +80,6 @@ class Network:
             self.waiting_for_conn = False
             break
         print(f"New connection from {addr}. conn: {self.conn}, addr")
-        print("what now")
 
     def send(self, bytes_to_send: bytes) -> None:
         if self.conn is None and not self.waiting_for_conn:
@@ -115,10 +114,14 @@ class Network:
                 data = self.conn.recv(1024)
                 if data != None:
                     return data
+                # else:
+                #     return self.receive()
         except socket.error as e:
             print(f"Exception: {e}")
 
     def exit(self):
+        if self.conn is None:
+            exit(0)
         self.conn.close()
         self.running = False
 

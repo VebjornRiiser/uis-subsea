@@ -69,15 +69,32 @@ def send_sensordata_to_gui(conn, t_watch: Threadwatcher, id):
             t_watch.stop_thread(id)
 
 def receive_data_from_rov(network_handler: Network, t_watch: Threadwatcher, id: int, pipe=None):
-    if pipe == None:
+    if pipe is None:
         while t_watch.should_run(id):
             network_handler.send(bytes("Hei","utf-8"))
     else:
         while t_watch.should_run(id):
             data = pipe.recv()
-            network_handler.send(bytes(json.dumps(data),"utf-8"))
-            print("sent data")
+            network_handler.send(handle_controller_data(data))
+            # print(data)
+            # network_handler.send(bytes(json.dumps(data),"utf-8"))
+            # print("sent data")
+ID = 0
 
+def handle_controller_data(controller_values: dict) -> list:
+    packets_to_send = []
+    joy_list = []
+    joy_list.append(controller_values["joysticks"][1])
+    joy_list.append(controller_values["joysticks"][0])
+    for value in controller_values["joysticks"][2:]:
+        joy_list.append(value)
+    packets_to_send.append([70, joy_list])
+
+    packets_to_send.append([161, controller_values["camera_movement"]])
+
+
+
+    return bytes(json.dumps(packets_to_send), "utf-8")
 
 if __name__ == "__main__":
     global start_time_sec
@@ -87,7 +104,8 @@ if __name__ == "__main__":
     #     print(config.read()[1])
 
     t_watch = Threadwatcher()
-    
+    # [[0,76]]
+
     # id = t_watch.add_thread()
     # gui_parent_pipe, gui_child_pipe = Pipe() # starts the gui program. gui_parent_pipe should get the sensor data
     # gui_loop = Process(target=GUI_loop.run, args=(gui_child_pipe, t_watch, id)) # and should recieve commands from the gui
@@ -110,12 +128,14 @@ if __name__ == "__main__":
     # id = t_watch.add_thread()
     # recv_frm_cnt = threading.Thread(target=relay_data_from_controller, args=(parent_conn_controller, t_watch, id, True), daemon=True)
     # recv_frm_cnt.start()
-    print("starting network")
+    # print("starting network")
     
     # Network is blocking
+
     # network = Network(is_server=False, bind_addr="0.0.0.0", connect_addr="10.0.0.2", port=6900)
-    network = Network(is_server=False, port=6900)
+    network = Network(is_server=False, port=6969, connect_addr="10.0.0.2")
     print("network started")
+
     id = t_watch.add_thread()
     recv_data_from_rov = threading.Thread(target=receive_data_from_rov, args=(network, t_watch, id, parent_conn_controller), daemon=True)
     recv_data_from_rov.start()
