@@ -71,30 +71,53 @@ def send_sensordata_to_gui(conn, t_watch: Threadwatcher, id):
 def receive_data_from_rov(network_handler: Network, t_watch: Threadwatcher, id: int, pipe=None):
     if pipe is None:
         while t_watch.should_run(id):
-            network_handler.send(bytes("Hei","utf-8"))
+            pass
+            # network_handler.send(bytes("Hei","utf-8"))
     else:
         while t_watch.should_run(id):
             data = pipe.recv()
-            network_handler.send(handle_controller_data(data))
-            # print(data)
+            # network_handler.send(handle_controller_data(data)+packet_seperator)
+            print(handle_controller_data(data))
             # network_handler.send(bytes(json.dumps(data),"utf-8"))
             # print("sent data")
 ID = 0
 
+X_axis = 1
+Y_axis = 0
+Z_axis = 6
+packet_seperator = bytes("*", "utf-8")
+
+Left_Button = 4
+Right_Button = 5
+
+camera_tilt = 0 # degrees
+
 def handle_controller_data(controller_values: dict) -> list:
+
     packets_to_send = []
-    joy_list = []
-    joy_list.append(controller_values["joysticks"][1])
-    joy_list.append(controller_values["joysticks"][0])
-    for value in controller_values["joysticks"][2:]:
-        joy_list.append(value)
-    packets_to_send.append([70, joy_list])
+    ################  X,Y,Z, rotasjon, m.teleskop, m.vri, m.klype + uint8 throttle  #####################
+    styredata = []
+    styredata.append(controller_values["joysticks"][X_axis])
+    styredata.append(controller_values["joysticks"][Y_axis])
+    styredata.append(controller_values["joysticks"][Z_axis])
+    build_manipulator_byte()
+    styredata.append(controller_values["dpad"][1])
+    # for value in controller_values["joysticks"][2:-2]:
+    #     joy_list.append(value)
+    packets_to_send.append([70, styredata])
 
-    packets_to_send.append([161, controller_values["camera_movement"]])
-
+    packets_to_send.append([160 + controller_values["camera_to_control"], controller_values["camera_movement"]])
 
 
     return bytes(json.dumps(packets_to_send), "utf-8")
+    
+MANIPULATOR_IN_OUT_DPAD = 1
+def build_manipulator_byte(dpad_data: list, button_data: list):
+    # Inn, Ut, roter med klokka, roter mot klokka, lukk klo, åpne klo, tom, tom
+    # byte_arr = [0]*8
+    data_to_hex = {"in": 1, "out": 2}
+    dpad_data[MANIPULATOR_IN_OUT_DPAD]
+
 
 if __name__ == "__main__":
     global start_time_sec
@@ -133,11 +156,11 @@ if __name__ == "__main__":
     # Network is blocking
 
     # network = Network(is_server=False, bind_addr="0.0.0.0", connect_addr="10.0.0.2", port=6900)
-    network = Network(is_server=False, port=6969, connect_addr="10.0.0.2")
-    print("network started")
+    # network = Network(is_server=False, port=6969, connect_addr="10.0.0.2")
+    # print("network started")
 
     id = t_watch.add_thread()
-    recv_data_from_rov = threading.Thread(target=receive_data_from_rov, args=(network, t_watch, id, parent_conn_controller), daemon=True)
+    recv_data_from_rov = threading.Thread(target=receive_data_from_rov, args=(None, t_watch, id, parent_conn_controller), daemon=True)
     recv_data_from_rov.start()
     try:
         while True:

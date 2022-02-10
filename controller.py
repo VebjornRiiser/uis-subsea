@@ -40,9 +40,7 @@ class Controller:
         self.wait_for_controller()
 
     def pack_controller_values(self):
-        joysticks_and_boyancy = self.joysticks[:4]
-        joysticks_and_boyancy.append(self.joysticks[6]) 
-        values = {"joysticks": joysticks_and_boyancy, "camera_movement": self.joysticks[3],  "buttons": self.buttons, "dpad": self.dpad, "camera_to_control": self.camera_motor, "time_between_updates": self.duration}
+        values = {"joysticks": self.joysticks, "camera_movement": self.joysticks[3],  "buttons": self.buttons, "dpad": self.dpad, "camera_to_control": self.camera_motor, "time_between_updates": self.duration}
         # print(values)
         return values
 
@@ -130,12 +128,13 @@ class Controller:
                 # print("entered event check")
                 if event.type == DPAD: #dpad (both up and down)
                     self.dpad = event.value
+                    # self.dpad = [val*100 for val in event.value]
 
                 if event.type == BUTTON_DOWN: #button down
                     self.buttons[event.button] = 1
 
                     if self.buttons[BUTTON_Y] == 1:
-                        pass
+                        self.camera_motor = (self.camera_motor+1)%2
                         # threading.Thread(target=self.lekkasje).start()
 
                     if debug_all:
@@ -165,8 +164,7 @@ class Controller:
                     # print(event.button)
                 if event.type == BUTTON_UP: #button up
                     self.reset_button(event)
-                    self.lekkasje()
-                    
+
                     if debug_all:
                         if event.button == 0:
                             # pygame.joystick.Joystick.stop_rumble()
