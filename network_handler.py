@@ -30,7 +30,8 @@ class Network:
 
     def beat(self):
         while self.running:
-            self.send(b"heartbeat")
+            heartbeat_packet = bytes(json.dumps("*"), "utf-8") + bytes(json.dumps("heartbeat"), "utf-8") + bytes(json.dumps("*"), "utf-8")
+            self.send(heartbeat_packet)
             time.sleep(0.3)
 
     def new_conn(self):

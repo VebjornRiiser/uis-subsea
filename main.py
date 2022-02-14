@@ -1,4 +1,5 @@
-import multiprocessing
+    import multiprocessing
+from socket import socket
 from Subsea_QT_GUI import GUI_loop
 from multiprocessing import Pipe, Process, connection
 from Subsea_QT_GUI import *
@@ -10,17 +11,14 @@ import random
 import time
 import json
 import sys
+import logging
+
 
 
 def controllerdata_to_json(controll_data: dict) -> str:
 
     return json.dumps(controll_data)
     pass
-
-
-def send_data_to_rov():
-    pass
-
 
 
 
@@ -68,7 +66,7 @@ def send_sensordata_to_gui(conn, t_watch: Threadwatcher, id):
         except KeyboardInterrupt:
             t_watch.stop_thread(id)
 
-def receive_data_from_rov(network_handler: Network, t_watch: Threadwatcher, id: int, pipe=None):
+def send_data_to_rov(network_handler: Network, t_watch: Threadwatcher, id: int, pipe=None):
     if pipe is None:
         while t_watch.should_run(id):
             pass
@@ -76,8 +74,8 @@ def receive_data_from_rov(network_handler: Network, t_watch: Threadwatcher, id: 
     else:
         while t_watch.should_run(id):
             data = pipe.recv()
-            # network_handler.send(handle_controller_data(data)+packet_seperator)
-            print(handle_controller_data(data))
+            network_handler.send(packet_seperator+handle_controller_data(data)+packet_seperator)
+            # print(handle_controller_data(data))
             # network_handler.send(bytes(json.dumps(data),"utf-8"))
             # print("sent data")
 ID = 0
@@ -100,7 +98,7 @@ def handle_controller_data(controller_values: dict) -> list:
     styredata.append(controller_values["joysticks"][X_axis])
     styredata.append(controller_values["joysticks"][Y_axis])
     styredata.append(controller_values["joysticks"][Z_axis])
-    build_manipulator_byte()
+    build_manipulator_byte(controller_values["dpad"], controller_values["buttons"])
     styredata.append(controller_values["dpad"][1])
     # for value in controller_values["joysticks"][2:-2]:
     #     joy_list.append(value)
@@ -117,6 +115,36 @@ def build_manipulator_byte(dpad_data: list, button_data: list):
     # byte_arr = [0]*8
     data_to_hex = {"in": 1, "out": 2}
     dpad_data[MANIPULATOR_IN_OUT_DPAD]
+    return
+
+
+def decode_packets(tcp_data: bytes) -> list:
+    json_strings = bytes.decode(tcp_data, "utf-8")
+    json_list = json_strings.split(json.dumps("*"))
+    # print(f"{json_list.count('') = } ")
+
+    decoded_items = []
+
+    for item in json_list:
+
+        if item == '' or item == json.dumps("heartbeat"):
+            # print(f"{item = }")
+            continue
+
+        else:
+            # print(f"{item = }")
+            item = json.loads(item)
+            decoded_items.append(item)
+    return decoded_items
+
+
+def recieve_data_from_rov(network: Network, t_watch: Threadwatcher, id: int):
+    while t_watch.should_run(id):
+        try:
+            data = network.receive()
+            print(decode_packets(data))
+        except json.JSONDecodeError as e:
+            print(f"{data = }, {e = }")
 
 
 if __name__ == "__main__":
@@ -156,12 +184,15 @@ if __name__ == "__main__":
     # Network is blocking
 
     # network = Network(is_server=False, bind_addr="0.0.0.0", connect_addr="10.0.0.2", port=6900)
-    # network = Network(is_server=False, port=6969, connect_addr="10.0.0.2")
-    # print("network started")
+    network = Network(is_server=False, port=6900, connect_addr="10.0.0.2")
+    print("network started")
 
     id = t_watch.add_thread()
-    recv_data_from_rov = threading.Thread(target=receive_data_from_rov, args=(None, t_watch, id, parent_conn_controller), daemon=True)
-    recv_data_from_rov.start()
+    snd_data_to_rov = threading.Thread(target=send_data_to_rov, args=(network, t_watch, id, parent_conn_controller), daemon=True)
+    snd_data_to_rov.start()
+
+    recieve_data_from_rov = threading.Thread(target=recieve_data_from_rov, args=(network, t_watch, id), daemon=True)
+    recieve_data_from_rov.start()
     try:
         while True:
             time.sleep(0.3)
