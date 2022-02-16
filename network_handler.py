@@ -95,11 +95,11 @@ class Network:
             time.sleep(0.3)
         try:
             if type(bytes_to_send) != bytes:
-                print(f"tried sending something that was not bytes: {bytes_to_send} type: {type(bytes_to_send)}")
+                print(f"tried sending something that was not bytes: {bytes_to_send = } type: {type(bytes_to_send)}")
                 exit(1)
             self.conn.sendall(bytes_to_send)
-        except (socket.error, BrokenPipeError)  as e: # need to define the actual exceptions we should handle
-            print(f"line (56) Tried sending, but got an error \n{e}")
+        except (socket.error, BrokenPipeError)  as e:
+            print(f"Tried sending, but got an error \n{e}")
             print(f"conn = {self.conn}, waiting for conn: {self.waiting_for_conn}")
             if not self.waiting_for_conn:
                 self.new_conn()
@@ -118,7 +118,7 @@ class Network:
                 # else:
                 #     return self.receive()
         except socket.error as e:
-            print(f"Exception: {e}")
+            print(f"tried recieving but got Exception: {e}")
 
     def exit(self):
         if self.conn is None:
