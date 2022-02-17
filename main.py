@@ -24,8 +24,6 @@ def network_format(data) -> bytes:
 
     #################### is probably replaced by "send_data_to_rov" #######################################
 def relay_data_from_controller(connection_controller, t_watch: Threadwatcher, id, relay=True):
-    # thread = threading.current_thread()
-    # while getattr(thread, "run", True):
     while t_watch.should_run(id):
         controller_data = connection_controller.recv()
         print("taking controller data")
@@ -68,16 +66,23 @@ def send_sensordata_to_gui(conn, t_watch: Threadwatcher, id):
             t_watch.stop_thread(id)
 
 def send_data_to_rov(network_handler: Network, t_watch: Threadwatcher, id: int, pipe=None):
-    camera_toggle_wait_counter = 0
+
+    # prevents the camera from toggling back again immediately if we hold the button down
+    camera_toggle_wait_counter = 0 
+
+    # prevents the tilt toggle from toggling back again immediately if we hold the button down
     right_joystick_toggle_wait_counter = 0
-    camera_tilt = [0.0, 0.0]
+
+    camera_tilt = [0.0, 0.0] # tilt in degrees on the camera motors
+    
     if pipe is None:
         while t_watch.should_run(id):
             pass
             # network_handler.send(bytes("Hei","utf-8"))
     else:
         camera_toggle = True
-        right_joystick_move_camera = True
+        right_joystick_move_camera = True # locks 
+        camera_tilt_lock = [False, False] # locks the camera tilt if the rov is processing images
         while t_watch.should_run(id):
             if camera_toggle_wait_counter > 0:
                 camera_toggle_wait_counter -= 1
@@ -88,14 +93,19 @@ def send_data_to_rov(network_handler: Network, t_watch: Threadwatcher, id: int, 
             if data["buttons"][2] and camera_toggle_wait_counter == 0:
                     # camera_command = [[200, {"on": True, "bildebehandlingsmodus": 0}]]
                     camera_toggle_wait_counter = 7
-                    camera_command = [[200, {"on": camera_toggle}]]
+                    # camera_command = [[200+data["camera_to_control"], {"on": camera_toggle}], [200, {"on": True, "bildebehandlingsmodus": 0}]]
+                    camera_command = [[200+data["camera_to_control"], {"on": camera_toggle, "bildebehandlingsmodus": 1}]]
+                    # print(camera_command)
                     camera_toggle = not camera_toggle
             if data["buttons"][9] and right_joystick_toggle_wait_counter == 0:
                 right_joystick_toggle_wait_counter = 5
                 right_joystick_move_camera = not right_joystick_move_camera
                 print("changed right joystick function")
-            # print(data["buttons"][9])
-            formated_data, camera_tilt = handle_controller_data(data, camera_tilt, right_joystick_move_camera, camera_commands=camera_command)
+
+            if camera_command is not None:
+                camera_tilt_lock = check_camera_command(camera_command)
+
+            formated_data, camera_tilt = handle_controller_data(data, camera_tilt, right_joystick_move_camera, camera_tilt_lock, camera_commands=camera_command)
             if network_handler is not None:
                 network_handler.send(network_format(formated_data))
             else:
@@ -112,7 +122,13 @@ ROTATION_axis = 2
 Left_Button = 4
 Right_Button = 5
 
-def handle_controller_data(controller_values: dict, camera_tilt, joystick_moves_camera, camera_commands: list = None) -> list:
+def check_camera_command(camera_command):
+    for command in camera_command:
+        if "bildebehandlingsmodus" in command[1]:
+            print(command[1]["bildebehandlingsmodus"])
+    return [False, False]
+
+def handle_controller_data(controller_values: dict, camera_tilt, joystick_moves_camera, tilt_lock, camera_commands: list = None) -> list:
     packets_to_send = []
     ################  X,Y,Z, rotasjon, m.teleskop, m.vri, m.klype + uint8 throttle  #####################
     styredata = []
@@ -134,7 +150,7 @@ def handle_controller_data(controller_values: dict, camera_tilt, joystick_moves_
         if change != -1:
             packets_to_send.append([200 + controller_values["camera_to_control"], {"tilt": camera_tilt[change]}])
 
-    packets_to_send.append([70, styredata])
+    # packets_to_send.append([70, styredata])
 
     # adds the command to the existing packet if it exists and then removes it from the list.
     if camera_commands != None:
@@ -152,7 +168,7 @@ def handle_controller_data(controller_values: dict, camera_tilt, joystick_moves_
 
     return packets_to_send, camera_tilt
 
-
+# Handles the update of tilting of the camera motor
 def update_camera_tilt(camera_to_update, move_speed, time_delta, camera_tilt):
     if move_speed==0: # no change
        return camera_tilt, -1 # -1 means no camera has changed
@@ -180,25 +196,24 @@ MANIPULATOR_ROTATE = 0
 BUTTON_GRAB = 4
 BUTTON_RELEASE = 5
 
-def build_manipulator_byte(dpad_data: list, button_data: list):
+# Creates the byte that describes how the manipulator should move
+def build_manipulator_byte(dpad_data: list, button_data: list, enabled: bool):
     data = dpad_data
     data.append(button_data[BUTTON_GRAB])
     data.append(button_data[BUTTON_RELEASE])
-    # print(data)
     # Inn, Ut, roter med klokka, roter mot klokka, lukk klo, åpne klo, tom, tom
-    # byte_arr = [0]*8
     # dpad_to_values = [{-1: "rotate ccw", 0: "no rotation", 1: "rotate ccw"}, {-1: "manipulator in", 0: "manipulator is still", 1: "manipulator out"}]
     data_to_values = [{-1: 0b0000_1000, 0: 0b0, 1: 0b0000_0100}, {-1: 0b0000_0001, 0: 0b0, 1: 0b0000_0010}, {1: 0b0001_0000, 0: 0b0}, {1: 0b0010_0000, 0: 0b0}]
 
-    # print(button_data[BUTTON_GRAB], button_data[BUTTON_RELEASE])
     byte_val = 0
     for index, axis_val in enumerate(data):
         byte_val = byte_val | data_to_values[index][axis_val] # or's all the bitwise values. 
+    if enabled:
+        byte_val = byte_val | 64 # enables manipulator
 
-    # dpad_data[MANIPULATOR_IN_OUT]
     return byte_val
 
-
+# Decodes the tcp packet/s recieved from the rov
 def decode_packets(tcp_data: bytes) -> list:
     try:
         json_strings = bytes.decode(tcp_data, "utf-8")
@@ -233,7 +248,7 @@ def recieve_data_from_rov(network: Network, t_watch: Threadwatcher, id: int):
             #     print(decoded[0]["sensor1"])
             if decoded == []:
                 continue
-            print(decoded)
+            # print(decoded)
         except json.JSONDecodeError as e:
             print(f"{data = }, {e = }")
 
@@ -242,12 +257,11 @@ def get_args():
     print(getopt(sys.argv, "n:g:c:", "network=gui=controller="))
 
 if __name__ == "__main__":
-    # get_args()
     global start_time_sec
     start_time_sec = time.time()
     run_gui = False
     run_get_controllerdata = True
-    run_network = False
+    run_network = True
 
     t_watch = Threadwatcher()
     if run_gui:
@@ -269,8 +283,6 @@ if __name__ == "__main__":
         parent_conn_controller, child_conn_controller = Pipe() # takes in controller data and sends it into child_conn
         controller_process = Process(target=controller.run, args=(child_conn_controller, t_watch, id,True, False,), daemon=True)
         controller_process.start()
-
-
 
     #################### is probably replaced by "send_data_to_rov" #######################################
     # id = t_watch.add_thread()

@@ -135,6 +135,7 @@ class Controller:
 
                     if self.buttons[BUTTON_Y] == 1:
                         self.camera_motor = (self.camera_motor+1)%2
+                        print(f"Changed camera to control to {self.camera_motor}")
                         # threading.Thread(target=self.lekkasje).start()
 
                     if debug_all:

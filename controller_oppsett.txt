@@ -23,3 +23,7 @@ right toggle: opp, range 0 til 100
 
 left button: slippe manipulator
 right button: gripe manipulator
+
+
+? left thumb button: toggle manipulator (ikke legg til 64 til 
+right thumb button: toggle camera
