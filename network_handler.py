@@ -120,11 +120,6 @@ class Network:
         except socket.error as e:
             print(f"tried recieving but got Exception: {e}")
 
-    def exit(self):
-        if self.conn is None:
-            exit(0)
-        self.conn.close()
-        self.running = False
 
 # Do not get error here if
 def send_forever(conn: socket.socket):
@@ -151,8 +146,7 @@ if __name__ == "__main__":
     else:
         # a = subprocess.call("ssh rov python3 ~/socket_testing/network_handler.py")
         # a = subprocess.Popen("ssh rov touch test")
-        # print(os.system("ssh rov touch test")) # python3 ~/socket_testing/network_handler.py"))
-        # exit()
+        # print(os.system("ssh rov touch test")) # python3 ~/socket_testing/network_handler.py"))                
         client_conn = Network(is_server=True, bind_addr="0.0.0.0", connect_addr="10.0.0.3")
         while True:
             client_conn.send(bytes('{"can": [(0, 99)]}', "utf-8"))
