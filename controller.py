@@ -14,19 +14,21 @@ BUTTON_B = 1
 BUTTON_X = 2
 BUTTON_Y = 3
 
+
 def clear_screen():
     pass
     os.system("cls")
+
 
 class Controller:
     def __init__(self, connection, t_watch: Threadwatcher, id, joystick_deadzone=9) -> None:
         self.connection = connection
         self.t_watch = t_watch
         self.id = id
-        self.joystick_deadzone = joystick_deadzone # deadzone in percent
+        self.joystick_deadzone = joystick_deadzone  # deadzone in percent
         self.buttons = [0]*10
         self.joysticks = [0]*7
-        self.dpad = (0,0)
+        self.dpad = (0, 0)
         self.controller_stop_point = 1.000030518509476
 
         self.camera_motor = 0
@@ -41,7 +43,7 @@ class Controller:
 
     def pack_controller_values(self):
         values = {"joysticks": self.joysticks, "camera_movement": self.joysticks[3],  "buttons": self.buttons, "dpad": self.dpad, "camera_to_control": self.camera_motor, "time_between_updates": self.duration}
-        # print(values)
+        print(values)
         return values
 
     def reset_button(self, event) -> None:

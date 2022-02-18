@@ -209,12 +209,11 @@ BUTTON_RELEASE = 5
 
 # Creates the byte that describes how the manipulator should move
 def build_manipulator_byte(dpad_data: list, button_data: list, enabled):
-    data = dpad_data
+    data = list(dpad_data)
     data.append(button_data[BUTTON_GRAB])
     data.append(button_data[BUTTON_RELEASE])
-    # Inn, Ut, roter med klokka, roter mot klokka, lukk klo, åpne klo, tom, tom
-    # dpad_to_values = [{-1: "rotate ccw", 0: "no rotation", 1: "rotate ccw"},
-    # {-1: "manipulator in", 0: "manipulator is still", 1: "manipulator out"}]
+    # Inn: 1, Ut: 2, roter med klokka: 4, roter mot klokka: 8, lukk klo: 16,
+    # åpne klo: 32, enable: 64, ingen funksjon
     data_to_values = [{-1: 0b0000_1000, 0: 0b0, 1: 0b0000_0100},
                       {-1: 0b0000_0001, 0: 0b0, 1: 0b0000_0010},
                       {1: 0b0001_0000, 0: 0b0},
@@ -222,7 +221,7 @@ def build_manipulator_byte(dpad_data: list, button_data: list, enabled):
 
     byte_val = 0
     for index, axis_val in enumerate(data):  # bitwise or's all the values
-        byte_val = byte_val | data_to_values[index][axis_val]   
+        byte_val = byte_val | data_to_values[index][axis_val]
     if enabled:
         byte_val = byte_val | 64  # enables manipulator
 
