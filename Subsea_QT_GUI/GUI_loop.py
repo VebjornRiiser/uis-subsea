@@ -1,7 +1,10 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QLabel
+from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWebEngineWidgets import *
 from PyQt5.Qt import *
+from PyQt5.QtGui import QColor
+from PyQt5.QtWidgets import QSizeGrip
 from multiprocessing import Pipe, Value
 from Threadwatch import Threadwatcher
 import random
@@ -11,8 +14,11 @@ import threading
 import json
 import os
 import Subsea_QT_GUI.SUBSEAGUI as SUBSEAGUI
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QGraphicsDropShadowEffect, QPushButton, QApplication, QComboBox
+from PyQt5.QtCore import Qt
 
 
+os.system('pyuic5 -x NYGUI.ui -o SUBSEAGUI.py')
 os.environ["QT_FONT_DPI"] = "96" # FIX Problem for High DPI and Scale above 100%
 
 class AnotherWindow(QWidget):
@@ -43,6 +49,8 @@ class AnotherWindow(QWidget):
 class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     def __init__(self, conn, t_watch: Threadwatcher, id: int, parent=None):
         super().__init__(parent)
+
+        self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.thread = threading.current_thread()
         self.conn = conn
         os.chdir("Subsea_QT_GUI")
@@ -61,6 +69,32 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.manuell_btn.clicked.connect(self.button_test)
         self.kontroller_btn.clicked.connect(lambda: self.change_current_widget(2))
         self.informasjon_btn.clicked.connect(lambda: self.change_current_widget(1))
+
+        # DROP SHADOW
+        self.shadow = QGraphicsDropShadowEffect(self)
+        self.shadow.setBlurRadius(17)
+        self.shadow.setXOffset(0)
+        self.shadow.setYOffset(0)
+        self.shadow.setColor(QColor(0, 0, 0, 150))
+        self.bgApp.setGraphicsEffect(self.shadow)
+
+        self.setWindowFlags(Qt.FramelessWindowHint)
+        self.setAttribute(Qt.WA_TranslucentBackground)
+        self.setContentsMargins(0, 0, 0, 0)
+
+
+        # RESIZE WINDOW
+        self.sizegrip = QSizeGrip(self.frame_size_grip)
+        self.sizegrip.setStyleSheet("width: 20px; height: 20px; margin 0px; padding: 0px;")
+
+        # MINIMIZE
+        self.minimizeAppBtn.clicked.connect(lambda: self.showMinimized())
+
+        # MAXIMIZE/RESTORE
+        self.maximizeRestoreAppBtn.clicked.connect(lambda: UIFunctions.maximize_restore(self))
+
+        # CLOSE APPLICATION
+        self.closeAppBtn.clicked.connect(lambda: self.close())
 
         # APPLY VALUES TO PROGREESBAR
         self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.VHF_percentage, self.VHF, "rgba(85, 170, 255, 255)"))
