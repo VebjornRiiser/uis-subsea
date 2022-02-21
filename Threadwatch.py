@@ -16,7 +16,8 @@ class Threadwatcher:
     def stop_thread(self, id):
         self.threads[id] = False
 
-    def stop_all_threads(self): 
+    def stop_all_threads(self):
+        print("ThreadWatch: attempting to stop all threads")
         for i in range(len(self.threads)):
             self.stop_thread(i)
         print(self.threads)
