@@ -93,6 +93,7 @@ def send_data_to_rov(network_handler: Network, t_watch: Threadwatcher, id: int, 
             data: dict = pipe.recv()
             camera_command: list[list[int, dict]] = None
             if data["buttons"][2] and camera_toggle_wait_counter == 0:
+                gui_selct_list[id_fra_gui]()
                 # camera_command = [[200, {"on": True, "bildebehandlingsmodus": 0}]]
                 camera_toggle_wait_counter = 7
                 # camera_command = [[200+data["camera_to_control"], {"on": camera_toggle}], [200, {"on": True, "bildebehandlingsmodus": 0}]]
@@ -111,7 +112,7 @@ def send_data_to_rov(network_handler: Network, t_watch: Threadwatcher, id: int, 
             if network_handler is not None:
                 network_handler.send(network_format(formated_data))
             else:
-                print(formated_data)
+                # print(formated_data)
                 pass
 
 
@@ -284,7 +285,7 @@ if __name__ == "__main__":
     global start_time_sec
     start_time_sec = time.time()
     run_gui = True
-    run_get_controllerdata = False
+    run_get_controllerdata = True
     run_network = False
 
     t_watch = Threadwatcher()

@@ -1,5 +1,6 @@
+from tkinter import Widget
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QLabel
+from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QLabel, QFileDialog
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWebEngineWidgets import *
 from PyQt5.Qt import *
@@ -34,53 +35,31 @@ class AnotherWindow(QWidget):
 
         self.url = f"http://10.0.0.2:{port}/cam.html"
         self.stream1 = QWebEngineView(self)
-        # self.stream1.setMinimumWidth(640)
-        # self.stream1.setMinimumHeight(480)
-        self.stream1.load(QUrl(self.url))
-        # self.stream2 = QWebEngineView(self)
-        # self.stream2.load(QUrl("http://10.0.0.2:6888/cam.html"))
-        layout.addWidget(self.stream1.setMinimumWidth(1000))
-        # layout.addWidget(motor_widget)
-        # layout.addWidget(self.stream2)
+        self.stream1.setFixedWidth(1920)
+        self.stream1.setFixedHeight(1070)
+        self.stream1.load(QtCore.QUrl(self.url))
         self.setLayout(layout)
-        # self.  .resize(1920,1080)
     
 
 class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     def __init__(self, conn, t_watch: Threadwatcher, id: int, parent=None):
         super().__init__(parent)
 
-        self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-        self.thread = threading.current_thread()
         self.conn = conn
-        os.chdir("Subsea_QT_GUI")
-        self.setupUi(self)
-        os.chdir("..")
         self.t_watch = t_watch
         self.id = id
-        # self.stream1 = QWebEngineView(self)
-        # self.stream1.load(QUrl("http://10.0.0.2:6889/cam.html"))
-        # self.stream2 = QWebEngineView(self)
-        # self.stream2.load(QUrl("http://10.0.0.2:6888/cam.html"))
-        # # self.stream1.resize(1920,1080)
-        # self.horizontalLayout_6.addWidget(self.stream1)
-        # self.horizontalLayout_6.addWidget(self.stream2)
+
+        self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.setup_gui_with_folder_change()
+        
 
         self.manuell_btn.clicked.connect(self.button_test)
         self.kontroller_btn.clicked.connect(lambda: self.change_current_widget(2))
         self.informasjon_btn.clicked.connect(lambda: self.change_current_widget(1))
 
-        # DROP SHADOW
-        self.shadow = QGraphicsDropShadowEffect(self)
-        self.shadow.setBlurRadius(17)
-        self.shadow.setXOffset(0)
-        self.shadow.setYOffset(0)
-        self.shadow.setColor(QColor(0, 0, 0, 150))
-        self.bgApp.setGraphicsEffect(self.shadow)
 
-        self.setWindowFlags(Qt.FramelessWindowHint)
-        self.setAttribute(Qt.WA_TranslucentBackground)
-        self.setContentsMargins(0, 0, 0, 0)
+        self.init_drop_shadow()
+        self.connect_test_values()
 
 
         # RESIZE WINDOW
@@ -94,61 +73,89 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.maximizeRestoreAppBtn.clicked.connect(lambda: UIFunctions.maximize_restore(self))
 
         # CLOSE APPLICATION
-        self.closeAppBtn.clicked.connect(lambda: self.close())
+        # self.closeAppBtn.clicked.connect(lambda: self.close())
+        self.closeAppBtn.clicked.connect(self.shutdown)
 
-        # APPLY VALUES TO PROGREESBAR
-        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.VHF_percentage, self.VHF, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.HVF_percentage, self.HVF, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.VVF_percentage, self.VVF, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.HHF_percentage, self.HHF, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.HVF_percentage, self.HVF, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.VVB_percentage, self.VVB, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.HVB_percentage, self.HVB, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.HVB_percentage, self.HVB, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.VHB_percentage, self.VHB, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.HHB_percentage, self.HHB, "rgba(85, 170, 255, 255)"))
-
-        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.mani_percentage_1, self.mani_1, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.mani_percentage_2, self.mani_2, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.mani_percentage_3, self.mani_3, "rgba(85, 170, 255, 255)"))
-
-        self.lys_slider.valueChanged.connect(lambda: self.setValue(self.lys_slider, self.lys_percentage, self.lys, "rgba(85, 170, 255, 255)"))
+        self.start_camera_windows()
 
         self.recieve = threading.Thread(target=self.recieve_and_set_text, daemon=True, args=(self.conn,))
         self.recieve.start()
         # print(f"type of self.widget: {type(self.widget)}")
-        self.w1 = AnotherWindow(6888)
-        self.w1.show()
 
-        self.w2 = AnotherWindow(6889)
-        self.w2.show()
-        
+
+        self.btn_combobox_list:list[QComboBox] = [self.comboBox_7, self.comboBox_9]
+        btn_command_list:list[str] = []
+        with open("button_config.txt") as btn_config:
+            btn_command_list = [line.strip() for line in btn_config.readlines()]
+        for btn in self.btn_combobox_list:
+            btn.addItems(btn_command_list)
+
+        self.comboBox_7: QComboBox
+        self.comboBox_7.addItems(["test", "test2"])
+        self.comboBox_7.setCurrentIndex(1)
+
+
+    def shutdown(self):
+        self.t_watch.stop_all_threads()
+        for window in self.child_window:
+            window.close()
+        self.close()
+
+
+    def start_camera_windows(self):
+        self.child_window: list[AnotherWindow] = []
+
+        self.child_window.append(AnotherWindow(6888))
+        self.child_window[0].show()
+
+        self.child_window.append(AnotherWindow(6889))
+        self.child_window[1].show()
+
+
+    def setup_gui_with_folder_change(self):
+        os.chdir("Subsea_QT_GUI")
+        self.setupUi(self)
+        os.chdir("..")
+
+
     def update_gui(self, data):
-        self.dybde.setText(str(round(data["dybde"],4)))
-        self.tid.setText(str(data["tid"]))
-        self.spenning.setText(str(round(data["spenning"],4)))
-        self.temp_vann.setText(str(round(data["temp_vann"],4)))
+        if self.t_watch.should_run(self.id):
+            self.dybde.setText(str(round(data["dybde"],4)))
+            self.tid.setText(str(data["tid"]))
+            self.spenning.setText(str(round(data["spenning"],4)))
+            self.temp_vann.setText(str(round(data["temp_vann"],4)))
 
     def recieve_and_set_text(self, conn):
-        # while not self.thread.should_stop:
         while self.t_watch.should_run(self.id):
             # print("trying to take out of pipe")
             sensordata = conn.recv()
             # print(sensordata)
             self.update_gui(sensordata)
         print("recieved close thread. trying to close")
-        self.close()
+        # self.close()
         
 
     def button_test(self):
         # print("Clicked on button")
-        self.w1.stream1.load(Qurl("http://vg.no"))
-        self.w2.stream1.load(Qurl("http://vg.no"))
+        self.w1.stream1.load(QtCore.QUrl("http://vg.no"))
+        self.w2.stream1.load(QtCore.QUrl("http://vg.no"))
 
     def change_current_widget(self, index):
         print(f"should change to widget {index}")
         self.stackedWidget.setCurrentIndex(index)
 
+    def init_drop_shadow(self):
+        # DROP SHADOW
+        self.shadow = QGraphicsDropShadowEffect(self)
+        self.shadow.setBlurRadius(17)
+        self.shadow.setXOffset(0)
+        self.shadow.setYOffset(0)
+        self.shadow.setColor(QColor(0, 0, 0, 150))
+        self.bgApp.setGraphicsEffect(self.shadow)
+
+        self.setWindowFlags(Qt.FramelessWindowHint)
+        self.setAttribute(Qt.WA_TranslucentBackground)
+        self.setContentsMargins(0, 0, 0, 0)
 
     ## SET VALUES TO DEF progressBarValue
     def setValue(self, slider, labelPercentage, progressBarName, color):
@@ -202,6 +209,27 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         # APPLY STYLESHEET WITH NEW VALUES
         widget.setStyleSheet(newStylesheet)
+
+    def connect_test_values(self):
+        # APPLY VALUES TO PROGREESBAR
+        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.VHF_percentage, self.VHF, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.HVF_percentage, self.HVF, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.VVF_percentage, self.VVF, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.HHF_percentage, self.HHF, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.HVF_percentage, self.HVF, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.VVB_percentage, self.VVB, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.HVB_percentage, self.HVB, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.HVB_percentage, self.HVB, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.VHB_percentage, self.VHB, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.HHB_percentage, self.HHB, "rgba(85, 170, 255, 255)"))
+
+        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.mani_percentage_1, self.mani_1, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.mani_percentage_2, self.mani_2, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.mani_percentage_3, self.mani_3, "rgba(85, 170, 255, 255)"))
+
+        self.lys_slider.valueChanged.connect(lambda: self.setValue(self.lys_slider, self.lys_percentage, self.lys, "rgba(85, 170, 255, 255)"))
+
+
 
 def run(conn, t_watch: Threadwatcher, id):
     app = QtWidgets.QApplication(sys.argv)
