@@ -1,0 +1,6 @@
+---
+Kamera-toggle
+Kamera-tilt
+Manipulator av/på
+Gripe manipulator
+Slippe manipulator
