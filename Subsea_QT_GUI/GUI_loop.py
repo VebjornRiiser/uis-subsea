@@ -84,7 +84,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         # print(f"type of self.widget: {type(self.widget)}")
 
 
-        self.btn_combobox_list:list[QComboBox] = [self.comboBox_7, self.comboBox_9]
+        self.btn_combobox_list:list[QComboBox] = [self.comboBox_A_btn, self.comboBox_B_btn, self.comboBox_X_btn, self.comboBox_Y_btn, self.comboBox_RB_btn, self.comboBox_LB_btn, self.comboBox_left_stick_btn, self.comboBox_right_stick_btn, self.comboBox_view_btn, self.comboBox_menu_btn]
         btn_command_list:list[str] = []
         with open("button_config.txt") as btn_config:
             btn_command_list = [line.strip() for line in btn_config.readlines()]
