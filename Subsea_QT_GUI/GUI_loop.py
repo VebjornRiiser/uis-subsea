@@ -12,6 +12,9 @@ import json
 import os
 import Subsea_QT_GUI.SUBSEAGUI as SUBSEAGUI
 
+
+os.environ["QT_FONT_DPI"] = "96" # FIX Problem for High DPI and Scale above 100%
+
 class AnotherWindow(QWidget):
     """
     This "window" is a QWidget. If it has no parent, it
@@ -33,7 +36,7 @@ class AnotherWindow(QWidget):
         # layout.addWidget(self.stream2)
         self.setLayout(layout)
         # self.  .resize(1920,1080)
-
+    
 
 class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     def __init__(self, conn, parent=None):
@@ -52,9 +55,9 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         # self.horizontalLayout_6.addWidget(self.stream1)
         # self.horizontalLayout_6.addWidget(self.stream2)
 
-        self.btn_manuell.clicked.connect(self.button_test)
-        self.pushButton_5.clicked.connect(lambda: self.change_current_widget(0))
-        self.pushButton_6.clicked.connect(lambda: self.change_current_widget(1))
+        self.manuell_btn.clicked.connect(self.button_test)
+        self.kontroller_btn.clicked.connect(lambda: self.change_current_widget(2))
+        self.informasjon_btn.clicked.connect(lambda: self.change_current_widget(1))
 
         # APPLY VALUES TO PROGREESBAR
         self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.VHF_percentage, self.VHF, "rgba(85, 170, 255, 255)"))
@@ -68,12 +71,11 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.VHB_percentage, self.VHB, "rgba(85, 170, 255, 255)"))
         self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.HHB_percentage, self.HHB, "rgba(85, 170, 255, 255)"))
 
-        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.mani_percentage1, self.mani1, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.mani_percentage2, self.mani2, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.mani_percentage3, self.mani3, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.mani_percentage_1, self.mani_1, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.mani_percentage_2, self.mani_2, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.mani_percentage_3, self.mani_3, "rgba(85, 170, 255, 255)"))
 
-
-        self.slider2.valueChanged.connect(lambda: self.setValue(self.slider2, self.lys_percentage, self.lys_circular, "rgba(85, 170, 255, 255)"))
+        self.lys_slider.valueChanged.connect(lambda: self.setValue(self.lys_slider, self.lys_percentage, self.lys, "rgba(85, 170, 255, 255)"))
 
         self.recieve = threading.Thread(target=lambda: self.recieve_and_set_text(self.conn), daemon=True)
         self.recieve.start()
@@ -114,7 +116,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         # CONVERT VALUE TO INT
         sliderValue = int(value)
         # HTML TEXT PERCENTAGE
-        htmlText = """<p align="center"><span style=" font-size:14pt;">{VALUE}</span><span style=" font-size:14pt; vertical-align:super;">%</span></p>"""
+        htmlText = """<p align="center"><span style=" font-size:9pt;">{VALUE}</span><span style=" font-size:9pt; vertical-align:super;">%</span></p>"""
         labelPercentage.setText(htmlText.replace("{VALUE}", str(sliderValue)))
 
         # CALL DEF progressBarValue
