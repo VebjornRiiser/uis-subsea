@@ -538,18 +538,21 @@ Button */
 
 </string>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout_9">
+   <layout class="QHBoxLayout" name="appMargins">
+    <property name="spacing">
+     <number>0</number>
+    </property>
     <property name="leftMargin">
-     <number>10</number>
+     <number>0</number>
     </property>
     <property name="topMargin">
-     <number>10</number>
+     <number>0</number>
     </property>
     <property name="rightMargin">
-     <number>10</number>
+     <number>0</number>
     </property>
     <property name="bottomMargin">
-     <number>10</number>
+     <number>0</number>
     </property>
     <item>
      <widget class="QFrame" name="bgApp">
@@ -1725,7 +1728,7 @@ p, li { white-space: pre-wrap; }
                       <string notr="true">background: transparent;</string>
                      </property>
                      <property name="currentIndex">
-                      <number>1</number>
+                      <number>2</number>
                      </property>
                      <widget class="QWidget" name="home">
                       <property name="styleSheet">
@@ -1809,7 +1812,7 @@ background-repeat: no-repeat;</string>
                               <rect>
                                <x>0</x>
                                <y>0</y>
-                               <width>1340</width>
+                               <width>1360</width>
                                <height>800</height>
                               </rect>
                              </property>
@@ -2880,7 +2883,7 @@ background-repeat: no-repeat;</string>
                                    <property name="frameShadow">
                                     <enum>QFrame::Raised</enum>
                                    </property>
-                                   <layout class="QVBoxLayout" name="verticalLayout_33">
+                                   <layout class="QVBoxLayout" name="verticalLayout_17">
                                     <item>
                                      <widget class="QLabel" name="sensor_title">
                                       <property name="font">
@@ -2933,7 +2936,7 @@ background-repeat: no-repeat;</string>
                                      </widget>
                                     </item>
                                     <item>
-                                     <widget class="QLabel" name="sensor_lekk_label">
+                                     <widget class="QLabel" name="sensor_lekk_label_2">
                                       <property name="styleSheet">
                                        <string notr="true">color: rgb(113, 126, 149);</string>
                                       </property>
@@ -2942,6 +2945,28 @@ background-repeat: no-repeat;</string>
                                       </property>
                                       <property name="text">
                                        <string>Vannlekkasje</string>
+                                      </property>
+                                      <property name="alignment">
+                                       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                                      </property>
+                                     </widget>
+                                    </item>
+                                    <item>
+                                     <widget class="QLabel" name="sensor_lekk_label">
+                                      <property name="minimumSize">
+                                       <size>
+                                        <width>0</width>
+                                        <height>40</height>
+                                       </size>
+                                      </property>
+                                      <property name="styleSheet">
+                                       <string notr="true">color: rgb(113, 126, 149);</string>
+                                      </property>
+                                      <property name="lineWidth">
+                                       <number>1</number>
+                                      </property>
+                                      <property name="text">
+                                       <string/>
                                       </property>
                                       <property name="alignment">
                                        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -2975,18 +3000,6 @@ background-repeat: no-repeat;</string>
                                  <enum>QFrame::Raised</enum>
                                 </property>
                                 <layout class="QVBoxLayout" name="verticalLayout_16">
-                                 <property name="leftMargin">
-                                  <number>12</number>
-                                 </property>
-                                 <property name="topMargin">
-                                  <number>12</number>
-                                 </property>
-                                 <property name="rightMargin">
-                                  <number>12</number>
-                                 </property>
-                                 <property name="bottomMargin">
-                                  <number>12</number>
-                                 </property>
                                  <item>
                                   <widget class="QLabel" name="motor_title">
                                    <property name="font">
@@ -4016,6 +4029,28 @@ background-repeat: no-repeat;</string>
                                    </property>
                                   </widget>
                                  </item>
+                                 <item>
+                                  <widget class="QLabel" name="sensor_lekk_label_3">
+                                   <property name="minimumSize">
+                                    <size>
+                                     <width>0</width>
+                                     <height>40</height>
+                                    </size>
+                                   </property>
+                                   <property name="styleSheet">
+                                    <string notr="true">color: rgb(113, 126, 149);</string>
+                                   </property>
+                                   <property name="lineWidth">
+                                    <number>1</number>
+                                   </property>
+                                   <property name="text">
+                                    <string/>
+                                   </property>
+                                   <property name="alignment">
+                                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                                   </property>
+                                  </widget>
+                                 </item>
                                 </layout>
                                </widget>
                               </item>
@@ -4414,45 +4449,32 @@ background-repeat: no-repeat;</string>
                          <property name="frameShadow">
                           <enum>QFrame::Raised</enum>
                          </property>
-                         <widget class="QLabel" name="kontroller_image">
+                         <widget class="QComboBox" name="comboBox_A_btn">
                           <property name="geometry">
                            <rect>
-                            <x>290</x>
-                            <y>280</y>
-                            <width>461</width>
-                            <height>301</height>
-                           </rect>
-                          </property>
-                          <property name="text">
-                           <string/>
-                          </property>
-                          <property name="pixmap">
-                           <pixmap resource="resources.qrc">:/images/images/xbox360.png</pixmap>
-                          </property>
-                          <property name="scaledContents">
-                           <bool>true</bool>
-                          </property>
-                         </widget>
-                         <widget class="QComboBox" name="comboBox_7">
-                          <property name="geometry">
-                           <rect>
-                            <x>800</x>
-                            <y>365</y>
-                            <width>250</width>
-                            <height>30</height>
+                            <x>820</x>
+                            <y>370</y>
+                            <width>210</width>
+                            <height>32</height>
                            </rect>
                           </property>
                           <property name="font">
                            <font>
                             <family>Segoe UI</family>
-                            <pointsize>7</pointsize>
+                            <pointsize>12</pointsize>
                             <weight>50</weight>
                             <italic>false</italic>
                             <bold>false</bold>
                            </font>
                           </property>
+                          <property name="cursor">
+                           <cursorShape>PointingHandCursor</cursorShape>
+                          </property>
+                          <property name="contextMenuPolicy">
+                           <enum>Qt::DefaultContextMenu</enum>
+                          </property>
                           <property name="styleSheet">
-                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 7pt;</string>
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 12pt;</string>
                           </property>
                           <item>
                            <property name="text">
@@ -4460,26 +4482,32 @@ background-repeat: no-repeat;</string>
                            </property>
                           </item>
                          </widget>
-                         <widget class="QComboBox" name="comboBox_6">
+                         <widget class="QComboBox" name="comboBox_B_btn">
                           <property name="geometry">
                            <rect>
-                            <x>1075</x>
-                            <y>335</y>
-                            <width>250</width>
-                            <height>30</height>
+                            <x>840</x>
+                            <y>430</y>
+                            <width>210</width>
+                            <height>32</height>
                            </rect>
                           </property>
                           <property name="font">
                            <font>
                             <family>Segoe UI</family>
-                            <pointsize>7</pointsize>
+                            <pointsize>12</pointsize>
                             <weight>50</weight>
                             <italic>false</italic>
                             <bold>false</bold>
                            </font>
                           </property>
+                          <property name="cursor">
+                           <cursorShape>PointingHandCursor</cursorShape>
+                          </property>
+                          <property name="contextMenuPolicy">
+                           <enum>Qt::DefaultContextMenu</enum>
+                          </property>
                           <property name="styleSheet">
-                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 7pt;</string>
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 12pt;</string>
                           </property>
                           <item>
                            <property name="text">
@@ -4487,26 +4515,32 @@ background-repeat: no-repeat;</string>
                            </property>
                           </item>
                          </widget>
-                         <widget class="QComboBox" name="comboBox_8">
+                         <widget class="QComboBox" name="comboBox_Y_btn">
                           <property name="geometry">
                            <rect>
-                            <x>810</x>
-                            <y>306</y>
-                            <width>250</width>
-                            <height>30</height>
+                            <x>830</x>
+                            <y>310</y>
+                            <width>210</width>
+                            <height>32</height>
                            </rect>
                           </property>
                           <property name="font">
                            <font>
                             <family>Segoe UI</family>
-                            <pointsize>7</pointsize>
+                            <pointsize>12</pointsize>
                             <weight>50</weight>
                             <italic>false</italic>
                             <bold>false</bold>
                            </font>
                           </property>
+                          <property name="cursor">
+                           <cursorShape>PointingHandCursor</cursorShape>
+                          </property>
+                          <property name="contextMenuPolicy">
+                           <enum>Qt::DefaultContextMenu</enum>
+                          </property>
                           <property name="styleSheet">
-                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 7pt;</string>
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 12pt;</string>
                           </property>
                           <item>
                            <property name="text">
@@ -4514,63 +4548,32 @@ background-repeat: no-repeat;</string>
                            </property>
                           </item>
                          </widget>
-                         <widget class="Line" name="line_5">
+                         <widget class="QComboBox" name="comboBox_X_btn">
                           <property name="geometry">
                            <rect>
-                            <x>660</x>
-                            <y>300</y>
-                            <width>131</width>
-                            <height>41</height>
-                           </rect>
-                          </property>
-                          <property name="sizePolicy">
-                           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                            <horstretch>0</horstretch>
-                            <verstretch>0</verstretch>
-                           </sizepolicy>
-                          </property>
-                          <property name="toolTipDuration">
-                           <number>-1</number>
-                          </property>
-                          <property name="accessibleDescription">
-                           <string/>
-                          </property>
-                          <property name="layoutDirection">
-                           <enum>Qt::LeftToRight</enum>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">color: rgb(155, 155, 255);</string>
-                          </property>
-                          <property name="frameShadow">
-                           <enum>QFrame::Plain</enum>
-                          </property>
-                          <property name="lineWidth">
-                           <number>2</number>
-                          </property>
-                          <property name="orientation">
-                           <enum>Qt::Horizontal</enum>
-                          </property>
-                         </widget>
-                         <widget class="QComboBox" name="comboBox_9">
-                          <property name="geometry">
-                           <rect>
-                            <x>610</x>
-                            <y>209</y>
-                            <width>250</width>
-                            <height>30</height>
+                            <x>820</x>
+                            <y>200</y>
+                            <width>210</width>
+                            <height>32</height>
                            </rect>
                           </property>
                           <property name="font">
                            <font>
                             <family>Segoe UI</family>
-                            <pointsize>7</pointsize>
+                            <pointsize>12</pointsize>
                             <weight>50</weight>
                             <italic>false</italic>
                             <bold>false</bold>
                            </font>
                           </property>
+                          <property name="cursor">
+                           <cursorShape>PointingHandCursor</cursorShape>
+                          </property>
+                          <property name="contextMenuPolicy">
+                           <enum>Qt::DefaultContextMenu</enum>
+                          </property>
                           <property name="styleSheet">
-                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 7pt;</string>
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 12pt;</string>
                           </property>
                           <item>
                            <property name="text">
@@ -4578,225 +4581,32 @@ background-repeat: no-repeat;</string>
                            </property>
                           </item>
                          </widget>
-                         <widget class="Line" name="line_3">
-                          <property name="geometry">
-                           <rect>
-                            <x>599</x>
-                            <y>245</y>
-                            <width>41</width>
-                            <height>101</height>
-                           </rect>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">color: rgb(155, 155, 255);</string>
-                          </property>
-                          <property name="frameShadow">
-                           <enum>QFrame::Plain</enum>
-                          </property>
-                          <property name="lineWidth">
-                           <number>2</number>
-                          </property>
-                          <property name="orientation">
-                           <enum>Qt::Vertical</enum>
-                          </property>
-                         </widget>
-                         <widget class="Line" name="line_6">
-                          <property name="geometry">
-                           <rect>
-                            <x>695</x>
-                            <y>337</y>
-                            <width>371</width>
-                            <height>31</height>
-                           </rect>
-                          </property>
-                          <property name="sizePolicy">
-                           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                            <horstretch>0</horstretch>
-                            <verstretch>0</verstretch>
-                           </sizepolicy>
-                          </property>
-                          <property name="toolTipDuration">
-                           <number>-1</number>
-                          </property>
-                          <property name="accessibleDescription">
-                           <string/>
-                          </property>
-                          <property name="layoutDirection">
-                           <enum>Qt::LeftToRight</enum>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">color: rgb(155, 155, 255);</string>
-                          </property>
-                          <property name="frameShadow">
-                           <enum>QFrame::Plain</enum>
-                          </property>
-                          <property name="lineWidth">
-                           <number>2</number>
-                          </property>
-                          <property name="orientation">
-                           <enum>Qt::Horizontal</enum>
-                          </property>
-                         </widget>
-                         <widget class="Line" name="line_7">
-                          <property name="geometry">
-                           <rect>
-                            <x>657</x>
-                            <y>360</y>
-                            <width>141</width>
-                            <height>41</height>
-                           </rect>
-                          </property>
-                          <property name="sizePolicy">
-                           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                            <horstretch>0</horstretch>
-                            <verstretch>0</verstretch>
-                           </sizepolicy>
-                          </property>
-                          <property name="toolTipDuration">
-                           <number>-1</number>
-                          </property>
-                          <property name="accessibleDescription">
-                           <string/>
-                          </property>
-                          <property name="layoutDirection">
-                           <enum>Qt::LeftToRight</enum>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">color: rgb(155, 155, 255);</string>
-                          </property>
-                          <property name="frameShadow">
-                           <enum>QFrame::Plain</enum>
-                          </property>
-                          <property name="lineWidth">
-                           <number>2</number>
-                          </property>
-                          <property name="orientation">
-                           <enum>Qt::Horizontal</enum>
-                          </property>
-                         </widget>
-                         <widget class="Line" name="line_11">
-                          <property name="geometry">
-                           <rect>
-                            <x>290</x>
-                            <y>330</y>
-                            <width>81</width>
-                            <height>41</height>
-                           </rect>
-                          </property>
-                          <property name="sizePolicy">
-                           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                            <horstretch>0</horstretch>
-                            <verstretch>0</verstretch>
-                           </sizepolicy>
-                          </property>
-                          <property name="toolTipDuration">
-                           <number>-1</number>
-                          </property>
-                          <property name="accessibleDescription">
-                           <string/>
-                          </property>
-                          <property name="layoutDirection">
-                           <enum>Qt::LeftToRight</enum>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">color: rgb(155, 155, 255);</string>
-                          </property>
-                          <property name="frameShadow">
-                           <enum>QFrame::Plain</enum>
-                          </property>
-                          <property name="lineWidth">
-                           <number>2</number>
-                          </property>
-                          <property name="orientation">
-                           <enum>Qt::Horizontal</enum>
-                          </property>
-                         </widget>
-                         <widget class="Line" name="line_2">
-                          <property name="geometry">
-                           <rect>
-                            <x>550</x>
-                            <y>170</y>
-                            <width>41</width>
-                            <height>181</height>
-                           </rect>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">color: rgb(155, 155, 255);</string>
-                          </property>
-                          <property name="frameShadow">
-                           <enum>QFrame::Plain</enum>
-                          </property>
-                          <property name="lineWidth">
-                           <number>2</number>
-                          </property>
-                          <property name="orientation">
-                           <enum>Qt::Vertical</enum>
-                          </property>
-                         </widget>
-                         <widget class="Line" name="line_1">
-                          <property name="geometry">
-                           <rect>
-                            <x>460</x>
-                            <y>170</y>
-                            <width>41</width>
-                            <height>181</height>
-                           </rect>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">color: rgb(155, 155, 255);</string>
-                          </property>
-                          <property name="frameShadow">
-                           <enum>QFrame::Plain</enum>
-                          </property>
-                          <property name="lineWidth">
-                           <number>2</number>
-                          </property>
-                          <property name="orientation">
-                           <enum>Qt::Vertical</enum>
-                          </property>
-                         </widget>
-                         <widget class="Line" name="line_9">
-                          <property name="geometry">
-                           <rect>
-                            <x>570</x>
-                            <y>426</y>
-                            <width>41</width>
-                            <height>181</height>
-                           </rect>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">color: rgb(155, 155, 255);</string>
-                          </property>
-                          <property name="frameShadow">
-                           <enum>QFrame::Plain</enum>
-                          </property>
-                          <property name="lineWidth">
-                           <number>2</number>
-                          </property>
-                          <property name="orientation">
-                           <enum>Qt::Vertical</enum>
-                          </property>
-                         </widget>
                          <widget class="QComboBox" name="comboBox_11">
                           <property name="geometry">
                            <rect>
-                            <x>32</x>
-                            <y>339</y>
-                            <width>250</width>
-                            <height>30</height>
+                            <x>50</x>
+                            <y>440</y>
+                            <width>210</width>
+                            <height>32</height>
                            </rect>
                           </property>
                           <property name="font">
                            <font>
                             <family>Segoe UI</family>
-                            <pointsize>7</pointsize>
+                            <pointsize>12</pointsize>
                             <weight>50</weight>
                             <italic>false</italic>
                             <bold>false</bold>
                            </font>
                           </property>
+                          <property name="cursor">
+                           <cursorShape>PointingHandCursor</cursorShape>
+                          </property>
+                          <property name="contextMenuPolicy">
+                           <enum>Qt::DefaultContextMenu</enum>
+                          </property>
                           <property name="styleSheet">
-                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 7pt;</string>
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 12pt;</string>
                           </property>
                           <item>
                            <property name="text">
@@ -4807,23 +4617,29 @@ background-repeat: no-repeat;</string>
                          <widget class="QComboBox" name="comboBox_10">
                           <property name="geometry">
                            <rect>
-                            <x>260</x>
-                            <y>610</y>
-                            <width>250</width>
-                            <height>30</height>
+                            <x>320</x>
+                            <y>660</y>
+                            <width>210</width>
+                            <height>32</height>
                            </rect>
                           </property>
                           <property name="font">
                            <font>
                             <family>Segoe UI</family>
-                            <pointsize>7</pointsize>
+                            <pointsize>12</pointsize>
                             <weight>50</weight>
                             <italic>false</italic>
                             <bold>false</bold>
                            </font>
                           </property>
+                          <property name="cursor">
+                           <cursorShape>PointingHandCursor</cursorShape>
+                          </property>
+                          <property name="contextMenuPolicy">
+                           <enum>Qt::DefaultContextMenu</enum>
+                          </property>
                           <property name="styleSheet">
-                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 7pt;</string>
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 12pt;</string>
                           </property>
                           <item>
                            <property name="text">
@@ -4834,23 +4650,29 @@ background-repeat: no-repeat;</string>
                          <widget class="QComboBox" name="comboBox_1">
                           <property name="geometry">
                            <rect>
-                            <x>250</x>
-                            <y>120</y>
-                            <width>250</width>
-                            <height>30</height>
+                            <x>290</x>
+                            <y>110</y>
+                            <width>210</width>
+                            <height>32</height>
                            </rect>
                           </property>
                           <property name="font">
                            <font>
                             <family>Segoe UI</family>
-                            <pointsize>7</pointsize>
+                            <pointsize>12</pointsize>
                             <weight>50</weight>
                             <italic>false</italic>
                             <bold>false</bold>
                            </font>
                           </property>
+                          <property name="cursor">
+                           <cursorShape>PointingHandCursor</cursorShape>
+                          </property>
+                          <property name="contextMenuPolicy">
+                           <enum>Qt::DefaultContextMenu</enum>
+                          </property>
                           <property name="styleSheet">
-                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 7pt;</string>
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 12pt;</string>
                           </property>
                           <item>
                            <property name="text">
@@ -4861,23 +4683,29 @@ background-repeat: no-repeat;</string>
                          <widget class="QComboBox" name="comboBox_12">
                           <property name="geometry">
                            <rect>
-                            <x>550</x>
-                            <y>120</y>
-                            <width>250</width>
-                            <height>30</height>
+                            <x>570</x>
+                            <y>110</y>
+                            <width>210</width>
+                            <height>32</height>
                            </rect>
                           </property>
                           <property name="font">
                            <font>
                             <family>Segoe UI</family>
-                            <pointsize>7</pointsize>
+                            <pointsize>12</pointsize>
                             <weight>50</weight>
                             <italic>false</italic>
                             <bold>false</bold>
                            </font>
                           </property>
+                          <property name="cursor">
+                           <cursorShape>PointingHandCursor</cursorShape>
+                          </property>
+                          <property name="contextMenuPolicy">
+                           <enum>Qt::DefaultContextMenu</enum>
+                          </property>
                           <property name="styleSheet">
-                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 7pt;</string>
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 12pt;</string>
                           </property>
                           <item>
                            <property name="text">
@@ -4888,23 +4716,29 @@ background-repeat: no-repeat;</string>
                          <widget class="QComboBox" name="comboBox_13">
                           <property name="geometry">
                            <rect>
-                            <x>580</x>
-                            <y>612</y>
-                            <width>250</width>
-                            <height>30</height>
+                            <x>550</x>
+                            <y>630</y>
+                            <width>210</width>
+                            <height>32</height>
                            </rect>
                           </property>
                           <property name="font">
                            <font>
                             <family>Segoe UI</family>
-                            <pointsize>7</pointsize>
+                            <pointsize>12</pointsize>
                             <weight>50</weight>
                             <italic>false</italic>
                             <bold>false</bold>
                            </font>
                           </property>
+                          <property name="cursor">
+                           <cursorShape>PointingHandCursor</cursorShape>
+                          </property>
+                          <property name="contextMenuPolicy">
+                           <enum>Qt::DefaultContextMenu</enum>
+                          </property>
                           <property name="styleSheet">
-                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 7pt;</string>
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 12pt;</string>
                           </property>
                           <item>
                            <property name="text">
@@ -4912,48 +4746,32 @@ background-repeat: no-repeat;</string>
                            </property>
                           </item>
                          </widget>
-                         <widget class="Line" name="line_13">
-                          <property name="geometry">
-                           <rect>
-                            <x>370</x>
-                            <y>240</y>
-                            <width>41</width>
-                            <height>91</height>
-                           </rect>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">color: rgb(155, 155, 255);</string>
-                          </property>
-                          <property name="frameShadow">
-                           <enum>QFrame::Plain</enum>
-                          </property>
-                          <property name="lineWidth">
-                           <number>2</number>
-                          </property>
-                          <property name="orientation">
-                           <enum>Qt::Vertical</enum>
-                          </property>
-                         </widget>
                          <widget class="QComboBox" name="comboBox_14">
                           <property name="geometry">
                            <rect>
-                            <x>200</x>
-                            <y>190</y>
-                            <width>250</width>
-                            <height>30</height>
+                            <x>10</x>
+                            <y>310</y>
+                            <width>210</width>
+                            <height>32</height>
                            </rect>
                           </property>
                           <property name="font">
                            <font>
                             <family>Segoe UI</family>
-                            <pointsize>7</pointsize>
+                            <pointsize>12</pointsize>
                             <weight>50</weight>
                             <italic>false</italic>
                             <bold>false</bold>
                            </font>
                           </property>
+                          <property name="cursor">
+                           <cursorShape>PointingHandCursor</cursorShape>
+                          </property>
+                          <property name="contextMenuPolicy">
+                           <enum>Qt::DefaultContextMenu</enum>
+                          </property>
                           <property name="styleSheet">
-                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 7pt;</string>
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 12pt;</string>
                           </property>
                           <item>
                            <property name="text">
@@ -4961,63 +4779,32 @@ background-repeat: no-repeat;</string>
                            </property>
                           </item>
                          </widget>
-                         <widget class="Line" name="line_8">
-                          <property name="geometry">
-                           <rect>
-                            <x>600</x>
-                            <y>390</y>
-                            <width>481</width>
-                            <height>41</height>
-                           </rect>
-                          </property>
-                          <property name="sizePolicy">
-                           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                            <horstretch>0</horstretch>
-                            <verstretch>0</verstretch>
-                           </sizepolicy>
-                          </property>
-                          <property name="toolTipDuration">
-                           <number>-1</number>
-                          </property>
-                          <property name="accessibleDescription">
-                           <string/>
-                          </property>
-                          <property name="layoutDirection">
-                           <enum>Qt::LeftToRight</enum>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">color: rgb(155, 155, 255);</string>
-                          </property>
-                          <property name="frameShadow">
-                           <enum>QFrame::Plain</enum>
-                          </property>
-                          <property name="lineWidth">
-                           <number>2</number>
-                          </property>
-                          <property name="orientation">
-                           <enum>Qt::Horizontal</enum>
-                          </property>
-                         </widget>
                          <widget class="QComboBox" name="comboBox_15">
                           <property name="geometry">
                            <rect>
-                            <x>1080</x>
-                            <y>390</y>
-                            <width>250</width>
-                            <height>30</height>
+                            <x>860</x>
+                            <y>500</y>
+                            <width>210</width>
+                            <height>32</height>
                            </rect>
                           </property>
                           <property name="font">
                            <font>
                             <family>Segoe UI</family>
-                            <pointsize>7</pointsize>
+                            <pointsize>12</pointsize>
                             <weight>50</weight>
                             <italic>false</italic>
                             <bold>false</bold>
                            </font>
                           </property>
+                          <property name="cursor">
+                           <cursorShape>PointingHandCursor</cursorShape>
+                          </property>
+                          <property name="contextMenuPolicy">
+                           <enum>Qt::DefaultContextMenu</enum>
+                          </property>
                           <property name="styleSheet">
-                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 7pt;</string>
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 12pt;</string>
                           </property>
                           <item>
                            <property name="text">
@@ -5025,122 +4812,32 @@ background-repeat: no-repeat;</string>
                            </property>
                           </item>
                          </widget>
-                         <widget class="Line" name="line_10">
-                          <property name="geometry">
-                           <rect>
-                            <x>434</x>
-                            <y>430</y>
-                            <width>41</width>
-                            <height>171</height>
-                           </rect>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">color: rgb(155, 155, 255);</string>
-                          </property>
-                          <property name="frameShadow">
-                           <enum>QFrame::Plain</enum>
-                          </property>
-                          <property name="lineWidth">
-                           <number>2</number>
-                          </property>
-                          <property name="orientation">
-                           <enum>Qt::Vertical</enum>
-                          </property>
-                         </widget>
-                         <widget class="Line" name="line_12">
-                          <property name="geometry">
-                           <rect>
-                            <x>290</x>
-                            <y>267</y>
-                            <width>81</width>
-                            <height>41</height>
-                           </rect>
-                          </property>
-                          <property name="sizePolicy">
-                           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                            <horstretch>0</horstretch>
-                            <verstretch>0</verstretch>
-                           </sizepolicy>
-                          </property>
-                          <property name="toolTipDuration">
-                           <number>-1</number>
-                          </property>
-                          <property name="accessibleDescription">
-                           <string/>
-                          </property>
-                          <property name="layoutDirection">
-                           <enum>Qt::LeftToRight</enum>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">color: rgb(155, 155, 255);</string>
-                          </property>
-                          <property name="frameShadow">
-                           <enum>QFrame::Plain</enum>
-                          </property>
-                          <property name="lineWidth">
-                           <number>2</number>
-                          </property>
-                          <property name="orientation">
-                           <enum>Qt::Horizontal</enum>
-                          </property>
-                         </widget>
-                         <widget class="Line" name="line_4">
-                          <property name="geometry">
-                           <rect>
-                            <x>655</x>
-                            <y>261</y>
-                            <width>151</width>
-                            <height>41</height>
-                           </rect>
-                          </property>
-                          <property name="sizePolicy">
-                           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                            <horstretch>0</horstretch>
-                            <verstretch>0</verstretch>
-                           </sizepolicy>
-                          </property>
-                          <property name="toolTipDuration">
-                           <number>-1</number>
-                          </property>
-                          <property name="accessibleDescription">
-                           <string/>
-                          </property>
-                          <property name="layoutDirection">
-                           <enum>Qt::LeftToRight</enum>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">color: rgb(155, 155, 255);</string>
-                          </property>
-                          <property name="frameShadow">
-                           <enum>QFrame::Plain</enum>
-                          </property>
-                          <property name="lineWidth">
-                           <number>2</number>
-                          </property>
-                          <property name="orientation">
-                           <enum>Qt::Horizontal</enum>
-                          </property>
-                         </widget>
                          <widget class="QComboBox" name="comboBox_16">
                           <property name="geometry">
                            <rect>
-                            <x>38</x>
-                            <y>274</y>
-                            <width>250</width>
-                            <height>30</height>
+                            <x>80</x>
+                            <y>260</y>
+                            <width>210</width>
+                            <height>32</height>
                            </rect>
                           </property>
                           <property name="font">
                            <font>
                             <family>Segoe UI</family>
-                            <pointsize>7</pointsize>
+                            <pointsize>12</pointsize>
                             <weight>50</weight>
                             <italic>false</italic>
                             <bold>false</bold>
                            </font>
                           </property>
+                          <property name="cursor">
+                           <cursorShape>PointingHandCursor</cursorShape>
+                          </property>
+                          <property name="contextMenuPolicy">
+                           <enum>Qt::DefaultContextMenu</enum>
+                          </property>
                           <property name="styleSheet">
-                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 7pt;</string>
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 12pt;</string>
                           </property>
                           <item>
                            <property name="text">
@@ -5151,23 +4848,29 @@ background-repeat: no-repeat;</string>
                          <widget class="QComboBox" name="comboBox_17">
                           <property name="geometry">
                            <rect>
-                            <x>816</x>
-                            <y>260</y>
-                            <width>250</width>
-                            <height>30</height>
+                            <x>820</x>
+                            <y>250</y>
+                            <width>210</width>
+                            <height>32</height>
                            </rect>
                           </property>
                           <property name="font">
                            <font>
                             <family>Segoe UI</family>
-                            <pointsize>7</pointsize>
+                            <pointsize>12</pointsize>
                             <weight>50</weight>
                             <italic>false</italic>
                             <bold>false</bold>
                            </font>
                           </property>
+                          <property name="cursor">
+                           <cursorShape>PointingHandCursor</cursorShape>
+                          </property>
+                          <property name="contextMenuPolicy">
+                           <enum>Qt::DefaultContextMenu</enum>
+                          </property>
                           <property name="styleSheet">
-                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 7pt;</string>
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 12pt;</string>
                           </property>
                           <item>
                            <property name="text">
@@ -5206,6 +4909,287 @@ background-repeat: no-repeat;</string>
                            <string>ENDRE KONTROLLER-KNAPPER</string>
                           </property>
                          </widget>
+                         <widget class="QComboBox" name="comboBox_18">
+                          <property name="geometry">
+                           <rect>
+                            <x>640</x>
+                            <y>30</y>
+                            <width>250</width>
+                            <height>29</height>
+                           </rect>
+                          </property>
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                           </sizepolicy>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Segoe UI</family>
+                            <pointsize>12</pointsize>
+                            <weight>50</weight>
+                            <italic>false</italic>
+                            <bold>false</bold>
+                           </font>
+                          </property>
+                          <property name="cursor">
+                           <cursorShape>PointingHandCursor</cursorShape>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 12pt;</string>
+                          </property>
+                          <item>
+                           <property name="text">
+                            <string>Standard profil</string>
+                           </property>
+                          </item>
+                          <item>
+                           <property name="text">
+                            <string>Egendefinert profil</string>
+                           </property>
+                          </item>
+                         </widget>
+                         <widget class="QPushButton" name="havbunn_btn_2">
+                          <property name="geometry">
+                           <rect>
+                            <x>1090</x>
+                            <y>690</y>
+                            <width>201</width>
+                            <height>41</height>
+                           </rect>
+                          </property>
+                          <property name="minimumSize">
+                           <size>
+                            <width>150</width>
+                            <height>30</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Segoe UI</family>
+                            <pointsize>10</pointsize>
+                            <weight>50</weight>
+                            <italic>false</italic>
+                            <bold>false</bold>
+                           </font>
+                          </property>
+                          <property name="cursor">
+                           <cursorShape>PointingHandCursor</cursorShape>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">background-color: rgb(52, 59, 72); color: white;</string>
+                          </property>
+                          <property name="text">
+                           <string>Lagre</string>
+                          </property>
+                         </widget>
+                         <widget class="QLabel" name="kjoring_title_3">
+                          <property name="geometry">
+                           <rect>
+                            <x>560</x>
+                            <y>20</y>
+                            <width>71</width>
+                            <height>47</height>
+                           </rect>
+                          </property>
+                          <property name="minimumSize">
+                           <size>
+                            <width>0</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Segoe UI</family>
+                            <pointsize>10</pointsize>
+                            <weight>50</weight>
+                            <italic>false</italic>
+                            <bold>false</bold>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">color: #dddddd;</string>
+                          </property>
+                          <property name="text">
+                           <string>Velg profil:</string>
+                          </property>
+                         </widget>
+                         <widget class="QPushButton" name="havbunn_btn_3">
+                          <property name="geometry">
+                           <rect>
+                            <x>920</x>
+                            <y>20</y>
+                            <width>201</width>
+                            <height>41</height>
+                           </rect>
+                          </property>
+                          <property name="minimumSize">
+                           <size>
+                            <width>150</width>
+                            <height>30</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Segoe UI</family>
+                            <pointsize>10</pointsize>
+                            <weight>50</weight>
+                            <italic>false</italic>
+                            <bold>false</bold>
+                           </font>
+                          </property>
+                          <property name="cursor">
+                           <cursorShape>PointingHandCursor</cursorShape>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">background-color: rgb(52, 59, 72); color: white;</string>
+                          </property>
+                          <property name="text">
+                           <string>Lag ny profil</string>
+                          </property>
+                         </widget>
+                         <widget class="QPushButton" name="havbunn_btn_4">
+                          <property name="geometry">
+                           <rect>
+                            <x>920</x>
+                            <y>70</y>
+                            <width>201</width>
+                            <height>41</height>
+                           </rect>
+                          </property>
+                          <property name="minimumSize">
+                           <size>
+                            <width>150</width>
+                            <height>30</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Segoe UI</family>
+                            <pointsize>10</pointsize>
+                            <weight>50</weight>
+                            <italic>false</italic>
+                            <bold>false</bold>
+                           </font>
+                          </property>
+                          <property name="cursor">
+                           <cursorShape>PointingHandCursor</cursorShape>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">background-color: rgb(52, 59, 72); color: white;</string>
+                          </property>
+                          <property name="text">
+                           <string>Reset</string>
+                          </property>
+                         </widget>
+                         <widget class="QLabel" name="label_2">
+                          <property name="geometry">
+                           <rect>
+                            <x>150</x>
+                            <y>70</y>
+                            <width>801</width>
+                            <height>771</height>
+                           </rect>
+                          </property>
+                          <property name="text">
+                           <string/>
+                          </property>
+                          <property name="pixmap">
+                           <pixmap resource="resources.qrc">:/images/images/xbox.png</pixmap>
+                          </property>
+                          <property name="scaledContents">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                         <widget class="QComboBox" name="comboBox_X_btn_2">
+                          <property name="geometry">
+                           <rect>
+                            <x>810</x>
+                            <y>660</y>
+                            <width>210</width>
+                            <height>32</height>
+                           </rect>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Segoe UI</family>
+                            <pointsize>12</pointsize>
+                            <weight>50</weight>
+                            <italic>false</italic>
+                            <bold>false</bold>
+                           </font>
+                          </property>
+                          <property name="cursor">
+                           <cursorShape>PointingHandCursor</cursorShape>
+                          </property>
+                          <property name="contextMenuPolicy">
+                           <enum>Qt::DefaultContextMenu</enum>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 12pt;</string>
+                          </property>
+                          <item>
+                           <property name="text">
+                            <string>---</string>
+                           </property>
+                          </item>
+                         </widget>
+                         <widget class="QComboBox" name="comboBox_2">
+                          <property name="geometry">
+                           <rect>
+                            <x>110</x>
+                            <y>210</y>
+                            <width>210</width>
+                            <height>32</height>
+                           </rect>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Segoe UI</family>
+                            <pointsize>12</pointsize>
+                            <weight>50</weight>
+                            <italic>false</italic>
+                            <bold>false</bold>
+                           </font>
+                          </property>
+                          <property name="cursor">
+                           <cursorShape>PointingHandCursor</cursorShape>
+                          </property>
+                          <property name="contextMenuPolicy">
+                           <enum>Qt::DefaultContextMenu</enum>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 12pt;</string>
+                          </property>
+                          <item>
+                           <property name="text">
+                            <string>---</string>
+                           </property>
+                          </item>
+                         </widget>
+                         <zorder>label_2</zorder>
+                         <zorder>comboBox_A_btn</zorder>
+                         <zorder>comboBox_B_btn</zorder>
+                         <zorder>comboBox_Y_btn</zorder>
+                         <zorder>comboBox_X_btn</zorder>
+                         <zorder>comboBox_11</zorder>
+                         <zorder>comboBox_10</zorder>
+                         <zorder>comboBox_1</zorder>
+                         <zorder>comboBox_12</zorder>
+                         <zorder>comboBox_13</zorder>
+                         <zorder>comboBox_14</zorder>
+                         <zorder>comboBox_15</zorder>
+                         <zorder>comboBox_16</zorder>
+                         <zorder>comboBox_17</zorder>
+                         <zorder>kjoring_title_2</zorder>
+                         <zorder>comboBox_18</zorder>
+                         <zorder>havbunn_btn_2</zorder>
+                         <zorder>kjoring_title_3</zorder>
+                         <zorder>havbunn_btn_3</zorder>
+                         <zorder>havbunn_btn_4</zorder>
+                         <zorder>comboBox_X_btn_2</zorder>
+                         <zorder>comboBox_2</zorder>
                         </widget>
                        </item>
                       </layout>

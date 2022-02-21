@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="images">
+    <file>images/xbox.png</file>
     <file>images/back.png</file>
     <file>images/camera.png</file>
     <file>images/eksempelbilde.png</file>
@@ -13,8 +14,6 @@
     <file>images/trash.png</file>
     <file>images/video.png</file>
     <file>images/xbox360.png</file>
-    <file>images/images/PyDracula.png</file>
-    <file>images/images/PyDracula_vertical.png</file>
   </qresource>
   <qresource prefix="icons">
     <file>images/icons/cil-3d.png</file>
