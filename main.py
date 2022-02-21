@@ -127,6 +127,8 @@ Right_Button = 5
 
 
 def check_camera_command(camera_command):
+    """Checks if the we are turning on image proccesing and locks the camera
+    if needed"""
     lock = [False, False]
     for command in camera_command:
         if "bildebehandlingsmodus" in command[1]:
@@ -137,6 +139,9 @@ def check_camera_command(camera_command):
 
 
 def handle_controller_data(controller_values: dict, camera_tilt, joystick_moves_camera, tilt_lock, camera_commands: list = None) -> list:
+    """Takes inn all the controller data and produces the list of commands
+    to send to the rov"""
+
     packets_to_send = []
     #  X,Y,Z, rotasjon, m.teleskop, m.vri, m.klype + uint8 throttle  ##########
     styredata = []
