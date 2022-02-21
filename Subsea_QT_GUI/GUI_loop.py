@@ -20,7 +20,7 @@ class AnotherWindow(QWidget):
     This "window" is a QWidget. If it has no parent, it
     will appear as a free-floating window as we want.
     """
-    def __init__(self, port, motor_widget: QWidget):
+    def __init__(self, port):
         super().__init__()
         layout = QHBoxLayout()
         self.label = QLabel("Another Window")
@@ -34,7 +34,7 @@ class AnotherWindow(QWidget):
         # self.stream2 = QWebEngineView(self)
         # self.stream2.load(QUrl("http://10.0.0.2:6888/cam.html"))
         layout.addWidget(self.stream1.setMinimumWidth(1000))
-        layout.addWidget(motor_widget)
+        # layout.addWidget(motor_widget)
         # layout.addWidget(self.stream2)
         self.setLayout(layout)
         # self.  .resize(1920,1080)
@@ -83,10 +83,10 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.recieve = threading.Thread(target=self.recieve_and_set_text, daemon=True, args=(self.conn,))
         self.recieve.start()
         # print(f"type of self.widget: {type(self.widget)}")
-        self.w1 = AnotherWindow(6888, self.widget)
+        self.w1 = AnotherWindow(6888)
         self.w1.show()
 
-        self.w2 = AnotherWindow(6889, self.widget)
+        self.w2 = AnotherWindow(6889)
         self.w2.show()
         
     def update_gui(self, data):

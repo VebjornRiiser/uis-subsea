@@ -283,8 +283,8 @@ if __name__ == "__main__":
     # exit(0)
     global start_time_sec
     start_time_sec = time.time()
-    run_gui = False
-    run_get_controllerdata = True
+    run_gui = True
+    run_get_controllerdata = False
     run_network = False
 
     t_watch = Threadwatcher()
