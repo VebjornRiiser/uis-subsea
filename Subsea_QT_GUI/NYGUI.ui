@@ -4449,7 +4449,7 @@ background-repeat: no-repeat;</string>
                          <property name="frameShadow">
                           <enum>QFrame::Raised</enum>
                          </property>
-                         <widget class="QComboBox" name="comboBox_A_btn">
+                         <widget class="QComboBox" name="comboBox_B_btn">
                           <property name="geometry">
                            <rect>
                             <x>820</x>
@@ -4461,7 +4461,7 @@ background-repeat: no-repeat;</string>
                           <property name="font">
                            <font>
                             <family>Segoe UI</family>
-                            <pointsize>12</pointsize>
+                            <pointsize>10</pointsize>
                             <weight>50</weight>
                             <italic>false</italic>
                             <bold>false</bold>
@@ -4474,7 +4474,7 @@ background-repeat: no-repeat;</string>
                            <enum>Qt::DefaultContextMenu</enum>
                           </property>
                           <property name="styleSheet">
-                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 12pt;</string>
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd;</string>
                           </property>
                           <item>
                            <property name="text">
@@ -4482,10 +4482,10 @@ background-repeat: no-repeat;</string>
                            </property>
                           </item>
                          </widget>
-                         <widget class="QComboBox" name="comboBox_B_btn">
+                         <widget class="QComboBox" name="comboBox_X_btn">
                           <property name="geometry">
                            <rect>
-                            <x>840</x>
+                            <x>838</x>
                             <y>430</y>
                             <width>210</width>
                             <height>32</height>
@@ -4494,7 +4494,7 @@ background-repeat: no-repeat;</string>
                           <property name="font">
                            <font>
                             <family>Segoe UI</family>
-                            <pointsize>12</pointsize>
+                            <pointsize>10</pointsize>
                             <weight>50</weight>
                             <italic>false</italic>
                             <bold>false</bold>
@@ -4507,7 +4507,7 @@ background-repeat: no-repeat;</string>
                            <enum>Qt::DefaultContextMenu</enum>
                           </property>
                           <property name="styleSheet">
-                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 12pt;</string>
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd;</string>
                           </property>
                           <item>
                            <property name="text">
@@ -4518,7 +4518,7 @@ background-repeat: no-repeat;</string>
                          <widget class="QComboBox" name="comboBox_Y_btn">
                           <property name="geometry">
                            <rect>
-                            <x>830</x>
+                            <x>828</x>
                             <y>310</y>
                             <width>210</width>
                             <height>32</height>
@@ -4527,7 +4527,7 @@ background-repeat: no-repeat;</string>
                           <property name="font">
                            <font>
                             <family>Segoe UI</family>
-                            <pointsize>12</pointsize>
+                            <pointsize>10</pointsize>
                             <weight>50</weight>
                             <italic>false</italic>
                             <bold>false</bold>
@@ -4540,7 +4540,7 @@ background-repeat: no-repeat;</string>
                            <enum>Qt::DefaultContextMenu</enum>
                           </property>
                           <property name="styleSheet">
-                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 12pt;</string>
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd;</string>
                           </property>
                           <item>
                            <property name="text">
@@ -4548,11 +4548,11 @@ background-repeat: no-repeat;</string>
                            </property>
                           </item>
                          </widget>
-                         <widget class="QComboBox" name="comboBox_X_btn">
+                         <widget class="QComboBox" name="comboBox_RT_btn">
                           <property name="geometry">
                            <rect>
-                            <x>820</x>
-                            <y>200</y>
+                            <x>810</x>
+                            <y>202</y>
                             <width>210</width>
                             <height>32</height>
                            </rect>
@@ -4560,7 +4560,7 @@ background-repeat: no-repeat;</string>
                           <property name="font">
                            <font>
                             <family>Segoe UI</family>
-                            <pointsize>12</pointsize>
+                            <pointsize>10</pointsize>
                             <weight>50</weight>
                             <italic>false</italic>
                             <bold>false</bold>
@@ -4573,27 +4573,27 @@ background-repeat: no-repeat;</string>
                            <enum>Qt::DefaultContextMenu</enum>
                           </property>
                           <property name="styleSheet">
-                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 12pt;</string>
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd;</string>
                           </property>
                           <item>
                            <property name="text">
-                            <string>---</string>
+                            <string>ROV opp/hiv</string>
                            </property>
                           </item>
                          </widget>
-                         <widget class="QComboBox" name="comboBox_11">
+                         <widget class="QComboBox" name="comboBox_left_stick_x">
                           <property name="geometry">
                            <rect>
-                            <x>50</x>
-                            <y>440</y>
-                            <width>210</width>
+                            <x>30</x>
+                            <y>370</y>
+                            <width>241</width>
                             <height>32</height>
                            </rect>
                           </property>
                           <property name="font">
                            <font>
                             <family>Segoe UI</family>
-                            <pointsize>12</pointsize>
+                            <pointsize>10</pointsize>
                             <weight>50</weight>
                             <italic>false</italic>
                             <bold>false</bold>
@@ -4606,7 +4606,7 @@ background-repeat: no-repeat;</string>
                            <enum>Qt::DefaultContextMenu</enum>
                           </property>
                           <property name="styleSheet">
-                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 12pt;</string>
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd;</string>
                           </property>
                           <item>
                            <property name="text">
@@ -4614,11 +4614,11 @@ background-repeat: no-repeat;</string>
                            </property>
                           </item>
                          </widget>
-                         <widget class="QComboBox" name="comboBox_10">
+                         <widget class="QComboBox" name="comboBox_directional_pad_updown">
                           <property name="geometry">
                            <rect>
                             <x>320</x>
-                            <y>660</y>
+                            <y>650</y>
                             <width>210</width>
                             <height>32</height>
                            </rect>
@@ -4626,7 +4626,7 @@ background-repeat: no-repeat;</string>
                           <property name="font">
                            <font>
                             <family>Segoe UI</family>
-                            <pointsize>12</pointsize>
+                            <pointsize>10</pointsize>
                             <weight>50</weight>
                             <italic>false</italic>
                             <bold>false</bold>
@@ -4639,7 +4639,7 @@ background-repeat: no-repeat;</string>
                            <enum>Qt::DefaultContextMenu</enum>
                           </property>
                           <property name="styleSheet">
-                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 12pt;</string>
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd;</string>
                           </property>
                           <item>
                            <property name="text">
@@ -4647,7 +4647,7 @@ background-repeat: no-repeat;</string>
                            </property>
                           </item>
                          </widget>
-                         <widget class="QComboBox" name="comboBox_1">
+                         <widget class="QComboBox" name="comboBox_view_btn">
                           <property name="geometry">
                            <rect>
                             <x>290</x>
@@ -4659,7 +4659,7 @@ background-repeat: no-repeat;</string>
                           <property name="font">
                            <font>
                             <family>Segoe UI</family>
-                            <pointsize>12</pointsize>
+                            <pointsize>10</pointsize>
                             <weight>50</weight>
                             <italic>false</italic>
                             <bold>false</bold>
@@ -4672,7 +4672,7 @@ background-repeat: no-repeat;</string>
                            <enum>Qt::DefaultContextMenu</enum>
                           </property>
                           <property name="styleSheet">
-                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 12pt;</string>
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd;</string>
                           </property>
                           <item>
                            <property name="text">
@@ -4680,7 +4680,7 @@ background-repeat: no-repeat;</string>
                            </property>
                           </item>
                          </widget>
-                         <widget class="QComboBox" name="comboBox_12">
+                         <widget class="QComboBox" name="comboBox_menu_btn">
                           <property name="geometry">
                            <rect>
                             <x>570</x>
@@ -4692,7 +4692,7 @@ background-repeat: no-repeat;</string>
                           <property name="font">
                            <font>
                             <family>Segoe UI</family>
-                            <pointsize>12</pointsize>
+                            <pointsize>10</pointsize>
                             <weight>50</weight>
                             <italic>false</italic>
                             <bold>false</bold>
@@ -4705,7 +4705,7 @@ background-repeat: no-repeat;</string>
                            <enum>Qt::DefaultContextMenu</enum>
                           </property>
                           <property name="styleSheet">
-                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 12pt;</string>
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd;</string>
                           </property>
                           <item>
                            <property name="text">
@@ -4713,7 +4713,7 @@ background-repeat: no-repeat;</string>
                            </property>
                           </item>
                          </widget>
-                         <widget class="QComboBox" name="comboBox_13">
+                         <widget class="QComboBox" name="comboBox_right_stick_y">
                           <property name="geometry">
                            <rect>
                             <x>550</x>
@@ -4725,7 +4725,7 @@ background-repeat: no-repeat;</string>
                           <property name="font">
                            <font>
                             <family>Segoe UI</family>
-                            <pointsize>12</pointsize>
+                            <pointsize>10</pointsize>
                             <weight>50</weight>
                             <italic>false</italic>
                             <bold>false</bold>
@@ -4738,19 +4738,19 @@ background-repeat: no-repeat;</string>
                            <enum>Qt::DefaultContextMenu</enum>
                           </property>
                           <property name="styleSheet">
-                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 12pt;</string>
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd;</string>
                           </property>
                           <item>
                            <property name="text">
-                            <string>Kamera-vipping</string>
+                            <string>Kamera-tilt</string>
                            </property>
                           </item>
                          </widget>
-                         <widget class="QComboBox" name="comboBox_14">
+                         <widget class="QComboBox" name="comboBox_left_stick_y">
                           <property name="geometry">
                            <rect>
                             <x>10</x>
-                            <y>310</y>
+                            <y>309</y>
                             <width>210</width>
                             <height>32</height>
                            </rect>
@@ -4758,7 +4758,7 @@ background-repeat: no-repeat;</string>
                           <property name="font">
                            <font>
                             <family>Segoe UI</family>
-                            <pointsize>12</pointsize>
+                            <pointsize>10</pointsize>
                             <weight>50</weight>
                             <italic>false</italic>
                             <bold>false</bold>
@@ -4771,7 +4771,7 @@ background-repeat: no-repeat;</string>
                            <enum>Qt::DefaultContextMenu</enum>
                           </property>
                           <property name="styleSheet">
-                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 12pt;</string>
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd;</string>
                           </property>
                           <item>
                            <property name="text">
@@ -4779,11 +4779,11 @@ background-repeat: no-repeat;</string>
                            </property>
                           </item>
                          </widget>
-                         <widget class="QComboBox" name="comboBox_15">
+                         <widget class="QComboBox" name="comboBox_right_stick_x">
                           <property name="geometry">
                            <rect>
-                            <x>860</x>
-                            <y>500</y>
+                            <x>830</x>
+                            <y>640</y>
                             <width>210</width>
                             <height>32</height>
                            </rect>
@@ -4791,7 +4791,7 @@ background-repeat: no-repeat;</string>
                           <property name="font">
                            <font>
                             <family>Segoe UI</family>
-                            <pointsize>12</pointsize>
+                            <pointsize>10</pointsize>
                             <weight>50</weight>
                             <italic>false</italic>
                             <bold>false</bold>
@@ -4804,7 +4804,7 @@ background-repeat: no-repeat;</string>
                            <enum>Qt::DefaultContextMenu</enum>
                           </property>
                           <property name="styleSheet">
-                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 12pt;</string>
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd;</string>
                           </property>
                           <item>
                            <property name="text">
@@ -4812,7 +4812,7 @@ background-repeat: no-repeat;</string>
                            </property>
                           </item>
                          </widget>
-                         <widget class="QComboBox" name="comboBox_16">
+                         <widget class="QComboBox" name="comboBox_LB_btn">
                           <property name="geometry">
                            <rect>
                             <x>80</x>
@@ -4824,7 +4824,7 @@ background-repeat: no-repeat;</string>
                           <property name="font">
                            <font>
                             <family>Segoe UI</family>
-                            <pointsize>12</pointsize>
+                            <pointsize>10</pointsize>
                             <weight>50</weight>
                             <italic>false</italic>
                             <bold>false</bold>
@@ -4837,7 +4837,7 @@ background-repeat: no-repeat;</string>
                            <enum>Qt::DefaultContextMenu</enum>
                           </property>
                           <property name="styleSheet">
-                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 12pt;</string>
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd;</string>
                           </property>
                           <item>
                            <property name="text">
@@ -4845,11 +4845,11 @@ background-repeat: no-repeat;</string>
                            </property>
                           </item>
                          </widget>
-                         <widget class="QComboBox" name="comboBox_17">
+                         <widget class="QComboBox" name="comboBox_RB_btn">
                           <property name="geometry">
                            <rect>
-                            <x>820</x>
-                            <y>250</y>
+                            <x>817</x>
+                            <y>251</y>
                             <width>210</width>
                             <height>32</height>
                            </rect>
@@ -4857,7 +4857,7 @@ background-repeat: no-repeat;</string>
                           <property name="font">
                            <font>
                             <family>Segoe UI</family>
-                            <pointsize>12</pointsize>
+                            <pointsize>10</pointsize>
                             <weight>50</weight>
                             <italic>false</italic>
                             <bold>false</bold>
@@ -4870,7 +4870,7 @@ background-repeat: no-repeat;</string>
                            <enum>Qt::DefaultContextMenu</enum>
                           </property>
                           <property name="styleSheet">
-                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 12pt;</string>
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd;</string>
                           </property>
                           <item>
                            <property name="text">
@@ -4909,7 +4909,7 @@ background-repeat: no-repeat;</string>
                            <string>ENDRE KONTROLLER-KNAPPER</string>
                           </property>
                          </widget>
-                         <widget class="QComboBox" name="comboBox_18">
+                         <widget class="QComboBox" name="comboBox_profil">
                           <property name="geometry">
                            <rect>
                             <x>640</x>
@@ -5102,11 +5102,11 @@ background-repeat: no-repeat;</string>
                            <bool>true</bool>
                           </property>
                          </widget>
-                         <widget class="QComboBox" name="comboBox_X_btn_2">
+                         <widget class="QComboBox" name="comboBox_A_btn">
                           <property name="geometry">
                            <rect>
-                            <x>810</x>
-                            <y>660</y>
+                            <x>850</x>
+                            <y>500</y>
                             <width>210</width>
                             <height>32</height>
                            </rect>
@@ -5114,7 +5114,7 @@ background-repeat: no-repeat;</string>
                           <property name="font">
                            <font>
                             <family>Segoe UI</family>
-                            <pointsize>12</pointsize>
+                            <pointsize>10</pointsize>
                             <weight>50</weight>
                             <italic>false</italic>
                             <bold>false</bold>
@@ -5127,7 +5127,7 @@ background-repeat: no-repeat;</string>
                            <enum>Qt::DefaultContextMenu</enum>
                           </property>
                           <property name="styleSheet">
-                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 12pt;</string>
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd;</string>
                           </property>
                           <item>
                            <property name="text">
@@ -5135,7 +5135,7 @@ background-repeat: no-repeat;</string>
                            </property>
                           </item>
                          </widget>
-                         <widget class="QComboBox" name="comboBox_2">
+                         <widget class="QComboBox" name="comboBox_LT_btn">
                           <property name="geometry">
                            <rect>
                             <x>110</x>
@@ -5147,7 +5147,7 @@ background-repeat: no-repeat;</string>
                           <property name="font">
                            <font>
                             <family>Segoe UI</family>
-                            <pointsize>12</pointsize>
+                            <pointsize>10</pointsize>
                             <weight>50</weight>
                             <italic>false</italic>
                             <bold>false</bold>
@@ -5160,36 +5160,138 @@ background-repeat: no-repeat;</string>
                            <enum>Qt::DefaultContextMenu</enum>
                           </property>
                           <property name="styleSheet">
-                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd; font-size: 12pt;</string>
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd;</string>
                           </property>
                           <item>
                            <property name="text">
-                            <string>---</string>
+                            <string>ROV ned/hiv</string>
+                           </property>
+                          </item>
+                         </widget>
+                         <widget class="QComboBox" name="comboBox_right_stick_btn">
+                          <property name="geometry">
+                           <rect>
+                            <x>620</x>
+                            <y>710</y>
+                            <width>251</width>
+                            <height>32</height>
+                           </rect>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Segoe UI</family>
+                            <pointsize>10</pointsize>
+                            <weight>50</weight>
+                            <italic>false</italic>
+                            <bold>false</bold>
+                           </font>
+                          </property>
+                          <property name="cursor">
+                           <cursorShape>PointingHandCursor</cursorShape>
+                          </property>
+                          <property name="contextMenuPolicy">
+                           <enum>Qt::DefaultContextMenu</enum>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd;</string>
+                          </property>
+                          <item>
+                           <property name="text">
+                            <string>Bytt mellom rotasjon/gir og kamera-tilt</string>
+                           </property>
+                          </item>
+                         </widget>
+                         <widget class="QComboBox" name="comboBox_left_stick_btn">
+                          <property name="geometry">
+                           <rect>
+                            <x>270</x>
+                            <y>400</y>
+                            <width>161</width>
+                            <height>32</height>
+                           </rect>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Segoe UI</family>
+                            <pointsize>10</pointsize>
+                            <weight>50</weight>
+                            <italic>false</italic>
+                            <bold>false</bold>
+                           </font>
+                          </property>
+                          <property name="cursor">
+                           <cursorShape>PointingHandCursor</cursorShape>
+                          </property>
+                          <property name="contextMenuPolicy">
+                           <enum>Qt::DefaultContextMenu</enum>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd;</string>
+                          </property>
+                          <item>
+                           <property name="text">
+                            <string>Manipulator av/på</string>
+                           </property>
+                          </item>
+                         </widget>
+                         <widget class="QComboBox" name="comboBox_directional_pad_leftright">
+                          <property name="geometry">
+                           <rect>
+                            <x>60</x>
+                            <y>450</y>
+                            <width>210</width>
+                            <height>32</height>
+                           </rect>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Segoe UI</family>
+                            <pointsize>10</pointsize>
+                            <weight>50</weight>
+                            <italic>false</italic>
+                            <bold>false</bold>
+                           </font>
+                          </property>
+                          <property name="cursor">
+                           <cursorShape>PointingHandCursor</cursorShape>
+                          </property>
+                          <property name="contextMenuPolicy">
+                           <enum>Qt::DefaultContextMenu</enum>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">background-color: rgb(30, 33, 38); color: #dddddd;</string>
+                          </property>
+                          <item>
+                           <property name="text">
+                            <string>Manipulator rotasjon</string>
                            </property>
                           </item>
                          </widget>
                          <zorder>label_2</zorder>
-                         <zorder>comboBox_A_btn</zorder>
                          <zorder>comboBox_B_btn</zorder>
-                         <zorder>comboBox_Y_btn</zorder>
                          <zorder>comboBox_X_btn</zorder>
-                         <zorder>comboBox_11</zorder>
-                         <zorder>comboBox_10</zorder>
-                         <zorder>comboBox_1</zorder>
-                         <zorder>comboBox_12</zorder>
-                         <zorder>comboBox_13</zorder>
-                         <zorder>comboBox_14</zorder>
-                         <zorder>comboBox_15</zorder>
-                         <zorder>comboBox_16</zorder>
-                         <zorder>comboBox_17</zorder>
+                         <zorder>comboBox_Y_btn</zorder>
+                         <zorder>comboBox_RT_btn</zorder>
+                         <zorder>comboBox_left_stick_x</zorder>
+                         <zorder>comboBox_directional_pad_updown</zorder>
+                         <zorder>comboBox_view_btn</zorder>
+                         <zorder>comboBox_menu_btn</zorder>
+                         <zorder>comboBox_right_stick_y</zorder>
+                         <zorder>comboBox_left_stick_y</zorder>
+                         <zorder>comboBox_right_stick_x</zorder>
+                         <zorder>comboBox_LB_btn</zorder>
+                         <zorder>comboBox_RB_btn</zorder>
                          <zorder>kjoring_title_2</zorder>
-                         <zorder>comboBox_18</zorder>
+                         <zorder>comboBox_profil</zorder>
                          <zorder>havbunn_btn_2</zorder>
                          <zorder>kjoring_title_3</zorder>
                          <zorder>havbunn_btn_3</zorder>
                          <zorder>havbunn_btn_4</zorder>
-                         <zorder>comboBox_X_btn_2</zorder>
-                         <zorder>comboBox_2</zorder>
+                         <zorder>comboBox_A_btn</zorder>
+                         <zorder>comboBox_LT_btn</zorder>
+                         <zorder>comboBox_right_stick_btn</zorder>
+                         <zorder>comboBox_left_stick_btn</zorder>
+                         <zorder>comboBox_directional_pad_leftright</zorder>
                         </widget>
                        </item>
                       </layout>
