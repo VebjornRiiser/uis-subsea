@@ -43,7 +43,7 @@ class Controller:
 
     def pack_controller_values(self):
         values = {"joysticks": self.joysticks, "camera_movement": self.joysticks[3],  "buttons": self.buttons, "dpad": self.dpad, "camera_to_control": self.camera_motor, "time_between_updates": self.duration}
-        print(values)
+        # print(values)
         return values
 
     def reset_button(self, event) -> None:
