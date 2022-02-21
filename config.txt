@@ -37,3 +37,5 @@ bruk id, skill ut de id'ene som ikke skal til canbussen og send egne typer pakke
 info som skal ned: 
     skal det til canbus eller kamera?
         hvis canbus: id
+
+{"can": [(0, 99)]}

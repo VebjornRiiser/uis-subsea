@@ -14,18 +14,21 @@ BUTTON_B = 1
 BUTTON_X = 2
 BUTTON_Y = 3
 
+
 def clear_screen():
     pass
     os.system("cls")
 
-class Controller:
-    def __init__(self, connection, t_watch: Threadwatcher, id, joystick_deadzone=7) -> None:
-        self.connection = connection
 
-        self.joystick_deadzone = joystick_deadzone # deadzone in percent
+class Controller:
+    def __init__(self, connection, t_watch: Threadwatcher, id, joystick_deadzone=9) -> None:
+        self.connection = connection
+        self.t_watch = t_watch
+        self.id = id
+        self.joystick_deadzone = joystick_deadzone  # deadzone in percent
         self.buttons = [0]*10
         self.joysticks = [0]*7
-        self.dpad = (0,0)
+        self.dpad = (0, 0)
         self.controller_stop_point = 1.000030518509476
 
         self.camera_motor = 0
@@ -39,7 +42,8 @@ class Controller:
         self.wait_for_controller()
 
     def pack_controller_values(self):
-        values = {"joysticks": self.joysticks, "buttons": self.buttons, "dpad": self.dpad, "camera_to_control": self.camera_motor, "time_between_updates":self.duration}
+        values = {"joysticks": self.joysticks, "camera_movement": self.joysticks[3],  "buttons": self.buttons, "dpad": self.dpad, "camera_to_control": self.camera_motor, "time_between_updates": self.duration}
+        print(values)
         return values
 
     def reset_button(self, event) -> None:
@@ -47,7 +51,7 @@ class Controller:
 
     # wait_for_controller will attempt to connect to the controller until it can find it
     def wait_for_controller(self):
-        while True:    
+        while self.t_watch.should_run(self.id):    
             try:
                 if not self.first_run:
                     pygame.joystick.quit()
@@ -75,25 +79,25 @@ class Controller:
     def normalize_joysticks(self, event):
         # (x-min)/(max-min)
         if event.axis == 1:
-            return -round((2*(event.value--self.controller_stop_point)/(self.controller_stop_point--self.controller_stop_point)-1)*100)
+            return self.deadzone_adjustment(-round((2*(event.value--self.controller_stop_point)/(self.controller_stop_point--self.controller_stop_point)-1)*100))
 
         if event.axis == 3:
-            return -round((2*(event.value--self.controller_stop_point)/(self.controller_stop_point--self.controller_stop_point)-1)*30)
+            return self.deadzone_adjustment(-round((2*(event.value--self.controller_stop_point)/(self.controller_stop_point--self.controller_stop_point)-1)*100))
 
 
         if event.axis == 4:
-            return -round(self.get_new_range(event.value,-self.controller_stop_point, self.controller_stop_point)) # opp og ned på roboten har range fra 0 til 100 og 0 til -100
+            return self.deadzone_adjustment(-round(self.get_new_range(event.value,-self.controller_stop_point, self.controller_stop_point))) # opp og ned på roboten har range fra 0 til 100 og 0 til -100
             # return round((event.value--self.controller_stop_point)/(self.controller_stop_point--self.controller_stop_point)*100)
         if event.axis == 5:
-            return round(self.get_new_range(event.value,-self.controller_stop_point, self.controller_stop_point)) # opp og ned på roboten har range fra 0 til 100 og 0 til -100
+            return self.deadzone_adjustment(round(self.get_new_range(event.value,-self.controller_stop_point, self.controller_stop_point))) # opp og ned på roboten har range fra 0 til 100 og 0 til -100
             # return round((event.value--self.controller_stop_point)/(self.controller_stop_point--self.controller_stop_point)*100)
 
-        return round((2*(event.value--self.controller_stop_point)/(self.controller_stop_point--self.controller_stop_point)-1)*100)
+        return self.deadzone_adjustment(round((2*(event.value--self.controller_stop_point)/(self.controller_stop_point--self.controller_stop_point)-1)*100))
 
         # return round(self.get_new_range(event.value,-self.controller_stop_point, self.controller_stop_point))
 
     def deadzone_adjustment(self, value) -> int:
-        if abs(value) < self.joystick_deadzone:
+        if abs(value) < self.joystick_deadzone+1:
             return 0
         return value
 
@@ -116,8 +120,8 @@ class Controller:
             joystick.rumble(1,1,duration)
             time.sleep((duration+pause_duration)/1000)
 
-    def get_events_loop(self, debug=False, debug_all=False):
-        while True:
+    def get_events_loop(self, t_watch: Threadwatcher, id: int, debug=False, debug_all=False):
+        while t_watch.should_run(id):
             if pygame.joystick.get_count() < 1:
                 self.wait_for_controller()
             self.duration = self.clock.tick(20)
@@ -126,12 +130,14 @@ class Controller:
                 # print("entered event check")
                 if event.type == DPAD: #dpad (both up and down)
                     self.dpad = event.value
+                    # self.dpad = [val*100 for val in event.value]
 
                 if event.type == BUTTON_DOWN: #button down
                     self.buttons[event.button] = 1
 
                     if self.buttons[BUTTON_Y] == 1:
-                        pass
+                        self.camera_motor = (self.camera_motor+1)%2
+                        print(f"Changed camera to control to {self.camera_motor}")
                         # threading.Thread(target=self.lekkasje).start()
 
                     if debug_all:
@@ -161,7 +167,7 @@ class Controller:
                     # print(event.button)
                 if event.type == BUTTON_UP: #button up
                     self.reset_button(event)
-                    
+
                     if debug_all:
                         if event.button == 0:
                             # pygame.joystick.Joystick.stop_rumble()
@@ -220,18 +226,22 @@ class Controller:
                                 print(f"Roboten går ned med {self.normalize_joysticks(event)}% kraft")
                         elif event.axis == 5:
                                 print(f"Roboten går opp med {self.normalize_joysticks(event)}% kraft")
-                if debug and self.connection is not None:
-                    self.connection.send(self.pack_controller_values())
-                elif debug and self.connection is None: 
-                    self.write_controller_values(local=True)
-                    # self.connection.close()            
+            if self.connection is not None:
+                # print("sending to main")
+                self.connection.send(self.pack_controller_values())
+            elif debug and self.connection is None: 
+                self.write_controller_values(local=True)
+        print("closed connection")
+        # self.connection.close()            
 
 
 def run(connection, t_watch: Threadwatcher, id, debug=True, debug_all=False):
+    debug_all = False
     c = Controller(connection, t_watch, id)
-    c.get_events_loop(debug=debug, debug_all=debug_all)
+    c.get_events_loop(t_watch, id, debug=debug, debug_all=debug_all)
 
 if __name__ == "__main__":
+    pass
     # c = Controller(None)
-    run(None, True, False)
+    # run(None, True, False)
     # c.get_events_loop(debug=True, debug_all=False)
