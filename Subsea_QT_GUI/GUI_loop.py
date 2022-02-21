@@ -1,3 +1,4 @@
+from this import d
 from tkinter import Widget
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QLabel, QFileDialog
@@ -90,10 +91,9 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         for btn in self.btn_combobox_list:
             btn.addItems(btn_command_list)
 
-        self.comboBox_7: QComboBox
-        self.comboBox_7.addItems(["test", "test2"])
-        self.comboBox_7.setCurrentIndex(1)
-
+    
+    def set_default_profile(self):
+        pass
 
     def shutdown(self):
         self.t_watch.stop_all_threads()
