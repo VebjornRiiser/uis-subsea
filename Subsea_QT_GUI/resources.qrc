@@ -1,7 +1,7 @@
 <RCC>
   <qresource prefix="images">
-    <file>images/xbox.png</file>
     <file>images/back.png</file>
+    <file>images/xbox.png</file>
     <file>images/camera.png</file>
     <file>images/eksempelbilde.png</file>
     <file>images/information.png</file>

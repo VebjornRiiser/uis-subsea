@@ -1,0 +1,2 @@
+# Run in terminal: source make_resource_file
+pyrcc5 resources.qrc -o resources_rc.py
