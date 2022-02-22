@@ -1,6 +1,7 @@
 from getopt import getopt
 # import multiprocessing
 # from logger import logging
+from os import pipe
 from Subsea_QT_GUI import GUI_loop
 from multiprocessing import Pipe, Process
 from Subsea_QT_GUI import *
@@ -38,7 +39,7 @@ def relay_data_from_controller(connection_controller, t_watch: Threadwatcher, id
 
 def recieve_commands_from_gui(conn, t_watch: Threadwatcher, id):
     while t_watch.should_run(id):
-        conn.recv()
+        print(conn.recv())
     print("t_watch is false")
 
 
@@ -66,8 +67,39 @@ def send_sensordata_to_gui(conn, t_watch: Threadwatcher, id):
         except KeyboardInterrupt:
             t_watch.stop_thread(id)
 
+class Rov_state:
+    def __init__(self) -> None:
+        self.data:dict = {}
+        self.camera_toggle_wait_counter: int = 0
+        self.right_joystick_toggle_wait_counter: int = 0
+        self.camera_tilt: list[float] = [0.0, 0.0]
+        self.camera_tilt_control_active = True
+        self.cam_is_enabled = [True, True]
+        self.camera_tilt_allowed = [True, True]  #[cam 0, cam 1]
+        self.button_function_list = [self.skip, self.toggle_camera, self.skip, self.toggle_camera]
+        self.camera_toggle = True
+        self.camera_command: list[list[int, dict]] = None
 
-def send_data_to_rov(network_handler: Network, t_watch: Threadwatcher, id: int, pipe=None):
+
+    def skip(self):
+        pass
+
+    
+    def toggle_camera(self):
+        self.camera_toggle = not self.camera_toggle
+
+    def tick(self):
+        self.camera_command = None
+        if self.camera_toggle_wait_counter > 0:
+            self.camera_toggle_wait_counter -= 1
+        if self.right_joystick_toggle_wait_counter > 0:
+            self.right_joystick_toggle_wait_counter -= 1
+
+
+
+def send_data_to_rov(network_handler: Network, t_watch: Threadwatcher, id: int, controller_pipe=None):
+
+    rov_state = Rov_state()
 
     # prevents the camera from toggling back again immediately if we hold the button down
     camera_toggle_wait_counter: int = 0
@@ -77,7 +109,7 @@ def send_data_to_rov(network_handler: Network, t_watch: Threadwatcher, id: int, 
 
     camera_tilt = [0.0, 0.0]  # tilt in degrees on the camera motors
 
-    if pipe is None:
+    if controller_pipe is None:
         while t_watch.should_run(id):
             pass
             # network_handler.send(bytes("Hei","utf-8"))
@@ -86,14 +118,19 @@ def send_data_to_rov(network_handler: Network, t_watch: Threadwatcher, id: int, 
         right_joystick_move_camera = True  # locks
         camera_tilt_lock = [False, False]  # locks the camera tilt if the rov is processing images
         while t_watch.should_run(id):
+
+            rov_state.tick()
+
+            
             if camera_toggle_wait_counter > 0:
                 camera_toggle_wait_counter -= 1
             if right_joystick_toggle_wait_counter > 0:
                 right_joystick_toggle_wait_counter -= 1
-            data: dict = pipe.recv()
+
+            rov_state.data = controller_pipe.recv()
             camera_command: list[list[int, dict]] = None
             if data["buttons"][2] and camera_toggle_wait_counter == 0:
-                gui_selct_list[id_fra_gui]()
+                # gui_selct_list[id_fra_gui]()
                 # camera_command = [[200, {"on": True, "bildebehandlingsmodus": 0}]]
                 camera_toggle_wait_counter = 7
                 # camera_command = [[200+data["camera_to_control"], {"on": camera_toggle}], [200, {"on": True, "bildebehandlingsmodus": 0}]]
@@ -277,6 +314,8 @@ def recieve_data_from_rov(network: Network, t_watch: Threadwatcher, id: int):
 def get_args():
     pass
     print(getopt(sys.argv, "n:g:c:", "network=gui=controller="))
+
+
 
 
 if __name__ == "__main__":

@@ -8,22 +8,22 @@ from PyQt5.QtGui import QColor, QIcon, QCursor
 from PyQt5.QtWidgets import QSizeGrip
 from multiprocessing import Pipe, Value
 from Threadwatch import Threadwatcher
-import random
-import time
 import sys
 import threading
 import json
 import os
 import Subsea_QT_GUI.SUBSEAGUI as SUBSEAGUI
 import Subsea_QT_GUI.custom_grips as custom_grips
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QGraphicsDropShadowEffect, QPushButton, QApplication, QComboBox
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QGraphicsDropShadowEffect, QPushButton, QApplication, QComboBox, QDesktopWidget
 from PyQt5.QtCore import QtMsgType, QTimer, QEvent
+from PyQt5.QtCore import Qt
 
 # GLOBALS
 # ///////////////////////////////////////////////////////////////
 GLOBAL_STATE = False
 GLOBAL_TITLE_BAR = True
 
+# os.system('pyuic5 -x NYGUI.ui -o SUBSEAGUI.py')
 os.environ["QT_FONT_DPI"] = "96" # FIX Problem for High DPI and Scale above 100%
 
 class AnotherWindow(QWidget):
@@ -35,20 +35,29 @@ class AnotherWindow(QWidget):
         super().__init__()
         layout = QHBoxLayout()
         self.label = QLabel("Another Window")
-        self.setWindowTitle("Camera 1")
+
+        self.setWindowTitle(f"{'havbunnskamera' if port-6888 == 0 else 'frontkamera'}")
+        self.setWindowIcon(QtGui.QIcon('Subsea_QT_GUI/images/camera.png'))
 
         self.url = f"http://10.0.0.2:{port}/cam.html"
         self.stream1 = QWebEngineView(self)
         self.stream1.setFixedWidth(1920)
-        self.stream1.setFixedHeight(1070)
+        self.stream1.setFixedHeight(1080)
         self.stream1.load(QtCore.QUrl(self.url))
         self.setLayout(layout)
+
+        if len(QtWidgets.QApplication.screens())>2:
+            monitor = QDesktopWidget().screenGeometry(int(f"{port-6887}"))
+            self.move(monitor.left(), monitor.top())
+            self.showFullScreen()
+        else:
+            self.showMaximized()
     
 
 class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     def __init__(self, conn, t_watch: Threadwatcher, id: int, parent=None):
         super().__init__(parent)
-
+        self.setWindowIcon(QtGui.QIcon('Subsea_QT_GUI/images/logo.png'))
         self.conn = conn
         self.t_watch = t_watch
         self.id = id
@@ -119,10 +128,12 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             btn_command_list = [line.strip() for line in btn_config.readlines()]
         for btn in self.btn_combobox_list:
             btn.addItems(btn_command_list)
+            btn.currentIndexChanged.connect(self.send_profile_to_main)
 
-        self.comboBox_B_btn: QComboBox
-        self.comboBox_B_btn.addItems(["test", "test2"])
-        self.comboBox_B_btn.setCurrentIndex(1)
+    
+    def set_default_profile(self):
+        pass
+
 
     # MOUSE CLICK EVENTS
     # ///////////////////////////////////////////////////////////////
@@ -172,12 +183,23 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             self.right_grip.show()
             self.top_grip.show()
             self.bottom_grip.show()
+    def send_profile_to_main(self):
+        self.send_data_to_main([btn.currentIndex() for btn in self.btn_combobox_list])
+
+    def send_data_to_main(self, data):
+        if self.conn is not None:
+            self.conn.send(data)
 
     def shutdown(self):
         self.t_watch.stop_all_threads()
         for window in self.child_window:
             window.close()
         self.close()
+        exit(0)
+
+
+    def button_works(self):
+        print("function activated")
 
 
     def start_camera_windows(self):
@@ -203,6 +225,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             self.spenning.setText(str(round(data["spenning"],4)))
             self.temp_vann.setText(str(round(data["temp_vann"],4)))
 
+
     def recieve_and_set_text(self, conn):
         while self.t_watch.should_run(self.id):
             # print("trying to take out of pipe")
@@ -210,16 +233,19 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             # print(sensordata)
             self.update_gui(sensordata)
         print("recieved close thread. trying to close")
-        # self.close()
+        self.shutdown()
+        exit(0)
         
     def button_test(self):
         # print("Clicked on button")
         self.w1.stream1.load(QtCore.QUrl("http://vg.no"))
         self.w2.stream1.load(QtCore.QUrl("http://vg.no"))
 
+
     def change_current_widget(self, index):
         print(f"should change to widget {index}")
         self.stackedWidget.setCurrentIndex(index)
+
 
     def init_drop_shadow(self):
         # DROP SHADOW
@@ -234,6 +260,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.appMargins.setContentsMargins(10, 10, 10, 10)
 
+
     ## SET VALUES TO DEF progressBarValue
     def setValue(self, slider, labelPercentage, progressBarName, color):
         # GET SLIDER VALUE
@@ -246,6 +273,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         # CALL DEF progressBarValue
         self.progressBarValue(sliderValue, progressBarName, color)
+
 
     ## DEF PROGRESS BAR VALUE
     def progressBarValue(self, value, widget, color):
@@ -286,6 +314,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         # APPLY STYLESHEET WITH NEW VALUES
         widget.setStyleSheet(newStylesheet)
+
 
     def connect_test_values(self):
         # APPLY VALUES TO PROGREESBAR
