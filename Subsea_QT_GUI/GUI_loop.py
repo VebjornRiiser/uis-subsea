@@ -70,6 +70,9 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.kontroller_btn.clicked.connect(lambda: self.change_current_widget(2))
         self.informasjon_btn.clicked.connect(lambda: self.change_current_widget(1))
 
+        # Make new profile btn clicked
+        self.lag_ny_profil_btn.clicked.connect(self.)
+
         # GUI button clicked
         self.manuell_btn.clicked.connect(self.button_test)
 
@@ -77,6 +80,8 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         # ///////////////////////////////////////////////////////////////
         self.titleRightInfo.mouseDoubleClickEvent = self.dobleClickMaximizeRestore
+        self.maximizeRestoreAppBtn.mouseDoubleClickEvent = self.dobleClickMaximizeRestore
+
         self.titleRightInfo.mouseMoveEvent = self.moveWindow
 
         # STANDARD TITLE BAR
@@ -102,7 +107,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         # MINIMIZE
         self.minimizeAppBtn.clicked.connect(self.minimize)
-
+        
         # MAXIMIZE/RESTORE
         self.maximizeRestoreAppBtn.clicked.connect(self.maximize_restore)
 
@@ -130,11 +135,13 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
     def send_profile_to_main(self):
         self.send_data_to_main([btn.currentIndex() for btn in self.btn_combobox_list])
+    
+    def make_new_profile(self):
+        
 
     def send_data_to_main(self, data):
         if self.conn is not None:
             self.conn.send(data)
-
 
     def shutdown(self):
         self.t_watch.stop_all_threads()
@@ -281,10 +288,9 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     def maximize_restore(self):
         global GLOBAL_STATE
         status = GLOBAL_STATE
-        if status == False:
+        if status == True:
+            GLOBAL_STATE = False
             self.showMaximized()
-            GLOBAL_STATE = True
-            self.appMargins.setContentsMargins(0, 0, 0, 0)
             self.maximizeRestoreAppBtn.setToolTip("Restore")
             self.maximizeRestoreAppBtn.setIcon(QIcon(u":/icons/images/icons/icon_restore.png"))
             self.frame_size_grip.hide()
@@ -293,10 +299,9 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             self.top_grip.hide()
             self.bottom_grip.hide()
         else:
-            GLOBAL_STATE = False
+            GLOBAL_STATE = True
             self.showNormal()
             self.resize(self.width()+1, self.height()+1)
-            self.appMargins.setContentsMargins(10, 10, 10, 10)
             self.maximizeRestoreAppBtn.setToolTip("Maximize")
             self.maximizeRestoreAppBtn.setIcon(QIcon(u":/icons/images/icons/icon_maximize.png"))
             self.frame_size_grip.show()
@@ -304,11 +309,10 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             self.right_grip.show()
             self.top_grip.show()
             self.bottom_grip.show()
-            # MOVE WINDOW
+
 
     def dobleClickMaximizeRestore(self, event):
         # IF DOUBLE CLICK CHANGE STATUS
-        print("DOUBLE CLICK")
         if event.type() == QEvent.MouseButtonDblClick:
             QTimer.singleShot(250, lambda: self.maximize_restore())
 
@@ -341,13 +345,13 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     # ///////////////////////////////////////////////////////////////
 
 
-
 def run(conn, t_watch: Threadwatcher, id):
     app = QtWidgets.QApplication(sys.argv)
-    
     win = Window(conn, t_watch, id)
     win.setWindowTitle("UiS Subsea")
-    win.showMaximized() # for windows
+    GLOBAL_STATE = False
+
+    win.maximize_restore() # for windows
     #win.showFullScreen() # for mac
     #win.showMinimized()
     win.show()
