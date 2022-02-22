@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1446</width>
-    <height>881</height>
+    <width>940</width>
+    <height>753</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -1728,13 +1728,11 @@ p, li { white-space: pre-wrap; }
                       <string notr="true">background: transparent;</string>
                      </property>
                      <property name="currentIndex">
-                      <number>2</number>
+                      <number>1</number>
                      </property>
                      <widget class="QWidget" name="home">
                       <property name="styleSheet">
-                       <string notr="true">background-image: url(:/images/logo.png);
-background-position: center;
-background-repeat: no-repeat;</string>
+                       <string notr="true"/>
                       </property>
                      </widget>
                      <widget class="QWidget" name="informasjon">
@@ -1812,7 +1810,7 @@ background-repeat: no-repeat;</string>
                               <rect>
                                <x>0</x>
                                <y>0</y>
-                               <width>1360</width>
+                               <width>1282</width>
                                <height>800</height>
                               </rect>
                              </property>

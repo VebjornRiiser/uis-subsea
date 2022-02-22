@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1446, 881)
+        MainWindow.resize(940, 753)
         MainWindow.setMinimumSize(QtCore.QSize(940, 560))
         self.styleSheet = QtWidgets.QWidget(MainWindow)
         font = QtGui.QFont()
@@ -974,9 +974,7 @@ class Ui_MainWindow(object):
         self.stackedWidget.setStyleSheet("background: transparent;")
         self.stackedWidget.setObjectName("stackedWidget")
         self.home = QtWidgets.QWidget()
-        self.home.setStyleSheet("background-image: url(:/images/logo.png);\n"
-"background-position: center;\n"
-"background-repeat: no-repeat;")
+        self.home.setStyleSheet("")
         self.home.setObjectName("home")
         self.stackedWidget.addWidget(self.home)
         self.informasjon = QtWidgets.QWidget()
@@ -1008,7 +1006,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContent = QtWidgets.QWidget()
-        self.scrollAreaWidgetContent.setGeometry(QtCore.QRect(0, 0, 1360, 800))
+        self.scrollAreaWidgetContent.setGeometry(QtCore.QRect(0, 0, 1282, 800))
         self.scrollAreaWidgetContent.setObjectName("scrollAreaWidgetContent")
         self.horizontalLayout_10 = QtWidgets.QHBoxLayout(self.scrollAreaWidgetContent)
         self.horizontalLayout_10.setContentsMargins(0, 0, 0, 0)
@@ -2603,7 +2601,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.styleSheet)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
