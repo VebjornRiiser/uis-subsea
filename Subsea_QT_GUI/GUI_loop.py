@@ -75,7 +75,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.informasjon_btn.clicked.connect(lambda: self.change_current_widget(1))
 
         # Make new profile btn clicked
-        self.lag_ny_profil_btn.clicked.connect(self.)
+        #self.lag_ny_profil_btn.clicked.connect(self.)
 
         # GUI button clicked
         self.manuell_btn.clicked.connect(self.button_test)

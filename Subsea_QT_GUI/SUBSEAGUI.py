@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'NYGUI.ui'
+# Form implementation generated from reading ui file 'SUBSEAGUI.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.6
 #
@@ -2187,7 +2187,6 @@ class Ui_MainWindow(object):
         self.comboBox_menu_btn.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
         self.comboBox_menu_btn.setStyleSheet("background-color: rgb(30, 33, 38); color: #dddddd;")
         self.comboBox_menu_btn.setObjectName("comboBox_menu_btn")
-        self.comboBox_menu_btn.addItem("")
         self.comboBox_left_stick_btn = QtWidgets.QComboBox(self.frame_2)
         self.comboBox_left_stick_btn.setGeometry(QtCore.QRect(130, 630, 161, 32))
         font = QtGui.QFont()
@@ -2215,7 +2214,6 @@ class Ui_MainWindow(object):
         self.comboBox_B_btn.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
         self.comboBox_B_btn.setStyleSheet("background-color: rgb(30, 33, 38); color: #dddddd;")
         self.comboBox_B_btn.setObjectName("comboBox_B_btn")
-        self.comboBox_B_btn.addItem("")
         self.reset_btn = QtWidgets.QPushButton(self.frame_2)
         self.reset_btn.setGeometry(QtCore.QRect(930, 70, 201, 41))
         self.reset_btn.setMinimumSize(QtCore.QSize(150, 30))
@@ -2242,7 +2240,6 @@ class Ui_MainWindow(object):
         self.comboBox_A_btn.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
         self.comboBox_A_btn.setStyleSheet("background-color: rgb(30, 33, 38); color: #dddddd;")
         self.comboBox_A_btn.setObjectName("comboBox_A_btn")
-        self.comboBox_A_btn.addItem("")
         self.comboBox_LB_btn = QtWidgets.QComboBox(self.frame_2)
         self.comboBox_LB_btn.setGeometry(QtCore.QRect(90, 260, 210, 32))
         font = QtGui.QFont()
@@ -2270,7 +2267,6 @@ class Ui_MainWindow(object):
         self.comboBox_X_btn.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
         self.comboBox_X_btn.setStyleSheet("background-color: rgb(30, 33, 38); color: #dddddd;")
         self.comboBox_X_btn.setObjectName("comboBox_X_btn")
-        self.comboBox_X_btn.addItem("")
         self.comboBox_velg_profil = QtWidgets.QComboBox(self.frame_2)
         self.comboBox_velg_profil.setGeometry(QtCore.QRect(650, 30, 250, 29))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
@@ -2439,7 +2435,6 @@ class Ui_MainWindow(object):
         self.comboBox_view_btn.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
         self.comboBox_view_btn.setStyleSheet("background-color: rgb(30, 33, 38); color: #dddddd;")
         self.comboBox_view_btn.setObjectName("comboBox_view_btn")
-        self.comboBox_view_btn.addItem("")
         self.comboBox_left_stick_y = QtWidgets.QComboBox(self.frame_2)
         self.comboBox_left_stick_y.setGeometry(QtCore.QRect(20, 309, 210, 32))
         font = QtGui.QFont()
@@ -2695,13 +2690,9 @@ class Ui_MainWindow(object):
         self.kontroller_title.setText(_translate("MainWindow", "ENDRE KONTROLLER-KNAPPER"))
         self.comboBox_directional_pad_updown.setItemText(0, _translate("MainWindow", "Manipulator inn/ut"))
         self.comboBox_RT_btn.setItemText(0, _translate("MainWindow", "ROV opp/hiv"))
-        self.comboBox_menu_btn.setItemText(0, _translate("MainWindow", "---"))
         self.comboBox_left_stick_btn.setItemText(0, _translate("MainWindow", "Manipulator av/på"))
-        self.comboBox_B_btn.setItemText(0, _translate("MainWindow", "---"))
         self.reset_btn.setText(_translate("MainWindow", "Reset"))
-        self.comboBox_A_btn.setItemText(0, _translate("MainWindow", "---"))
         self.comboBox_LB_btn.setItemText(0, _translate("MainWindow", "Slippe manipulator"))
-        self.comboBox_X_btn.setItemText(0, _translate("MainWindow", "---"))
         self.comboBox_velg_profil.setItemText(0, _translate("MainWindow", "Standard profil"))
         self.comboBox_velg_profil.setItemText(1, _translate("MainWindow", "Egendefinert profil"))
         self.comboBox_Y_btn.setItemText(0, _translate("MainWindow", "Kamera-toggle"))
@@ -2714,7 +2705,6 @@ class Ui_MainWindow(object):
         self.comboBox_right_stick_x.setItemText(0, _translate("MainWindow", "Rotasjon/gir"))
         self.comboBox_RB_btn.setItemText(0, _translate("MainWindow", "Gripe manipulator"))
         self.comboBox_LT_btn.setItemText(0, _translate("MainWindow", "ROV ned/hiv"))
-        self.comboBox_view_btn.setItemText(0, _translate("MainWindow", "---"))
         self.comboBox_left_stick_y.setItemText(0, _translate("MainWindow", "Jag fremover/bakover"))
         self.comboBox_directional_pad_leftright.setItemText(0, _translate("MainWindow", "Manipulator rotasjon"))
         self.btn_message.setText(_translate("MainWindow", "Message"))
