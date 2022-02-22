@@ -1,3 +1,4 @@
+import multiprocessing
 from tkinter import Widget
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QLabel, QFileDialog
@@ -46,16 +47,18 @@ class AnotherWindow(QWidget):
             self.showFullScreen()
         else:
             self.showMaximized()
-    
+
+PROFILE_UPDATE_ID = 2
+COMMAND_TO_ROV_ID = 3
 
 class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
-    def __init__(self, conn, t_watch: Threadwatcher, id: int, parent=None):
+    def __init__(self, pipe_conn_only_rcv, queue: multiprocessing.Queue, t_watch: Threadwatcher, id: int, parent=None):
         super().__init__(parent)
         self.setWindowIcon(QtGui.QIcon('Subsea_QT_GUI/images/logo.png'))
-        self.conn = conn
+        self.queue = queue
+        self.pipe_conn_only_rcv = pipe_conn_only_rcv
         self.t_watch = t_watch
         self.id = id
-
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.setup_gui_with_folder_change()
         
@@ -85,7 +88,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         self.start_camera_windows()
 
-        self.recieve = threading.Thread(target=self.recieve_and_set_text, daemon=True, args=(self.conn,))
+        self.recieve = threading.Thread(target=self.recieve_and_set_text, daemon=True, args=(self.pipe_conn_only_rcv,))
         self.recieve.start()
         # print(f"type of self.widget: {type(self.widget)}")
 
@@ -103,12 +106,17 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         pass
 
 
-    def send_profile_to_main(self):
-        self.send_data_to_main([btn.currentIndex() for btn in self.btn_combobox_list])
 
-    def send_data_to_main(self, data):
-        if self.conn is not None:
-            self.conn.send(data)
+    def send_command_to_rov(self, command):
+        self.send_data_to_main(command, COMMAND_TO_ROV_ID)
+
+    def send_profile_to_main(self):
+        self.send_data_to_main([btn.currentIndex() for btn in self.btn_combobox_list], PROFILE_UPDATE_ID)
+
+
+    def send_data_to_main(self, data, id):
+        if self.queue is not None:
+            self.queue.put(id, data)
 
     def shutdown(self):
         self.t_watch.stop_all_threads()
@@ -258,10 +266,10 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
 
 
-def run(conn, t_watch: Threadwatcher, id):
+def run(conn, queue_for_rov, t_watch: Threadwatcher, id):
     app = QtWidgets.QApplication(sys.argv)
     
-    win = Window(conn, t_watch, id)
+    win = Window(conn, queue_for_rov, t_watch, id)
     win.setWindowTitle("UiS Subsea")
     win.showMaximized() # for windows
     #win.showFullScreen() # for mac
