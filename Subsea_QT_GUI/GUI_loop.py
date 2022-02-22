@@ -146,6 +146,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.send_data_to_main([btn.currentIndex() for btn in self.btn_combobox_list], PROFILE_UPDATE_ID)
     
     def make_new_profile(self):
+        pass
         
 
     def send_data_to_main(self, data, id):
