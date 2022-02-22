@@ -1,3 +1,4 @@
+import multiprocessing
 from Threadwatch import Threadwatcher
 import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
@@ -21,8 +22,8 @@ def clear_screen():
 
 
 class Controller:
-    def __init__(self, connection, t_watch: Threadwatcher, id, joystick_deadzone=9) -> None:
-        self.connection = connection
+    def __init__(self, queue_to_rov: multiprocessing.Queue, t_watch: Threadwatcher, id, joystick_deadzone=9) -> None:
+        self.queue_to_rov = queue_to_rov
         self.t_watch = t_watch
         self.id = id
         self.joystick_deadzone = joystick_deadzone  # deadzone in percent
@@ -137,7 +138,6 @@ class Controller:
 
                     if self.buttons[BUTTON_Y] == 1:
                         self.camera_motor = (self.camera_motor+1)%2
-                        print(f"Changed camera to control to {self.camera_motor}")
                         # threading.Thread(target=self.lekkasje).start()
 
                     if debug_all:
@@ -226,18 +226,18 @@ class Controller:
                                 print(f"Roboten går ned med {self.normalize_joysticks(event)}% kraft")
                         elif event.axis == 5:
                                 print(f"Roboten går opp med {self.normalize_joysticks(event)}% kraft")
-            if self.connection is not None:
+            if self.queue_to_rov is not None:
                 # print("sending to main")
-                self.connection.send(self.pack_controller_values())
+                self.queue_to_rov.put((1, self.pack_controller_values()))
             elif debug and self.connection is None: 
                 self.write_controller_values(local=True)
         print("closed connection")
         # self.connection.close()            
 
 
-def run(connection, t_watch: Threadwatcher, id, debug=True, debug_all=False):
+def run(queue_to_rov, t_watch: Threadwatcher, id, debug=True, debug_all=False):
     debug_all = False
-    c = Controller(connection, t_watch, id)
+    c = Controller(queue_to_rov, t_watch, id)
     c.get_events_loop(t_watch, id, debug=debug, debug_all=debug_all)
 
 if __name__ == "__main__":

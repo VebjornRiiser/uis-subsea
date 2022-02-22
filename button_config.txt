@@ -1,6 +1,6 @@
 ---
-Kamera-toggle
-Kamera-tilt
+Kamera-toggle-active
+Kamera-tilt-toggle
 Manipulator av/på
 Gripe manipulator
 Slippe manipulator
