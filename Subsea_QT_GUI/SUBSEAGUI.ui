@@ -677,6 +677,9 @@ Button */
           </item>
           <item>
            <widget class="QFrame" name="leftMenuFrame">
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
             <property name="frameShape">
              <enum>QFrame::NoFrame</enum>
             </property>
@@ -1369,6 +1372,9 @@ p, li { white-space: pre-wrap; }
               <height>50</height>
              </size>
             </property>
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
             <property name="frameShape">
              <enum>QFrame::NoFrame</enum>
             </property>
@@ -1446,6 +1452,9 @@ p, li { white-space: pre-wrap; }
                     <italic>false</italic>
                     <bold>false</bold>
                    </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true"/>
                   </property>
                   <property name="text">
                    <string>UiS Subsea</string>
@@ -1646,6 +1655,9 @@ p, li { white-space: pre-wrap; }
           </item>
           <item>
            <widget class="QFrame" name="contentBottom">
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
             <property name="frameShape">
              <enum>QFrame::NoFrame</enum>
             </property>
@@ -4479,8 +4491,8 @@ p, li { white-space: pre-wrap; }
                               <rect>
                                <x>0</x>
                                <y>0</y>
-                               <width>1202</width>
-                               <height>746</height>
+                               <width>1210</width>
+                               <height>754</height>
                               </rect>
                              </property>
                              <widget class="QFrame" name="frame_2">
@@ -4549,6 +4561,9 @@ p, li { white-space: pre-wrap; }
                                </property>
                               </widget>
                               <widget class="QComboBox" name="comboBox_directional_pad_updown">
+                               <property name="enabled">
+                                <bool>false</bool>
+                               </property>
                                <property name="geometry">
                                 <rect>
                                  <x>330</x>
@@ -4829,7 +4844,7 @@ p, li { white-space: pre-wrap; }
                               <widget class="QComboBox" name="comboBox_velg_profil">
                                <property name="geometry">
                                 <rect>
-                                 <x>650</x>
+                                 <x>600</x>
                                  <y>30</y>
                                  <width>250</width>
                                  <height>29</height>
@@ -5004,7 +5019,7 @@ p, li { white-space: pre-wrap; }
                               <widget class="QLabel" name="velg_profil_label">
                                <property name="geometry">
                                 <rect>
-                                 <x>570</x>
+                                 <x>520</x>
                                  <y>20</y>
                                  <width>71</width>
                                  <height>47</height>
@@ -5259,6 +5274,9 @@ p, li { white-space: pre-wrap; }
                                </item>
                               </widget>
                               <widget class="QComboBox" name="comboBox_directional_pad_leftright">
+                               <property name="enabled">
+                                <bool>false</bool>
+                               </property>
                                <property name="geometry">
                                 <rect>
                                  <x>70</x>
@@ -5291,6 +5309,31 @@ p, li { white-space: pre-wrap; }
                                 </property>
                                </item>
                               </widget>
+                              <zorder>make_new_profile_btn</zorder>
+                              <zorder>xbox_image</zorder>
+                              <zorder>kontroller_title</zorder>
+                              <zorder>comboBox_directional_pad_updown</zorder>
+                              <zorder>comboBox_RT_btn</zorder>
+                              <zorder>comboBox_menu_btn</zorder>
+                              <zorder>comboBox_left_stick_btn</zorder>
+                              <zorder>comboBox_B_btn</zorder>
+                              <zorder>reset_btn</zorder>
+                              <zorder>comboBox_A_btn</zorder>
+                              <zorder>comboBox_LB_btn</zorder>
+                              <zorder>comboBox_X_btn</zorder>
+                              <zorder>comboBox_velg_profil</zorder>
+                              <zorder>comboBox_Y_btn</zorder>
+                              <zorder>comboBox_left_stick_x</zorder>
+                              <zorder>save_profile_btn</zorder>
+                              <zorder>velg_profil_label</zorder>
+                              <zorder>comboBox_right_stick_y</zorder>
+                              <zorder>comboBox_right_stick_btn</zorder>
+                              <zorder>comboBox_right_stick_x</zorder>
+                              <zorder>comboBox_RB_btn</zorder>
+                              <zorder>comboBox_LT_btn</zorder>
+                              <zorder>comboBox_view_btn</zorder>
+                              <zorder>comboBox_left_stick_y</zorder>
+                              <zorder>comboBox_directional_pad_leftright</zorder>
                              </widget>
                             </widget>
                            </widget>
@@ -5613,7 +5656,7 @@ p, li { white-space: pre-wrap; }
  </widget>
  <resources>
   <include location="resources.qrc"/>
-  <include location="../../.designer/backup/resources.qrc"/>
+  <include location="resources.qrc"/>
  </resources>
  <connections/>
 </ui>
