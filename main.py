@@ -95,10 +95,11 @@ class Rov_state:
         # Network handler that sends data to rov (and recieves)
         self.network_handler:Network = network_handler
         # self.cam_is_enabled = [True, True]
-        # list of functions that can be triggered by buttons.
-        self.button_function_list = [self.skip, self.update_bildebehandlingsmodus, self.skip, self.toggle_active_camera, self.skip, self.skip, self.skip, self.skip, self.toggle_manipulator_enabled, self.toggle_between_rotation_and_camera_tilt]
+        # list of functions that can be triggered by buttons. # need a function to tell it to grip and release and not do it by button like we do in build manipulator byte
+        # theese functions need to line up their indexes with the line in button_config.txt
+        self.button_function_list = [self.skip, self.toggle_active_camera, self.toggle_between_rotation_and_camera_tilt, self.toggle_manipulator_enabled, self.manipulator_grip, self.manipulator_release, self.update_bildebehandlingsmodus, self.skip]
         #maps a button to a index in button_function_list Can be changed from gui
-        self.button_to_function_map = []
+        self.button_to_function_map = [0, 0, 0, 1, 0, 3, 0, 2, 0, 0]
         self.camera_is_on = [True, True]
         self.camera_command: list[list[int, dict]] = None
         self.joystick_moves_camera = False
@@ -113,6 +114,18 @@ class Rov_state:
     def skip(self):
         pass
         # print("pass was called")
+
+    # bit hacky since we overwrite the actual value of the button
+    def manipulator_grip(self):
+        self.data["buttons"][BUTTON_GRAB] = 1
+        print("grip")
+
+
+    # bit hacky since we overwrite the actual value of the button
+    def manipulator_release(self):
+        self.data["buttons"][BUTTON_GRAB] = 1
+        print("release")
+
 
 
     def toggle_manipulator_enabled(self):
@@ -161,7 +174,7 @@ class Rov_state:
             return
         for index, button in enumerate(buttons):
             if button: # is pressed
-                self.button_function_list[index]()
+                self.button_function_list[self.button_to_function_map[index]]()
                 # print(f"button with {index = } is pressed")
 
     
@@ -175,12 +188,13 @@ class Rov_state:
 
     def get_from_queue(self):
         id, packet = self.queue.get()
-        if id == 1:
+        if id == 1: # controller data update
             self.data = packet
-        elif id == 2:
-            print("function not implemented in main")
+        elif id == GUI_loop.PROFILE_UPDATE_ID:
+            print("Updated profile")
             print(id, packet)
-        elif id == 3:
+            self.button_to_function_map = packet
+        elif id == GUI_loop.COMMAND_TO_ROV_ID:
             print("function not implemented in main")
             print(id, packet)
 
@@ -188,7 +202,7 @@ class Rov_state:
     def send_packets(self):
         if self.network_handler is None:
             # print(self.packets_to_send)
-            print(self.data["dpad"])
+            # print(self.data["buttons"])
             self.packets_to_send = []
             return
         self.network_handler.send(network_format(self.packets_to_send))
@@ -203,13 +217,16 @@ class Rov_state:
     def update_camera_tilt(self):
         # print("camera tilt update func")
         if self.camera_tilt_control_active and self.camera_tilt_allowed[self.active_camera]:
-            if abs(self.data.get('camera_movement')) > 0:
+            camera_movement = self.data.get('camera_movement')
+            if camera_movement is None:
+                return
+            if abs(camera_movement) > 0:
                 old_tilt = self.camera_tilt[self.active_camera]
                 # print(f"{self.data.get('camera_movement')}")
                 tilt_time_sec = 2  # time in seconds for the camera to move from one side to the other
                 total_degrees = 80
                 tilt_per_ms = total_degrees/(tilt_time_sec*1000)
-                self.camera_tilt[self.active_camera] += (self.data["camera_movement"]/100)*self.data["time_between_updates"]*tilt_per_ms
+                self.camera_tilt[self.active_camera] += (camera_movement/100)*self.data["time_between_updates"]*tilt_per_ms
                 if self.camera_tilt[self.active_camera] > total_degrees/2:
                     self.camera_tilt[self.active_camera] = total_degrees/2
 
@@ -281,8 +298,9 @@ def send_data_to_rov(network_handler: Network, t_watch: Threadwatcher, id: int, 
 
         rov_state.tick()
 
-        
         rov_state.get_from_queue()
+        if rov_state.data == {}:
+            continue
         rov_state.check_controls()
         rov_state.send_packets()
 
@@ -389,7 +407,7 @@ if __name__ == "__main__":
     global start_time_sec
     start_time_sec = time.time()
     run_gui = True
-    run_get_controllerdata = False
+    run_get_controllerdata = True
     run_network = False
     
     queue_for_rov = multiprocessing.Queue()
