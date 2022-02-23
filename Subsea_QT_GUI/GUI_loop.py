@@ -170,9 +170,9 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
     def browse_files(self):
         # Skal laste inn ny profil når man velger en egendefinert profil i comboboxen
-        fname = QFileDialog.getOpenFileName(self, 'Open file', 'uis-subsea')
-        if len(fname):
-            print(fname)
+        fname = QFileDialog.getSaveFileName(self, 'Save file', 'Custom-profile')
+        if len(fname[0]):
+            print(fname[0])
             #self.filename.setText(fname) # for å vise fram filepath
         
 
