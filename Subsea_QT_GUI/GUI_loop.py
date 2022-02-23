@@ -74,8 +74,15 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.kontroller_btn.clicked.connect(lambda: self.change_current_widget(2))
         self.informasjon_btn.clicked.connect(lambda: self.change_current_widget(1))
 
-        # Make new profile btn clicked
-        #self.lag_ny_profil_btn.clicked.connect(self.)
+        # "Lag ny profil"-button clicked
+        self.make_new_profile_btn.clicked.connect(self.browse_files)
+        #self.make_new_profile_btn.clicked.connect(self.make_new_profile)
+
+        # "Reset"-button clicked
+        self.reset_btn.clicked.connect(self.reset_profile)
+
+        # "Lagre"-button clicked
+        self.save_profile_btn.clicked.connect(self.save_profile)
 
         # GUI button clicked
         self.manuell_btn.clicked.connect(self.button_test)
@@ -120,7 +127,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         # ///////////////////////////////////////////////////////////////
 
         self.connect_test_values()
-        self.start_camera_windows()
+        #self.start_camera_windows()
 
         self.recieve = threading.Thread(target=self.recieve_and_set_text, daemon=True, args=(self.pipe_conn_only_rcv,))
         self.recieve.start()
@@ -137,18 +144,39 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     def set_default_profile(self):
         pass
 
-
-
     def send_command_to_rov(self, command):
         self.send_data_to_main(command, COMMAND_TO_ROV_ID)
 
     def send_profile_to_main(self):
         self.send_data_to_main([btn.currentIndex() for btn in self.btn_combobox_list], PROFILE_UPDATE_ID)
     
+
     def make_new_profile(self):
+        # Trykker på "Lag ny profil"
+        # Skal oppgi navn på profilen og lagre en fil med det som er valgt i comboboxen
         pass
+
+    def reset_profile(self):
+        # Trykker på "Reset"
+        # Skal endre combobox-valgene til standard profil
+        # Må ha en 'standard_profil.txt' som skal lastes inn
+        pass
+
+    def save_profile(self):
+        # Det er allerede laget en fil.
+        # (ellers kan det komme opp: "Du har ikke gjort noen endring")
+        # Skal lagre endringene gjort i comboboxen til denne filen når man trykker på "Lagre"
+        pass
+
+    def browse_files(self):
+        # Skal laste inn ny profil når man velger en egendefinert profil i comboboxen
+        fname = QFileDialog.getOpenFileName(self, 'Open file', 'uis-subsea')
+        if len(fname):
+            print(fname)
+            #self.filename.setText(fname) # for å vise fram filepath
         
 
+        
     def send_data_to_main(self, data, id):
         if self.queue is not None:
             self.queue.put(id, data)
