@@ -74,6 +74,16 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.kontroller_btn.clicked.connect(lambda: self.change_current_widget(2))
         self.informasjon_btn.clicked.connect(lambda: self.change_current_widget(1))
 
+        # "Lag ny profil"-button clicked
+        self.make_new_profile_btn.clicked.connect(self.browse_files)
+        #self.make_new_profile_btn.clicked.connect(self.make_new_profile)
+
+        # "Reset"-button clicked
+        self.reset_btn.clicked.connect(self.reset_profile)
+
+        # "Lagre"-button clicked
+        self.save_profile_btn.clicked.connect(self.save_profile)
+
         # GUI button clicked
         self.manuell_btn.clicked.connect(self.button_test)
 
@@ -81,6 +91,8 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         # ///////////////////////////////////////////////////////////////
         self.titleRightInfo.mouseDoubleClickEvent = self.dobleClickMaximizeRestore
+        self.maximizeRestoreAppBtn.mouseDoubleClickEvent = self.dobleClickMaximizeRestore
+
         self.titleRightInfo.mouseMoveEvent = self.moveWindow
 
         # STANDARD TITLE BAR
@@ -106,7 +118,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         # MINIMIZE
         self.minimizeAppBtn.clicked.connect(self.minimize)
-
+        
         # MAXIMIZE/RESTORE
         self.maximizeRestoreAppBtn.clicked.connect(self.maximize_restore)
 
@@ -115,7 +127,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         # ///////////////////////////////////////////////////////////////
 
         self.connect_test_values()
-        self.start_camera_windows()
+        #self.start_camera_windows()
 
         self.recieve = threading.Thread(target=self.recieve_and_set_text, daemon=True, args=(self.pipe_conn_only_rcv,))
         self.recieve.start()
@@ -133,19 +145,42 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     def set_default_profile(self):
         pass
 
-
-
     def send_command_to_rov(self, command):
         self.send_data_to_main(command, COMMAND_TO_ROV_ID)
 
     def send_profile_to_main(self):
         self.send_data_to_main([btn.currentIndex() for btn in self.btn_combobox_list], PROFILE_UPDATE_ID)
+    
 
+    def make_new_profile(self):
+        # Trykker på "Lag ny profil"
+        # Skal oppgi navn på profilen og lagre en fil med det som er valgt i comboboxen
+        pass
 
+    def reset_profile(self):
+        # Trykker på "Reset"
+        # Skal endre combobox-valgene til standard profil
+        # Må ha en 'standard_profil.txt' som skal lastes inn
+        pass
+
+    def save_profile(self):
+        # Det er allerede laget en fil.
+        # (ellers kan det komme opp: "Du har ikke gjort noen endring")
+        # Skal lagre endringene gjort i comboboxen til denne filen når man trykker på "Lagre"
+        pass
+
+    def browse_files(self):
+        # Skal laste inn ny profil når man velger en egendefinert profil i comboboxen
+        fname = QFileDialog.getOpenFileName(self, 'Open file', 'uis-subsea')
+        if len(fname):
+            print(fname)
+            #self.filename.setText(fname) # for å vise fram filepath
+        
+
+        
     def send_data_to_main(self, data, id):
         if self.queue is not None:
             self.queue.put([id, data])
-
 
     def shutdown(self):
         self.t_watch.stop_all_threads()
@@ -292,10 +327,9 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     def maximize_restore(self):
         global GLOBAL_STATE
         status = GLOBAL_STATE
-        if status == False:
+        if status == True:
+            GLOBAL_STATE = False
             self.showMaximized()
-            GLOBAL_STATE = True
-            self.appMargins.setContentsMargins(0, 0, 0, 0)
             self.maximizeRestoreAppBtn.setToolTip("Restore")
             self.maximizeRestoreAppBtn.setIcon(QIcon(u":/icons/images/icons/icon_restore.png"))
             self.frame_size_grip.hide()
@@ -304,10 +338,9 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             self.top_grip.hide()
             self.bottom_grip.hide()
         else:
-            GLOBAL_STATE = False
+            GLOBAL_STATE = True
             self.showNormal()
             self.resize(self.width()+1, self.height()+1)
-            self.appMargins.setContentsMargins(10, 10, 10, 10)
             self.maximizeRestoreAppBtn.setToolTip("Maximize")
             self.maximizeRestoreAppBtn.setIcon(QIcon(u":/icons/images/icons/icon_maximize.png"))
             self.frame_size_grip.show()
@@ -315,11 +348,10 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             self.right_grip.show()
             self.top_grip.show()
             self.bottom_grip.show()
-            # MOVE WINDOW
+
 
     def dobleClickMaximizeRestore(self, event):
         # IF DOUBLE CLICK CHANGE STATUS
-        print("DOUBLE CLICK")
         if event.type() == QEvent.MouseButtonDblClick:
             QTimer.singleShot(250, lambda: self.maximize_restore())
 
@@ -358,7 +390,9 @@ def run(conn, queue_for_rov, t_watch: Threadwatcher, id):
     
     win = Window(conn, queue_for_rov, t_watch, id)
     win.setWindowTitle("UiS Subsea")
-    win.showMaximized() # for windows
+    GLOBAL_STATE = False
+
+    win.maximize_restore() # for windows
     #win.showFullScreen() # for mac
     #win.showMinimized()
     win.show()
