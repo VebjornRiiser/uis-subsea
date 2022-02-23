@@ -123,9 +123,10 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         self.btn_combobox_list:list[QComboBox] = [self.comboBox_A_btn, self.comboBox_B_btn, self.comboBox_X_btn, self.comboBox_Y_btn, self.comboBox_RB_btn, self.comboBox_LB_btn, self.comboBox_left_stick_btn, self.comboBox_right_stick_btn, self.comboBox_view_btn, self.comboBox_menu_btn]
         btn_command_list:list[str] = []
-        with open("button_config.txt") as btn_config:
+        with open("button_config.txt", 'r', encoding="utf-8") as btn_config:
             btn_command_list = [line.strip() for line in btn_config.readlines()]
         for btn in self.btn_combobox_list:
+            print(btn.clear())
             btn.addItems(btn_command_list)
             btn.currentIndexChanged.connect(self.send_profile_to_main)
     
@@ -143,7 +144,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
     def send_data_to_main(self, data, id):
         if self.queue is not None:
-            self.queue.put(id, data)
+            self.queue.put([id, data])
 
 
     def shutdown(self):

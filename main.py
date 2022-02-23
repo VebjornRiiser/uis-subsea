@@ -188,7 +188,7 @@ class Rov_state:
     def send_packets(self):
         if self.network_handler is None:
             # print(self.packets_to_send)
-            print(self.data["buttons"])
+            print(self.data["dpad"])
             self.packets_to_send = []
             return
         self.network_handler.send(network_format(self.packets_to_send))
@@ -388,13 +388,14 @@ if __name__ == "__main__":
     # exit(0)
     global start_time_sec
     start_time_sec = time.time()
-    run_gui = False
+    run_gui = True
     run_get_controllerdata = True
     run_network = False
     
     queue_for_rov = multiprocessing.Queue()
 
     t_watch = Threadwatcher()
+
     if run_gui:
         id = t_watch.add_thread()
         gui_parent_pipe, gui_child_pipe = Pipe() # starts the gui program. gui_parent_pipe should get the sensor data
