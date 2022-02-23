@@ -24,6 +24,11 @@ GLOBAL_TITLE_BAR = True
 # os.system('pyuic5 -x NYGUI.ui -o SUBSEAGUI.py')
 os.environ["QT_FONT_DPI"] = "96" # FIX Problem for High DPI and Scale above 100%
 
+global_style = """QComboBox {
+
+}
+"""
+
 class AnotherWindow(QWidget):
     """
     This "window" is a QWidget. If it has no parent, it
@@ -75,14 +80,15 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.informasjon_btn.clicked.connect(lambda: self.change_current_widget(1))
 
         # "Lag ny profil"-button clicked
-        self.make_new_profile_btn.clicked.connect(self.browse_files)
+        self.make_new_profile_btn.clicked.connect(self.make_new_profile)
         #self.make_new_profile_btn.clicked.connect(self.make_new_profile)
 
         # "Reset"-button clicked
-        self.reset_btn.clicked.connect(self.reset_profile)
+        self.reset_btn.clicked.connect(self.set_default_profile)
 
         # "Lagre"-button clicked
-        self.save_profile_btn.clicked.connect(self.save_profile)
+        self.save_profile_btn.clicked.connect(lambda: self.save_profile())
+        self.save_profile_btn.setEnabled(False)
 
         # GUI button clicked
         self.manuell_btn.clicked.connect(self.button_test)
@@ -128,32 +134,68 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.recieve = threading.Thread(target=self.recieve_and_set_text, daemon=True, args=(self.pipe_conn_only_rcv,))
         self.recieve.start()
         # print(f"type of self.widget: {type(self.widget)}")
-
-        self.btn_combobox_list:list[QComboBox] = [self.comboBox_A_btn, self.comboBox_B_btn, self.comboBox_X_btn, self.comboBox_Y_btn, self.comboBox_RB_btn, self.comboBox_LB_btn, self.comboBox_left_stick_btn, self.comboBox_right_stick_btn, self.comboBox_view_btn, self.comboBox_menu_btn]
+        # these need to match up with the indexes of the buttons on the controller
+        self.btn_combobox_list:list[QComboBox] = [self.comboBox_A_btn, self.comboBox_B_btn, self.comboBox_X_btn, self.comboBox_Y_btn, self.comboBox_LB_btn, self.comboBox_RB_btn, self.comboBox_view_btn, self.comboBox_menu_btn, self.comboBox_left_stick_btn, self.comboBox_right_stick_btn]
         btn_command_list:list[str] = []
-        with open("button_config.txt") as btn_config:
+        with open("button_config.txt", 'r', encoding="utf-8") as btn_config:
             btn_command_list = [line.strip() for line in btn_config.readlines()]
         for btn in self.btn_combobox_list:
-            btn.addItems(btn_command_list)
-            btn.currentIndexChanged.connect(self.send_profile_to_main)
+            btn:QComboBox
+            btn.clear()  # removes the options already in the combobox
+            btn.addItems(btn_command_list) # adds the possible commands
+            btn.currentIndexChanged.connect(self.updated_profile_settings)
 
+        self.set_default_profile()
+        self.send_profile_to_main()
+    
         self.setStyle(QStyleFactory.create('Windows'))
         self.comboBox_Y_btn.setStyle(QStyleFactory.create('Windows'))
-    
+        
     def set_default_profile(self):
-        pass
+        """Sets the current profile back to the default one"""
+        profiledata = ""
+        with open("Standard profil.userprofile", 'r', encoding="utf-8") as standard_profile:
+            profiledata = standard_profile.readlines()
+        if len(profiledata) == 0:
+            raise Exception("Error! could not get default userprofile!")
+            # [0, 0, 0, 1, 0, 3, 0, 2, 0, 0] default profile
+        options = json.loads(profiledata[0])
+        for index, combobox in enumerate(self.btn_combobox_list):
+            combobox.setCurrentIndex(options[index])
+        self.save_profile_btn.setEnabled(False)
+
+
+
+    def set_active_profile_in_combobox(self, name):
+        self.comboBox_velg_profil.setCurrentIndex(self.comboBox_velg_profil.findText(name))
 
     def send_command_to_rov(self, command):
+        """Sends at command to the rov eg. turn on lights at 60% power"""
         self.send_data_to_main(command, COMMAND_TO_ROV_ID)
 
+    def updated_profile_settings(self):
+        self.save_profile_btn: QPushButton
+        self.save_profile_btn.setEnabled(True)
+        self.send_profile_to_main()
+
     def send_profile_to_main(self):
-        self.send_data_to_main([btn.currentIndex() for btn in self.btn_combobox_list], PROFILE_UPDATE_ID)
-    
+        self.send_data_to_main([btn.currentIndex() for btn in self.btn_combobox_list], PROFILE_UPDATE_ID)    
+
 
     def make_new_profile(self):
-        # Trykker på "Lag ny profil"
-        # Skal oppgi navn på profilen og lagre en fil med det som er valgt i comboboxen
-        pass
+        """Trykker på "Lag ny profil"
+        Skal oppgi navn på profilen og lagre en fil med det som er valgt i comboboxen"""
+        print("make new profile called")
+        fname = QFileDialog.getSaveFileName(self, 'Open file', 'Custom-profile')
+        if fname[0] != "":
+            print("inside make new profile. fname "+ fname[0].split("/")[-1])
+            self.save_profile(name=fname[0].split("/")[-1])
+            self.update_current_profiles()
+            self.set_active_profile_in_combobox(fname[0].split('/')[-1])
+            self.save_profile_btn.setEnabled(False) # we have now saved so there is no need to save again before changes
+
+        else:
+            print(f"Fname[0] is empty: {fname[0]}")
 
     def reset_profile(self):
         # Trykker på "Reset"
@@ -161,35 +203,58 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         # Må ha en 'standard_profil.txt' som skal lastes inn
         pass
 
-    def save_profile(self):
-        # Det er allerede laget en fil.
-        # (ellers kan det komme opp: "Du har ikke gjort noen endring")
-        # Skal lagre endringene gjort i comboboxen til denne filen når man trykker på "Lagre"
-        pass
+    def save_profile(self, name=None):
+        """Det er allerede laget en fil.
+        (ellers kan det komme opp: "Du har ikke gjort noen endring")
+        Skal lagre endringene gjort i comboboxen til denne filen når man trykker på "Lagre"""
+        self.comboBox_velg_profil: QComboBox
+        print(f"at line 195. {self.comboBox_velg_profil.currentIndex() = }")
+        if self.comboBox_velg_profil.currentIndex() == 0 and name is None: # Standard profile so we need to create a new one instead of changing it
+            print("save profile calls make new profile")
+            self.make_new_profile()
+        else:
+            print("currentindex in saveprofile was not 0")
+            if name is None:
+                name = self.comboBox_velg_profil.setCurrentText()
+            print(f"{name = }")
+            with open(name+".userprofile", 'w', encoding="utf-8") as profile:
+                profile.write(json.dumps([btn.currentIndex() for btn in self.btn_combobox_list]))
+
 
     def browse_files(self):
-        # RESET-KNAPP
-        # Skal laste inn ny profil når man velger en egendefinert profil i comboboxen
-        #fname = QFileDialog.getSaveFileName(self, 'Save file', 'Custom-profile')
-        #if len(fname[0]):
-        #    print(fname[0])
-            #self.filename.setText(fname) # for å vise fram filepath
+        pass
+        """Skal laste inn ny profil når man velger en egendefinert profil i comboboxen"""
+        fname = QFileDialog.getOpenFileName(self, 'Open file', 'Custom-profile')
+        if len(fname):
+            print(fname)
+            with open(fname[0], 'r', encoding="utf-8") as profile:
+                profile.readlines()
+            self.filename.setText(fname) # for å vise fram filepath
+        self.save_profile()
+
+    
+    def update_current_profiles(self):
+        file_list = os.listdir()
+        self.comboBox_velg_profil.clear()
+        self.comboBox_velg_profil.addItem("Standard profil")
+        # print(file_list)
+        # QFileDialog.selectedNameFilter()
+        self.comboBox_velg_profil.addItems([file.split(".userprofile")[0] for file in file_list if file.endswith(".userprofile")])
+        # self.comboBox_velg_profil:QComboBox
+        # [self.comboBox_velg_profil.itemText(index))
+        print("updated profiles")
+
+    def messagebox_popup(self):
+        # Popup for reset-button
         msg = QMessageBox()
         msg.setWindowTitle("Melding")
         msg.setText("Profilen er satt til standard")
         msg.setIcon(QMessageBox.Warning)
         x = msg.exec_()
-
-
-
-        
-
-        
-
         
     def send_data_to_main(self, data, id):
         if self.queue is not None:
-            self.queue.put(id, data)
+            self.queue.put([id, data])
 
     def shutdown(self):
         self.t_watch.stop_all_threads()
@@ -215,6 +280,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         os.chdir("Subsea_QT_GUI")
         self.setupUi(self)
         os.chdir("..")
+        self.update_current_profiles()
 
     def update_gui(self, data):
         if self.t_watch.should_run(self.id):
@@ -235,8 +301,10 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         
     def button_test(self):
         # print("Clicked on button")
-        self.w1.stream1.load(QtCore.QUrl("http://vg.no"))
-        self.w2.stream1.load(QtCore.QUrl("http://vg.no"))
+        print(f"{self.comboBox_velg_profil.findText('Standard profil') = }")
+
+        # self.w1.stream1.load(QtCore.QUrl("http://vg.no"))
+        # self.w2.stream1.load(QtCore.QUrl("http://vg.no"))
 
     def change_current_widget(self, index):
         print(f"should change to widget {index}")
@@ -373,6 +441,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             QTimer.singleShot(250, lambda: self.maximize_restore())
 
     def moveWindow(self, event):
+        # print("MOVE WINDOW")
         # IF MAXIMIZED CHANGE TO NORMAL
         if self.returnStatus():
             self.maximize_restore()
