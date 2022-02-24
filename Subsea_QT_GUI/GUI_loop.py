@@ -86,7 +86,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         #self.make_new_profile_btn.clicked.connect(self.make_new_profile)
 
         # "Reset"-button clicked
-        self.reset_btn.clicked.connect(self.set_default_profile)
+        self.reset_btn.clicked.connect(self.reset_profile)
 
         # "Lagre"-button clicked
         self.save_profile_btn.clicked.connect(lambda: self.save_profile())
@@ -157,20 +157,46 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     
         self.setStyle(QStyleFactory.create('Windows'))
         self.comboBox_Y_btn.setStyle(QStyleFactory.create('Windows'))
+        self.comboBox_velg_profil.currentIndexChanged.connect(self.load_selected_profile)
         
     def set_default_profile(self):
         """Sets the current profile back to the default one"""
-        profiledata = ""
-        with open("Standard profil.userprofile", 'r', encoding="utf-8") as standard_profile:
-            profiledata = standard_profile.readlines()
-        if len(profiledata) == 0:
-            raise Exception("Error! could not get default userprofile!")
-            # [0, 0, 0, 1, 0, 3, 0, 2, 0, 0] default profile
-        options = json.loads(profiledata[0])
+        # profiledata = ""
+        # with open("Standard profil.userprofile", 'r', encoding="utf-8") as standard_profile:
+        #     profiledata = standard_profile.readlines()
+        # if len(profiledata) == 0:
+        #     raise Exception("Error! could not get default userprofile!")
+        #     # [0, 0, 0, 1, 0, 3, 0, 2, 0, 0] default profile
+        # options = json.loads(profiledata[0])
+
+        options = self.get_profile_from_file("Standard profil.userprofile")
+
         for index, combobox in enumerate(self.btn_combobox_list):
             combobox.setCurrentIndex(options[index])
         self.save_profile_btn.setEnabled(False)
+        self.set_active_profile_in_combobox("Standard profil")
 
+    def load_selected_profile(self) -> None:
+        """loads the settings from the current profile into the gui"""
+        name = self.comboBox_velg_profil.currentText()
+        print(f"Loading profile '{name}'")
+        options = self.get_profile_from_file(f"{name}.userprofile")
+        for index, combobox in enumerate(self.btn_combobox_list):
+            combobox.setCurrentIndex(options[index])
+        self.save_profile_btn.setEnabled(False)
+        self.set_active_profile_in_combobox(name)
+
+
+    def get_profile_from_file(self, filename: str) -> list[int]:
+        """Reads the profile data from file and returns it. Filename should include the .userprofile extension"""
+        profiledata = ""
+        with open(filename, 'r', encoding="utf-8") as profile:
+            profiledata = profile.readlines()
+        if len(profiledata) == 0:
+            raise Exception(f"Error! could not get the userprofile! {filename = } ")
+            # [0, 0, 0, 1, 0, 3, 0, 2, 0, 0] default profile
+        options = json.loads(profiledata[0])
+        return options
 
 
     def set_active_profile_in_combobox(self, name):
@@ -181,7 +207,6 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.send_data_to_main(command, COMMAND_TO_ROV_ID)
 
     def updated_profile_settings(self):
-        self.save_profile_btn: QPushButton
         self.save_profile_btn.setEnabled(True)
         self.send_profile_to_main()
 
@@ -206,10 +231,10 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             print(f"Fname[0] is empty: {fname[0]}")
 
     def reset_profile(self):
-        # Trykker på "Reset"
-        # Skal endre combobox-valgene til standard profil
-        # Må ha en 'standard_profil.txt' som skal lastes inn
-        pass
+        standard_options = self.get_profile_from_file("Standard profil.userprofile")
+        with open(self.comboBox_velg_profil.currentText()+".userprofile", 'w') as profile:
+            profile.write(json.dumps(standard_options))
+        self.load_selected_profile()
 
     def save_profile(self, name=None):
         """Det er allerede laget en fil.
@@ -221,12 +246,14 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             print("save profile calls make new profile")
             self.make_new_profile()
         else:
-            print("currentindex in saveprofile was not 0")
+            print("Saving profile")
             if name is None:
-                name = self.comboBox_velg_profil.setCurrentText()
+                name = self.comboBox_velg_profil.currentText()
             print(f"{name = }")
-            with open(name, 'w', encoding="utf-8") as profile:
+            with open(name+".userprofile", 'w', encoding="utf-8") as profile:
                 profile.write(json.dumps([btn.currentIndex() for btn in self.btn_combobox_list]))
+        self.save_profile_btn.setEnabled(False)
+
 
 
     def browse_files(self):

@@ -197,6 +197,7 @@ class Rov_state:
         elif id == GUI_loop.COMMAND_TO_ROV_ID:
             print("function not implemented in main")
             print(id, packet)
+            commands = {}
 
 
     def send_packets(self):
