@@ -71,6 +71,8 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.t_watch = t_watch
         self.id = id
         
+
+
         # Remove frame around window
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.setup_gui_with_folder_change()
@@ -94,6 +96,9 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.manuell_btn.clicked.connect(self.button_test)
 
         self.init_drop_shadow()
+
+        self.comboBox_velg_profil.clear()
+        self.update_current_profiles()
 
         # ///////////////////////////////////////////////////////////////
         self.titleRightInfo.mouseDoubleClickEvent = self.dobleClickMaximizeRestore
@@ -133,7 +138,10 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         # ///////////////////////////////////////////////////////////////
 
         self.connect_test_values()
-        #self.start_camera_windows()
+
+        self.camera_windows_opened = False
+        if self.camera_windows_opened:
+            self.start_camera_windows()
 
         self.recieve = threading.Thread(target=self.recieve_and_set_text, daemon=True, args=(self.pipe_conn_only_rcv,))
         self.recieve.start()
@@ -148,6 +156,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             btn.clear()  # removes the options already in the combobox
             btn.addItems(btn_command_list) # adds the possible commands
             btn.currentIndexChanged.connect(self.updated_profile_settings)
+
 
         self.set_default_profile()
         self.send_profile_to_main()
@@ -188,12 +197,13 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         """Trykker på "Lag ny profil"
         Skal oppgi navn på profilen og lagre en fil med det som er valgt i comboboxen"""
         print("make new profile called")
-        fname = QFileDialog.getSaveFileName(self, 'Open file', 'Custom-profile')
+        fname = QFileDialog.getSaveFileName(self, 'Open file', 'Custom-profile', filter="profiles (*.userprofile)")
         if fname[0] != "":
+            print(fname[0].split('/')[-1])
             print("inside make new profile. fname "+ fname[0].split("/")[-1])
             self.save_profile(name=fname[0].split("/")[-1])
             self.update_current_profiles()
-            self.set_active_profile_in_combobox(fname[0].split('/')[-1])
+            self.set_active_profile_in_combobox(fname[0].split('/')[-1].split(".userprofile")[0])
             self.save_profile_btn.setEnabled(False) # we have now saved so there is no need to save again before changes
 
         else:
@@ -211,7 +221,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         Skal lagre endringene gjort i comboboxen til denne filen når man trykker på "Lagre"""
         self.comboBox_velg_profil: QComboBox
         print(f"at line 195. {self.comboBox_velg_profil.currentIndex() = }")
-        if self.comboBox_velg_profil.currentIndex() == 0 and name is None: # Standard profile so we need to create a new one instead of changing it
+        if self.comboBox_velg_profil.currentText() == "Standard profil" and name is None: # Standard profile so we need to create a new one instead of changing it
             print("save profile calls make new profile")
             self.make_new_profile()
         else:
@@ -219,14 +229,14 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             if name is None:
                 name = self.comboBox_velg_profil.setCurrentText()
             print(f"{name = }")
-            with open(name+".userprofile", 'w', encoding="utf-8") as profile:
+            with open(name, 'w', encoding="utf-8") as profile:
                 profile.write(json.dumps([btn.currentIndex() for btn in self.btn_combobox_list]))
 
 
     def browse_files(self):
         pass
         """Skal laste inn ny profil når man velger en egendefinert profil i comboboxen"""
-        fname = QFileDialog.getOpenFileName(self, 'Open file', 'Custom-profile')
+        fname = QFileDialog.getOpenFileName(self, 'Open file', 'Custom-profile', filter="profile (*.userprofile)")
         if len(fname):
             print(fname)
             with open(fname[0], 'r', encoding="utf-8") as profile:
@@ -238,9 +248,6 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     def update_current_profiles(self):
         file_list = os.listdir()
         self.comboBox_velg_profil.clear()
-        self.comboBox_velg_profil.addItem("Standard profil")
-        # print(file_list)
-        # QFileDialog.selectedNameFilter()
         self.comboBox_velg_profil.addItems([file.split(".userprofile")[0] for file in file_list if file.endswith(".userprofile")])
         # self.comboBox_velg_profil:QComboBox
         # [self.comboBox_velg_profil.itemText(index))
@@ -253,8 +260,9 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
     def shutdown(self):
         self.t_watch.stop_all_threads()
-        for window in self.child_window:
-            window.close()
+        if self.camera_windows_opened:
+            for window in self.child_window:
+                window.close()
         self.close()
         exit(0)
 

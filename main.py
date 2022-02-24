@@ -407,7 +407,7 @@ if __name__ == "__main__":
     global start_time_sec
     start_time_sec = time.time()
     run_gui = True
-    run_get_controllerdata = True
+    run_get_controllerdata = False
     run_network = False
     
     queue_for_rov = multiprocessing.Queue()
