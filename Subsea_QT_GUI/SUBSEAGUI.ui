@@ -56,7 +56,7 @@ QToolTip {
 	background-position: left center;
     background-repeat: no-repeat;
 	border: none;
-	border-left: 2px solid rgb(255, 121, 198);
+	border-left: 2px solid rgb(39, 35, 62);
 	text-align: left;
 	padding-left: 8px;
 	margin: 0px;
@@ -97,7 +97,7 @@ Left Menu */
 	background-color: rgb(40, 44, 52);
 }
 #topMenu .QPushButton:pressed {	
-	background-color: rgb(189, 147, 249);
+	background-color: rgb(74, 82, 91);
 	color: rgb(255, 255, 255);
 }
 #bottomMenu .QPushButton {	
@@ -113,7 +113,7 @@ Left Menu */
 	background-color: rgb(40, 44, 52);
 }
 #bottomMenu .QPushButton:pressed {	
-	background-color: rgb(189, 147, 249);
+	background-color: rgb(74, 82, 91);
 	color: rgb(255, 255, 255);
 }
 #leftMenuFrame{
@@ -135,7 +135,7 @@ Left Menu */
 	background-color: rgb(40, 44, 52);
 }
 #toggleButton:pressed {
-	background-color: rgb(189, 147, 249);
+	background-color: rgb(74, 82, 91);
 }
 
 /* Title Menu */
@@ -148,7 +148,7 @@ Extra Tab */
 	background-color: rgb(44, 49, 58);
 }
 #extraTopBg{	
-	background-color: rgb(189, 147, 249)
+	background-color: rgb(74, 82, 91)
 }
 
 /* Icon */
@@ -185,7 +185,7 @@ background-position: left center;
 	background-color: rgb(40, 44, 52);
 }
 #extraTopMenu .QPushButton:pressed {	
-	background-color: rgb(189, 147, 249);
+	background-color: rgb(74, 82, 91);
 	color: rgb(255, 255, 255);
 }
 
@@ -205,7 +205,7 @@ Content App */
 
 /* Theme Settings */
 #extraRightBox { background-color: rgb(44, 49, 58); }
-#themeSettingsTopDetail { background-color: rgb(189, 147, 249); }
+#themeSettingsTopDetail { background-color: rgb(74, 82, 91); }
 
 /* Bottom Bar */
 #bottomBar { background-color: rgb(44, 49, 58); }
@@ -226,7 +226,7 @@ Content App */
 	background-color: rgb(40, 44, 52);
 }
 #contentSettings .QPushButton:pressed {	
-	background-color: rgb(189, 147, 249);
+	background-color: rgb(74, 82, 91);
 	color: rgb(255, 255, 255);
 }
 
@@ -246,7 +246,7 @@ QTableWidget::item{
 	gridline-color: rgb(44, 49, 60);
 }
 QTableWidget::item:selected{
-	background-color: rgb(189, 147, 249);
+	background-color: rgb(74, 82, 91);
 }
 QHeaderView::section{
 	background-color: rgb(33, 37, 43);
@@ -280,7 +280,7 @@ QLineEdit {
 	border: 2px solid rgb(33, 37, 43);
 	padding-left: 10px;
 	selection-color: rgb(255, 255, 255);
-	selection-background-color: rgb(255, 121, 198);
+	selection-background-color: rgb(74, 82, 91);
 }
 QLineEdit:hover {
 	border: 2px solid rgb(64, 71, 88);
@@ -296,7 +296,7 @@ QPlainTextEdit {
 	border-radius: 5px;
 	padding: 10px;
 	selection-color: rgb(255, 255, 255);
-	selection-background-color: rgb(255, 121, 198);
+	selection-background-color: rgb(74, 82, 91);
 }
 QPlainTextEdit  QScrollBar:vertical {
     width: 8px;
@@ -321,7 +321,7 @@ QScrollBar:horizontal {
 	border-radius: 0px;
 }
 QScrollBar::handle:horizontal {
-    background: rgb(189, 147, 249);
+    background: rgb(74, 82, 91);
     min-width: 25px;
 	border-radius: 4px
 }
@@ -359,7 +359,7 @@ QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal
 	border-radius: 0px;
  }
  QScrollBar::handle:vertical {	
-	background: rgb(189, 147, 249);
+	background: rgb(74, 82, 91);
     min-height: 25px;
 	border-radius: 4px
  }
@@ -450,7 +450,7 @@ QComboBox::drop-down {
 	background-repeat: no-reperat;
  }
 QComboBox QAbstractItemView {
-	color: rgb(255, 121, 198);	
+	color: rgb(74, 82, 91);	
 	background-color: rgb(33, 37, 43);
 	padding: 10px;
 	selection-background-color: rgb(39, 44, 54);
@@ -1738,7 +1738,7 @@ p, li { white-space: pre-wrap; }
                       <string notr="true">background: transparent;</string>
                      </property>
                      <property name="currentIndex">
-                      <number>2</number>
+                      <number>1</number>
                      </property>
                      <widget class="QWidget" name="home">
                       <property name="styleSheet">
@@ -1820,8 +1820,8 @@ p, li { white-space: pre-wrap; }
                               <rect>
                                <x>0</x>
                                <y>0</y>
-                               <width>1667</width>
-                               <height>833</height>
+                               <width>1503</width>
+                               <height>844</height>
                               </rect>
                              </property>
                              <layout class="QHBoxLayout" name="horizontalLayout_10">
@@ -1863,949 +1863,656 @@ p, li { white-space: pre-wrap; }
                                 <property name="frameShadow">
                                  <enum>QFrame::Raised</enum>
                                 </property>
-                                <layout class="QVBoxLayout" name="verticalLayout_34">
-                                 <property name="leftMargin">
-                                  <number>12</number>
+                                <widget class="QFrame" name="kjoring_container">
+                                 <property name="geometry">
+                                  <rect>
+                                   <x>12</x>
+                                   <y>12</y>
+                                   <width>222</width>
+                                   <height>128</height>
+                                  </rect>
                                  </property>
-                                 <property name="topMargin">
-                                  <number>12</number>
+                                 <property name="maximumSize">
+                                  <size>
+                                   <width>16777215</width>
+                                   <height>16777215</height>
+                                  </size>
                                  </property>
-                                 <property name="rightMargin">
-                                  <number>12</number>
+                                 <property name="frameShape">
+                                  <enum>QFrame::NoFrame</enum>
                                  </property>
-                                 <property name="bottomMargin">
-                                  <number>12</number>
+                                 <property name="frameShadow">
+                                  <enum>QFrame::Raised</enum>
                                  </property>
-                                 <item>
-                                  <widget class="QFrame" name="kjoring_container">
-                                   <property name="maximumSize">
-                                    <size>
-                                     <width>16777215</width>
-                                     <height>16777215</height>
-                                    </size>
-                                   </property>
-                                   <property name="frameShape">
-                                    <enum>QFrame::NoFrame</enum>
-                                   </property>
-                                   <property name="frameShadow">
-                                    <enum>QFrame::Raised</enum>
-                                   </property>
-                                   <layout class="QVBoxLayout" name="verticalLayout_22">
-                                    <property name="leftMargin">
-                                     <number>0</number>
+                                 <layout class="QVBoxLayout" name="verticalLayout_22">
+                                  <property name="leftMargin">
+                                   <number>0</number>
+                                  </property>
+                                  <property name="topMargin">
+                                   <number>0</number>
+                                  </property>
+                                  <property name="rightMargin">
+                                   <number>0</number>
+                                  </property>
+                                  <property name="bottomMargin">
+                                   <number>0</number>
+                                  </property>
+                                  <item>
+                                   <widget class="QLabel" name="kjoring_title">
+                                    <property name="minimumSize">
+                                     <size>
+                                      <width>0</width>
+                                      <height>20</height>
+                                     </size>
                                     </property>
-                                    <property name="topMargin">
-                                     <number>0</number>
+                                    <property name="font">
+                                     <font>
+                                      <family>Segoe UI</family>
+                                      <pointsize>10</pointsize>
+                                      <weight>50</weight>
+                                      <italic>false</italic>
+                                      <bold>false</bold>
+                                     </font>
                                     </property>
-                                    <property name="rightMargin">
-                                     <number>0</number>
+                                    <property name="styleSheet">
+                                     <string notr="true"/>
                                     </property>
-                                    <property name="bottomMargin">
-                                     <number>0</number>
+                                    <property name="text">
+                                     <string>KJØRING</string>
                                     </property>
-                                    <item>
-                                     <widget class="QLabel" name="kjoring_title">
-                                      <property name="minimumSize">
-                                       <size>
-                                        <width>0</width>
-                                        <height>20</height>
-                                       </size>
-                                      </property>
-                                      <property name="font">
-                                       <font>
-                                        <family>Segoe UI</family>
-                                        <pointsize>10</pointsize>
-                                        <weight>50</weight>
-                                        <italic>false</italic>
-                                        <bold>false</bold>
-                                       </font>
-                                      </property>
-                                      <property name="styleSheet">
-                                       <string notr="true"/>
-                                      </property>
-                                      <property name="text">
-                                       <string>KJØRING</string>
-                                      </property>
-                                     </widget>
-                                    </item>
-                                    <item>
-                                     <widget class="QLabel" name="kjoring_label">
-                                      <property name="styleSheet">
-                                       <string notr="true">color: rgb(113, 126, 149);</string>
-                                      </property>
-                                      <property name="lineWidth">
-                                       <number>1</number>
-                                      </property>
-                                      <property name="text">
-                                       <string>Velg mellom automatisk eller manuell kjøring</string>
-                                      </property>
-                                      <property name="alignment">
-                                       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                                      </property>
-                                     </widget>
-                                    </item>
-                                    <item>
-                                     <widget class="QPushButton" name="auto_btn">
-                                      <property name="minimumSize">
-                                       <size>
-                                        <width>150</width>
-                                        <height>30</height>
-                                       </size>
-                                      </property>
-                                      <property name="font">
-                                       <font>
-                                        <family>Segoe UI</family>
-                                        <pointsize>10</pointsize>
-                                        <weight>50</weight>
-                                        <italic>false</italic>
-                                        <bold>false</bold>
-                                       </font>
-                                      </property>
-                                      <property name="cursor">
-                                       <cursorShape>PointingHandCursor</cursorShape>
-                                      </property>
-                                      <property name="styleSheet">
-                                       <string notr="true">background-color: rgb(52, 59, 72);</string>
-                                      </property>
-                                      <property name="text">
-                                       <string>Automatisk</string>
-                                      </property>
-                                     </widget>
-                                    </item>
-                                    <item>
-                                     <widget class="QPushButton" name="manuell_btn">
-                                      <property name="minimumSize">
-                                       <size>
-                                        <width>150</width>
-                                        <height>30</height>
-                                       </size>
-                                      </property>
-                                      <property name="font">
-                                       <font>
-                                        <family>Segoe UI</family>
-                                        <pointsize>10</pointsize>
-                                        <weight>50</weight>
-                                        <italic>false</italic>
-                                        <bold>false</bold>
-                                       </font>
-                                      </property>
-                                      <property name="cursor">
-                                       <cursorShape>PointingHandCursor</cursorShape>
-                                      </property>
-                                      <property name="styleSheet">
-                                       <string notr="true">background-color: rgb(52, 59, 72);</string>
-                                      </property>
-                                      <property name="text">
-                                       <string>Manuell</string>
-                                      </property>
-                                     </widget>
-                                    </item>
-                                   </layout>
-                                  </widget>
-                                 </item>
-                                 <item>
-                                  <widget class="QLabel" name="ROV_label">
-                                   <property name="minimumSize">
-                                    <size>
-                                     <width>0</width>
-                                     <height>30</height>
-                                    </size>
-                                   </property>
-                                   <property name="maximumSize">
-                                    <size>
-                                     <width>16777215</width>
-                                     <height>10</height>
-                                    </size>
-                                   </property>
-                                   <property name="font">
-                                    <font>
-                                     <family>Segoe UI</family>
-                                     <pointsize>10</pointsize>
-                                     <weight>50</weight>
-                                     <italic>false</italic>
-                                     <bold>false</bold>
-                                    </font>
-                                   </property>
-                                   <property name="styleSheet">
-                                    <string notr="true"/>
-                                   </property>
-                                   <property name="text">
-                                    <string>ROV</string>
-                                   </property>
-                                  </widget>
-                                 </item>
-                                 <item>
-                                  <widget class="QFrame" name="ROV_container">
-                                   <property name="minimumSize">
-                                    <size>
-                                     <width>0</width>
-                                     <height>350</height>
-                                    </size>
-                                   </property>
-                                   <property name="frameShape">
-                                    <enum>QFrame::NoFrame</enum>
-                                   </property>
-                                   <property name="frameShadow">
-                                    <enum>QFrame::Raised</enum>
-                                   </property>
-                                   <layout class="QHBoxLayout" name="horizontalLayout_7">
-                                    <property name="leftMargin">
-                                     <number>0</number>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QLabel" name="kjoring_label">
+                                    <property name="styleSheet">
+                                     <string notr="true">color: rgb(113, 126, 149);</string>
                                     </property>
-                                    <property name="topMargin">
-                                     <number>0</number>
+                                    <property name="lineWidth">
+                                     <number>1</number>
                                     </property>
-                                    <property name="rightMargin">
-                                     <number>0</number>
+                                    <property name="text">
+                                     <string>Velg mellom automatisk eller manuell kjøring</string>
                                     </property>
-                                    <property name="bottomMargin">
-                                     <number>0</number>
+                                    <property name="alignment">
+                                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                                     </property>
-                                    <item>
-                                     <widget class="QFrame" name="ROV_column">
-                                      <property name="minimumSize">
-                                       <size>
-                                        <width>200</width>
-                                        <height>0</height>
-                                       </size>
-                                      </property>
-                                      <property name="maximumSize">
-                                       <size>
-                                        <width>16777215</width>
-                                        <height>16777215</height>
-                                       </size>
-                                      </property>
-                                      <property name="frameShape">
-                                       <enum>QFrame::NoFrame</enum>
-                                      </property>
-                                      <property name="frameShadow">
-                                       <enum>QFrame::Raised</enum>
-                                      </property>
-                                      <layout class="QGridLayout" name="gridLayout_8">
-                                       <item row="6" column="1">
-                                        <widget class="QLabel" name="temp_vann">
-                                         <property name="font">
-                                          <font>
-                                           <family>Segoe UI</family>
-                                           <pointsize>10</pointsize>
-                                           <weight>50</weight>
-                                           <italic>false</italic>
-                                           <bold>false</bold>
-                                          </font>
-                                         </property>
-                                         <property name="styleSheet">
-                                          <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px;</string>
-                                         </property>
-                                         <property name="text">
-                                          <string>-----</string>
-                                         </property>
-                                         <property name="alignment">
-                                          <set>Qt::AlignCenter</set>
-                                         </property>
-                                        </widget>
-                                       </item>
-                                       <item row="3" column="1">
-                                        <widget class="QLabel" name="strom1">
-                                         <property name="font">
-                                          <font>
-                                           <family>Segoe UI</family>
-                                           <pointsize>10</pointsize>
-                                           <weight>50</weight>
-                                           <italic>false</italic>
-                                           <bold>false</bold>
-                                          </font>
-                                         </property>
-                                         <property name="styleSheet">
-                                          <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px;</string>
-                                         </property>
-                                         <property name="text">
-                                          <string>-----</string>
-                                         </property>
-                                         <property name="alignment">
-                                          <set>Qt::AlignCenter</set>
-                                         </property>
-                                        </widget>
-                                       </item>
-                                       <item row="4" column="0">
-                                        <widget class="QLabel" name="strom_label">
-                                         <property name="font">
-                                          <font>
-                                           <family>Segoe UI</family>
-                                           <pointsize>10</pointsize>
-                                           <weight>50</weight>
-                                           <italic>false</italic>
-                                           <bold>false</bold>
-                                          </font>
-                                         </property>
-                                         <property name="text">
-                                          <string>Strøm 2:</string>
-                                         </property>
-                                         <property name="textFormat">
-                                          <enum>Qt::RichText</enum>
-                                         </property>
-                                        </widget>
-                                       </item>
-                                       <item row="5" column="1">
-                                        <widget class="QLabel" name="orientering">
-                                         <property name="font">
-                                          <font>
-                                           <family>Segoe UI</family>
-                                           <pointsize>10</pointsize>
-                                           <weight>50</weight>
-                                           <italic>false</italic>
-                                           <bold>false</bold>
-                                          </font>
-                                         </property>
-                                         <property name="styleSheet">
-                                          <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px;</string>
-                                         </property>
-                                         <property name="text">
-                                          <string>-----</string>
-                                         </property>
-                                         <property name="alignment">
-                                          <set>Qt::AlignCenter</set>
-                                         </property>
-                                        </widget>
-                                       </item>
-                                       <item row="3" column="0">
-                                        <widget class="QLabel" name="strom1_label">
-                                         <property name="font">
-                                          <font>
-                                           <family>Segoe UI</family>
-                                           <pointsize>10</pointsize>
-                                           <weight>50</weight>
-                                           <italic>false</italic>
-                                           <bold>false</bold>
-                                          </font>
-                                         </property>
-                                         <property name="text">
-                                          <string>Strøm 1:</string>
-                                         </property>
-                                         <property name="textFormat">
-                                          <enum>Qt::PlainText</enum>
-                                         </property>
-                                        </widget>
-                                       </item>
-                                       <item row="6" column="0">
-                                        <widget class="QLabel" name="temp_vann_label">
-                                         <property name="font">
-                                          <font>
-                                           <family>Segoe UI</family>
-                                           <pointsize>10</pointsize>
-                                           <weight>50</weight>
-                                           <italic>false</italic>
-                                           <bold>false</bold>
-                                          </font>
-                                         </property>
-                                         <property name="text">
-                                          <string>Temp vann:</string>
-                                         </property>
-                                         <property name="textFormat">
-                                          <enum>Qt::PlainText</enum>
-                                         </property>
-                                        </widget>
-                                       </item>
-                                       <item row="1" column="1">
-                                        <widget class="QLabel" name="dybde">
-                                         <property name="font">
-                                          <font>
-                                           <family>Segoe UI</family>
-                                           <pointsize>10</pointsize>
-                                           <weight>50</weight>
-                                           <italic>false</italic>
-                                           <bold>false</bold>
-                                          </font>
-                                         </property>
-                                         <property name="styleSheet">
-                                          <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px;</string>
-                                         </property>
-                                         <property name="text">
-                                          <string>-----</string>
-                                         </property>
-                                         <property name="alignment">
-                                          <set>Qt::AlignCenter</set>
-                                         </property>
-                                        </widget>
-                                       </item>
-                                       <item row="0" column="0">
-                                        <widget class="QLabel" name="tid_label">
-                                         <property name="font">
-                                          <font>
-                                           <family>Segoe UI</family>
-                                           <pointsize>10</pointsize>
-                                           <weight>50</weight>
-                                           <italic>false</italic>
-                                           <bold>false</bold>
-                                          </font>
-                                         </property>
-                                         <property name="text">
-                                          <string>Tid:</string>
-                                         </property>
-                                         <property name="textFormat">
-                                          <enum>Qt::RichText</enum>
-                                         </property>
-                                        </widget>
-                                       </item>
-                                       <item row="2" column="1">
-                                        <widget class="QLabel" name="spenning">
-                                         <property name="font">
-                                          <font>
-                                           <family>Segoe UI</family>
-                                           <pointsize>10</pointsize>
-                                           <weight>50</weight>
-                                           <italic>false</italic>
-                                           <bold>false</bold>
-                                          </font>
-                                         </property>
-                                         <property name="styleSheet">
-                                          <string notr="true">background-color:rgb(30, 33, 38); border-radius: 5px;</string>
-                                         </property>
-                                         <property name="text">
-                                          <string>-----</string>
-                                         </property>
-                                         <property name="alignment">
-                                          <set>Qt::AlignCenter</set>
-                                         </property>
-                                        </widget>
-                                       </item>
-                                       <item row="4" column="1">
-                                        <widget class="QLabel" name="strom2">
-                                         <property name="font">
-                                          <font>
-                                           <family>Segoe UI</family>
-                                           <pointsize>10</pointsize>
-                                           <weight>50</weight>
-                                           <italic>false</italic>
-                                           <bold>false</bold>
-                                          </font>
-                                         </property>
-                                         <property name="styleSheet">
-                                          <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px;</string>
-                                         </property>
-                                         <property name="text">
-                                          <string>-----</string>
-                                         </property>
-                                         <property name="alignment">
-                                          <set>Qt::AlignCenter</set>
-                                         </property>
-                                        </widget>
-                                       </item>
-                                       <item row="2" column="0">
-                                        <widget class="QLabel" name="spenning_label">
-                                         <property name="font">
-                                          <font>
-                                           <family>Segoe UI</family>
-                                           <pointsize>10</pointsize>
-                                           <weight>50</weight>
-                                           <italic>false</italic>
-                                           <bold>false</bold>
-                                          </font>
-                                         </property>
-                                         <property name="text">
-                                          <string>Spenning:</string>
-                                         </property>
-                                         <property name="textFormat">
-                                          <enum>Qt::RichText</enum>
-                                         </property>
-                                        </widget>
-                                       </item>
-                                       <item row="1" column="0">
-                                        <widget class="QLabel" name="dybde_label">
-                                         <property name="font">
-                                          <font>
-                                           <family>Segoe UI</family>
-                                           <pointsize>10</pointsize>
-                                           <weight>50</weight>
-                                           <italic>false</italic>
-                                           <bold>false</bold>
-                                          </font>
-                                         </property>
-                                         <property name="text">
-                                          <string>Dybde:</string>
-                                         </property>
-                                         <property name="textFormat">
-                                          <enum>Qt::RichText</enum>
-                                         </property>
-                                        </widget>
-                                       </item>
-                                       <item row="0" column="1">
-                                        <widget class="QLabel" name="tid">
-                                         <property name="font">
-                                          <font>
-                                           <family>Segoe UI</family>
-                                           <pointsize>10</pointsize>
-                                           <weight>50</weight>
-                                           <italic>false</italic>
-                                           <bold>false</bold>
-                                          </font>
-                                         </property>
-                                         <property name="styleSheet">
-                                          <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px;</string>
-                                         </property>
-                                         <property name="text">
-                                          <string>00:00:00</string>
-                                         </property>
-                                         <property name="alignment">
-                                          <set>Qt::AlignCenter</set>
-                                         </property>
-                                        </widget>
-                                       </item>
-                                       <item row="5" column="0">
-                                        <widget class="QLabel" name="orientering_label">
-                                         <property name="font">
-                                          <font>
-                                           <family>Segoe UI</family>
-                                           <pointsize>10</pointsize>
-                                           <weight>50</weight>
-                                           <italic>false</italic>
-                                           <bold>false</bold>
-                                          </font>
-                                         </property>
-                                         <property name="text">
-                                          <string>Orientering:</string>
-                                         </property>
-                                         <property name="textFormat">
-                                          <enum>Qt::PlainText</enum>
-                                         </property>
-                                        </widget>
-                                       </item>
-                                      </layout>
-                                     </widget>
-                                    </item>
-                                    <item>
-                                     <widget class="QFrame" name="ROV_column_2">
-                                      <property name="frameShape">
-                                       <enum>QFrame::NoFrame</enum>
-                                      </property>
-                                      <property name="frameShadow">
-                                       <enum>QFrame::Raised</enum>
-                                      </property>
-                                      <layout class="QVBoxLayout" name="verticalLayout_23">
-                                       <property name="leftMargin">
-                                        <number>0</number>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QPushButton" name="auto_btn">
+                                    <property name="minimumSize">
+                                     <size>
+                                      <width>150</width>
+                                      <height>30</height>
+                                     </size>
+                                    </property>
+                                    <property name="font">
+                                     <font>
+                                      <family>Segoe UI</family>
+                                      <pointsize>10</pointsize>
+                                      <weight>50</weight>
+                                      <italic>false</italic>
+                                      <bold>false</bold>
+                                     </font>
+                                    </property>
+                                    <property name="cursor">
+                                     <cursorShape>PointingHandCursor</cursorShape>
+                                    </property>
+                                    <property name="styleSheet">
+                                     <string notr="true">background-color: rgb(52, 59, 72);</string>
+                                    </property>
+                                    <property name="text">
+                                     <string>Automatisk</string>
+                                    </property>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QPushButton" name="manuell_btn">
+                                    <property name="minimumSize">
+                                     <size>
+                                      <width>150</width>
+                                      <height>30</height>
+                                     </size>
+                                    </property>
+                                    <property name="font">
+                                     <font>
+                                      <family>Segoe UI</family>
+                                      <pointsize>10</pointsize>
+                                      <weight>50</weight>
+                                      <italic>false</italic>
+                                      <bold>false</bold>
+                                     </font>
+                                    </property>
+                                    <property name="cursor">
+                                     <cursorShape>PointingHandCursor</cursorShape>
+                                    </property>
+                                    <property name="styleSheet">
+                                     <string notr="true">background-color: rgb(52, 59, 72);</string>
+                                    </property>
+                                    <property name="text">
+                                     <string>Manuell</string>
+                                    </property>
+                                   </widget>
+                                  </item>
+                                 </layout>
+                                </widget>
+                                <widget class="QLabel" name="ROV_label">
+                                 <property name="geometry">
+                                  <rect>
+                                   <x>12</x>
+                                   <y>186</y>
+                                   <width>21</width>
+                                   <height>30</height>
+                                  </rect>
+                                 </property>
+                                 <property name="minimumSize">
+                                  <size>
+                                   <width>0</width>
+                                   <height>30</height>
+                                  </size>
+                                 </property>
+                                 <property name="maximumSize">
+                                  <size>
+                                   <width>16777215</width>
+                                   <height>10</height>
+                                  </size>
+                                 </property>
+                                 <property name="font">
+                                  <font>
+                                   <family>Segoe UI</family>
+                                   <pointsize>10</pointsize>
+                                   <weight>50</weight>
+                                   <italic>false</italic>
+                                   <bold>false</bold>
+                                  </font>
+                                 </property>
+                                 <property name="styleSheet">
+                                  <string notr="true"/>
+                                 </property>
+                                 <property name="text">
+                                  <string>ROV</string>
+                                 </property>
+                                </widget>
+                                <widget class="QFrame" name="ROV_container">
+                                 <property name="geometry">
+                                  <rect>
+                                   <x>12</x>
+                                   <y>222</y>
+                                   <width>440</width>
+                                   <height>350</height>
+                                  </rect>
+                                 </property>
+                                 <property name="minimumSize">
+                                  <size>
+                                   <width>0</width>
+                                   <height>350</height>
+                                  </size>
+                                 </property>
+                                 <property name="frameShape">
+                                  <enum>QFrame::NoFrame</enum>
+                                 </property>
+                                 <property name="frameShadow">
+                                  <enum>QFrame::Raised</enum>
+                                 </property>
+                                 <layout class="QHBoxLayout" name="horizontalLayout_7">
+                                  <property name="leftMargin">
+                                   <number>0</number>
+                                  </property>
+                                  <property name="topMargin">
+                                   <number>0</number>
+                                  </property>
+                                  <property name="rightMargin">
+                                   <number>0</number>
+                                  </property>
+                                  <property name="bottomMargin">
+                                   <number>0</number>
+                                  </property>
+                                  <item>
+                                   <widget class="QFrame" name="ROV_column">
+                                    <property name="minimumSize">
+                                     <size>
+                                      <width>200</width>
+                                      <height>0</height>
+                                     </size>
+                                    </property>
+                                    <property name="maximumSize">
+                                     <size>
+                                      <width>16777215</width>
+                                      <height>16777215</height>
+                                     </size>
+                                    </property>
+                                    <property name="frameShape">
+                                     <enum>QFrame::NoFrame</enum>
+                                    </property>
+                                    <property name="frameShadow">
+                                     <enum>QFrame::Raised</enum>
+                                    </property>
+                                    <layout class="QGridLayout" name="gridLayout_8">
+                                     <item row="6" column="1">
+                                      <widget class="QLabel" name="temp_vann">
+                                       <property name="font">
+                                        <font>
+                                         <family>Segoe UI</family>
+                                         <pointsize>10</pointsize>
+                                         <weight>50</weight>
+                                         <italic>false</italic>
+                                         <bold>false</bold>
+                                        </font>
                                        </property>
-                                       <property name="topMargin">
-                                        <number>0</number>
+                                       <property name="styleSheet">
+                                        <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px;</string>
                                        </property>
-                                       <property name="rightMargin">
-                                        <number>0</number>
+                                       <property name="text">
+                                        <string>-----</string>
                                        </property>
-                                       <property name="bottomMargin">
-                                        <number>0</number>
+                                       <property name="alignment">
+                                        <set>Qt::AlignCenter</set>
                                        </property>
-                                       <item>
-                                        <widget class="QFrame" name="lys_container">
-                                         <property name="frameShape">
-                                          <enum>QFrame::NoFrame</enum>
-                                         </property>
-                                         <property name="frameShadow">
-                                          <enum>QFrame::Raised</enum>
-                                         </property>
-                                         <layout class="QVBoxLayout" name="verticalLayout_24">
-                                          <item>
-                                           <widget class="QFrame" name="lys_container_2">
-                                            <property name="minimumSize">
-                                             <size>
-                                              <width>200</width>
-                                              <height>40</height>
-                                             </size>
-                                            </property>
-                                            <property name="maximumSize">
-                                             <size>
-                                              <width>200</width>
-                                              <height>16777215</height>
-                                             </size>
-                                            </property>
-                                            <property name="frameShape">
-                                             <enum>QFrame::NoFrame</enum>
-                                            </property>
-                                            <property name="frameShadow">
-                                             <enum>QFrame::Raised</enum>
-                                            </property>
-                                            <widget class="QLabel" name="lys_label">
-                                             <property name="geometry">
-                                              <rect>
-                                               <x>10</x>
-                                               <y>50</y>
-                                               <width>50</width>
-                                               <height>50</height>
-                                              </rect>
-                                             </property>
-                                             <property name="minimumSize">
-                                              <size>
-                                               <width>50</width>
-                                               <height>40</height>
-                                              </size>
-                                             </property>
-                                             <property name="font">
-                                              <font>
-                                               <family>Segoe UI</family>
-                                               <pointsize>10</pointsize>
-                                               <weight>50</weight>
-                                               <italic>false</italic>
-                                               <bold>false</bold>
-                                              </font>
-                                             </property>
-                                             <property name="text">
-                                              <string>Lys:</string>
-                                             </property>
-                                             <property name="textFormat">
-                                              <enum>Qt::RichText</enum>
-                                             </property>
-                                            </widget>
-                                            <widget class="QSlider" name="lys_slider">
-                                             <property name="geometry">
-                                              <rect>
-                                               <x>70</x>
-                                               <y>70</y>
-                                               <width>91</width>
-                                               <height>20</height>
-                                              </rect>
-                                             </property>
-                                             <property name="minimumSize">
-                                              <size>
-                                               <width>0</width>
-                                               <height>20</height>
-                                              </size>
-                                             </property>
-                                             <property name="maximumSize">
-                                              <size>
-                                               <width>150</width>
-                                               <height>20</height>
-                                              </size>
-                                             </property>
-                                             <property name="maximum">
-                                              <number>100</number>
-                                             </property>
-                                             <property name="orientation">
-                                              <enum>Qt::Horizontal</enum>
-                                             </property>
-                                            </widget>
-                                            <widget class="QFrame" name="lys_circle">
-                                             <property name="geometry">
-                                              <rect>
-                                               <x>90</x>
-                                               <y>10</y>
-                                               <width>50</width>
-                                               <height>50</height>
-                                              </rect>
-                                             </property>
-                                             <property name="styleSheet">
-                                              <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
-                                             </property>
-                                             <property name="frameShape">
-                                              <enum>QFrame::StyledPanel</enum>
-                                             </property>
-                                             <property name="frameShadow">
-                                              <enum>QFrame::Raised</enum>
-                                             </property>
-                                             <widget class="QLabel" name="lys_percentage">
-                                              <property name="geometry">
-                                               <rect>
-                                                <x>6</x>
-                                                <y>13</y>
-                                                <width>37</width>
-                                                <height>21</height>
-                                               </rect>
-                                              </property>
-                                              <property name="font">
-                                               <font>
-                                                <family>Segoe UI</family>
-                                                <pointsize>10</pointsize>
-                                                <weight>50</weight>
-                                                <italic>false</italic>
-                                                <bold>false</bold>
-                                               </font>
-                                              </property>
-                                              <property name="autoFillBackground">
-                                               <bool>false</bool>
-                                              </property>
-                                              <property name="text">
-                                               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:super;&quot;&gt;%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                                              </property>
-                                              <property name="scaledContents">
-                                               <bool>false</bool>
-                                              </property>
-                                              <property name="alignment">
-                                               <set>Qt::AlignCenter</set>
-                                              </property>
-                                              <property name="wordWrap">
-                                               <bool>false</bool>
-                                              </property>
-                                             </widget>
-                                            </widget>
-                                            <widget class="QFrame" name="lys">
-                                             <property name="geometry">
-                                              <rect>
-                                               <x>85</x>
-                                               <y>5</y>
-                                               <width>60</width>
-                                               <height>60</height>
-                                              </rect>
-                                             </property>
-                                             <property name="styleSheet">
-                                              <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
-                                             </property>
-                                             <property name="frameShape">
-                                              <enum>QFrame::NoFrame</enum>
-                                             </property>
-                                             <property name="frameShadow">
-                                              <enum>QFrame::Raised</enum>
-                                             </property>
-                                            </widget>
-                                            <zorder>lys</zorder>
-                                            <zorder>lys_circle</zorder>
-                                            <zorder>lys_label</zorder>
-                                            <zorder>lys_slider</zorder>
-                                           </widget>
-                                          </item>
-                                         </layout>
-                                        </widget>
-                                       </item>
-                                       <item>
-                                        <widget class="QFrame" name="ROV_row_2">
-                                         <property name="minimumSize">
-                                          <size>
-                                           <width>220</width>
-                                           <height>140</height>
-                                          </size>
-                                         </property>
-                                         <property name="maximumSize">
-                                          <size>
-                                           <width>16777215</width>
-                                           <height>16777215</height>
-                                          </size>
-                                         </property>
-                                         <property name="styleSheet">
-                                          <string notr="true">QPushButton { background-color: rgb(109, 156, 113) } QPushButton#lys_av_btn, QPushButton#dybde_av_btn, QPushButton#helning_av_btn, QPushButton#mani_av_btn{ background-color: rgb(192, 108, 109) } QPushButton:hover { background-color: rgba(255, 255, 255, 110) }</string>
-                                         </property>
-                                         <property name="frameShape">
-                                          <enum>QFrame::NoFrame</enum>
-                                         </property>
-                                         <property name="frameShadow">
-                                          <enum>QFrame::Raised</enum>
-                                         </property>
-                                         <layout class="QGridLayout" name="gridLayout_3">
-                                          <item row="2" column="4">
-                                           <widget class="QLabel" name="mani_label">
-                                            <property name="font">
-                                             <font>
-                                              <family>Segoe UI</family>
-                                              <pointsize>10</pointsize>
-                                              <weight>50</weight>
-                                              <italic>false</italic>
-                                              <bold>false</bold>
-                                             </font>
-                                            </property>
-                                            <property name="text">
-                                             <string>Manipulator</string>
-                                            </property>
-                                            <property name="textFormat">
-                                             <enum>Qt::PlainText</enum>
-                                            </property>
-                                           </widget>
-                                          </item>
-                                          <item row="3" column="4">
-                                           <widget class="QLabel" name="dybde_reg_label">
-                                            <property name="font">
-                                             <font>
-                                              <family>Segoe UI</family>
-                                              <pointsize>10</pointsize>
-                                              <weight>50</weight>
-                                              <italic>false</italic>
-                                              <bold>false</bold>
-                                             </font>
-                                            </property>
-                                            <property name="text">
-                                             <string>Dybde regulator</string>
-                                            </property>
-                                            <property name="textFormat">
-                                             <enum>Qt::PlainText</enum>
-                                            </property>
-                                           </widget>
-                                          </item>
-                                          <item row="3" column="0">
-                                           <widget class="QPushButton" name="dybde_paa_btn">
-                                            <property name="maximumSize">
-                                             <size>
-                                              <width>40</width>
-                                              <height>16777215</height>
-                                             </size>
-                                            </property>
-                                            <property name="font">
-                                             <font>
-                                              <family>Segoe UI</family>
-                                              <pointsize>10</pointsize>
-                                              <weight>50</weight>
-                                              <italic>false</italic>
-                                              <bold>false</bold>
-                                             </font>
-                                            </property>
-                                            <property name="styleSheet">
-                                             <string notr="true">padding: 4px;</string>
-                                            </property>
-                                            <property name="text">
-                                             <string>På</string>
-                                            </property>
-                                           </widget>
-                                          </item>
-                                          <item row="8" column="0">
-                                           <widget class="QPushButton" name="helning_paa_btn">
-                                            <property name="maximumSize">
-                                             <size>
-                                              <width>40</width>
-                                              <height>16777215</height>
-                                             </size>
-                                            </property>
-                                            <property name="font">
-                                             <font>
-                                              <family>Segoe UI</family>
-                                              <pointsize>10</pointsize>
-                                              <weight>50</weight>
-                                              <italic>false</italic>
-                                              <bold>false</bold>
-                                             </font>
-                                            </property>
-                                            <property name="styleSheet">
-                                             <string notr="true">padding: 4px;</string>
-                                            </property>
-                                            <property name="text">
-                                             <string>På</string>
-                                            </property>
-                                           </widget>
-                                          </item>
-                                          <item row="3" column="2">
-                                           <widget class="QPushButton" name="dybde_av_btn">
-                                            <property name="maximumSize">
-                                             <size>
-                                              <width>40</width>
-                                              <height>16777215</height>
-                                             </size>
-                                            </property>
-                                            <property name="font">
-                                             <font>
-                                              <family>Segoe UI</family>
-                                              <pointsize>10</pointsize>
-                                              <weight>50</weight>
-                                              <italic>false</italic>
-                                              <bold>false</bold>
-                                             </font>
-                                            </property>
-                                            <property name="styleSheet">
-                                             <string notr="true">padding: 4px;</string>
-                                            </property>
-                                            <property name="text">
-                                             <string>Av</string>
-                                            </property>
-                                           </widget>
-                                          </item>
-                                          <item row="8" column="2">
-                                           <widget class="QPushButton" name="helning_av_btn">
-                                            <property name="maximumSize">
-                                             <size>
-                                              <width>40</width>
-                                              <height>16777215</height>
-                                             </size>
-                                            </property>
-                                            <property name="font">
-                                             <font>
-                                              <family>Segoe UI</family>
-                                              <pointsize>10</pointsize>
-                                              <weight>50</weight>
-                                              <italic>false</italic>
-                                              <bold>false</bold>
-                                             </font>
-                                            </property>
-                                            <property name="styleSheet">
-                                             <string notr="true">padding: 4px;</string>
-                                            </property>
-                                            <property name="text">
-                                             <string>Av</string>
-                                            </property>
-                                           </widget>
-                                          </item>
-                                          <item row="8" column="4">
-                                           <widget class="QLabel" name="helning_label">
-                                            <property name="font">
-                                             <font>
-                                              <family>Segoe UI</family>
-                                              <pointsize>10</pointsize>
-                                              <weight>50</weight>
-                                              <italic>false</italic>
-                                              <bold>false</bold>
-                                             </font>
-                                            </property>
-                                            <property name="text">
-                                             <string>Helningsregulator</string>
-                                            </property>
-                                            <property name="textFormat">
-                                             <enum>Qt::PlainText</enum>
-                                            </property>
-                                           </widget>
-                                          </item>
-                                          <item row="2" column="2">
-                                           <widget class="QPushButton" name="mani_av_btn">
-                                            <property name="maximumSize">
-                                             <size>
-                                              <width>40</width>
-                                              <height>16777215</height>
-                                             </size>
-                                            </property>
-                                            <property name="font">
-                                             <font>
-                                              <family>Segoe UI</family>
-                                              <pointsize>10</pointsize>
-                                              <weight>50</weight>
-                                              <italic>false</italic>
-                                              <bold>false</bold>
-                                             </font>
-                                            </property>
-                                            <property name="styleSheet">
-                                             <string notr="true">padding: 4px;</string>
-                                            </property>
-                                            <property name="text">
-                                             <string>Av</string>
-                                            </property>
-                                           </widget>
-                                          </item>
-                                          <item row="0" column="0">
-                                           <widget class="QPushButton" name="lys_paa_btn">
-                                            <property name="minimumSize">
-                                             <size>
-                                              <width>0</width>
-                                              <height>0</height>
-                                             </size>
-                                            </property>
-                                            <property name="maximumSize">
-                                             <size>
-                                              <width>40</width>
-                                              <height>16777215</height>
-                                             </size>
-                                            </property>
-                                            <property name="font">
-                                             <font>
-                                              <family>Segoe UI</family>
-                                              <pointsize>10</pointsize>
-                                              <weight>50</weight>
-                                              <italic>false</italic>
-                                              <bold>false</bold>
-                                             </font>
-                                            </property>
-                                            <property name="styleSheet">
-                                             <string notr="true">padding: 4px;</string>
-                                            </property>
-                                            <property name="text">
-                                             <string>På</string>
-                                            </property>
-                                           </widget>
-                                          </item>
-                                          <item row="2" column="0">
-                                           <widget class="QPushButton" name="mani_paa_btn">
-                                            <property name="maximumSize">
-                                             <size>
-                                              <width>40</width>
-                                              <height>16777215</height>
-                                             </size>
+                                      </widget>
+                                     </item>
+                                     <item row="3" column="1">
+                                      <widget class="QLabel" name="strom1">
+                                       <property name="font">
+                                        <font>
+                                         <family>Segoe UI</family>
+                                         <pointsize>10</pointsize>
+                                         <weight>50</weight>
+                                         <italic>false</italic>
+                                         <bold>false</bold>
+                                        </font>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px;</string>
+                                       </property>
+                                       <property name="text">
+                                        <string>-----</string>
+                                       </property>
+                                       <property name="alignment">
+                                        <set>Qt::AlignCenter</set>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item row="4" column="0">
+                                      <widget class="QLabel" name="strom_label">
+                                       <property name="font">
+                                        <font>
+                                         <family>Segoe UI</family>
+                                         <pointsize>10</pointsize>
+                                         <weight>50</weight>
+                                         <italic>false</italic>
+                                         <bold>false</bold>
+                                        </font>
+                                       </property>
+                                       <property name="text">
+                                        <string>Strøm 2:</string>
+                                       </property>
+                                       <property name="textFormat">
+                                        <enum>Qt::RichText</enum>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item row="5" column="1">
+                                      <widget class="QLabel" name="orientering">
+                                       <property name="font">
+                                        <font>
+                                         <family>Segoe UI</family>
+                                         <pointsize>10</pointsize>
+                                         <weight>50</weight>
+                                         <italic>false</italic>
+                                         <bold>false</bold>
+                                        </font>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px;</string>
+                                       </property>
+                                       <property name="text">
+                                        <string>-----</string>
+                                       </property>
+                                       <property name="alignment">
+                                        <set>Qt::AlignCenter</set>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item row="3" column="0">
+                                      <widget class="QLabel" name="strom1_label">
+                                       <property name="font">
+                                        <font>
+                                         <family>Segoe UI</family>
+                                         <pointsize>10</pointsize>
+                                         <weight>50</weight>
+                                         <italic>false</italic>
+                                         <bold>false</bold>
+                                        </font>
+                                       </property>
+                                       <property name="text">
+                                        <string>Strøm 1:</string>
+                                       </property>
+                                       <property name="textFormat">
+                                        <enum>Qt::PlainText</enum>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item row="6" column="0">
+                                      <widget class="QLabel" name="temp_vann_label">
+                                       <property name="font">
+                                        <font>
+                                         <family>Segoe UI</family>
+                                         <pointsize>10</pointsize>
+                                         <weight>50</weight>
+                                         <italic>false</italic>
+                                         <bold>false</bold>
+                                        </font>
+                                       </property>
+                                       <property name="text">
+                                        <string>Temp vann:</string>
+                                       </property>
+                                       <property name="textFormat">
+                                        <enum>Qt::PlainText</enum>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item row="1" column="1">
+                                      <widget class="QLabel" name="dybde">
+                                       <property name="font">
+                                        <font>
+                                         <family>Segoe UI</family>
+                                         <pointsize>10</pointsize>
+                                         <weight>50</weight>
+                                         <italic>false</italic>
+                                         <bold>false</bold>
+                                        </font>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px;</string>
+                                       </property>
+                                       <property name="text">
+                                        <string>-----</string>
+                                       </property>
+                                       <property name="alignment">
+                                        <set>Qt::AlignCenter</set>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item row="0" column="0">
+                                      <widget class="QLabel" name="tid_label">
+                                       <property name="font">
+                                        <font>
+                                         <family>Segoe UI</family>
+                                         <pointsize>10</pointsize>
+                                         <weight>50</weight>
+                                         <italic>false</italic>
+                                         <bold>false</bold>
+                                        </font>
+                                       </property>
+                                       <property name="text">
+                                        <string>Tid:</string>
+                                       </property>
+                                       <property name="textFormat">
+                                        <enum>Qt::RichText</enum>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item row="2" column="1">
+                                      <widget class="QLabel" name="spenning">
+                                       <property name="font">
+                                        <font>
+                                         <family>Segoe UI</family>
+                                         <pointsize>10</pointsize>
+                                         <weight>50</weight>
+                                         <italic>false</italic>
+                                         <bold>false</bold>
+                                        </font>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true">background-color:rgb(30, 33, 38); border-radius: 5px;</string>
+                                       </property>
+                                       <property name="text">
+                                        <string>-----</string>
+                                       </property>
+                                       <property name="alignment">
+                                        <set>Qt::AlignCenter</set>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item row="4" column="1">
+                                      <widget class="QLabel" name="strom2">
+                                       <property name="font">
+                                        <font>
+                                         <family>Segoe UI</family>
+                                         <pointsize>10</pointsize>
+                                         <weight>50</weight>
+                                         <italic>false</italic>
+                                         <bold>false</bold>
+                                        </font>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px;</string>
+                                       </property>
+                                       <property name="text">
+                                        <string>-----</string>
+                                       </property>
+                                       <property name="alignment">
+                                        <set>Qt::AlignCenter</set>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item row="2" column="0">
+                                      <widget class="QLabel" name="spenning_label">
+                                       <property name="font">
+                                        <font>
+                                         <family>Segoe UI</family>
+                                         <pointsize>10</pointsize>
+                                         <weight>50</weight>
+                                         <italic>false</italic>
+                                         <bold>false</bold>
+                                        </font>
+                                       </property>
+                                       <property name="text">
+                                        <string>Spenning:</string>
+                                       </property>
+                                       <property name="textFormat">
+                                        <enum>Qt::RichText</enum>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item row="1" column="0">
+                                      <widget class="QLabel" name="dybde_label">
+                                       <property name="font">
+                                        <font>
+                                         <family>Segoe UI</family>
+                                         <pointsize>10</pointsize>
+                                         <weight>50</weight>
+                                         <italic>false</italic>
+                                         <bold>false</bold>
+                                        </font>
+                                       </property>
+                                       <property name="text">
+                                        <string>Dybde:</string>
+                                       </property>
+                                       <property name="textFormat">
+                                        <enum>Qt::RichText</enum>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item row="0" column="1">
+                                      <widget class="QLabel" name="tid">
+                                       <property name="font">
+                                        <font>
+                                         <family>Segoe UI</family>
+                                         <pointsize>10</pointsize>
+                                         <weight>50</weight>
+                                         <italic>false</italic>
+                                         <bold>false</bold>
+                                        </font>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px;</string>
+                                       </property>
+                                       <property name="text">
+                                        <string>00:00:00</string>
+                                       </property>
+                                       <property name="alignment">
+                                        <set>Qt::AlignCenter</set>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item row="5" column="0">
+                                      <widget class="QLabel" name="orientering_label">
+                                       <property name="font">
+                                        <font>
+                                         <family>Segoe UI</family>
+                                         <pointsize>10</pointsize>
+                                         <weight>50</weight>
+                                         <italic>false</italic>
+                                         <bold>false</bold>
+                                        </font>
+                                       </property>
+                                       <property name="text">
+                                        <string>Orientering:</string>
+                                       </property>
+                                       <property name="textFormat">
+                                        <enum>Qt::PlainText</enum>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                    </layout>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QFrame" name="ROV_column_2">
+                                    <property name="frameShape">
+                                     <enum>QFrame::NoFrame</enum>
+                                    </property>
+                                    <property name="frameShadow">
+                                     <enum>QFrame::Raised</enum>
+                                    </property>
+                                    <layout class="QVBoxLayout" name="verticalLayout_23">
+                                     <property name="leftMargin">
+                                      <number>0</number>
+                                     </property>
+                                     <property name="topMargin">
+                                      <number>0</number>
+                                     </property>
+                                     <property name="rightMargin">
+                                      <number>0</number>
+                                     </property>
+                                     <property name="bottomMargin">
+                                      <number>0</number>
+                                     </property>
+                                     <item>
+                                      <widget class="QFrame" name="lys_container">
+                                       <property name="frameShape">
+                                        <enum>QFrame::NoFrame</enum>
+                                       </property>
+                                       <property name="frameShadow">
+                                        <enum>QFrame::Raised</enum>
+                                       </property>
+                                       <layout class="QVBoxLayout" name="verticalLayout_24">
+                                        <item>
+                                         <widget class="QFrame" name="lys_container_2">
+                                          <property name="minimumSize">
+                                           <size>
+                                            <width>200</width>
+                                            <height>40</height>
+                                           </size>
+                                          </property>
+                                          <property name="maximumSize">
+                                           <size>
+                                            <width>200</width>
+                                            <height>16777215</height>
+                                           </size>
+                                          </property>
+                                          <property name="frameShape">
+                                           <enum>QFrame::NoFrame</enum>
+                                          </property>
+                                          <property name="frameShadow">
+                                           <enum>QFrame::Raised</enum>
+                                          </property>
+                                          <widget class="QLabel" name="lys_label">
+                                           <property name="geometry">
+                                            <rect>
+                                             <x>10</x>
+                                             <y>50</y>
+                                             <width>50</width>
+                                             <height>50</height>
+                                            </rect>
+                                           </property>
+                                           <property name="minimumSize">
+                                            <size>
+                                             <width>50</width>
+                                             <height>40</height>
+                                            </size>
+                                           </property>
+                                           <property name="font">
+                                            <font>
+                                             <family>Segoe UI</family>
+                                             <pointsize>10</pointsize>
+                                             <weight>50</weight>
+                                             <italic>false</italic>
+                                             <bold>false</bold>
+                                            </font>
+                                           </property>
+                                           <property name="text">
+                                            <string>Lys:</string>
+                                           </property>
+                                           <property name="textFormat">
+                                            <enum>Qt::RichText</enum>
+                                           </property>
+                                          </widget>
+                                          <widget class="QSlider" name="lys_slider">
+                                           <property name="geometry">
+                                            <rect>
+                                             <x>70</x>
+                                             <y>70</y>
+                                             <width>91</width>
+                                             <height>20</height>
+                                            </rect>
+                                           </property>
+                                           <property name="minimumSize">
+                                            <size>
+                                             <width>0</width>
+                                             <height>20</height>
+                                            </size>
+                                           </property>
+                                           <property name="maximumSize">
+                                            <size>
+                                             <width>150</width>
+                                             <height>20</height>
+                                            </size>
+                                           </property>
+                                           <property name="maximum">
+                                            <number>100</number>
+                                           </property>
+                                           <property name="orientation">
+                                            <enum>Qt::Horizontal</enum>
+                                           </property>
+                                          </widget>
+                                          <widget class="QFrame" name="lys_circle">
+                                           <property name="geometry">
+                                            <rect>
+                                             <x>90</x>
+                                             <y>10</y>
+                                             <width>50</width>
+                                             <height>50</height>
+                                            </rect>
+                                           </property>
+                                           <property name="styleSheet">
+                                            <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
+                                           </property>
+                                           <property name="frameShape">
+                                            <enum>QFrame::StyledPanel</enum>
+                                           </property>
+                                           <property name="frameShadow">
+                                            <enum>QFrame::Raised</enum>
+                                           </property>
+                                           <widget class="QLabel" name="lys_percentage">
+                                            <property name="geometry">
+                                             <rect>
+                                              <x>6</x>
+                                              <y>13</y>
+                                              <width>37</width>
+                                              <height>21</height>
+                                             </rect>
                                             </property>
                                             <property name="font">
                                              <font>
@@ -2816,175 +2523,478 @@ p, li { white-space: pre-wrap; }
                                               <bold>false</bold>
                                              </font>
                                             </property>
-                                            <property name="styleSheet">
-                                             <string notr="true">padding: 4px;</string>
+                                            <property name="autoFillBackground">
+                                             <bool>false</bool>
                                             </property>
                                             <property name="text">
-                                             <string>På</string>
+                                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:super;&quot;&gt;%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                            </property>
+                                            <property name="scaledContents">
+                                             <bool>false</bool>
+                                            </property>
+                                            <property name="alignment">
+                                             <set>Qt::AlignCenter</set>
+                                            </property>
+                                            <property name="wordWrap">
+                                             <bool>false</bool>
                                             </property>
                                            </widget>
-                                          </item>
-                                          <item row="0" column="4">
-                                           <widget class="QLabel" name="lys_label_2">
-                                            <property name="font">
-                                             <font>
-                                              <family>Segoe UI</family>
-                                              <pointsize>10</pointsize>
-                                              <weight>50</weight>
-                                              <italic>false</italic>
-                                              <bold>false</bold>
-                                             </font>
-                                            </property>
-                                            <property name="text">
-                                             <string>Lys</string>
-                                            </property>
-                                            <property name="textFormat">
-                                             <enum>Qt::RichText</enum>
-                                            </property>
-                                           </widget>
-                                          </item>
-                                          <item row="0" column="2">
-                                           <widget class="QPushButton" name="lys_av_btn">
-                                            <property name="maximumSize">
-                                             <size>
-                                              <width>40</width>
-                                              <height>16777215</height>
-                                             </size>
-                                            </property>
-                                            <property name="font">
-                                             <font>
-                                              <family>Segoe UI</family>
-                                              <pointsize>10</pointsize>
-                                              <weight>50</weight>
-                                              <italic>false</italic>
-                                              <bold>false</bold>
-                                             </font>
-                                            </property>
-                                            <property name="styleSheet">
-                                             <string notr="true">padding: 4px;</string>
-                                            </property>
-                                            <property name="text">
-                                             <string>Av</string>
-                                            </property>
-                                           </widget>
-                                          </item>
-                                         </layout>
-                                        </widget>
-                                       </item>
-                                      </layout>
-                                     </widget>
-                                    </item>
-                                   </layout>
-                                  </widget>
-                                 </item>
-                                 <item>
-                                  <widget class="QFrame" name="sensor_container">
-                                   <property name="minimumSize">
-                                    <size>
-                                     <width>0</width>
-                                     <height>200</height>
-                                    </size>
-                                   </property>
-                                   <property name="frameShape">
-                                    <enum>QFrame::NoFrame</enum>
-                                   </property>
-                                   <property name="frameShadow">
-                                    <enum>QFrame::Raised</enum>
-                                   </property>
-                                   <layout class="QVBoxLayout" name="verticalLayout_17">
-                                    <item>
-                                     <widget class="QLabel" name="sensor_title">
-                                      <property name="font">
-                                       <font>
-                                        <family>Segoe UI</family>
-                                        <pointsize>10</pointsize>
-                                        <weight>50</weight>
-                                        <italic>false</italic>
-                                        <bold>false</bold>
-                                       </font>
-                                      </property>
-                                      <property name="styleSheet">
-                                       <string notr="true"/>
-                                      </property>
-                                      <property name="text">
-                                       <string>SENSOR INFORMASJON</string>
-                                      </property>
-                                     </widget>
-                                    </item>
-                                    <item>
-                                     <widget class="QLabel" name="sensor_label">
-                                      <property name="styleSheet">
-                                       <string notr="true">color: rgb(113, 126, 149);</string>
-                                      </property>
-                                      <property name="lineWidth">
-                                       <number>1</number>
-                                      </property>
-                                      <property name="text">
-                                       <string>Viser lekkasje eller for høye temperaturer i ROVen</string>
-                                      </property>
-                                      <property name="alignment">
-                                       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                                      </property>
-                                     </widget>
-                                    </item>
-                                    <item>
-                                     <widget class="QLabel" name="sensor_temp_label">
-                                      <property name="styleSheet">
-                                       <string notr="true">color: rgb(113, 126, 149);</string>
-                                      </property>
-                                      <property name="lineWidth">
-                                       <number>1</number>
-                                      </property>
-                                      <property name="text">
-                                       <string>Temperatur</string>
-                                      </property>
-                                      <property name="alignment">
-                                       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                                      </property>
-                                     </widget>
-                                    </item>
-                                    <item>
-                                     <widget class="QLabel" name="sensor_lekk_label_2">
-                                      <property name="styleSheet">
-                                       <string notr="true">color: rgb(113, 126, 149);</string>
-                                      </property>
-                                      <property name="lineWidth">
-                                       <number>1</number>
-                                      </property>
-                                      <property name="text">
-                                       <string>Vannlekkasje</string>
-                                      </property>
-                                      <property name="alignment">
-                                       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                                      </property>
-                                     </widget>
-                                    </item>
-                                    <item>
-                                     <widget class="QLabel" name="sensor_lekk_label">
-                                      <property name="minimumSize">
-                                       <size>
-                                        <width>0</width>
-                                        <height>40</height>
-                                       </size>
-                                      </property>
-                                      <property name="styleSheet">
-                                       <string notr="true">color: rgb(113, 126, 149);</string>
-                                      </property>
-                                      <property name="lineWidth">
-                                       <number>1</number>
-                                      </property>
-                                      <property name="text">
-                                       <string/>
-                                      </property>
-                                      <property name="alignment">
-                                       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                                      </property>
-                                     </widget>
-                                    </item>
-                                   </layout>
-                                  </widget>
-                                 </item>
-                                </layout>
+                                          </widget>
+                                          <widget class="QFrame" name="lys">
+                                           <property name="geometry">
+                                            <rect>
+                                             <x>85</x>
+                                             <y>5</y>
+                                             <width>60</width>
+                                             <height>60</height>
+                                            </rect>
+                                           </property>
+                                           <property name="styleSheet">
+                                            <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
+                                           </property>
+                                           <property name="frameShape">
+                                            <enum>QFrame::NoFrame</enum>
+                                           </property>
+                                           <property name="frameShadow">
+                                            <enum>QFrame::Raised</enum>
+                                           </property>
+                                          </widget>
+                                          <zorder>lys</zorder>
+                                          <zorder>lys_circle</zorder>
+                                          <zorder>lys_label</zorder>
+                                          <zorder>lys_slider</zorder>
+                                         </widget>
+                                        </item>
+                                       </layout>
+                                      </widget>
+                                     </item>
+                                     <item>
+                                      <widget class="QFrame" name="ROV_row_2">
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>220</width>
+                                         <height>140</height>
+                                        </size>
+                                       </property>
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>16777215</width>
+                                         <height>16777215</height>
+                                        </size>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true">QPushButton { background-color: rgb(109, 156, 113) } QPushButton#lys_av_btn, QPushButton#dybde_av_btn, QPushButton#helning_av_btn, QPushButton#mani_av_btn{ background-color: rgb(192, 108, 109) } QPushButton:hover { background-color: rgba(255, 255, 255, 110) }</string>
+                                       </property>
+                                       <property name="frameShape">
+                                        <enum>QFrame::NoFrame</enum>
+                                       </property>
+                                       <property name="frameShadow">
+                                        <enum>QFrame::Raised</enum>
+                                       </property>
+                                       <layout class="QGridLayout" name="gridLayout_3">
+                                        <item row="2" column="4">
+                                         <widget class="QLabel" name="mani_label">
+                                          <property name="font">
+                                           <font>
+                                            <family>Segoe UI</family>
+                                            <pointsize>10</pointsize>
+                                            <weight>50</weight>
+                                            <italic>false</italic>
+                                            <bold>false</bold>
+                                           </font>
+                                          </property>
+                                          <property name="text">
+                                           <string>Manipulator</string>
+                                          </property>
+                                          <property name="textFormat">
+                                           <enum>Qt::PlainText</enum>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                        <item row="3" column="4">
+                                         <widget class="QLabel" name="dybde_reg_label">
+                                          <property name="font">
+                                           <font>
+                                            <family>Segoe UI</family>
+                                            <pointsize>10</pointsize>
+                                            <weight>50</weight>
+                                            <italic>false</italic>
+                                            <bold>false</bold>
+                                           </font>
+                                          </property>
+                                          <property name="text">
+                                           <string>Dybde regulator</string>
+                                          </property>
+                                          <property name="textFormat">
+                                           <enum>Qt::PlainText</enum>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                        <item row="3" column="0">
+                                         <widget class="QPushButton" name="dybde_paa_btn">
+                                          <property name="maximumSize">
+                                           <size>
+                                            <width>40</width>
+                                            <height>16777215</height>
+                                           </size>
+                                          </property>
+                                          <property name="font">
+                                           <font>
+                                            <family>Segoe UI</family>
+                                            <pointsize>10</pointsize>
+                                            <weight>50</weight>
+                                            <italic>false</italic>
+                                            <bold>false</bold>
+                                           </font>
+                                          </property>
+                                          <property name="styleSheet">
+                                           <string notr="true">padding: 4px;</string>
+                                          </property>
+                                          <property name="text">
+                                           <string>På</string>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                        <item row="8" column="0">
+                                         <widget class="QPushButton" name="helning_paa_btn">
+                                          <property name="maximumSize">
+                                           <size>
+                                            <width>40</width>
+                                            <height>16777215</height>
+                                           </size>
+                                          </property>
+                                          <property name="font">
+                                           <font>
+                                            <family>Segoe UI</family>
+                                            <pointsize>10</pointsize>
+                                            <weight>50</weight>
+                                            <italic>false</italic>
+                                            <bold>false</bold>
+                                           </font>
+                                          </property>
+                                          <property name="styleSheet">
+                                           <string notr="true">padding: 4px;</string>
+                                          </property>
+                                          <property name="text">
+                                           <string>På</string>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                        <item row="3" column="2">
+                                         <widget class="QPushButton" name="dybde_av_btn">
+                                          <property name="maximumSize">
+                                           <size>
+                                            <width>40</width>
+                                            <height>16777215</height>
+                                           </size>
+                                          </property>
+                                          <property name="font">
+                                           <font>
+                                            <family>Segoe UI</family>
+                                            <pointsize>10</pointsize>
+                                            <weight>50</weight>
+                                            <italic>false</italic>
+                                            <bold>false</bold>
+                                           </font>
+                                          </property>
+                                          <property name="styleSheet">
+                                           <string notr="true">padding: 4px;</string>
+                                          </property>
+                                          <property name="text">
+                                           <string>Av</string>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                        <item row="8" column="2">
+                                         <widget class="QPushButton" name="helning_av_btn">
+                                          <property name="maximumSize">
+                                           <size>
+                                            <width>40</width>
+                                            <height>16777215</height>
+                                           </size>
+                                          </property>
+                                          <property name="font">
+                                           <font>
+                                            <family>Segoe UI</family>
+                                            <pointsize>10</pointsize>
+                                            <weight>50</weight>
+                                            <italic>false</italic>
+                                            <bold>false</bold>
+                                           </font>
+                                          </property>
+                                          <property name="styleSheet">
+                                           <string notr="true">padding: 4px;</string>
+                                          </property>
+                                          <property name="text">
+                                           <string>Av</string>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                        <item row="8" column="4">
+                                         <widget class="QLabel" name="helning_label">
+                                          <property name="font">
+                                           <font>
+                                            <family>Segoe UI</family>
+                                            <pointsize>10</pointsize>
+                                            <weight>50</weight>
+                                            <italic>false</italic>
+                                            <bold>false</bold>
+                                           </font>
+                                          </property>
+                                          <property name="text">
+                                           <string>Helningsregulator</string>
+                                          </property>
+                                          <property name="textFormat">
+                                           <enum>Qt::PlainText</enum>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                        <item row="2" column="2">
+                                         <widget class="QPushButton" name="mani_av_btn">
+                                          <property name="maximumSize">
+                                           <size>
+                                            <width>40</width>
+                                            <height>16777215</height>
+                                           </size>
+                                          </property>
+                                          <property name="font">
+                                           <font>
+                                            <family>Segoe UI</family>
+                                            <pointsize>10</pointsize>
+                                            <weight>50</weight>
+                                            <italic>false</italic>
+                                            <bold>false</bold>
+                                           </font>
+                                          </property>
+                                          <property name="styleSheet">
+                                           <string notr="true">padding: 4px;</string>
+                                          </property>
+                                          <property name="text">
+                                           <string>Av</string>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                        <item row="0" column="0">
+                                         <widget class="QPushButton" name="lys_paa_btn">
+                                          <property name="minimumSize">
+                                           <size>
+                                            <width>0</width>
+                                            <height>0</height>
+                                           </size>
+                                          </property>
+                                          <property name="maximumSize">
+                                           <size>
+                                            <width>40</width>
+                                            <height>16777215</height>
+                                           </size>
+                                          </property>
+                                          <property name="font">
+                                           <font>
+                                            <family>Segoe UI</family>
+                                            <pointsize>10</pointsize>
+                                            <weight>50</weight>
+                                            <italic>false</italic>
+                                            <bold>false</bold>
+                                           </font>
+                                          </property>
+                                          <property name="styleSheet">
+                                           <string notr="true">padding: 4px;</string>
+                                          </property>
+                                          <property name="text">
+                                           <string>På</string>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                        <item row="2" column="0">
+                                         <widget class="QPushButton" name="mani_paa_btn">
+                                          <property name="maximumSize">
+                                           <size>
+                                            <width>40</width>
+                                            <height>16777215</height>
+                                           </size>
+                                          </property>
+                                          <property name="font">
+                                           <font>
+                                            <family>Segoe UI</family>
+                                            <pointsize>10</pointsize>
+                                            <weight>50</weight>
+                                            <italic>false</italic>
+                                            <bold>false</bold>
+                                           </font>
+                                          </property>
+                                          <property name="styleSheet">
+                                           <string notr="true">padding: 4px;</string>
+                                          </property>
+                                          <property name="text">
+                                           <string>På</string>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                        <item row="0" column="4">
+                                         <widget class="QLabel" name="lys_label_2">
+                                          <property name="font">
+                                           <font>
+                                            <family>Segoe UI</family>
+                                            <pointsize>10</pointsize>
+                                            <weight>50</weight>
+                                            <italic>false</italic>
+                                            <bold>false</bold>
+                                           </font>
+                                          </property>
+                                          <property name="text">
+                                           <string>Lys</string>
+                                          </property>
+                                          <property name="textFormat">
+                                           <enum>Qt::RichText</enum>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                        <item row="0" column="2">
+                                         <widget class="QPushButton" name="lys_av_btn">
+                                          <property name="maximumSize">
+                                           <size>
+                                            <width>40</width>
+                                            <height>16777215</height>
+                                           </size>
+                                          </property>
+                                          <property name="font">
+                                           <font>
+                                            <family>Segoe UI</family>
+                                            <pointsize>10</pointsize>
+                                            <weight>50</weight>
+                                            <italic>false</italic>
+                                            <bold>false</bold>
+                                           </font>
+                                          </property>
+                                          <property name="styleSheet">
+                                           <string notr="true">padding: 4px;</string>
+                                          </property>
+                                          <property name="text">
+                                           <string>Av</string>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                       </layout>
+                                      </widget>
+                                     </item>
+                                    </layout>
+                                   </widget>
+                                  </item>
+                                 </layout>
+                                </widget>
+                                <widget class="QFrame" name="sensor_container">
+                                 <property name="geometry">
+                                  <rect>
+                                   <x>12</x>
+                                   <y>588</y>
+                                   <width>267</width>
+                                   <height>200</height>
+                                  </rect>
+                                 </property>
+                                 <property name="minimumSize">
+                                  <size>
+                                   <width>0</width>
+                                   <height>200</height>
+                                  </size>
+                                 </property>
+                                 <property name="frameShape">
+                                  <enum>QFrame::NoFrame</enum>
+                                 </property>
+                                 <property name="frameShadow">
+                                  <enum>QFrame::Raised</enum>
+                                 </property>
+                                 <layout class="QVBoxLayout" name="verticalLayout_17">
+                                  <item>
+                                   <widget class="QLabel" name="sensor_title">
+                                    <property name="font">
+                                     <font>
+                                      <family>Segoe UI</family>
+                                      <pointsize>10</pointsize>
+                                      <weight>50</weight>
+                                      <italic>false</italic>
+                                      <bold>false</bold>
+                                     </font>
+                                    </property>
+                                    <property name="styleSheet">
+                                     <string notr="true"/>
+                                    </property>
+                                    <property name="text">
+                                     <string>SENSOR INFORMASJON</string>
+                                    </property>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QLabel" name="sensor_label">
+                                    <property name="styleSheet">
+                                     <string notr="true">color: rgb(113, 126, 149);</string>
+                                    </property>
+                                    <property name="lineWidth">
+                                     <number>1</number>
+                                    </property>
+                                    <property name="text">
+                                     <string>Viser lekkasje eller for høye temperaturer i ROVen</string>
+                                    </property>
+                                    <property name="alignment">
+                                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                                    </property>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QLabel" name="sensor_temp_label">
+                                    <property name="styleSheet">
+                                     <string notr="true">color: rgb(113, 126, 149);</string>
+                                    </property>
+                                    <property name="lineWidth">
+                                     <number>1</number>
+                                    </property>
+                                    <property name="text">
+                                     <string>Temperatur</string>
+                                    </property>
+                                    <property name="alignment">
+                                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                                    </property>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QLabel" name="sensor_lekk_label_2">
+                                    <property name="styleSheet">
+                                     <string notr="true">color: rgb(113, 126, 149);</string>
+                                    </property>
+                                    <property name="lineWidth">
+                                     <number>1</number>
+                                    </property>
+                                    <property name="text">
+                                     <string>Vannlekkasje</string>
+                                    </property>
+                                    <property name="alignment">
+                                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                                    </property>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QLabel" name="sensor_lekk_label">
+                                    <property name="minimumSize">
+                                     <size>
+                                      <width>0</width>
+                                      <height>40</height>
+                                     </size>
+                                    </property>
+                                    <property name="styleSheet">
+                                     <string notr="true">color: rgb(113, 126, 149);</string>
+                                    </property>
+                                    <property name="lineWidth">
+                                     <number>1</number>
+                                    </property>
+                                    <property name="text">
+                                     <string/>
+                                    </property>
+                                    <property name="alignment">
+                                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                                    </property>
+                                   </widget>
+                                  </item>
+                                 </layout>
+                                </widget>
                                </widget>
                               </item>
                               <item>
@@ -5780,7 +5790,7 @@ p, li { white-space: pre-wrap; }
                    </size>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">background-color: red;</string>
+                   <string notr="true"/>
                   </property>
                   <property name="frameShape">
                    <enum>QFrame::NoFrame</enum>
@@ -5791,9 +5801,9 @@ p, li { white-space: pre-wrap; }
                   <widget class="QLabel" name="grip_icon">
                    <property name="geometry">
                     <rect>
-                     <x>-2</x>
-                     <y>2</y>
-                     <width>31</width>
+                     <x>-7</x>
+                     <y>-4</y>
+                     <width>30</width>
                      <height>20</height>
                     </rect>
                    </property>

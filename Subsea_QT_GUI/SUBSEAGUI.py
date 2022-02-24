@@ -47,7 +47,7 @@ class Ui_MainWindow(object):
 "    background-position: left center;\n"
 "    background-repeat: no-repeat;\n"
 "    border: none;\n"
-"    border-left: 2px solid rgb(255, 121, 198);\n"
+"    border-left: 2px solid rgb(39, 35, 62);\n"
 "    text-align: left;\n"
 "    padding-left: 8px;\n"
 "    margin: 0px;\n"
@@ -88,7 +88,7 @@ class Ui_MainWindow(object):
 "    background-color: rgb(40, 44, 52);\n"
 "}\n"
 "#topMenu .QPushButton:pressed {    \n"
-"    background-color: rgb(189, 147, 249);\n"
+"    background-color: rgb(74, 82, 91);\n"
 "    color: rgb(255, 255, 255);\n"
 "}\n"
 "#bottomMenu .QPushButton {    \n"
@@ -104,7 +104,7 @@ class Ui_MainWindow(object):
 "    background-color: rgb(40, 44, 52);\n"
 "}\n"
 "#bottomMenu .QPushButton:pressed {    \n"
-"    background-color: rgb(189, 147, 249);\n"
+"    background-color: rgb(74, 82, 91);\n"
 "    color: rgb(255, 255, 255);\n"
 "}\n"
 "#leftMenuFrame{\n"
@@ -126,7 +126,7 @@ class Ui_MainWindow(object):
 "    background-color: rgb(40, 44, 52);\n"
 "}\n"
 "#toggleButton:pressed {\n"
-"    background-color: rgb(189, 147, 249);\n"
+"    background-color: rgb(74, 82, 91);\n"
 "}\n"
 "\n"
 "/* Title Menu */\n"
@@ -139,7 +139,7 @@ class Ui_MainWindow(object):
 "    background-color: rgb(44, 49, 58);\n"
 "}\n"
 "#extraTopBg{    \n"
-"    background-color: rgb(189, 147, 249)\n"
+"    background-color: rgb(74, 82, 91)\n"
 "}\n"
 "\n"
 "/* Icon */\n"
@@ -176,7 +176,7 @@ class Ui_MainWindow(object):
 "    background-color: rgb(40, 44, 52);\n"
 "}\n"
 "#extraTopMenu .QPushButton:pressed {    \n"
-"    background-color: rgb(189, 147, 249);\n"
+"    background-color: rgb(74, 82, 91);\n"
 "    color: rgb(255, 255, 255);\n"
 "}\n"
 "\n"
@@ -196,7 +196,7 @@ class Ui_MainWindow(object):
 "\n"
 "/* Theme Settings */\n"
 "#extraRightBox { background-color: rgb(44, 49, 58); }\n"
-"#themeSettingsTopDetail { background-color: rgb(189, 147, 249); }\n"
+"#themeSettingsTopDetail { background-color: rgb(74, 82, 91); }\n"
 "\n"
 "/* Bottom Bar */\n"
 "#bottomBar { background-color: rgb(44, 49, 58); }\n"
@@ -217,7 +217,7 @@ class Ui_MainWindow(object):
 "    background-color: rgb(40, 44, 52);\n"
 "}\n"
 "#contentSettings .QPushButton:pressed {    \n"
-"    background-color: rgb(189, 147, 249);\n"
+"    background-color: rgb(74, 82, 91);\n"
 "    color: rgb(255, 255, 255);\n"
 "}\n"
 "\n"
@@ -237,7 +237,7 @@ class Ui_MainWindow(object):
 "    gridline-color: rgb(44, 49, 60);\n"
 "}\n"
 "QTableWidget::item:selected{\n"
-"    background-color: rgb(189, 147, 249);\n"
+"    background-color: rgb(74, 82, 91);\n"
 "}\n"
 "QHeaderView::section{\n"
 "    background-color: rgb(33, 37, 43);\n"
@@ -271,7 +271,7 @@ class Ui_MainWindow(object):
 "    border: 2px solid rgb(33, 37, 43);\n"
 "    padding-left: 10px;\n"
 "    selection-color: rgb(255, 255, 255);\n"
-"    selection-background-color: rgb(255, 121, 198);\n"
+"    selection-background-color: rgb(74, 82, 91);\n"
 "}\n"
 "QLineEdit:hover {\n"
 "    border: 2px solid rgb(64, 71, 88);\n"
@@ -287,7 +287,7 @@ class Ui_MainWindow(object):
 "    border-radius: 5px;\n"
 "    padding: 10px;\n"
 "    selection-color: rgb(255, 255, 255);\n"
-"    selection-background-color: rgb(255, 121, 198);\n"
+"    selection-background-color: rgb(74, 82, 91);\n"
 "}\n"
 "QPlainTextEdit  QScrollBar:vertical {\n"
 "    width: 8px;\n"
@@ -312,7 +312,7 @@ class Ui_MainWindow(object):
 "    border-radius: 0px;\n"
 "}\n"
 "QScrollBar::handle:horizontal {\n"
-"    background: rgb(189, 147, 249);\n"
+"    background: rgb(74, 82, 91);\n"
 "    min-width: 25px;\n"
 "    border-radius: 4px\n"
 "}\n"
@@ -350,7 +350,7 @@ class Ui_MainWindow(object):
 "    border-radius: 0px;\n"
 " }\n"
 " QScrollBar::handle:vertical {    \n"
-"    background: rgb(189, 147, 249);\n"
+"    background: rgb(74, 82, 91);\n"
 "    min-height: 25px;\n"
 "    border-radius: 4px\n"
 " }\n"
@@ -441,7 +441,7 @@ class Ui_MainWindow(object):
 "    background-repeat: no-reperat;\n"
 " }\n"
 "QComboBox QAbstractItemView {\n"
-"    color: rgb(255, 121, 198);    \n"
+"    color: rgb(74, 82, 91);    \n"
 "    background-color: rgb(33, 37, 43);\n"
 "    padding: 10px;\n"
 "    selection-background-color: rgb(39, 44, 54);\n"
@@ -1008,7 +1008,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContent = QtWidgets.QWidget()
-        self.scrollAreaWidgetContent.setGeometry(QtCore.QRect(0, 0, 1667, 833))
+        self.scrollAreaWidgetContent.setGeometry(QtCore.QRect(0, 0, 1503, 844))
         self.scrollAreaWidgetContent.setObjectName("scrollAreaWidgetContent")
         self.horizontalLayout_10 = QtWidgets.QHBoxLayout(self.scrollAreaWidgetContent)
         self.horizontalLayout_10.setContentsMargins(0, 0, 0, 0)
@@ -1024,10 +1024,8 @@ class Ui_MainWindow(object):
         self.column1.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.column1.setFrameShadow(QtWidgets.QFrame.Raised)
         self.column1.setObjectName("column1")
-        self.verticalLayout_34 = QtWidgets.QVBoxLayout(self.column1)
-        self.verticalLayout_34.setContentsMargins(12, 12, 12, 12)
-        self.verticalLayout_34.setObjectName("verticalLayout_34")
         self.kjoring_container = QtWidgets.QFrame(self.column1)
+        self.kjoring_container.setGeometry(QtCore.QRect(12, 12, 222, 128))
         self.kjoring_container.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.kjoring_container.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.kjoring_container.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -1079,8 +1077,8 @@ class Ui_MainWindow(object):
         self.manuell_btn.setStyleSheet("background-color: rgb(52, 59, 72);")
         self.manuell_btn.setObjectName("manuell_btn")
         self.verticalLayout_22.addWidget(self.manuell_btn)
-        self.verticalLayout_34.addWidget(self.kjoring_container)
         self.ROV_label = QtWidgets.QLabel(self.column1)
+        self.ROV_label.setGeometry(QtCore.QRect(12, 186, 21, 30))
         self.ROV_label.setMinimumSize(QtCore.QSize(0, 30))
         self.ROV_label.setMaximumSize(QtCore.QSize(16777215, 10))
         font = QtGui.QFont()
@@ -1092,8 +1090,8 @@ class Ui_MainWindow(object):
         self.ROV_label.setFont(font)
         self.ROV_label.setStyleSheet("")
         self.ROV_label.setObjectName("ROV_label")
-        self.verticalLayout_34.addWidget(self.ROV_label)
         self.ROV_container = QtWidgets.QFrame(self.column1)
+        self.ROV_container.setGeometry(QtCore.QRect(12, 222, 440, 350))
         self.ROV_container.setMinimumSize(QtCore.QSize(0, 350))
         self.ROV_container.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.ROV_container.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -1493,8 +1491,8 @@ class Ui_MainWindow(object):
         self.gridLayout_3.addWidget(self.lys_av_btn, 0, 2, 1, 1)
         self.verticalLayout_23.addWidget(self.ROV_row_2)
         self.horizontalLayout_7.addWidget(self.ROV_column_2)
-        self.verticalLayout_34.addWidget(self.ROV_container)
         self.sensor_container = QtWidgets.QFrame(self.column1)
+        self.sensor_container.setGeometry(QtCore.QRect(12, 588, 267, 200))
         self.sensor_container.setMinimumSize(QtCore.QSize(0, 200))
         self.sensor_container.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.sensor_container.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -1538,7 +1536,6 @@ class Ui_MainWindow(object):
         self.sensor_lekk_label.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.sensor_lekk_label.setObjectName("sensor_lekk_label")
         self.verticalLayout_17.addWidget(self.sensor_lekk_label)
-        self.verticalLayout_34.addWidget(self.sensor_container)
         self.horizontalLayout_10.addWidget(self.column1)
         self.column2 = QtWidgets.QFrame(self.scrollAreaWidgetContent)
         self.column2.setMinimumSize(QtCore.QSize(350, 700))
@@ -2654,12 +2651,12 @@ class Ui_MainWindow(object):
         self.frame_size_grip = QtWidgets.QFrame(self.bottomBar)
         self.frame_size_grip.setMinimumSize(QtCore.QSize(20, 0))
         self.frame_size_grip.setMaximumSize(QtCore.QSize(20, 16777215))
-        self.frame_size_grip.setStyleSheet("background-color: red;")
+        self.frame_size_grip.setStyleSheet("")
         self.frame_size_grip.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.frame_size_grip.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_size_grip.setObjectName("frame_size_grip")
         self.grip_icon = QtWidgets.QLabel(self.frame_size_grip)
-        self.grip_icon.setGeometry(QtCore.QRect(-2, 2, 31, 20))
+        self.grip_icon.setGeometry(QtCore.QRect(-7, -4, 30, 20))
         self.grip_icon.setText("")
         self.grip_icon.setPixmap(QtGui.QPixmap(":/icons/images/icons/cil-size-grip.png"))
         self.grip_icon.setAlignment(QtCore.Qt.AlignBottom|QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing)
@@ -2672,7 +2669,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.styleSheet)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
