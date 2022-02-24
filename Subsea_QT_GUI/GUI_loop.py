@@ -1,12 +1,10 @@
 import multiprocessing
 from tkinter import Widget
 from PyQt5 import QtCore, QtGui, QtWidgets, Qt
-from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QLabel, QFileDialog, QApplication, QWidget, QVBoxLayout, QSizeGrip, QFrame
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QLabel, QFileDialog, QApplication, QWidget, QVBoxLayout, QSizeGrip, QFrame, QMessageBox, QStyleFactory, QSizeGrip, QGraphicsDropShadowEffect, QPushButton, QComboBox, QDesktopWidget
 from PyQt5.QtWebEngineWidgets import *
 from PyQt5.Qt import *
 from PyQt5.QtGui import QColor, QIcon, QCursor
-from PyQt5.QtWidgets import QSizeGrip
 from multiprocessing import Pipe, Value
 from Threadwatch import Threadwatcher
 import sys
@@ -15,9 +13,8 @@ import json
 import os
 import Subsea_QT_GUI.SUBSEAGUI as SUBSEAGUI
 from Subsea_QT_GUI.custom_grips import CustomGrip, Widgets
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QGraphicsDropShadowEffect, QPushButton, QApplication, QComboBox, QDesktopWidget
-from PyQt5.QtCore import QtMsgType, QTimer, QEvent
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QtMsgType, QTimer, QEvent
+
 
 # GLOBALS
 # ///////////////////////////////////////////////////////////////
@@ -70,6 +67,9 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.pipe_conn_only_rcv = pipe_conn_only_rcv
         self.t_watch = t_watch
         self.id = id
+
+
+
         
 
 
@@ -102,7 +102,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         # ///////////////////////////////////////////////////////////////
         self.titleRightInfo.mouseDoubleClickEvent = self.dobleClickMaximizeRestore
-        self.maximizeRestoreAppBtn.mouseDoubleClickEvent = self.dobleClickMaximizeRestore
+        #self.maximizeRestoreAppBtn.mouseDoubleClickEvent = self.dobleClickMaximizeRestore
 
         self.titleRightInfo.mouseMoveEvent = self.moveWindow
 
@@ -118,12 +118,6 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.bottom_grip = CustomGrip(self, Qt.BottomEdge, True)
 
         # RESIZE WINDOW
-        #vboxlayout = QVBoxLayout()
-        sizegrip = QSizeGrip(self)
-        sizegrip.setVisible(True)
-        #vboxlayout.addWidget(sizegrip)
-        #self.setLayout(vboxlayout)
-        
         self.sizegrip = QSizeGrip(self.frame_size_grip)
         self.sizegrip.setStyleSheet("width: 20px; height: 20px; margin 0px; padding: 0px;")
 
@@ -161,7 +155,9 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.set_default_profile()
         self.send_profile_to_main()
     
-
+        self.setStyle(QStyleFactory.create('Windows'))
+        self.comboBox_Y_btn.setStyle(QStyleFactory.create('Windows'))
+        
     def set_default_profile(self):
         """Sets the current profile back to the default one"""
         profiledata = ""
@@ -253,6 +249,13 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         # [self.comboBox_velg_profil.itemText(index))
         print("updated profiles")
 
+    def messagebox_popup(self):
+        # Popup for reset-button
+        msg = QMessageBox()
+        msg.setWindowTitle("Melding")
+        msg.setText("Profilen er satt til standard")
+        msg.setIcon(QMessageBox.Warning)
+        x = msg.exec_()
         
     def send_data_to_main(self, data, id):
         if self.queue is not None:
@@ -326,7 +329,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.setWindowFlags(Qt.FramelessWindowHint|Qt.WindowMinimizeButtonHint|Qt.WindowCloseButtonHint)
 
         self.setAttribute(Qt.WA_TranslucentBackground)
-        self.appMargins.setContentsMargins(0, 0, 0, 0)
+        self.appMargins.setContentsMargins(10, 10, 10, 10)
 
     ## SET VALUES TO DEF progressBarValue
     def setValue(self, slider, labelPercentage, progressBarName, color):
@@ -400,16 +403,23 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
     def minimize(self):
         print("clicked minimized")
-        #self.hide()
-        self.showMinimized()
+        if sys.platform == "darwin" or sys.platform.startswith("linux"):
+            self.hide()
+        elif sys.platform == "win32":
+            self.showMinimized()
+        
 
 
     def maximize_restore(self):
         global GLOBAL_STATE
         status = GLOBAL_STATE
-        if status == True:
-            GLOBAL_STATE = False
-            self.showMaximized()
+        if status == False:
+            if sys.platform == "darwin" or sys.platform.startswith("linux"):
+                self.showFullScreen()
+            elif sys.platform == "win32":
+                self.showMaximized()
+            GLOBAL_STATE = True
+            self.appMargins.setContentsMargins(0, 0, 0, 0)
             self.maximizeRestoreAppBtn.setToolTip("Restore")
             self.maximizeRestoreAppBtn.setIcon(QIcon(u":/icons/images/icons/icon_restore.png"))
             self.frame_size_grip.hide()
@@ -418,9 +428,10 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             self.top_grip.hide()
             self.bottom_grip.hide()
         else:
-            GLOBAL_STATE = True
+            GLOBAL_STATE = False
             self.showNormal()
             self.resize(self.width()+1, self.height()+1)
+            self.appMargins.setContentsMargins(0, 0, 0, 0)
             self.maximizeRestoreAppBtn.setToolTip("Maximize")
             self.maximizeRestoreAppBtn.setIcon(QIcon(u":/icons/images/icons/icon_maximize.png"))
             self.frame_size_grip.show()
@@ -467,6 +478,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
 def run(conn, queue_for_rov, t_watch: Threadwatcher, id):
     app = QtWidgets.QApplication(sys.argv)
+
     
     win = Window(conn, queue_for_rov, t_watch, id)
     win.setWindowTitle("UiS Subsea")
@@ -477,8 +489,11 @@ def run(conn, queue_for_rov, t_watch: Threadwatcher, id):
     #win.showMinimized()
     win.show()
     # win.close()
-    sys.exit(app.exec())    
+    sys.exit(app.exec())
+  
 
 if __name__ == "__main__":
     import SUBSEAGUI
+
+    
     run()
