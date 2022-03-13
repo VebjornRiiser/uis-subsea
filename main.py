@@ -47,12 +47,12 @@ def recieve_commands_from_gui(conn, t_watch: Threadwatcher, id):
 def create_test_sensordata(delta, old_sensordata=None):
     sensordata = {}
     if old_sensordata is None:
-        sensordata = {"tid": int(time.time()-start_time_sec), "dybde": -2500.0, "spenning": 48.0, "temp_vann": 26.0}
+        sensordata = {"tid": int(time.time()-start_time_sec), "dybde": -2500.0, "spenning": 48.0, "temp_rov": 26.0}
     else:
         sensordata["tid"] = int(time.time()-start_time_sec)
         sensordata["dybde"] = old_sensordata["dybde"] + 10*delta
         sensordata["spenning"] = old_sensordata["spenning"] + 0.4*delta
-        sensordata["temp_vann"] = old_sensordata["temp_vann"] + 0.3*delta
+        sensordata["temp_rov"] = old_sensordata["temp_rov"] + 0.3*delta
     return sensordata
 
 
