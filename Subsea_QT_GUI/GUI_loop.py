@@ -2,9 +2,11 @@ import multiprocessing
 from tkinter import Widget
 from PyQt5 import QtCore, QtGui, QtWidgets, Qt
 from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QLabel, QFileDialog, QApplication, QWidget, QVBoxLayout, QSizeGrip, QFrame, QMessageBox, QStyleFactory, QSizeGrip, QGraphicsDropShadowEffect, QPushButton, QComboBox, QDesktopWidget
-from PyQt5.QtWebEngineWidgets import *
+# Må kommentere ut QtWebEngineWidgets for at 3D-modellen (STL) vises ... 
+# TODO: finne ut hvorfor
+from PyQt5.QtWebEngineWidgets import * 
 from PyQt5.Qt import *
-from PyQt5.QtGui import QColor, QIcon, QCursor
+from PyQt5.QtGui import QColor, QIcon, QCursor, QFont
 from multiprocessing import Pipe, Value
 from Threadwatch import Threadwatcher
 import sys
@@ -14,7 +16,21 @@ import os
 import Subsea_QT_GUI.SUBSEAGUI as SUBSEAGUI
 from Subsea_QT_GUI.custom_grips import CustomGrip, Widgets
 from PyQt5.QtCore import Qt, QtMsgType, QTimer, QEvent
+from pyqtgraph.Qt import QtCore, QtGui
+import pyqtgraph as pg
+import pyqtgraph.opengl as gl
+import numpy as np
+from stl import mesh
+import matplotlib.pyplot as plt
+import matplotlib
 
+os.environ["QT_WEBENGINE_DISABLE_GPU"] = "1"
+QApplication.setAttribute(Qt.AA_UseDesktopOpenGL)
+
+QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)  # enable highdpi scaling
+QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)  # use highdpi icons
+#QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
+#QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True) #use highdpi icons
 
 # GLOBALS
 # ///////////////////////////////////////////////////////////////
@@ -24,10 +40,6 @@ GLOBAL_TITLE_BAR = True
 # os.system('pyuic5 -x NYGUI.ui -o SUBSEAGUI.py')
 os.environ["QT_FONT_DPI"] = "96" # FIX Problem for High DPI and Scale above 100%
 
-global_style = """QComboBox {
-
-}
-"""
 
 class AnotherWindow(QWidget):
     """
@@ -36,7 +48,7 @@ class AnotherWindow(QWidget):
     """
     def __init__(self, port):
         super().__init__()
-        layout = QHBoxLayout()
+
         self.label = QLabel("Another Window")
 
         self.setWindowTitle(f"{'havbunnskamera' if port-6888 == 0 else 'frontkamera'}")
@@ -47,7 +59,6 @@ class AnotherWindow(QWidget):
         self.stream1.setFixedWidth(1920)
         self.stream1.setFixedHeight(1080)
         self.stream1.load(QtCore.QUrl(self.url))
-        self.setLayout(layout)
 
         if len(QtWidgets.QApplication.screens())>2:
             monitor = QDesktopWidget().screenGeometry(int(f"{port-6887}"))
@@ -59,19 +70,23 @@ class AnotherWindow(QWidget):
 PROFILE_UPDATE_ID = 2
 COMMAND_TO_ROV_ID = 3
 
+
+
+
+
+
+
+
 class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     def __init__(self, pipe_conn_only_rcv, queue: multiprocessing.Queue, t_watch: Threadwatcher, id: int, parent=None):
         super().__init__(parent)
+        
         self.setWindowIcon(QtGui.QIcon('Subsea_QT_GUI/images/logo.png'))
         self.queue = queue
         self.pipe_conn_only_rcv = pipe_conn_only_rcv
         self.t_watch = t_watch
         self.id = id
-
-
-
         
-
 
         # Remove frame around window
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
@@ -97,8 +112,6 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         self.init_drop_shadow()
 
-        self.comboBox_velg_profil.clear()
-        self.update_current_profiles()
 
         # ///////////////////////////////////////////////////////////////
         self.titleRightInfo.mouseDoubleClickEvent = self.dobleClickMaximizeRestore
@@ -133,9 +146,11 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         self.connect_test_values()
 
+        # commented out to not show camera windows
+        #self.start_camera_windows()
         self.camera_windows_opened = False
-        if self.camera_windows_opened:
-            self.start_camera_windows()
+        #if self.camera_windows_opened:
+        #    self.start_camera_windows()
 
         self.recieve = threading.Thread(target=self.recieve_and_set_text, daemon=True, args=(self.pipe_conn_only_rcv,))
         self.recieve.start()
@@ -154,9 +169,37 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         self.set_default_profile()
         self.send_profile_to_main()
+
+        self.combobox_styling()
     
-        self.setStyle(QStyleFactory.create('Windows'))
-        self.comboBox_Y_btn.setStyle(QStyleFactory.create('Windows'))
+        # STL VIEWER /////////////////////////////////////////////////
+        '''
+        self.viewer = gl.GLViewWidget()
+
+        self.viewer.opts['distance'] = 250
+        self.viewer.setCameraPosition(distance=1500)
+
+        cwd = os.getcwd()
+        m = mesh.Mesh.from_file(f'{cwd}/ROV.stl') # Imported stl file
+
+        points = m.points.reshape(-1, 3)
+        faces = np.arange(points.shape[0]).reshape(-1, 3)
+
+        meshdata = gl.MeshData(vertexes=points, faces=faces)
+        meshitem = gl.GLMeshItem(meshdata=meshdata, smooth=False, drawFaces=True, shader='viewNormalColor', color=(0,0,0,0), drawEdges=True, edgeColor=(0,0,0,0))
+
+        meshitem.rotate(90, 90, 0, 0)
+        meshitem.rotate(90, 0, 0, 90)
+
+        self.viewer.addItem(meshitem)
+        self.layout = self.QVBoxLayout
+        self.layout.addWidget(self.viewer)
+        self.viewer.show()
+        '''
+
+        # ///////////////////////////////////////////////////////////////
+
+
         
     def set_default_profile(self):
         """Sets the current profile back to the default one"""
@@ -193,13 +236,12 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         """Trykker på "Lag ny profil"
         Skal oppgi navn på profilen og lagre en fil med det som er valgt i comboboxen"""
         print("make new profile called")
-        fname = QFileDialog.getSaveFileName(self, 'Open file', 'Custom-profile', filter="profiles (*.userprofile)")
+        fname = QFileDialog.getSaveFileName(self, 'Open file', 'Custom-profile')
         if fname[0] != "":
-            print(fname[0].split('/')[-1])
             print("inside make new profile. fname "+ fname[0].split("/")[-1])
             self.save_profile(name=fname[0].split("/")[-1])
             self.update_current_profiles()
-            self.set_active_profile_in_combobox(fname[0].split('/')[-1].split(".userprofile")[0])
+            self.set_active_profile_in_combobox(fname[0].split('/')[-1])
             self.save_profile_btn.setEnabled(False) # we have now saved so there is no need to save again before changes
 
         else:
@@ -217,7 +259,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         Skal lagre endringene gjort i comboboxen til denne filen når man trykker på "Lagre"""
         self.comboBox_velg_profil: QComboBox
         print(f"at line 195. {self.comboBox_velg_profil.currentIndex() = }")
-        if self.comboBox_velg_profil.currentText() == "Standard profil" and name is None: # Standard profile so we need to create a new one instead of changing it
+        if self.comboBox_velg_profil.currentIndex() == 0 and name is None: # Standard profile so we need to create a new one instead of changing it
             print("save profile calls make new profile")
             self.make_new_profile()
         else:
@@ -225,14 +267,14 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             if name is None:
                 name = self.comboBox_velg_profil.setCurrentText()
             print(f"{name = }")
-            with open(name, 'w', encoding="utf-8") as profile:
+            with open(name+".userprofile", 'w', encoding="utf-8") as profile:
                 profile.write(json.dumps([btn.currentIndex() for btn in self.btn_combobox_list]))
 
 
     def browse_files(self):
         pass
         """Skal laste inn ny profil når man velger en egendefinert profil i comboboxen"""
-        fname = QFileDialog.getOpenFileName(self, 'Open file', 'Custom-profile', filter="profile (*.userprofile)")
+        fname = QFileDialog.getOpenFileName(self, 'Open file', 'Custom-profile')
         if len(fname):
             print(fname)
             with open(fname[0], 'r', encoding="utf-8") as profile:
@@ -244,6 +286,9 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     def update_current_profiles(self):
         file_list = os.listdir()
         self.comboBox_velg_profil.clear()
+        self.comboBox_velg_profil.addItem("Standard profil")
+        # print(file_list)
+        # QFileDialog.selectedNameFilter()
         self.comboBox_velg_profil.addItems([file.split(".userprofile")[0] for file in file_list if file.endswith(".userprofile")])
         # self.comboBox_velg_profil:QComboBox
         # [self.comboBox_velg_profil.itemText(index))
@@ -293,7 +338,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             self.dybde.setText(str(round(data["dybde"],4)))
             self.tid.setText(str(data["tid"]))
             self.spenning.setText(str(round(data["spenning"],4)))
-            self.temp_vann.setText(str(round(data["temp_vann"],4)))
+            self.temp_ROV_1.setText(str(round(data["temp_rov"],4)))
 
     def recieve_and_set_text(self, conn):
         while self.t_watch.should_run(self.id):
@@ -317,6 +362,26 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.stackedWidget.setCurrentIndex(index)
 
     # ///////////////////////////////////////////////////////////////
+    def combobox_styling(self):
+        self.setStyle(QStyleFactory.create('Windows'))
+        self.comboBox_Y_btn.setStyle(QStyleFactory.create('Windows'))
+        self.comboBox_X_btn.setStyle(QStyleFactory.create('Windows'))
+        self.comboBox_A_btn.setStyle(QStyleFactory.create('Windows'))
+        self.comboBox_B_btn.setStyle(QStyleFactory.create('Windows'))
+        self.comboBox_directional_pad_leftright.setStyle(QStyleFactory.create('Windows'))
+        self.comboBox_directional_pad_updown.setStyle(QStyleFactory.create('Windows'))
+        self.comboBox_LB_btn.setStyle(QStyleFactory.create('Windows'))
+        self.comboBox_left_stick_btn.setStyle(QStyleFactory.create('Windows'))
+        self.comboBox_left_stick_x.setStyle(QStyleFactory.create('Windows'))
+        self.comboBox_left_stick_y.setStyle(QStyleFactory.create('Windows'))
+        self.comboBox_LT_btn.setStyle(QStyleFactory.create('Windows'))
+        self.comboBox_menu_btn.setStyle(QStyleFactory.create('Windows'))
+        self.comboBox_RB_btn.setStyle(QStyleFactory.create('Windows'))
+        self.comboBox_right_stick_btn.setStyle(QStyleFactory.create('Windows'))
+        
+
+
+
     def init_drop_shadow(self):
         # DROP SHADOW
         self.shadow = QGraphicsDropShadowEffect(self)
@@ -332,7 +397,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.appMargins.setContentsMargins(10, 10, 10, 10)
 
     ## SET VALUES TO DEF progressBarValue
-    def setValue(self, slider, labelPercentage, progressBarName, color):
+    def setTestValue(self, slider, labelPercentage, progressBarName, color):
         # GET SLIDER VALUE
         value = slider.value()
         # CONVERT VALUE TO INT
@@ -343,6 +408,17 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         # CALL DEF progressBarValue
         self.progressBarValue(sliderValue, progressBarName, color)
 
+    ## SET VALUES TO DEF progressBarValue
+    def setValue(self, labelPercentage, progressBarName, color):
+        # GET SLIDER VALUE
+        value = 20
+        # CONVERT VALUE TO INT
+        sliderValue = int(value)
+        # HTML TEXT PERCENTAGE
+        htmlText = """<p align="center"><span style=" font-size:9pt;">{VALUE}</span><span style=" font-size:9pt; vertical-align:super;">%</span></p>"""
+        labelPercentage.setText(htmlText.replace("{VALUE}", str(sliderValue)))
+        # CALL DEF progressBarValue
+        self.progressBarValue(sliderValue, progressBarName, color)
 
     ## DEF PROGRESS BAR VALUE
     def progressBarValue(self, value, widget, color):
@@ -375,22 +451,33 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
     def connect_test_values(self):
         # APPLY VALUES TO PROGREESBAR
-        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.VHF_percentage, self.VHF, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.HVF_percentage, self.HVF, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.VVF_percentage, self.VVF, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.HHF_percentage, self.HHF, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.HVF_percentage, self.HVF, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.VVB_percentage, self.VVB, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.HVB_percentage, self.HVB, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.HVB_percentage, self.HVB, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.VHB_percentage, self.VHB, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.HHB_percentage, self.HHB, "rgba(85, 170, 255, 255)"))
+        # self.setValue(self.VHF_percentage, self.VHF, "rgba(85, 170, 255, 255)")
+        # self.setValue(self.VVF_percentage, self.VVF, "rgba(85, 170, 255, 255)")
+        # self.setValue(self.HHF_percentage, self.HHF, "rgba(85, 170, 255, 255)")
+        # self.setValue(self.HVF_percentage, self.HVF, "rgba(85, 170, 255, 255)")
+        # self.setValue(self.VVB_percentage, self.VVB, "rgba(85, 170, 255, 255)")
+        # self.setValue(self.HVB_percentage, self.HVB, "rgba(85, 170, 255, 255)")
+        # self.setValue(self.HVB_percentage, self.HVB, "rgba(85, 170, 255, 255)")
+        # self.setValue(self.VHB_percentage, self.VHB, "rgba(85, 170, 255, 255)")
+        # self.setValue(self.HHB_percentage, self.HHB, "rgba(85, 170, 255, 255)")
 
-        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.mani_percentage_1, self.mani_1, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.mani_percentage_2, self.mani_2, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setValue(self.slider, self.mani_percentage_3, self.mani_3, "rgba(85, 170, 255, 255)"))
 
-        self.lys_slider.valueChanged.connect(lambda: self.setValue(self.lys_slider, self.lys_percentage, self.lys, "rgba(85, 170, 255, 255)"))
+        #self.slider.valueChanged.connect(lambda: self.setValue_test(self.slider, self.VHF_percentage, self.VHF, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.HVF_percentage, self.HVF, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.VVF_percentage, self.VVF, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.HHF_percentage, self.HHF, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.HVF_percentage, self.HVF, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.VVB_percentage, self.VVB, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.HVB_percentage, self.HVB, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.HVB_percentage, self.HVB, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.VHB_percentage, self.VHB, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.HHB_percentage, self.HHB, "rgba(85, 170, 255, 255)"))
+
+        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.mani_percentage_1, self.mani_1, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.mani_percentage_2, self.mani_2, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.mani_percentage_3, self.mani_3, "rgba(85, 170, 255, 255)"))
+
+        self.lys_slider.valueChanged.connect(lambda: self.setTestValue(self.lys_slider, self.lys_percentage, self.lys, "rgba(85, 170, 255, 255)"))
 
     # MOUSE CLICK EVENTS
     def mousePressEvent(self, event):
@@ -404,6 +491,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     def minimize(self):
         print("clicked minimized")
         if sys.platform == "darwin" or sys.platform.startswith("linux"):
+            self.setWindowState(self.windowState() | self.showMinimized())
             self.hide()
         elif sys.platform == "win32":
             self.showMinimized()
@@ -479,21 +567,24 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 def run(conn, queue_for_rov, t_watch: Threadwatcher, id):
     app = QtWidgets.QApplication(sys.argv)
 
-    
+
     win = Window(conn, queue_for_rov, t_watch, id)
     win.setWindowTitle("UiS Subsea")
     GLOBAL_STATE = False
 
-    win.maximize_restore() # for windows
+    #win.maximize_restore() # for windows
     #win.showFullScreen() # for mac
     #win.showMinimized()
+
     win.show()
+
     # win.close()
     sys.exit(app.exec())
   
 
 if __name__ == "__main__":
-    import SUBSEAGUI
+    #import SUBSEAGUI
 
     
+
     run()
