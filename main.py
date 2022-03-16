@@ -18,6 +18,7 @@ import sys
 
 # takes a python object and prepares it for sending over network
 def network_format(data) -> bytes:
+    """Formats the data for sending to network handler"""
     packet_seperator = json.dumps("*")
     return bytes(packet_seperator+json.dumps(data)+packet_seperator, "utf-8")
 
@@ -39,12 +40,14 @@ def relay_data_from_controller(connection_controller, t_watch: Threadwatcher, id
 
 
 def recieve_commands_from_gui(conn, t_watch: Threadwatcher, id):
+    #Probably deprecated
     while t_watch.should_run(id):
         print(conn.recv())
     print("t_watch is false")
 
 
 def create_test_sensordata(delta, old_sensordata=None):
+    # test function
     sensordata = {}
     if old_sensordata is None:
         sensordata = {"tid": int(time.time()-start_time_sec), "dybde": -2500.0, "spenning": 48.0, "temp_rov": 26.0}
@@ -109,6 +112,12 @@ class Rov_state:
         self.packets_to_send = []
 
         self.manipulator_active = True
+
+        self.light_intensity_forward = 100
+        self.ligth_forward_is_on = True
+
+        self.light_intensity_down = 100
+        self.ligth_down_is_on = True
 
 
     def skip(self):
@@ -187,6 +196,7 @@ class Rov_state:
 
 
     def get_from_queue(self):
+        """Takes data from the queue and sends it to the correct handler"""
         id, packet = self.queue.get()
         if id == 1: # controller data update
             self.data = packet
@@ -195,11 +205,17 @@ class Rov_state:
             print(id, packet)
             self.button_to_function_map = packet
         elif id == GUI_loop.COMMAND_TO_ROV_ID:
-            print("function not implemented in main")
+            commands = {"update_light_value": self.update_light_value}
+            print("got command")
             print(id, packet)
+            if packet.split(":")[0] not in commands:
+                print(f"Got unrecognized command from gui {packet}")
+                return
+            commands[packet[0]]()
 
 
     def send_packets(self):
+        """Sends the created network packets and clears it"""
         if self.network_handler is None:
             # print(self.packets_to_send)
             # print(self.data["buttons"])
@@ -213,6 +229,17 @@ class Rov_state:
             self.camera_tilt_control_active = not self.camera_tilt_control_active
             print(f"{self.camera_tilt_control_active = }")
             self.right_joystick_toggle_wait_counter = 7
+
+    def update_light_value(self):
+        self.light_intensity_forward = 100
+        self.ligth_forward_is_on = True
+        
+        self.light_intensity_down = 100
+        self.ligth_down_is_on = True
+
+        ligth_down = self.light_intensity_down * self.ligth_down_is_on
+        ligth_forward = self.light_intensity_forward * self.ligth_forward_is_on
+        self.packets_to_send.append([142, ligth_forward, ligth_down])
 
     def update_camera_tilt(self):
         # print("camera tilt update func")
