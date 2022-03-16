@@ -1,10 +1,11 @@
 import multiprocessing
 from tkinter import Widget
 from PyQt5 import QtCore, QtGui, QtWidgets, Qt
-from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QLabel, QFileDialog, QApplication, QWidget, QVBoxLayout, QSizeGrip, QFrame, QMessageBox, QStyleFactory, QSizeGrip, QGraphicsDropShadowEffect, QPushButton, QComboBox, QDesktopWidget
+from PyQt5.QtCore import QEasingCurve
+from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QCheckBox, QLabel, QFileDialog, QApplication, QWidget, QVBoxLayout, QSizeGrip, QFrame, QMessageBox, QStyleFactory, QSizeGrip, QGraphicsDropShadowEffect, QPushButton, QComboBox, QDesktopWidget
 # Må kommentere ut QtWebEngineWidgets for at 3D-modellen (STL) vises ... 
 # TODO: finne ut hvorfor
-from PyQt5.QtWebEngineWidgets import * 
+#from PyQt5.QtWebEngineWidgets import * 
 from PyQt5.Qt import *
 from PyQt5.QtGui import QColor, QIcon, QCursor, QFont
 from multiprocessing import Pipe, Value
@@ -23,6 +24,8 @@ import numpy as np
 from stl import mesh
 import matplotlib.pyplot as plt
 import matplotlib
+
+from Subsea_QT_GUI.py_toggle import PyToggle
 
 os.environ["QT_WEBENGINE_DISABLE_GPU"] = "1"
 QApplication.setAttribute(Qt.AA_UseDesktopOpenGL)
@@ -73,10 +76,6 @@ COMMAND_TO_ROV_ID = 3
 
 
 
-
-
-
-
 class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     def __init__(self, pipe_conn_only_rcv, queue: multiprocessing.Queue, t_watch: Threadwatcher, id: int, parent=None):
         super().__init__(parent)
@@ -86,16 +85,124 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.pipe_conn_only_rcv = pipe_conn_only_rcv
         self.t_watch = t_watch
         self.id = id
-        
+
 
         # Remove frame around window
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.setup_gui_with_folder_change()
 
+
+        # Set the stylesheet of the application
+        #self.set_style(self, self.auto_btn)
+        #self.styleSheet.setStyleSheet(s)
+        
+
+        # STL VIEWER /////////////////////////////////////////////////
+        self.viewer = gl.GLViewWidget()
+
+        # SHADER
+        gl.shaders.Shaders.append(gl.shaders.ShaderProgram('myShader', [
+        gl.shaders.VertexShader("""
+                varying vec3 normal;
+                void main() {
+                    // compute here for use in fragment shader
+                    normal = normalize(gl_NormalMatrix * gl_Normal);
+                    gl_FrontColor = gl_Color;
+                    gl_BackColor = gl_Color;
+                    gl_Position = ftransform();
+                }
+            """),
+        gl.shaders.FragmentShader("""
+                varying vec3 normal;
+                void main() {
+                    vec4 color = gl_Color;
+                    color.x = 0.0;
+                    color.y = (normal.y + 1.0) * 0.5;
+                    color.z = 0.0;
+                    gl_FragColor = color;
+                }
+            """)
+        ]))
+
+
+        #win.viewer.opts['distance'] = 250
+
+        cwd = os.getcwd()
+        self.stl_mesh = mesh.Mesh.from_file(f'{cwd}/ROV.STL') # Imported stl file
+        shape = self.stl_mesh.points.shape
+        points = self.stl_mesh.points.reshape(-1, 3)
+        faces = np.arange(points.shape[0]).reshape(-1, 3)
+
+        self.meshdata = gl.MeshData(vertexes=points, faces=faces)
+        self.meshitem = gl.GLMeshItem(meshdata=self.meshdata, smooth=False, drawFaces=True, shader='viewNormalColor', glOptions='opaque', color=(0,0,0,0), drawEdges=True, edgeColor=(0,0,0,0))
+        self.viewer.addItem(self.meshitem)
+
+        self.meshitem.rotate(90, 90, 0, 0)
+        self.meshitem.rotate(90, 0, 0, 90)
+ 
+        self.layout = self.QVBoxLayout
+        self.layout.addWidget(self.viewer, 1)
+        self.viewer.setCameraPosition(distance=1600)
+
+        g = gl.GLGridItem()
+        g.setSize(1000, 1000)
+        g.setSpacing(100, 100)
+        self.viewer.addItem(g)
+
+        self.rotation = [0, 0, 0]
+
+        self.viewer.show()
+        
+        button = QtGui.QPushButton()
+        button.setText('Rotate')
+        xyz = [10, 10, 10]
+        button.clicked.connect(lambda: self.update_rotation)
+
+        self.layout.addWidget(button)
+
+
+        # Toggle button //////////////////////////////////////////////////////////////
+
+        # Toggle button: https://www.youtube.com/watch?v=NnJFi285s3M&ab_channel=Wanderson
+        self.toggle_mani = PyToggle()
+        self.toggle_dybde = PyToggle()
+        self.toggle_helning = PyToggle()
+        self.toggle_lys = PyToggle()
+
+        self.toggle_mani.setText("Manipulator")
+        self.toggle_dybde.setText("Dybde")
+        self.toggle_helning.setText("Helning")
+        self.toggle_lys.setText("Lys")
+
+        self.toggle_mani.stateChanged.connect(lambda:self.check_btn_state(self.toggle_mani))
+        self.toggle_dybde.stateChanged.connect(lambda:self.check_btn_state(self.toggle_dybde))
+        self.toggle_helning.stateChanged.connect(lambda:self.check_btn_state(self.toggle_helning))
+        self.toggle_lys.stateChanged.connect(lambda:self.check_btn_state(self.toggle_lys))
+
+
+        self.toggle_layout.addWidget(self.toggle_mani, alignment=QtCore.Qt.AlignRight)
+        self.toggle_layout.addWidget(self.toggle_dybde, alignment=QtCore.Qt.AlignRight)
+        self.toggle_layout.addWidget(self.toggle_helning, alignment=QtCore.Qt.AlignRight)
+        self.toggle_layout.addWidget(self.toggle_lys, alignment=QtCore.Qt.AlignRight)
+
+        # GUI button clicked
+        self.manuell_btn.clicked.connect(self.manuell_btn_clicked)
+
+
+        def OuterDoorClose(self):
+            if GPIO.input(Outer)==0: #Outer Door Open
+                self.ui.pushButton_3.setEnabled(False)
+                self.ui.pushButton_4.setEnabled(False)
+                QtCore.QTimer.singleShot(10000,partial(self.ui.pushButton_3.setEnabled,True))
+                return GPIO.output(Outer,GPIO.HIGH)
+
         # Menu button clicked
         self.kontroller_btn.clicked.connect(lambda: self.change_current_widget(2))
         self.informasjon_btn.clicked.connect(lambda: self.change_current_widget(1))
 
+        # ///////////////////////////////////////////////////////////////
+
+        # CONTROLLER PAGE:
         # "Lag ny profil"-button clicked
         self.make_new_profile_btn.clicked.connect(self.make_new_profile)
         #self.make_new_profile_btn.clicked.connect(self.make_new_profile)
@@ -107,13 +214,12 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.save_profile_btn.clicked.connect(lambda: self.save_profile())
         self.save_profile_btn.setEnabled(False)
 
-        # GUI button clicked
-        self.manuell_btn.clicked.connect(self.button_test)
+        # ///////////////////////////////////////////////////////////////
+
+        # LEGGES I EN ANNEN FIL:
 
         self.init_drop_shadow()
 
-
-        # ///////////////////////////////////////////////////////////////
         self.titleRightInfo.mouseDoubleClickEvent = self.dobleClickMaximizeRestore
         #self.maximizeRestoreAppBtn.mouseDoubleClickEvent = self.dobleClickMaximizeRestore
 
@@ -171,36 +277,48 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.send_profile_to_main()
 
         self.combobox_styling()
-    
-        # STL VIEWER /////////////////////////////////////////////////
-        '''
-        self.viewer = gl.GLViewWidget()
-
-        self.viewer.opts['distance'] = 250
-        self.viewer.setCameraPosition(distance=1500)
-
-        cwd = os.getcwd()
-        m = mesh.Mesh.from_file(f'{cwd}/ROV.stl') # Imported stl file
-
-        points = m.points.reshape(-1, 3)
-        faces = np.arange(points.shape[0]).reshape(-1, 3)
-
-        meshdata = gl.MeshData(vertexes=points, faces=faces)
-        meshitem = gl.GLMeshItem(meshdata=meshdata, smooth=False, drawFaces=True, shader='viewNormalColor', color=(0,0,0,0), drawEdges=True, edgeColor=(0,0,0,0))
-
-        meshitem.rotate(90, 90, 0, 0)
-        meshitem.rotate(90, 0, 0, 90)
-
-        self.viewer.addItem(meshitem)
-        self.layout = self.QVBoxLayout
-        self.layout.addWidget(self.viewer)
-        self.viewer.show()
-        '''
 
         # ///////////////////////////////////////////////////////////////
 
 
-        
+    # HOME PAGE FUNCTIONS
+    def check_btn_state(self, b):
+        if b.text() == "Manipulator":
+            if b.isChecked() == True:
+                print(b.text()+" is selected")
+            else:
+                print(b.text()+" is deselected")
+				
+        if b.text() == "Dybde":
+            if b.isChecked() == True:
+                print(b.text()+" is selected")
+            else:
+                print(b.text()+" is deselected")
+
+        if b.text() == "Helning":
+            if b.isChecked() == True:
+                print(b.text()+" is selected")
+            else:
+                print(b.text()+" is deselected")
+
+        if b.text() == "Lys":
+            if b.isChecked() == True:
+                print(b.text()+" is selected")
+            else:
+                print(b.text()+" is deselected")
+
+    def manuell_btn_clicked(self):
+        if self.auto_btn.isChecked():
+            pass
+        '''if GPIO.input(Outer)==0: #Outer Door Open
+            self.ui.pushButton_3.setEnabled(False)
+            self.ui.pushButton_4.setEnabled(False)
+            QtCore.QTimer.singleShot(10000,partial(self.ui.pushButton_3.setEnabled,True))
+            return GPIO.output(Outer,GPIO.HIGH)'''
+
+    # ///////////////////////////////////////////////////////////////
+
+    # CONTROLLER PAGE FUNCTIONS:
     def set_default_profile(self):
         """Sets the current profile back to the default one"""
         profiledata = ""
@@ -213,7 +331,6 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         for index, combobox in enumerate(self.btn_combobox_list):
             combobox.setCurrentIndex(options[index])
         self.save_profile_btn.setEnabled(False)
-
 
 
     def set_active_profile_in_combobox(self, name):
@@ -230,7 +347,6 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
     def send_profile_to_main(self):
         self.send_data_to_main([btn.currentIndex() for btn in self.btn_combobox_list], PROFILE_UPDATE_ID)    
-
 
     def make_new_profile(self):
         """Trykker på "Lag ny profil"
@@ -362,6 +478,12 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.stackedWidget.setCurrentIndex(index)
 
     # ///////////////////////////////////////////////////////////////
+    # Open the qss styles file and read in the css-alike styling code
+    '''def set_style(self, widget):
+        with open('styles.qss', 'r') as f:
+            style = f.read()
+            self.widget.setStyleSheet(style)'''
+
     def combobox_styling(self):
         self.setStyle(QStyleFactory.create('Windows'))
         self.comboBox_Y_btn.setStyle(QStyleFactory.create('Windows'))
@@ -379,9 +501,6 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.comboBox_RB_btn.setStyle(QStyleFactory.create('Windows'))
         self.comboBox_right_stick_btn.setStyle(QStyleFactory.create('Windows'))
         
-
-
-
     def init_drop_shadow(self):
         # DROP SHADOW
         self.shadow = QGraphicsDropShadowEffect(self)
@@ -411,7 +530,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     ## SET VALUES TO DEF progressBarValue
     def setValue(self, labelPercentage, progressBarName, color):
         # GET SLIDER VALUE
-        value = 20
+        value = 30
         # CONVERT VALUE TO INT
         sliderValue = int(value)
         # HTML TEXT PERCENTAGE
@@ -479,6 +598,11 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         self.lys_slider.valueChanged.connect(lambda: self.setTestValue(self.lys_slider, self.lys_percentage, self.lys, "rgba(85, 170, 255, 255)"))
 
+
+
+    # ////////////////////////////////////////
+    # HA I EGEN FIL:
+
     # MOUSE CLICK EVENTS
     def mousePressEvent(self, event):
         # SET DRAG POS WINDOW
@@ -496,8 +620,6 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         elif sys.platform == "win32":
             self.showMinimized()
         
-
-
     def maximize_restore(self):
         global GLOBAL_STATE
         status = GLOBAL_STATE
@@ -527,7 +649,6 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             self.right_grip.show()
             self.top_grip.show()
             self.bottom_grip.show()
-
 
     def dobleClickMaximizeRestore(self, event):
         # IF DOUBLE CLICK CHANGE STATUS
@@ -560,8 +681,41 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     def setStatus(self, status):
         global GLOBAL_STATE
         GLOBAL_STATE = status
-    # ///////////////////////////////////////////////////////////////
 
+    # ///////////////////////////////////////////////////////////////
+    # 3D MODEL:
+
+    '''def set_plotdata(self, name, points, color, width):
+                self.traces[name].setData(pos=points, color=color, width=width)'''
+
+    def update_rotation(self):
+        self.meshitem.rotate(0, 0, 0, 0)
+        self.meshitem.rotate(90, 0, 0, 90)
+
+    # Changes rotation on object
+    def update(self, xyz):
+        x = xyz[0]
+        y = xyz[1]
+        z = xyz[2]
+        print(x,y,z)
+        ye = y-self.rotation[0]
+        xe = x-self.rotation[1]
+        if ye > 10:
+            ye = 10
+        elif ye < -10:
+            ye = -10
+        if xe > 10:
+            xe = 10
+        elif xe < -10:
+            xe = -10
+        if ye > 0.5 or ye < -0.5:
+            self.rotation[0] += ye
+            self.stl_mesh.rotate(abs(ye), 0, -ye, 0)
+        if xe > 0.5 or xe < -0.5:
+            self.rotation[1] += xe
+            self.stl_mesh.rotate(abs(xe), xe, 0, 0)
+        if self.rotation[2] != z:
+            self.rotation[2] += z/10
 
 
 def run(conn, queue_for_rov, t_watch: Threadwatcher, id):
@@ -570,6 +724,7 @@ def run(conn, queue_for_rov, t_watch: Threadwatcher, id):
 
     win = Window(conn, queue_for_rov, t_watch, id)
     win.setWindowTitle("UiS Subsea")
+
     GLOBAL_STATE = False
 
     #win.maximize_restore() # for windows
@@ -577,6 +732,7 @@ def run(conn, queue_for_rov, t_watch: Threadwatcher, id):
     #win.showMinimized()
 
     win.show()
+    
 
     # win.close()
     sys.exit(app.exec())
@@ -584,7 +740,9 @@ def run(conn, queue_for_rov, t_watch: Threadwatcher, id):
 
 if __name__ == "__main__":
     #import SUBSEAGUI
+    
 
     
 
     run()
+    
