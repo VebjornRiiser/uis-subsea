@@ -1,7 +1,7 @@
 import multiprocessing
 from tkinter import Widget
 from PyQt5 import QtCore, QtGui, QtWidgets, Qt
-from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QLabel, QFileDialog, QApplication, QWidget, QVBoxLayout, QSizeGrip, QFrame, QMessageBox, QStyleFactory, QSizeGrip, QGraphicsDropShadowEffect, QPushButton, QComboBox, QDesktopWidget
+from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QLabel, QFileDialog, QApplication, QWidget, QVBoxLayout, QSizeGrip, QFrame, QMessageBox, QStyleFactory, QSizeGrip, QGraphicsDropShadowEffect, QPushButton, QComboBox, QDesktopWidget, QSlider
 from PyQt5.QtWebEngineWidgets import *
 from PyQt5.Qt import *
 from PyQt5.QtGui import QColor, QIcon, QCursor
@@ -158,6 +158,10 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.setStyle(QStyleFactory.create('Windows'))
         self.comboBox_Y_btn.setStyle(QStyleFactory.create('Windows'))
         self.comboBox_velg_profil.currentIndexChanged.connect(self.load_selected_profile)
+        self.lys_slider : QSlider
+        self.lys_slider.setValue(52)
+        self.lys_slider.sliderMoved.connect(self.button_test)
+        
         
     def set_default_profile(self):
         """Sets the current profile back to the default one"""
@@ -332,9 +336,14 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.shutdown()
         exit(0)
         
+    def send_current_ligth_intensity(self):
+        self.send_data_to_main(self.lys_slider_forward, self.lys, self.COMMAND_TO_ROV_ID)
+        print(f"slider changed to {self.lys_slider.value()}")
+
+
     def button_test(self):
-        # print("Clicked on button")
-        print(f"{self.comboBox_velg_profil.findText('Standard profil') = }")
+        print(f"slider changed to {self.lys_slider.value()}")
+        # print(f"{self.comboBox_velg_profil.findText('Standard profil') = }")
 
         # self.w1.stream1.load(QtCore.QUrl("http://vg.no"))
         # self.w2.stream1.load(QtCore.QUrl("http://vg.no"))
