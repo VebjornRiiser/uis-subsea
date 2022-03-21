@@ -133,7 +133,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         self.connect_test_values()
 
-        self.camera_windows_opened = False
+        self.camera_windows_opened = True
         if self.camera_windows_opened:
             self.start_camera_windows()
 
@@ -278,7 +278,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.comboBox_velg_profil.addItems([file.split(".userprofile")[0] for file in file_list if file.endswith(".userprofile")])
         # self.comboBox_velg_profil:QComboBox
         # [self.comboBox_velg_profil.itemText(index))
-        print("updated profiles")
+        # print("updated profiles")
 
     def messagebox_popup(self):
         # Popup for reset-button
@@ -319,7 +319,10 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         os.chdir("..")
         self.update_current_profiles()
 
+    #Updates the gui with new sensordata
     def update_gui(self, data):
+        possible_commands = {"gyro":1,"temp_lekk": 1, }
+        print(f"{data}")
         if self.t_watch.should_run(self.id):
             self.dybde.setText(str(round(data["dybde"],4)))
             self.tid.setText(str(data["tid"]))
@@ -337,7 +340,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         exit(0)
         
     def send_current_ligth_intensity(self):
-        self.send_data_to_main(self.lys_slider_forward, self.lys, self.COMMAND_TO_ROV_ID)
+        self.send_data_to_main([self.lys_slider_forward, self.lys_paa_forward_btn, self.lys_slider_down, self.lys_paa_down_btn], self.COMMAND_TO_ROV_ID)
         print(f"slider changed to {self.lys_slider.value()}")
 
 

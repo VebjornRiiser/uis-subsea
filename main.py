@@ -59,17 +59,6 @@ def create_test_sensordata(delta, old_sensordata=None):
     return sensordata
 
 
-def send_sensordata_to_gui(conn, t_watch: Threadwatcher, id):
-    sensordata = create_test_sensordata(1)
-    while t_watch.should_run(id):
-        delta = random.randint(-1, 1)
-        try:
-            sensordata = create_test_sensordata(delta, sensordata)
-            # print(f"sending data from main to gui: {sensordata}")
-            conn.send(sensordata)
-            time.sleep(0.2)
-        except KeyboardInterrupt:
-            t_watch.stop_thread(id)
 
 MANIPULATOR_IN_OUT = 1
 MANIPULATOR_ROTATE = 0
@@ -77,7 +66,7 @@ BUTTON_GRAB = 4
 BUTTON_RELEASE = 5
 
 class Rov_state:
-    def __init__(self, queue, network_handler) -> None:
+    def __init__(self, queue, network_handler, gui_pipe) -> None:
         self.data:dict = {}
         # prevents the camera from toggling back again immediately if we hold the button down
         self.camera_toggle_wait_counter: int = 0
@@ -95,6 +84,8 @@ class Rov_state:
         self.camera_tilt_control_active = True
         # queue for getting commands from gui and controller
         self.queue: multiprocessing.Queue = queue
+        #Pipe to send sensordata back to the gui
+        self.gui_pipe = gui_pipe
         # Network handler that sends data to rov (and recieves)
         self.network_handler:Network = network_handler
         # self.cam_is_enabled = [True, True]
@@ -127,14 +118,13 @@ class Rov_state:
     # bit hacky since we overwrite the actual value of the button
     def manipulator_grip(self):
         self.data["buttons"][BUTTON_GRAB] = 1
-        print("grip")
+        # print("grip")
 
 
     # bit hacky since we overwrite the actual value of the button
     def manipulator_release(self):
         self.data["buttons"][BUTTON_GRAB] = 1
-        print("release")
-
+        # print("release")
 
 
     def toggle_manipulator_enabled(self):
@@ -144,6 +134,7 @@ class Rov_state:
             print(f"{self.manipulator_active = }")
             self.manipulator_toggle_wait_counter = 7
     
+
     def toggle_camera_on_or_off(self, id=None):
         if id is None:
             id = self.active_camera
@@ -221,6 +212,7 @@ class Rov_state:
             # print(self.data["buttons"])
             self.packets_to_send = []
             return
+        # print(self.packets_to_send)
         self.network_handler.send(network_format(self.packets_to_send))
         self.packets_to_send = []
 
@@ -279,7 +271,7 @@ class Rov_state:
         styredata.append(0)
         styredata.append(0)
         styredata.append(0)
-        self.packets_to_send.append(styredata)
+        self.packets_to_send.append([70, styredata])
 
 
     def build_manipulator_byte(self):
@@ -301,25 +293,29 @@ class Rov_state:
 
         return byte_val
 
-    def update_bildebehandlingsmodus(self, camera_id: int = None, mode: int = None):
+    def send_sensordata_to_gui(self, data):
+        print(f"sending data from main to gui: {data =}")
+        self.gui_pipe.send(data)
+
+    def  update_bildebehandlingsmodus(self, camera_id: int = None, mode: int = None):
+        camera_modes = [0,1,5,6]
         if self.image_processing_mode_wait_counter == 0:
             if camera_id is None and mode is None:
                 camera_id = self.active_camera
-                mode = (self.image_processing_mode[camera_id]+1)%2
-            self.image_processing_mode[camera_id] = mode
-            self.packets_to_send.append([200+camera_id, {"bildebehandlingsmodus": self.image_processing_mode}])
-            if mode != 0:
-                self.camera_tilt_allowed[camera_id] = False
-            else:
+                self.image_processing_mode[camera_id] = (self.image_processing_mode[camera_id]+1)%3
+            self.packets_to_send.append([200+camera_id, {"bildebehandlingsmodus": camera_modes[self.image_processing_mode[camera_id]]}])
+            # print([200+camera_id, {"bildebehandlingsmodus": camera_modes[self.image_processing_mode[camera_id]]}])
+            if self.image_processing_mode[camera_id] == 0 or self.image_processing_mode[camera_id] == 1:
                 self.camera_tilt_allowed[camera_id] = True
-            print(f"{self.image_processing_mode = }")
+            else:
+                self.camera_tilt_allowed[camera_id] = False
+            # print(f"{self.image_processing_mode = }")
             self.image_processing_mode_wait_counter = 7
 
 
-
-def send_data_to_rov(network_handler: Network, t_watch: Threadwatcher, id: int, queue_for_rov: multiprocessing.Queue):
+def run(network_handler: Network, t_watch: Threadwatcher, id: int, queue_for_rov: multiprocessing.Queue, gui_pipe):
     print(f"{network_handler = }")
-    rov_state = Rov_state(queue_for_rov, network_handler)
+    rov_state = Rov_state(queue_for_rov, network_handler, gui_pipe)
     camera_tilt_lock = [False, False]  # locks the camera tilt if the rov is processing images
     while t_watch.should_run(id):
 
@@ -329,6 +325,7 @@ def send_data_to_rov(network_handler: Network, t_watch: Threadwatcher, id: int, 
         if rov_state.data == {}:
             continue
         rov_state.check_controls()
+        print(rov_state.packets_to_send)
         rov_state.send_packets()
 
 ID = 0
@@ -412,10 +409,10 @@ def recieve_data_from_rov(network: Network, t_watch: Threadwatcher, id: int):
                 continue
             # print(f"recieve data from from {data = }")
             decoded = decode_packets(data)
-            # if len(decoded)>0:
-            #     print(decoded[0]["sensor1"])
             if decoded == []:
                 continue
+            # if len(decoded)>0:
+                # print(decoded)
             # print(decoded)
         except json.JSONDecodeError as e:
             print(f"{data = }, {e = }")
@@ -432,28 +429,29 @@ if __name__ == "__main__":
     # print(check_camera_command([[201, {"on": True, "bildebehandlingsmodus": 1}], [70, [0, 0, 0, 0, 0, 0, 0, 0]]]))
     # exit(0)
     global start_time_sec
+    global run_gui
     start_time_sec = time.time()
     run_gui = True
-    run_get_controllerdata = False
-    run_network = False
+    run_get_controllerdata = True
+    run_network = True
     
     queue_for_rov = multiprocessing.Queue()
 
     t_watch = Threadwatcher()
 
+    gui_parent_pipe, gui_child_pipe = Pipe() # starts the gui program. gui_parent_pipe should get the sensor data
     if run_gui:
         id = t_watch.add_thread()
-        gui_parent_pipe, gui_child_pipe = Pipe() # starts the gui program. gui_parent_pipe should get the sensor data
         gui_loop = Process(target=GUI_loop.run, args=(gui_child_pipe, queue_for_rov, t_watch, id)) # and should recieve commands from the gui
         gui_loop.start()
 
         id = t_watch.add_thread()
-        recv_from_gui = threading.Thread(target=recieve_commands_from_gui, args=(gui_parent_pipe, t_watch, id),daemon=True)
+        recv_from_gui = threading.Thread(target=recieve_commands_from_gui, args=(gui_child_pipe, t_watch, id),daemon=True)
         recv_from_gui.start()
 
-        id = t_watch.add_thread()
-        send_to_gui = threading.Thread(target=send_sensordata_to_gui, args=(gui_parent_pipe, t_watch, id), daemon=True)
-        send_to_gui.start()
+        # id = t_watch.add_thread()
+        # send_to_gui = threading.Thread(target=send_sensordata_to_gui, args=(gui_parent_pipe, t_watch, id), daemon=True)
+        # send_to_gui.start()
 
     if run_get_controllerdata:
         id = t_watch.add_thread()
@@ -467,7 +465,7 @@ if __name__ == "__main__":
         print("network started")
 
         id = t_watch.add_thread()
-        snd_data_to_rov = threading.Thread(target=send_data_to_rov, args=(network, t_watch, id, queue_for_rov), daemon=True)
+        snd_data_to_rov = threading.Thread(target=run, args=(network, t_watch, id, queue_for_rov, gui_parent_pipe), daemon=True)
         # snd_data_to_rov = threading.Thread(target=send_data_to_rov, args=(None, t_watch, id, parent_conn_controller), daemon=True)
         snd_data_to_rov.start()
 
@@ -476,7 +474,7 @@ if __name__ == "__main__":
 
     elif run_get_controllerdata:
         print("starting send to rov")
-        snd_data_to_rov = threading.Thread(target=send_data_to_rov, args=(None, t_watch, id, queue_for_rov), daemon=True)
+        snd_data_to_rov = threading.Thread(target=run, args=(None, t_watch, id, queue_for_rov, gui_parent_pipe), daemon=True)
         snd_data_to_rov.start()
 
     try:
