@@ -4,7 +4,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets, Qt
 from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QCheckBox, QLabel, QFileDialog, QApplication, QWidget, QVBoxLayout, QSizeGrip, QFrame, QMessageBox, QStyleFactory, QSizeGrip, QGraphicsDropShadowEffect, QPushButton, QComboBox, QDesktopWidget
 # Må kommentere ut QtWebEngineWidgets for at 3D-modellen (STL) vises ... 
 # TODO: finne ut hvorfor
-#from PyQt5.QtWebEngineWidgets import * 
+from PyQt5.QtWebEngineWidgets import * 
 from PyQt5.Qt import *
 from PyQt5.QtGui import QColor, QIcon, QCursor, QFont
 from PyQt5.QtCore import Qt, QtMsgType, QTimer, QEvent
