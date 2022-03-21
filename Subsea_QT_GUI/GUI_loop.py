@@ -1,13 +1,13 @@
 import multiprocessing
-from tkinter import Widget
+#from tkinter import Widget
 from PyQt5 import QtCore, QtGui, QtWidgets, Qt
-from PyQt5.QtCore import QEasingCurve
 from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QCheckBox, QLabel, QFileDialog, QApplication, QWidget, QVBoxLayout, QSizeGrip, QFrame, QMessageBox, QStyleFactory, QSizeGrip, QGraphicsDropShadowEffect, QPushButton, QComboBox, QDesktopWidget
 # Må kommentere ut QtWebEngineWidgets for at 3D-modellen (STL) vises ... 
 # TODO: finne ut hvorfor
 #from PyQt5.QtWebEngineWidgets import * 
 from PyQt5.Qt import *
 from PyQt5.QtGui import QColor, QIcon, QCursor, QFont
+from PyQt5.QtCore import Qt, QtMsgType, QTimer, QEvent
 from multiprocessing import Pipe, Value
 from Threadwatch import Threadwatcher
 import sys
@@ -16,7 +16,6 @@ import json
 import os
 import Subsea_QT_GUI.SUBSEAGUI as SUBSEAGUI
 from Subsea_QT_GUI.custom_grips import CustomGrip, Widgets
-from PyQt5.QtCore import Qt, QtMsgType, QTimer, QEvent
 from pyqtgraph.Qt import QtCore, QtGui
 import pyqtgraph as pg
 import pyqtgraph.opengl as gl
@@ -32,8 +31,8 @@ QApplication.setAttribute(Qt.AA_UseDesktopOpenGL)
 
 QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)  # enable highdpi scaling
 QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)  # use highdpi icons
-#QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
-#QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True) #use highdpi icons
+QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
+QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True) #use highdpi icons
 
 # GLOBALS
 # ///////////////////////////////////////////////////////////////
@@ -89,6 +88,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         # Remove frame around window
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        
         self.setup_gui_with_folder_change()
 
 
@@ -99,6 +99,9 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         # STL VIEWER /////////////////////////////////////////////////
         self.viewer = gl.GLViewWidget()
+        self.viewer.opts['distance'] = 250
+        self.traces = dict()
+
 
         # SHADER
         gl.shaders.Shaders.append(gl.shaders.ShaderProgram('myShader', [
@@ -116,16 +119,13 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
                 varying vec3 normal;
                 void main() {
                     vec4 color = gl_Color;
-                    color.x = 0.0;
+                    color.x = 4.5;
                     color.y = (normal.y + 1.0) * 0.5;
                     color.z = 0.0;
                     gl_FragColor = color;
                 }
             """)
         ]))
-
-
-        #win.viewer.opts['distance'] = 250
 
         cwd = os.getcwd()
         self.stl_mesh = mesh.Mesh.from_file(f'{cwd}/ROV.STL') # Imported stl file
@@ -134,15 +134,15 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         faces = np.arange(points.shape[0]).reshape(-1, 3)
 
         self.meshdata = gl.MeshData(vertexes=points, faces=faces)
-        self.meshitem = gl.GLMeshItem(meshdata=self.meshdata, smooth=False, drawFaces=True, shader='viewNormalColor', glOptions='opaque', color=(0,0,0,0), drawEdges=True, edgeColor=(0,0,0,0))
+        self.meshitem = gl.GLMeshItem(meshdata=self.meshdata, smooth=False, drawFaces=True, shader='myShader', glOptions='opaque', color=(0,0,0,0), drawEdges=False, edgeColor=(0,0,0,0))
         self.viewer.addItem(self.meshitem)
 
-        self.meshitem.rotate(90, 90, 0, 0)
-        self.meshitem.rotate(90, 0, 0, 90)
+        self.meshitem.rotate(0, 0, 0, 0)
+        self.meshitem.rotate(0, 0, 0, 0)
  
         self.layout = self.QVBoxLayout
         self.layout.addWidget(self.viewer, 1)
-        self.viewer.setCameraPosition(distance=1600)
+        self.viewer.setCameraPosition(distance=200)
 
         g = gl.GLGridItem()
         g.setSize(1000, 1000)
@@ -160,45 +160,75 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         self.layout.addWidget(button)
 
+        # //////////////////////////////////////////////////////////////
+        # GUI buttons clicked
+        
+        # KJØREMODUS
+        self.manuell_btn.clicked.connect(self.manuell_btn_clicked)
+        self.auto_btn.clicked.connect(self.auto_btn_clicked)
 
-        # Toggle button //////////////////////////////////////////////////////////////
 
+        # Toggle buttons 
+        
         # Toggle button: https://www.youtube.com/watch?v=NnJFi285s3M&ab_channel=Wanderson
         self.toggle_mani = PyToggle()
         self.toggle_dybde = PyToggle()
         self.toggle_helning = PyToggle()
-        self.toggle_lys = PyToggle()
+        self.toggle_frontlys = PyToggle()
+        self.toggle_havbunnslys = PyToggle()
 
         self.toggle_mani.setText("Manipulator")
         self.toggle_dybde.setText("Dybde")
         self.toggle_helning.setText("Helning")
-        self.toggle_lys.setText("Lys")
+        self.toggle_frontlys.setText("Frontlys")
+        self.toggle_havbunnslys.setText("Havbunnslys")
 
         self.toggle_mani.stateChanged.connect(lambda:self.check_btn_state(self.toggle_mani))
         self.toggle_dybde.stateChanged.connect(lambda:self.check_btn_state(self.toggle_dybde))
         self.toggle_helning.stateChanged.connect(lambda:self.check_btn_state(self.toggle_helning))
-        self.toggle_lys.stateChanged.connect(lambda:self.check_btn_state(self.toggle_lys))
-
+        self.toggle_frontlys.stateChanged.connect(lambda:self.check_btn_state(self.toggle_frontlys))
+        self.toggle_havbunnslys.stateChanged.connect(lambda:self.check_btn_state(self.toggle_havbunnslys))
 
         self.toggle_layout.addWidget(self.toggle_mani, alignment=QtCore.Qt.AlignRight)
         self.toggle_layout.addWidget(self.toggle_dybde, alignment=QtCore.Qt.AlignRight)
         self.toggle_layout.addWidget(self.toggle_helning, alignment=QtCore.Qt.AlignRight)
-        self.toggle_layout.addWidget(self.toggle_lys, alignment=QtCore.Qt.AlignRight)
+        self.toggle_layout.addWidget(self.toggle_frontlys, alignment=QtCore.Qt.AlignRight)
+        self.toggle_layout.addWidget(self.toggle_havbunnslys, alignment=QtCore.Qt.AlignRight)
 
-        # GUI button clicked
-        self.manuell_btn.clicked.connect(self.manuell_btn_clicked)
+        # APPLY VALUES TO PROGREESBAR
+        self.setValue(self.VHF_percentage, self.VHF, "rgba(85, 170, 255, 255)")
+        # self.setValue(self.VVF_percentage, self.VVF, "rgba(85, 170, 255, 255)")
+        # self.setValue(self.HHF_percentage, self.HHF, "rgba(85, 170, 255, 255)")
+        # self.setValue(self.HVF_percentage, self.HVF, "rgba(85, 170, 255, 255)")
+        # self.setValue(self.VVB_percentage, self.VVB, "rgba(85, 170, 255, 255)")
+        # self.setValue(self.HVB_percentage, self.HVB, "rgba(85, 170, 255, 255)")
+        # self.setValue(self.HVB_percentage, self.HVB, "rgba(85, 170, 255, 255)")
+        # self.setValue(self.VHB_percentage, self.VHB, "rgba(85, 170, 255, 255)")
+        # self.setValue(self.HHB_percentage, self.HHB, "rgba(85, 170, 255, 255)")
 
+    
+        # BILDEBEHANDLING
+        #self.beregn_strl_btn(self.beregn_strl)
+        #self.fotomoasaikk_btn(self.fotomoasaikk)
 
-        def OuterDoorClose(self):
-            if GPIO.input(Outer)==0: #Outer Door Open
-                self.ui.pushButton_3.setEnabled(False)
-                self.ui.pushButton_4.setEnabled(False)
-                QtCore.QTimer.singleShot(10000,partial(self.ui.pushButton_3.setEnabled,True))
-                return GPIO.output(Outer,GPIO.HIGH)
+        # VIDEO
+        #self.start_video_btn(self.start_video)
+        #self.stopp_video_btn(self.stop_video)
 
+        # KAMERA
+        #self.ta_bilde_frontkamera_btn(self.ta_bilde_frontkamera)
+        #self.ta_bilde_havbunn_btn(self.ta_bilde_havbunnskamera)
+        #self.slett_bilde_btn(self.slett_siste_bilde)
+
+        # Vis siste bildet:
+        #self.show_image
+        
         # Menu button clicked
+        self.toggleButton.clicked.connect(lambda: self.change_current_widget(0))
         self.kontroller_btn.clicked.connect(lambda: self.change_current_widget(2))
         self.informasjon_btn.clicked.connect(lambda: self.change_current_widget(1))
+        
+
 
         # ///////////////////////////////////////////////////////////////
 
@@ -216,18 +246,18 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         # ///////////////////////////////////////////////////////////////
 
-        # LEGGES I EN ANNEN FIL:
+        # LEGGES INN I EN ANNEN FIL:
 
-        self.init_drop_shadow()
+        #self.init_drop_shadow()
 
         self.titleRightInfo.mouseDoubleClickEvent = self.dobleClickMaximizeRestore
-        #self.maximizeRestoreAppBtn.mouseDoubleClickEvent = self.dobleClickMaximizeRestore
+        self.maximizeRestoreAppBtn.mouseDoubleClickEvent = self.dobleClickMaximizeRestore
 
         self.titleRightInfo.mouseMoveEvent = self.moveWindow
 
         # STANDARD TITLE BAR
         self.setWindowFlags(Qt.FramelessWindowHint)
-        self.setAttribute(Qt.WA_TranslucentBackground)
+        #self.setAttribute(Qt.WA_TranslucentBackground)
 
 
         # CUSTOM GRIPS
@@ -249,7 +279,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         # CLOSE APPLICATION
         self.closeAppBtn.clicked.connect(self.shutdown)
         # ///////////////////////////////////////////////////////////////
-
+        
         self.connect_test_values()
 
         # commented out to not show camera windows
@@ -260,6 +290,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         self.recieve = threading.Thread(target=self.recieve_and_set_text, daemon=True, args=(self.pipe_conn_only_rcv,))
         self.recieve.start()
+        
         # print(f"type of self.widget: {type(self.widget)}")
         # these need to match up with the indexes of the buttons on the controller
         self.btn_combobox_list:list[QComboBox] = [self.comboBox_A_btn, self.comboBox_B_btn, self.comboBox_X_btn, self.comboBox_Y_btn, self.comboBox_LB_btn, self.comboBox_RB_btn, self.comboBox_view_btn, self.comboBox_menu_btn, self.comboBox_left_stick_btn, self.comboBox_right_stick_btn]
@@ -281,9 +312,10 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.setStyle(QStyleFactory.create('Windows'))
         self.comboBox_Y_btn.setStyle(QStyleFactory.create('Windows'))
         self.comboBox_velg_profil.currentIndexChanged.connect(self.load_selected_profile)
-        self.lys_slider : QSlider
+        
+        '''self.lys_slider : QSlider
         self.lys_slider.setValue(52)
-        self.lys_slider.sliderMoved.connect(self.button_test)
+        self.lys_slider.sliderMoved.connect(self.button_test)'''
 
         # ///////////////////////////////////////////////////////////////
 
@@ -314,14 +346,18 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             else:
                 print(b.text()+" is deselected")
 
+
+    # KJØRE MODUS
     def manuell_btn_clicked(self):
+        print("manuell btn clicked")
         if self.auto_btn.isChecked():
+            # Hvis automatisk kjøring knappen er 'checked', må den endres til 'unchecked'
+            # kan ikke ha både manuell og automatisk kjøring samtidig
             pass
-        '''if GPIO.input(Outer)==0: #Outer Door Open
-            self.ui.pushButton_3.setEnabled(False)
-            self.ui.pushButton_4.setEnabled(False)
-            QtCore.QTimer.singleShot(10000,partial(self.ui.pushButton_3.setEnabled,True))
-            return GPIO.output(Outer,GPIO.HIGH)'''
+    
+    def auto_btn_clicked(self):
+        print("auto btn clicked")
+
 
     # ///////////////////////////////////////////////////////////////
 
@@ -432,7 +468,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
                 profile.readlines()
             self.filename.setText(fname) # for å vise fram filepath
         self.save_profile()
-
+    
     
     def update_current_profiles(self):
         file_list = os.listdir()
@@ -464,6 +500,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
                 window.close()
         self.close()
         exit(0)
+    
 
     def button_works(self):
         print("function activated")
@@ -476,14 +513,14 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         self.child_window.append(AnotherWindow(6889))
         self.child_window[1].show()
-
+    
 
     def setup_gui_with_folder_change(self):
         os.chdir("Subsea_QT_GUI")
         self.setupUi(self)
         os.chdir("..")
-        self.update_current_profiles()
-
+        #self.update_current_profiles()
+    
     def update_gui(self, data):
         if self.t_watch.should_run(self.id):
             self.dybde.setText(str(round(data["dybde"],4)))
@@ -503,20 +540,21 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         
     def send_current_ligth_intensity(self):
         self.send_data_to_main(self.lys_slider_forward, self.lys, self.COMMAND_TO_ROV_ID)
-        print(f"slider changed to {self.lys_slider.value()}")
+        print(f"slider changed to {self.lys_slider_forward.value()}")
 
 
     def button_test(self):
-        print(f"slider changed to {self.lys_slider.value()}")
+        print(f"slider changed to {self.lys_slider_forward.value()}")
         # print(f"{self.comboBox_velg_profil.findText('Standard profil') = }")
 
         # self.w1.stream1.load(QtCore.QUrl("http://vg.no"))
         # self.w2.stream1.load(QtCore.QUrl("http://vg.no"))
-
+    
     def change_current_widget(self, index):
         print(f"should change to widget {index}")
         self.stackedWidget.setCurrentIndex(index)
-
+    
+    
     # ///////////////////////////////////////////////////////////////
     # Open the qss styles file and read in the css-alike styling code
     '''def set_style(self, widget):
@@ -609,18 +647,6 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         widget.setStyleSheet(newStylesheet)
 
     def connect_test_values(self):
-        # APPLY VALUES TO PROGREESBAR
-        # self.setValue(self.VHF_percentage, self.VHF, "rgba(85, 170, 255, 255)")
-        # self.setValue(self.VVF_percentage, self.VVF, "rgba(85, 170, 255, 255)")
-        # self.setValue(self.HHF_percentage, self.HHF, "rgba(85, 170, 255, 255)")
-        # self.setValue(self.HVF_percentage, self.HVF, "rgba(85, 170, 255, 255)")
-        # self.setValue(self.VVB_percentage, self.VVB, "rgba(85, 170, 255, 255)")
-        # self.setValue(self.HVB_percentage, self.HVB, "rgba(85, 170, 255, 255)")
-        # self.setValue(self.HVB_percentage, self.HVB, "rgba(85, 170, 255, 255)")
-        # self.setValue(self.VHB_percentage, self.VHB, "rgba(85, 170, 255, 255)")
-        # self.setValue(self.HHB_percentage, self.HHB, "rgba(85, 170, 255, 255)")
-
-
         #self.slider.valueChanged.connect(lambda: self.setValue_test(self.slider, self.VHF_percentage, self.VHF, "rgba(85, 170, 255, 255)"))
         self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.HVF_percentage, self.HVF, "rgba(85, 170, 255, 255)"))
         self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.VVF_percentage, self.VVF, "rgba(85, 170, 255, 255)"))
@@ -636,7 +662,9 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.mani_percentage_2, self.mani_2, "rgba(85, 170, 255, 255)"))
         self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.mani_percentage_3, self.mani_3, "rgba(85, 170, 255, 255)"))
 
-        self.lys_slider.valueChanged.connect(lambda: self.setTestValue(self.lys_slider, self.lys_percentage, self.lys, "rgba(85, 170, 255, 255)"))
+        self.lys_slider_forward.valueChanged.connect(lambda: self.setTestValue(self.lys_slider_forward, self.lys_forward_percentage, self.lys_forward, "rgba(85, 170, 255, 255)"))
+        self.lys_slider_down.valueChanged.connect(lambda: self.setTestValue(self.lys_slider_down, self.lys_down_percentage, self.lys_down, "rgba(85, 170, 255, 255)"))
+
 
 
 
@@ -729,7 +757,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
                 self.traces[name].setData(pos=points, color=color, width=width)'''
 
     def update_rotation(self):
-        self.meshitem.rotate(0, 0, 0, 0)
+        self.meshitem.rotate(90, 0, 0, 0)
         self.meshitem.rotate(90, 0, 0, 90)
 
     # Changes rotation on object
