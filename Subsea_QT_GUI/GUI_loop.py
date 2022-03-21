@@ -134,10 +134,9 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         faces = np.arange(points.shape[0]).reshape(-1, 3)
 
         self.meshdata = gl.MeshData(vertexes=points, faces=faces)
-        self.meshitem = gl.GLMeshItem(meshdata=self.meshdata, smooth=False, drawFaces=True, shader='myShader', glOptions='opaque', color=(0,0,0,0), drawEdges=False, edgeColor=(0,0,0,0))
+        self.meshitem = gl.GLMeshItem(meshdata=self.meshdata, smooth=False, drawFaces=True, shader='viewNormalColor', glOptions='opaque', color=(0,0,0,0), drawEdges=False, edgeColor=(0,0,0,0))
         self.viewer.addItem(self.meshitem)
 
-        self.meshitem.rotate(0, 0, 0, 0)
         self.meshitem.rotate(0, 0, 0, 0)
  
         self.layout = self.QVBoxLayout
@@ -155,10 +154,21 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         
         button = QtGui.QPushButton()
         button.setText('Rotate')
-        xyz = [10, 10, 10]
-        button.clicked.connect(lambda: self.update_rotation)
-
+        xyz = [0, 360, 0]
+        button.clicked.connect(lambda: self.update(xyz))
         self.layout.addWidget(button)
+
+
+
+
+    # //////////////////////////////////////////////
+
+        '''
+        def set_plotdata(self, name, points, color, width):
+                self.traces[name].setData(pos=points, color=color, width=width)
+        '''
+
+
 
         # //////////////////////////////////////////////////////////////
         # GUI buttons clicked
@@ -757,7 +767,6 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
                 self.traces[name].setData(pos=points, color=color, width=width)'''
 
     def update_rotation(self):
-        self.meshitem.rotate(90, 0, 0, 0)
         self.meshitem.rotate(90, 0, 0, 90)
 
     # Changes rotation on object
@@ -765,25 +774,35 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         x = xyz[0]
         y = xyz[1]
         z = xyz[2]
-        print(x,y,z)
-        ye = y-self.rotation[0]
-        xe = x-self.rotation[1]
+
+        ye = y - self.rotation[0]
+        xe = x - self.rotation[1]
+
+        print("1: ye:", ye, ", xe:", xe)
+        print("self.rotation:", self.rotation[0], self.rotation[1], self.rotation[2])
+
         if ye > 10:
             ye = 10
         elif ye < -10:
             ye = -10
+
         if xe > 10:
             xe = 10
         elif xe < -10:
             xe = -10
+
         if ye > 0.5 or ye < -0.5:
             self.rotation[0] += ye
-            self.stl_mesh.rotate(abs(ye), 0, -ye, 0)
+            self.meshitem.rotate(abs(ye), 0, -ye, 0)
+
         if xe > 0.5 or xe < -0.5:
             self.rotation[1] += xe
-            self.stl_mesh.rotate(abs(xe), xe, 0, 0)
+            self.meshitem.rotate(abs(xe), xe, 0, 0)
+
         if self.rotation[2] != z:
             self.rotation[2] += z/10
+
+        print("2: ye:", ye, ", xe:", xe)
 
 
 def run(conn, queue_for_rov, t_watch: Threadwatcher, id):

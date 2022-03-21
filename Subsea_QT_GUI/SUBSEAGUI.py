@@ -972,7 +972,7 @@ class Ui_MainWindow(object):
         self.QVBoxLayout.setObjectName("QVBoxLayout")
         self.horizontalLayout_16.addLayout(self.QVBoxLayout)
         self.stackedWidget = QtWidgets.QStackedWidget(self.pagesContainer)
-        self.stackedWidget.setMaximumSize(QtCore.QSize(1000, 16777215))
+        self.stackedWidget.setMaximumSize(QtCore.QSize(1200, 16777215))
         self.stackedWidget.setAutoFillBackground(False)
         self.stackedWidget.setStyleSheet("background-color: transparent;")
         self.stackedWidget.setObjectName("stackedWidget")
@@ -3006,7 +3006,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.styleSheet)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
