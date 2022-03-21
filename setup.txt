@@ -1,0 +1,9 @@
+bytt på ip i ipv4
+Sett lokal ip til 10.0.0.1
+sett default gateway ip til 10.0.0.2
+skift nettverkstype til privat
+åpne port 6900 inn og ut i brannmur
+kjør "Set-ExecutionPolicy Unrestricted" i powershell med admin rettigheter
+(Søk etter powershell og trykk på Kjør som administrator)
+Aktiver virtual environment ".\venv\Scripts\activate"
+"deactivate" for å gå ut av virtual environment igjen
