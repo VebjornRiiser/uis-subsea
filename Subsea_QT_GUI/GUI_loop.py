@@ -1,3 +1,4 @@
+from ast import arguments
 import multiprocessing
 #from tkinter import Widget
 from PyQt5 import QtCore, QtGui, QtWidgets, Qt
@@ -531,7 +532,6 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
     #Updates the gui with new sensordata
     def update_gui(self, data):
-        possible_commands = {"gyro":1,"temp_lekk": 1, }
         print(f"{data}")
         if self.t_watch.should_run(self.id):
             self.dybde.setText(str(round(data["dybde"],4)))
@@ -540,15 +540,55 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             self.temp_ROV_1.setText(str(round(data["temp_rov"],4)))
 
     def recieve_and_set_text(self, conn):
+        self.sensor_update_function = {
+        "lekk_temp": self.gui_lekk_temp_update, 
+        "thrust" : self.gui_thrust_update,
+        "accel": self.gui_acceleration_update,
+        "gyro": self.gui_gyro_update}
         while self.t_watch.should_run(self.id):
-            # print("trying to take out of pipe")
-            sensordata = conn.recv()
-            # print(sensordata)
-            self.update_gui(sensordata)
+
+            sensordata: dict = conn.recv()
+
+            for key in sensordata.keys():
+                if key in self.sensor_update_function:
+                    self.sensor_update_function[key](sensordata)
+    
         print("recieved close thread. trying to close")
         self.shutdown()
         exit(0)
         
+
+
+    def gui_lekk_temp_update(self, sensordata):
+        self.check_data_types(sensordata["lekk_temp"], (int, float, float, float))
+        print(f"ran gui_lekk_temp_update {sensordata = }")
+        lekkasje = sensordata[0]
+        temp1 = sensordata[1]
+        temp2 = sensordata[2]
+        temp3 = sensordata[3]
+        # print(sensordata)
+        
+    def gui_thrust_update(self, sensordata):
+        print(f"ran gui_thrust_update {sensordata = }")
+
+
+    def gui_acceleration_update(self, sensordata):
+        print(f"ran gui_acceleration_update {sensordata = }")
+
+
+    def gui_gyro_update(self, sensordata):
+        print(f"ran gui_gyro_update {sensordata = }")
+        
+
+    def check_data_types(self, values: tuple, data_types: tuple):
+        """Takes in n arguments and n data types and checks that they are equal"""
+
+        if len(values) != len(data_types):
+            raise ValueError(f"Number of values does not equal number of data_types to match against")
+        for index, value in enumerate(values):
+            if not isinstance(value, data_types[index]):
+                raise TypeError(f"{value = } is not of type {data_types[index]}")
+
     def send_current_ligth_intensity(self):
         self.send_data_to_main([self.lys_slider_forward, self.lys_paa_forward_btn, self.lys_slider_down, self.lys_paa_down_btn], self.COMMAND_TO_ROV_ID)
         print(f"slider changed to {self.lys_slider.value()}")
@@ -828,9 +868,6 @@ def run(conn, queue_for_rov, t_watch: Threadwatcher, id):
 
 if __name__ == "__main__":
     #import SUBSEAGUI
-    
-
-    
 
     run()
     

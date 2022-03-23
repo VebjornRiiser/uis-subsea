@@ -93,7 +93,7 @@ class Rov_state:
         # theese functions need to line up their indexes with the line in button_config.txt
         self.button_function_list = [self.skip, self.toggle_active_camera, self.toggle_between_rotation_and_camera_tilt, self.toggle_manipulator_enabled, self.manipulator_grip, self.manipulator_release, self.update_bildebehandlingsmodus, self.skip]
         #maps a button to a index in button_function_list Can be changed from gui
-        self.button_to_function_map = [0, 0, 0, 1, 0, 3, 0, 2, 0, 0]
+        self.button_to_function_map = [0, 6, 0, 1, 4, 5, 0, 0, 3, 2]
         self.camera_is_on = [True, True]
         self.camera_command: list[list[int, dict]] = None
         self.joystick_moves_camera = False
@@ -118,13 +118,13 @@ class Rov_state:
     # bit hacky since we overwrite the actual value of the button
     def manipulator_grip(self):
         self.data["buttons"][BUTTON_GRAB] = 1
-        # print("grip")
+        print("grip")
 
 
     # bit hacky since we overwrite the actual value of the button
     def manipulator_release(self):
-        self.data["buttons"][BUTTON_GRAB] = 1
-        # print("release")
+        self.data["buttons"][BUTTON_RELEASE] = 1
+        print("release")
 
 
     def toggle_manipulator_enabled(self):
@@ -192,7 +192,7 @@ class Rov_state:
         if id == 1: # controller data update
             self.data = packet
         elif id == GUI_loop.PROFILE_UPDATE_ID:
-            print("Updated profile")
+            # print("Updated profile")
             print(id, packet)
             self.button_to_function_map = packet
         elif id == GUI_loop.COMMAND_TO_ROV_ID:
@@ -212,7 +212,7 @@ class Rov_state:
             # print(self.data["buttons"])
             self.packets_to_send = []
             return
-        # print(self.packets_to_send)
+        print(self.packets_to_send)
         self.network_handler.send(network_format(self.packets_to_send))
         self.packets_to_send = []
 
@@ -278,12 +278,18 @@ class Rov_state:
         data = list(self.data["dpad"])
         data.append(self.data["buttons"][BUTTON_GRAB])
         data.append(self.data["buttons"][BUTTON_RELEASE])
+        # print(f"{data = }")
         # Inn: 1, Ut: 2, roter med klokka: 4, roter mot klokka: 8, lukk klo: 16,
         # åpne klo: 32, enable: 64, ingen funksjon
         data_to_values = [{-1: 0b0000_1000, 0: 0b0, 1: 0b0000_0100},
                         {-1: 0b0000_0001, 0: 0b0, 1: 0b0000_0010},
                         {1: 0b0001_0000, 0: 0b0},
                         {1: 0b0010_0000, 0: 0b0}]
+
+        data_to_values = [{-1: 0b0000_1000, 0: 0b0, 1: 0b0000_0100},
+                {-1: 1, 0: 0b0, 1: 2},
+                {1: 16, 0: 0},
+                {1: 32, 0: 0}]
 
         byte_val = 0
         for index, axis_val in enumerate(data):  # bitwise or's all the values
@@ -325,7 +331,7 @@ def run(network_handler: Network, t_watch: Threadwatcher, id: int, queue_for_rov
         if rov_state.data == {}:
             continue
         rov_state.check_controls()
-        print(rov_state.packets_to_send)
+        # print(rov_state.packets_to_send)
         rov_state.send_packets()
 
 ID = 0
@@ -434,6 +440,7 @@ if __name__ == "__main__":
     run_gui = True
     run_get_controllerdata = True
     run_network = True
+    run_send_fake_sensordata = False
     
     queue_for_rov = multiprocessing.Queue()
 
@@ -449,9 +456,12 @@ if __name__ == "__main__":
         recv_from_gui = threading.Thread(target=recieve_commands_from_gui, args=(gui_child_pipe, t_watch, id),daemon=True)
         recv_from_gui.start()
 
-        # id = t_watch.add_thread()
-        # send_to_gui = threading.Thread(target=send_sensordata_to_gui, args=(gui_parent_pipe, t_watch, id), daemon=True)
-        # send_to_gui.start()
+    if run_send_fake_sensordata:
+        while True:
+            sensordata = {"lekk_temp": [0, 21.2, 27.0, 99.0]}
+            gui_parent_pipe.send(sensordata)
+            time.sleep(2)
+
 
     if run_get_controllerdata:
         id = t_watch.add_thread()
