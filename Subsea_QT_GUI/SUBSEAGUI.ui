@@ -1707,7 +1707,7 @@ p, li { white-space: pre-wrap; }
                       <string notr="true">background-color: transparent;</string>
                      </property>
                      <property name="currentIndex">
-                      <number>0</number>
+                      <number>1</number>
                      </property>
                      <widget class="QWidget" name="home">
                       <property name="autoFillBackground">
@@ -6869,6 +6869,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
  </widget>
  <resources>
   <include location="resources.qrc"/>
+  <include location="../../.designer/backup/resources.qrc"/>
  </resources>
  <connections/>
 </ui>
