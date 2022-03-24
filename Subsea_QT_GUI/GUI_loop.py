@@ -49,9 +49,9 @@ class AnotherWindow(QWidget):
     This "window" is a QWidget. If it has no parent, it
     will appear as a free-floating window as we want.
     """
-    def __init__(self, port):
+    def __init__(self, port, threadwatcher: Threadwatcher, id):
         super().__init__()
-
+        self.threadwatcher = threadwatcher
         self.label = QLabel("Another Window")
 
         self.setWindowTitle(f"{'havbunnskamera' if port-6888 == 0 else 'frontkamera'}")
@@ -128,6 +128,60 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             """)
         ]))
 
+#         gl.shaders.Shaders.append(gl.shaders.ShaderProgram('myShader', [
+#         gl.shaders.VertexShader("""
+#                 varying vec3 normal;
+#                 void main() {
+#                     // compute here for use in fragment shader
+#                     normal = normalize(gl_NormalMatrix * gl_Normal);
+#                     gl_FrontColor = gl_Color;
+#                     gl_BackColor = gl_Color;
+#                     gl_Position = ftransform();
+#                 }
+#             """),
+#         gl.shaders.FragmentShader("""
+#                 #ifdef GL_ES
+# precision mediump float;
+# #endif
+# /* Color palette */
+# #define BLACK           vec3(0.0, 0.0, 0.0)
+# #define WHITE           vec3(1.0, 1.0, 1.0)
+# #define RED             vec3(1.0, 0.0, 0.0)
+# #define GREEN           vec3(0.0, 1.0, 0.0)
+# #define BLUE            vec3(0.0, 0.0, 1.0)
+# #define YELLOW          vec3(1.0, 1.0, 0.0)
+# #define CYAN            vec3(0.0, 1.0, 1.0)
+# #define MAGENTA         vec3(1.0, 0.0, 1.0)
+# #define ORANGE          vec3(1.0, 0.5, 0.0)
+# #define PURPLE          vec3(1.0, 0.0, 0.5)
+# #define LIME            vec3(0.5, 1.0, 0.0)
+# #define ACQUA           vec3(0.0, 1.0, 0.5)
+# #define VIOLET          vec3(0.5, 0.0, 1.0)
+# #define AZUR            vec3(0.0, 0.5, 1.0)
+# #define PI 3.14159
+# uniform vec2 u_resolution;
+# uniform vec2 u_mouse;
+
+# float ylargerthanxsquared(vec2 normalpos) {
+#     //should be 1 when y is larger than x^2  
+#     return step(pow(normalpos.x, 2.) ,normalpos.y) - 1.*step(2.,pow(normalpos.x,2.));
+    
+# }
+
+# void main() {
+#     vec2 normal_pixel = ((gl_FragCoord.xy/u_resolution)-0.5);
+#     // step(normal_pixel.x,0.)*step(normal_pixel.y,0.);
+    
+
+#     // float stepresult = pow((normal_pixel[0]),2.0);
+
+#     // gl_FragColor = vec4(stepresult),0.0,0.0,1.0);
+#     // gl_FragColor = vec4(ylargerthanxsquared(normal_pixel),0.0,0.0,1.0);
+#     gl_FragColor = vec4(abs(ylargerthanxsquared(normal_pixel*10.)*step(0.,normal_pixel.y)),0.0,0.0,1.0);
+#     }
+#             """)
+#         ]))
+
         cwd = os.getcwd()
         self.stl_mesh = mesh.Mesh.from_file(f'{cwd}/ROV.STL') # Imported stl file
         shape = self.stl_mesh.points.shape
@@ -136,6 +190,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         self.meshdata = gl.MeshData(vertexes=points, faces=faces)
         self.meshitem = gl.GLMeshItem(meshdata=self.meshdata, smooth=False, drawFaces=True, shader='viewNormalColor', glOptions='opaque', color=(0,0,0,0), drawEdges=False, edgeColor=(0,0,0,0))
+        # self.meshitem = gl.GLMeshItem(meshdata=self.meshdata, smooth=False, drawFaces=True, shader='myShader', glOptions='opaque', color=(0,0,0,0), drawEdges=False, edgeColor=(0,0,0,0))
         self.viewer.addItem(self.meshitem)
 
         self.meshitem.rotate(0, 0, 0, 0)
@@ -503,6 +558,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             self.queue.put([id, data])
 
     def shutdown(self):
+        print("shutdown ran")
         self.t_watch.stop_all_threads()
         if self.camera_windows_opened:
             for window in self.child_window:
@@ -517,10 +573,12 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     def start_camera_windows(self):
         self.child_window: list[AnotherWindow] = []
 
-        self.child_window.append(AnotherWindow(6888))
+        id = self.t_watch.add_thread()
+        self.child_window.append(AnotherWindow(6888, self.t_watch, id))
         self.child_window[0].show()
 
-        self.child_window.append(AnotherWindow(6889))
+        id = self.t_watch.add_thread()
+        self.child_window.append(AnotherWindow(6889, self.t_watch, id))
         self.child_window[1].show()
     
 
@@ -546,8 +604,11 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         "accel": self.gui_acceleration_update,
         "gyro": self.gui_gyro_update}
         while self.t_watch.should_run(self.id):
-
+            print("waiting for sensordata")
+            # if conn.poll():
+                
             sensordata: dict = conn.recv()
+            print("got sensordata")
 
             for key in sensordata.keys():
                 if key in self.sensor_update_function:

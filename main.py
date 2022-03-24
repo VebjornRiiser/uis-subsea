@@ -331,7 +331,7 @@ def run(network_handler: Network, t_watch: Threadwatcher, id: int, queue_for_rov
         if rov_state.data == {}:
             continue
         rov_state.check_controls()
-        # print(rov_state.packets_to_send)
+        print(rov_state.packets_to_send)
         rov_state.send_packets()
 
 ID = 0
@@ -434,63 +434,63 @@ def get_args():
 if __name__ == "__main__":
     # print(check_camera_command([[201, {"on": True, "bildebehandlingsmodus": 1}], [70, [0, 0, 0, 0, 0, 0, 0, 0]]]))
     # exit(0)
-    global start_time_sec
-    global run_gui
-    start_time_sec = time.time()
-    run_gui = True
-    run_get_controllerdata = True
-    run_network = True
-    run_send_fake_sensordata = False
-    
-    queue_for_rov = multiprocessing.Queue()
-
-    t_watch = Threadwatcher()
-
-    gui_parent_pipe, gui_child_pipe = Pipe() # starts the gui program. gui_parent_pipe should get the sensor data
-    if run_gui:
-        id = t_watch.add_thread()
-        gui_loop = Process(target=GUI_loop.run, args=(gui_child_pipe, queue_for_rov, t_watch, id)) # and should recieve commands from the gui
-        gui_loop.start()
-
-        id = t_watch.add_thread()
-        recv_from_gui = threading.Thread(target=recieve_commands_from_gui, args=(gui_child_pipe, t_watch, id),daemon=True)
-        recv_from_gui.start()
-
-    if run_send_fake_sensordata:
-        while True:
-            sensordata = {"lekk_temp": [0, 21.2, 27.0, 99.0]}
-            gui_parent_pipe.send(sensordata)
-            time.sleep(2)
-
-
-    if run_get_controllerdata:
-        id = t_watch.add_thread()
-        # takes in controller data and sends it into child_conn
-        controller_process = Process(target=controller.run, args=(queue_for_rov, t_watch, id,True, False,), daemon=True)
-        controller_process.start()
-
-    # Network is blocking
-    if run_network:
-        network = Network(is_server=False, port=6900, connect_addr="10.0.0.2")
-        print("network started")
-
-        id = t_watch.add_thread()
-        snd_data_to_rov = threading.Thread(target=run, args=(network, t_watch, id, queue_for_rov, gui_parent_pipe), daemon=True)
-        # snd_data_to_rov = threading.Thread(target=send_data_to_rov, args=(None, t_watch, id, parent_conn_controller), daemon=True)
-        snd_data_to_rov.start()
-
-        recieve_data_from_rov = threading.Thread(target=recieve_data_from_rov, args=(network, t_watch, id), daemon=True)
-        recieve_data_from_rov.start()
-
-    elif run_get_controllerdata:
-        print("starting send to rov")
-        snd_data_to_rov = threading.Thread(target=run, args=(None, t_watch, id, queue_for_rov, gui_parent_pipe), daemon=True)
-        snd_data_to_rov.start()
-
     try:
-        while True:
-            time.sleep(1)
-            # print("...")
+
+        global start_time_sec
+        global run_gui
+        start_time_sec = time.time()
+        run_gui = True
+        run_get_controllerdata = True
+        run_network = True
+        run_send_fake_sensordata = False
+        
+        queue_for_rov = multiprocessing.Queue()
+
+        t_watch = Threadwatcher()
+
+        gui_parent_pipe, gui_child_pipe = Pipe() # starts the gui program. gui_parent_pipe should get the sensor data
+        if run_gui:
+            id = t_watch.add_thread()
+            gui_loop = Process(target=GUI_loop.run, args=(gui_child_pipe, queue_for_rov, t_watch, id)) # and should recieve commands from the gui
+            gui_loop.start()
+
+            id = t_watch.add_thread()
+            recv_from_gui = threading.Thread(target=recieve_commands_from_gui, args=(gui_child_pipe, t_watch, id),daemon=True)
+            recv_from_gui.start()
+
+        if run_send_fake_sensordata:
+            while True:
+                sensordata = {"lekk_temp": [0, 21.2, 27.0, 99.0]}
+                gui_parent_pipe.send(sensordata)
+                time.sleep(2)
+
+
+        if run_get_controllerdata:
+            id = t_watch.add_thread()
+            # takes in controller data and sends it into child_conn
+            controller_process = Process(target=controller.run, args=(queue_for_rov, t_watch, id,True, False,), daemon=True)
+            controller_process.start()
+
+        # Network is blocking
+        if run_network:
+            network = Network(is_server=False, port=6900, connect_addr="10.0.0.2")
+            print("network started")
+
+            id = t_watch.add_thread()
+            snd_data_to_rov = threading.Thread(target=run, args=(network, t_watch, id, queue_for_rov, gui_parent_pipe), daemon=True)
+            # snd_data_to_rov = threading.Thread(target=send_data_to_rov, args=(None, t_watch, id, parent_conn_controller), daemon=True)
+            snd_data_to_rov.start()
+
+            recieve_data_from_rov = threading.Thread(target=recieve_data_from_rov, args=(network, t_watch, id), daemon=True)
+            recieve_data_from_rov.start()
+
+        elif run_get_controllerdata:
+            print("starting send to rov")
+            snd_data_to_rov = threading.Thread(target=run, args=(None, t_watch, id, queue_for_rov, gui_parent_pipe), daemon=True)
+            snd_data_to_rov.start()
+
+            while True:
+                time.sleep(1)
     except KeyboardInterrupt:
         t_watch.stop_all_threads()
         print("stopped all threads")
