@@ -42,7 +42,9 @@ def relay_data_from_controller(connection_controller, t_watch: Threadwatcher, id
 def recieve_commands_from_gui(conn, t_watch: Threadwatcher, id):
     #Probably deprecated
     while t_watch.should_run(id):
-        print(conn.recv())
+        if conn.poll():
+            print(f" Inside recieve_commands_from_gui {conn.recv() = }")
+        # print("recieve commands from gui")
     print("t_watch is false")
 
 
@@ -68,6 +70,7 @@ BUTTON_RELEASE = 5
 class Rov_state:
     def __init__(self, queue, network_handler, gui_pipe) -> None:
         self.data:dict = {}
+        self.virtual_buttons: list[int] = []
         # prevents the camera from toggling back again immediately if we hold the button down
         self.camera_toggle_wait_counter: int = 0
         # prevents the tilt toggle from toggling back again immediately if we hold the button down
@@ -93,7 +96,7 @@ class Rov_state:
         # theese functions need to line up their indexes with the line in button_config.txt
         self.button_function_list = [self.skip, self.toggle_active_camera, self.toggle_between_rotation_and_camera_tilt, self.toggle_manipulator_enabled, self.manipulator_grip, self.manipulator_release, self.update_bildebehandlingsmodus, self.skip]
         #maps a button to a index in button_function_list Can be changed from gui
-        self.button_to_function_map = [0, 0, 0, 1, 0, 3, 0, 2, 0, 0]
+        self.button_to_function_map = [0, 6, 0, 1, 4, 5, 0, 0, 3, 2]
         self.camera_is_on = [True, True]
         self.camera_command: list[list[int, dict]] = None
         self.joystick_moves_camera = False
@@ -111,20 +114,21 @@ class Rov_state:
         self.ligth_down_is_on = True
 
 
-    def skip(self):
+    def skip(self, button_index):
         pass
         # print("pass was called")
 
     # bit hacky since we overwrite the actual value of the button
-    def manipulator_grip(self):
+    # Need to clear the button that sets this value so that the original function does not altso trigger
+    def manipulator_grip(self, button_index):
         self.data["buttons"][BUTTON_GRAB] = 1
-        # print("grip")
+        print("grip")
 
 
     # bit hacky since we overwrite the actual value of the button
-    def manipulator_release(self):
-        self.data["buttons"][BUTTON_GRAB] = 1
-        # print("release")
+    def manipulator_release(self, button_index):
+        self.data["buttons"][BUTTON_RELEASE] = 1
+        print("release")
 
 
     def toggle_manipulator_enabled(self):
@@ -174,7 +178,7 @@ class Rov_state:
             return
         for index, button in enumerate(buttons):
             if button: # is pressed
-                self.button_function_list[self.button_to_function_map[index]]()
+                self.button_function_list[self.button_to_function_map[index]](index)
                 # print(f"button with {index = } is pressed")
 
     
@@ -192,7 +196,7 @@ class Rov_state:
         if id == 1: # controller data update
             self.data = packet
         elif id == GUI_loop.PROFILE_UPDATE_ID:
-            print("Updated profile")
+            # print("Updated profile")
             print(id, packet)
             self.button_to_function_map = packet
         elif id == GUI_loop.COMMAND_TO_ROV_ID:
@@ -207,12 +211,12 @@ class Rov_state:
 
     def send_packets(self):
         """Sends the created network packets and clears it"""
+        print(self.packets_to_send)
+
         if self.network_handler is None:
-            # print(self.packets_to_send)
-            # print(self.data["buttons"])
             self.packets_to_send = []
             return
-        # print(self.packets_to_send)
+
         self.network_handler.send(network_format(self.packets_to_send))
         self.packets_to_send = []
 
@@ -278,12 +282,18 @@ class Rov_state:
         data = list(self.data["dpad"])
         data.append(self.data["buttons"][BUTTON_GRAB])
         data.append(self.data["buttons"][BUTTON_RELEASE])
+        # print(f"{data = }")
         # Inn: 1, Ut: 2, roter med klokka: 4, roter mot klokka: 8, lukk klo: 16,
         # åpne klo: 32, enable: 64, ingen funksjon
         data_to_values = [{-1: 0b0000_1000, 0: 0b0, 1: 0b0000_0100},
                         {-1: 0b0000_0001, 0: 0b0, 1: 0b0000_0010},
                         {1: 0b0001_0000, 0: 0b0},
                         {1: 0b0010_0000, 0: 0b0}]
+
+        data_to_values = [{-1: 0b0000_1000, 0: 0b0, 1: 0b0000_0100},
+                {-1: 1, 0: 0b0, 1: 2},
+                {1: 16, 0: 0},
+                {1: 32, 0: 0}]
 
         byte_val = 0
         for index, axis_val in enumerate(data):  # bitwise or's all the values
@@ -316,7 +326,6 @@ class Rov_state:
 def run(network_handler: Network, t_watch: Threadwatcher, id: int, queue_for_rov: multiprocessing.Queue, gui_pipe):
     print(f"{network_handler = }")
     rov_state = Rov_state(queue_for_rov, network_handler, gui_pipe)
-    camera_tilt_lock = [False, False]  # locks the camera tilt if the rov is processing images
     while t_watch.should_run(id):
 
         rov_state.tick()
@@ -427,60 +436,67 @@ def get_args():
 
 if __name__ == "__main__":
     # print(check_camera_command([[201, {"on": True, "bildebehandlingsmodus": 1}], [70, [0, 0, 0, 0, 0, 0, 0, 0]]]))
+    # get_args()
     # exit(0)
-    global start_time_sec
-    global run_gui
-    start_time_sec = time.time()
-    run_gui = True
-    run_get_controllerdata = True
-    run_network = True
-    
-    queue_for_rov = multiprocessing.Queue()
-
-    t_watch = Threadwatcher()
-
-    gui_parent_pipe, gui_child_pipe = Pipe() # starts the gui program. gui_parent_pipe should get the sensor data
-    if run_gui:
-        id = t_watch.add_thread()
-        gui_loop = Process(target=GUI_loop.run, args=(gui_child_pipe, queue_for_rov, t_watch, id)) # and should recieve commands from the gui
-        gui_loop.start()
-
-        id = t_watch.add_thread()
-        recv_from_gui = threading.Thread(target=recieve_commands_from_gui, args=(gui_child_pipe, t_watch, id),daemon=True)
-        recv_from_gui.start()
-
-        # id = t_watch.add_thread()
-        # send_to_gui = threading.Thread(target=send_sensordata_to_gui, args=(gui_parent_pipe, t_watch, id), daemon=True)
-        # send_to_gui.start()
-
-    if run_get_controllerdata:
-        id = t_watch.add_thread()
-        # takes in controller data and sends it into child_conn
-        controller_process = Process(target=controller.run, args=(queue_for_rov, t_watch, id,True, False,), daemon=True)
-        controller_process.start()
-
-    # Network is blocking
-    if run_network:
-        network = Network(is_server=False, port=6900, connect_addr="10.0.0.2")
-        print("network started")
-
-        id = t_watch.add_thread()
-        snd_data_to_rov = threading.Thread(target=run, args=(network, t_watch, id, queue_for_rov, gui_parent_pipe), daemon=True)
-        # snd_data_to_rov = threading.Thread(target=send_data_to_rov, args=(None, t_watch, id, parent_conn_controller), daemon=True)
-        snd_data_to_rov.start()
-
-        recieve_data_from_rov = threading.Thread(target=recieve_data_from_rov, args=(network, t_watch, id), daemon=True)
-        recieve_data_from_rov.start()
-
-    elif run_get_controllerdata:
-        print("starting send to rov")
-        snd_data_to_rov = threading.Thread(target=run, args=(None, t_watch, id, queue_for_rov, gui_parent_pipe), daemon=True)
-        snd_data_to_rov.start()
-
     try:
+
+        global start_time_sec
+        global run_gui
+        start_time_sec = time.time()
+        run_gui = True
+        run_get_controllerdata = False
+        run_network = False
+        run_send_fake_sensordata = True
+        
+        queue_for_rov = multiprocessing.Queue()
+
+        t_watch = Threadwatcher()
+
+        gui_parent_pipe, gui_child_pipe = Pipe() # starts the gui program. gui_parent_pipe should get the sensor data
+        if run_gui:
+            id = t_watch.add_thread()
+            gui_loop = Process(target=GUI_loop.run, args=(gui_child_pipe, queue_for_rov, t_watch, id)) # and should recieve commands from the gui
+            gui_loop.start()
+
+            # id = t_watch.add_thread()
+            # recv_from_gui = threading.Thread(target=recieve_commands_from_gui, args=(gui_parent_pipe, t_watch, id),daemon=True)
+            # recv_from_gui.start()
+
+
+
+        if run_get_controllerdata:
+            id = t_watch.add_thread()
+            # takes in controller data and sends it into child_conn
+            controller_process = Process(target=controller.run, args=(queue_for_rov, t_watch, id,True, False,), daemon=True)
+            controller_process.start()
+
+        # Network is blocking
+        if run_network:
+            network = Network(is_server=False, port=6900, connect_addr="10.0.0.2")
+            print("network started")
+
+            id = t_watch.add_thread()
+            snd_data_to_rov = threading.Thread(target=run, args=(network, t_watch, id, queue_for_rov, gui_parent_pipe), daemon=True)
+            # snd_data_to_rov = threading.Thread(target=send_data_to_rov, args=(None, t_watch, id, parent_conn_controller), daemon=True)
+            snd_data_to_rov.start()
+
+            recieve_data_from_rov = threading.Thread(target=recieve_data_from_rov, args=(network, t_watch, id), daemon=True)
+            recieve_data_from_rov.start()
+
+        elif run_get_controllerdata:
+            print("starting send to rov")
+            snd_data_to_rov = threading.Thread(target=run, args=(None, t_watch, id, queue_for_rov, gui_parent_pipe), daemon=True)
+            snd_data_to_rov.start()
+
+        if run_send_fake_sensordata:
+            while True:
+                sensordata = {"lekk_temp": [False, False, False, 99.0, 25.1, 61.420]}
+                gui_parent_pipe.send(sensordata)
+                time.sleep(2)
+
         while True:
             time.sleep(1)
-            # print("...")
     except KeyboardInterrupt:
+        gui_loop.kill()
         t_watch.stop_all_threads()
         print("stopped all threads")

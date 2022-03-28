@@ -1,3 +1,4 @@
+from ast import arguments
 import multiprocessing
 #from tkinter import Widget
 from PyQt5 import QtCore, QtGui, QtWidgets, Qt
@@ -23,7 +24,7 @@ import numpy as np
 from stl import mesh
 import matplotlib.pyplot as plt
 import matplotlib
-
+import time
 from Subsea_QT_GUI.py_toggle import PyToggle
 
 os.environ["QT_WEBENGINE_DISABLE_GPU"] = "1"
@@ -48,9 +49,10 @@ class AnotherWindow(QWidget):
     This "window" is a QWidget. If it has no parent, it
     will appear as a free-floating window as we want.
     """
-    def __init__(self, port):
+    def __init__(self, port, threadwatcher: Threadwatcher, id):
         super().__init__()
-
+        self.threadwatcher = threadwatcher
+        self.id = id
         self.label = QLabel("Another Window")
 
         self.setWindowTitle(f"{'havbunnskamera' if port-6888 == 0 else 'frontkamera'}")
@@ -127,6 +129,60 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             """)
         ]))
 
+#         gl.shaders.Shaders.append(gl.shaders.ShaderProgram('myShader', [
+#         gl.shaders.VertexShader("""
+#                 varying vec3 normal;
+#                 void main() {
+#                     // compute here for use in fragment shader
+#                     normal = normalize(gl_NormalMatrix * gl_Normal);
+#                     gl_FrontColor = gl_Color;
+#                     gl_BackColor = gl_Color;
+#                     gl_Position = ftransform();
+#                 }
+#             """),
+#         gl.shaders.FragmentShader("""
+#                 #ifdef GL_ES
+# precision mediump float;
+# #endif
+# /* Color palette */
+# #define BLACK           vec3(0.0, 0.0, 0.0)
+# #define WHITE           vec3(1.0, 1.0, 1.0)
+# #define RED             vec3(1.0, 0.0, 0.0)
+# #define GREEN           vec3(0.0, 1.0, 0.0)
+# #define BLUE            vec3(0.0, 0.0, 1.0)
+# #define YELLOW          vec3(1.0, 1.0, 0.0)
+# #define CYAN            vec3(0.0, 1.0, 1.0)
+# #define MAGENTA         vec3(1.0, 0.0, 1.0)
+# #define ORANGE          vec3(1.0, 0.5, 0.0)
+# #define PURPLE          vec3(1.0, 0.0, 0.5)
+# #define LIME            vec3(0.5, 1.0, 0.0)
+# #define ACQUA           vec3(0.0, 1.0, 0.5)
+# #define VIOLET          vec3(0.5, 0.0, 1.0)
+# #define AZUR            vec3(0.0, 0.5, 1.0)
+# #define PI 3.14159
+# uniform vec2 u_resolution;
+# uniform vec2 u_mouse;
+
+# float ylargerthanxsquared(vec2 normalpos) {
+#     //should be 1 when y is larger than x^2  
+#     return step(pow(normalpos.x, 2.) ,normalpos.y) - 1.*step(2.,pow(normalpos.x,2.));
+    
+# }
+
+# void main() {
+#     vec2 normal_pixel = ((gl_FragCoord.xy/u_resolution)-0.5);
+#     // step(normal_pixel.x,0.)*step(normal_pixel.y,0.);
+    
+
+#     // float stepresult = pow((normal_pixel[0]),2.0);
+
+#     // gl_FragColor = vec4(stepresult),0.0,0.0,1.0);
+#     // gl_FragColor = vec4(ylargerthanxsquared(normal_pixel),0.0,0.0,1.0);
+#     gl_FragColor = vec4(abs(ylargerthanxsquared(normal_pixel*10.)*step(0.,normal_pixel.y)),0.0,0.0,1.0);
+#     }
+#             """)
+#         ]))
+
         cwd = os.getcwd()
         self.stl_mesh = mesh.Mesh.from_file(f'{cwd}/ROV.STL') # Imported stl file
         shape = self.stl_mesh.points.shape
@@ -135,6 +191,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         self.meshdata = gl.MeshData(vertexes=points, faces=faces)
         self.meshitem = gl.GLMeshItem(meshdata=self.meshdata, smooth=False, drawFaces=True, shader='viewNormalColor', glOptions='opaque', color=(0,0,0,0), drawEdges=False, edgeColor=(0,0,0,0))
+        # self.meshitem = gl.GLMeshItem(meshdata=self.meshdata, smooth=False, drawFaces=True, shader='myShader', glOptions='opaque', color=(0,0,0,0), drawEdges=False, edgeColor=(0,0,0,0))
         self.viewer.addItem(self.meshitem)
 
         self.meshitem.rotate(0, 0, 0, 0)
@@ -502,6 +559,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             self.queue.put([id, data])
 
     def shutdown(self):
+        print("shutdown ran")
         self.t_watch.stop_all_threads()
         if self.camera_windows_opened:
             for window in self.child_window:
@@ -516,10 +574,12 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     def start_camera_windows(self):
         self.child_window: list[AnotherWindow] = []
 
-        self.child_window.append(AnotherWindow(6888))
+        id = self.t_watch.add_thread()
+        self.child_window.append(AnotherWindow(6888, self.t_watch, id))
         self.child_window[0].show()
 
-        self.child_window.append(AnotherWindow(6889))
+        id = self.t_watch.add_thread()
+        self.child_window.append(AnotherWindow(6889, self.t_watch, id))
         self.child_window[1].show()
     
 
@@ -531,7 +591,6 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
     #Updates the gui with new sensordata
     def update_gui(self, data):
-        possible_commands = {"gyro":1,"temp_lekk": 1, }
         print(f"{data}")
         if self.t_watch.should_run(self.id):
             self.dybde.setText(str(round(data["dybde"],4)))
@@ -540,15 +599,67 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             self.temp_ROV_1.setText(str(round(data["temp_rov"],4)))
 
     def recieve_and_set_text(self, conn):
+        self.sensor_update_function = {
+        "lekk_temp": self.gui_lekk_temp_update, 
+        "thrust" : self.gui_thrust_update,
+        "accel": self.gui_acceleration_update,
+        "gyro": self.gui_gyro_update}
         while self.t_watch.should_run(self.id):
-            # print("trying to take out of pipe")
-            sensordata = conn.recv()
-            # print(sensordata)
-            self.update_gui(sensordata)
+            # print("waiting for sensordata")
+            data_is_ready = conn.poll()
+
+            if data_is_ready:
+
+                sensordata: dict = conn.recv()
+
+                for key in sensordata.keys():
+                    if key in self.sensor_update_function:
+                        self.sensor_update_function[key](sensordata[key])
+            else:
+                time.sleep(0.15)
+    
         print("recieved close thread. trying to close")
         self.shutdown()
         exit(0)
         
+
+
+    def gui_lekk_temp_update(self, sensordata):
+        # self.check_data_types(sensordata["lekk_temp"], (int, float, float, float))
+        print(f"ran gui_lekk_temp_update {sensordata = }")
+        lekkasje_sensor_1 = sensordata[0]
+        lekkasje_sensor_2 = sensordata[1]
+        lekkasje_sensor_3 = sensordata[2]
+        if not isinstance(lekkasje_sensor_1, bool):
+            raise TypeError(f"Lekkasje sensor 1 has wrong type. {type(lekkasje_sensor_1) = }, {lekkasje_sensor_1} ")
+        temp1 = sensordata[3]
+        temp2 = sensordata[4]
+        temp3 = sensordata[5]
+        self.label_temp_ROV_1.setText(temp1)
+        self.label_temp_ROV_2.setText(temp2)
+        self.label_temp_ROV_3.setText(temp3)
+
+    def gui_thrust_update(self, sensordata):
+        print(f"ran gui_thrust_update {sensordata = }")
+
+
+    def gui_acceleration_update(self, sensordata):
+        print(f"ran gui_acceleration_update {sensordata = }")
+
+
+    def gui_gyro_update(self, sensordata):
+        print(f"ran gui_gyro_update {sensordata = }")
+        
+
+    def check_data_types(self, values: tuple, data_types: tuple):
+        """Takes in n arguments and n data types and checks that they are equal"""
+
+        if len(values) != len(data_types):
+            raise ValueError(f"Number of values does not equal number of data_types to match against")
+        for index, value in enumerate(values):
+            if not isinstance(value, data_types[index]):
+                raise TypeError(f"{value = } is not of type {data_types[index]}")
+
     def send_current_ligth_intensity(self):
         self.send_data_to_main([self.lys_slider_forward, self.lys_paa_forward_btn, self.lys_slider_down, self.lys_paa_down_btn], self.COMMAND_TO_ROV_ID)
         print(f"slider changed to {self.lys_slider.value()}")
@@ -828,9 +939,6 @@ def run(conn, queue_for_rov, t_watch: Threadwatcher, id):
 
 if __name__ == "__main__":
     #import SUBSEAGUI
-    
-
-    
 
     run()
     

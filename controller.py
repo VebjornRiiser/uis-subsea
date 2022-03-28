@@ -22,7 +22,7 @@ def clear_screen():
 
 
 class Controller:
-    def __init__(self, queue_to_rov: multiprocessing.Queue, t_watch: Threadwatcher, id, joystick_deadzone=9) -> None:
+    def __init__(self, queue_to_rov: multiprocessing.Queue, t_watch: Threadwatcher, id, joystick_deadzone=15) -> None:
         self.queue_to_rov = queue_to_rov
         self.t_watch = t_watch
         self.id = id
@@ -229,6 +229,7 @@ class Controller:
             if self.queue_to_rov is not None:
                 # print("sending to main")
                 self.queue_to_rov.put((1, self.pack_controller_values()))
+                # print(self.buttons)
             elif debug and self.connection is None: 
                 self.write_controller_values(local=True)
         print("closed connection")

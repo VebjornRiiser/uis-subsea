@@ -46,7 +46,7 @@ class Network:
             self.socket.bind((self.bind_addr, self.port))
             self.socket.listen()
             print("starting wait for conn")
-            wait_for_conn = threading.Thread(target=self.wait_for_conn)
+            wait_for_conn = threading.Thread(target=self.wait_for_conn, daemon=True)
             wait_for_conn.start()
         else:
             print(f"Client is trying to connect to {self.connect_addr, self.port}")
