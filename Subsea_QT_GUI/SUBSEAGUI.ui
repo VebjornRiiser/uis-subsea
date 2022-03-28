@@ -720,7 +720,7 @@ Button */
             <property name="lineWidth">
              <number>0</number>
             </property>
-            <widget class="QFrame" name="toggleBox">
+            <widget class="QFrame" name="boxToggle">
              <property name="geometry">
               <rect>
                <x>0</x>
@@ -758,7 +758,7 @@ Button */
                <number>0</number>
               </property>
               <item>
-               <widget class="QPushButton" name="toggleButton">
+               <widget class="QPushButton" name="btn_toggle">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -828,7 +828,7 @@ Button */
                <number>0</number>
               </property>
               <item>
-               <widget class="QPushButton" name="informasjon_btn">
+               <widget class="QPushButton" name="btn_informasjon">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -868,7 +868,7 @@ Button */
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="kontroller_btn">
+               <widget class="QPushButton" name="btn_kontroller">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -1856,7 +1856,7 @@ p, li { white-space: pre-wrap; }
                                   <number>0</number>
                                  </property>
                                  <item>
-                                  <widget class="QFrame" name="kjoring_container">
+                                  <widget class="QFrame" name="kjoringContainer">
                                    <property name="minimumSize">
                                     <size>
                                      <width>0</width>
@@ -1895,7 +1895,7 @@ p, li { white-space: pre-wrap; }
                                      <number>0</number>
                                     </property>
                                     <item>
-                                     <widget class="QLabel" name="kjoring_title">
+                                     <widget class="QLabel" name="title_kjoring">
                                       <property name="minimumSize">
                                        <size>
                                         <width>0</width>
@@ -1920,7 +1920,7 @@ p, li { white-space: pre-wrap; }
                                      </widget>
                                     </item>
                                     <item>
-                                     <widget class="QLabel" name="kjoring_label">
+                                     <widget class="QLabel" name="label_kjoring">
                                       <property name="styleSheet">
                                        <string notr="true">color: rgb(113, 126, 149);</string>
                                       </property>
@@ -1936,7 +1936,7 @@ p, li { white-space: pre-wrap; }
                                      </widget>
                                     </item>
                                     <item>
-                                     <widget class="QPushButton" name="auto_btn">
+                                     <widget class="QPushButton" name="btn_auto">
                                       <property name="minimumSize">
                                        <size>
                                         <width>150</width>
@@ -1971,7 +1971,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </widget>
                                     </item>
                                     <item>
-                                     <widget class="QPushButton" name="manuell_btn">
+                                     <widget class="QPushButton" name="btn_manuell">
                                       <property name="minimumSize">
                                        <size>
                                         <width>150</width>
@@ -2012,7 +2012,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                   </widget>
                                  </item>
                                  <item>
-                                  <widget class="QFrame" name="ROV_container">
+                                  <widget class="QFrame" name="rovContainer">
                                    <property name="sizePolicy">
                                     <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                                      <horstretch>0</horstretch>
@@ -2054,7 +2054,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      <number>0</number>
                                     </property>
                                     <item row="0" column="1">
-                                     <widget class="QFrame" name="ROV_column_2">
+                                     <widget class="QFrame" name="rovColumn2">
                                       <property name="minimumSize">
                                        <size>
                                         <width>0</width>
@@ -2087,7 +2087,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         <number>0</number>
                                        </property>
                                        <item>
-                                        <widget class="QFrame" name="ROV_row_2">
+                                        <widget class="QFrame" name="rovRow2">
                                          <property name="minimumSize">
                                           <size>
                                            <width>240</width>
@@ -2126,7 +2126,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                            <number>0</number>
                                           </property>
                                           <item>
-                                           <widget class="QFrame" name="toogle_container">
+                                           <widget class="QFrame" name="toogleBtnContainer">
                                             <property name="frameShape">
                                              <enum>QFrame::NoFrame</enum>
                                             </property>
@@ -2150,7 +2150,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                            </widget>
                                           </item>
                                           <item>
-                                           <widget class="QFrame" name="toogle_labels">
+                                           <widget class="QFrame" name="toogleBtnLabels">
                                             <property name="frameShape">
                                              <enum>QFrame::NoFrame</enum>
                                             </property>
@@ -2174,7 +2174,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                               <number>10</number>
                                              </property>
                                              <item>
-                                              <widget class="QLabel" name="mani_label">
+                                              <widget class="QLabel" name="text_mani">
                                                <property name="font">
                                                 <font>
                                                  <family>Segoe UI</family>
@@ -2193,7 +2193,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                               </widget>
                                              </item>
                                              <item>
-                                              <widget class="QLabel" name="dybde_reg_label">
+                                              <widget class="QLabel" name="text_dybde_reg">
                                                <property name="font">
                                                 <font>
                                                  <family>Segoe UI</family>
@@ -2212,7 +2212,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                               </widget>
                                              </item>
                                              <item>
-                                              <widget class="QLabel" name="helning_label">
+                                              <widget class="QLabel" name="text_helning">
                                                <property name="minimumSize">
                                                 <size>
                                                  <width>0</width>
@@ -2237,7 +2237,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                               </widget>
                                              </item>
                                              <item>
-                                              <widget class="QLabel" name="frontlys_label">
+                                              <widget class="QLabel" name="text_frontlys">
                                                <property name="font">
                                                 <font>
                                                  <family>Segoe UI</family>
@@ -2256,7 +2256,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                               </widget>
                                              </item>
                                              <item>
-                                              <widget class="QLabel" name="havbunnslys_label">
+                                              <widget class="QLabel" name="text_havbunnslys">
                                                <property name="font">
                                                 <font>
                                                  <family>Segoe UI</family>
@@ -2284,7 +2284,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </widget>
                                     </item>
                                     <item row="0" column="0">
-                                     <widget class="QFrame" name="ROV_column">
+                                     <widget class="QFrame" name="rovColumn">
                                       <property name="minimumSize">
                                        <size>
                                         <width>0</width>
@@ -2320,7 +2320,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         <number>0</number>
                                        </property>
                                        <item row="0" column="0">
-                                        <widget class="QLabel" name="tid_label">
+                                        <widget class="QLabel" name="text_tid">
                                          <property name="minimumSize">
                                           <size>
                                            <width>100</width>
@@ -2345,7 +2345,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </widget>
                                        </item>
                                        <item row="0" column="1">
-                                        <widget class="QLabel" name="tid">
+                                        <widget class="QLabel" name="label_tid">
                                          <property name="minimumSize">
                                           <size>
                                            <width>90</width>
@@ -2388,7 +2388,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </widget>
                                        </item>
                                        <item row="1" column="0">
-                                        <widget class="QLabel" name="dybde_label">
+                                        <widget class="QLabel" name="text_dybde">
                                          <property name="minimumSize">
                                           <size>
                                            <width>100</width>
@@ -2456,7 +2456,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </widget>
                                        </item>
                                        <item row="2" column="0">
-                                        <widget class="QLabel" name="spenning_label">
+                                        <widget class="QLabel" name="text_spenning">
                                          <property name="minimumSize">
                                           <size>
                                            <width>100</width>
@@ -2481,7 +2481,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </widget>
                                        </item>
                                        <item row="2" column="1">
-                                        <widget class="QLabel" name="spenning">
+                                        <widget class="QLabel" name="label_spenning">
                                          <property name="minimumSize">
                                           <size>
                                            <width>90</width>
@@ -2527,7 +2527,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </widget>
                                        </item>
                                        <item row="3" column="0">
-                                        <widget class="QLabel" name="orientering_label">
+                                        <widget class="QLabel" name="text_orientering">
                                          <property name="minimumSize">
                                           <size>
                                            <width>100</width>
@@ -2552,7 +2552,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </widget>
                                        </item>
                                        <item row="3" column="1">
-                                        <widget class="QLabel" name="orientering">
+                                        <widget class="QLabel" name="label_orientering">
                                          <property name="minimumSize">
                                           <size>
                                            <width>90</width>
@@ -2595,7 +2595,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </widget>
                                        </item>
                                        <item row="5" column="0">
-                                        <widget class="QLabel" name="effektforbruk_label">
+                                        <widget class="QLabel" name="title_effektforbruk">
                                          <property name="minimumSize">
                                           <size>
                                            <width>100</width>
@@ -2626,7 +2626,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </widget>
                                        </item>
                                        <item row="6" column="0">
-                                        <widget class="QLabel" name="effekt_elektronikk_label">
+                                        <widget class="QLabel" name="text_effekt_elektronikk">
                                          <property name="minimumSize">
                                           <size>
                                            <width>100</width>
@@ -2654,7 +2654,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </widget>
                                        </item>
                                        <item row="6" column="1">
-                                        <widget class="QLabel" name="effekt_elektronikk">
+                                        <widget class="QLabel" name="label_effekt_elektronikk_2">
                                          <property name="minimumSize">
                                           <size>
                                            <width>90</width>
@@ -2697,7 +2697,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </widget>
                                        </item>
                                        <item row="7" column="0">
-                                        <widget class="QLabel" name="effekt_thrustere_label">
+                                        <widget class="QLabel" name="text_effekt_thrustere">
                                          <property name="minimumSize">
                                           <size>
                                            <width>100</width>
@@ -2725,7 +2725,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </widget>
                                        </item>
                                        <item row="7" column="1">
-                                        <widget class="QLabel" name="effekt_thrustere">
+                                        <widget class="QLabel" name="label_effekt_thrustere_2">
                                          <property name="minimumSize">
                                           <size>
                                            <width>90</width>
@@ -2768,7 +2768,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </widget>
                                        </item>
                                        <item row="8" column="0">
-                                        <widget class="QLabel" name="effekt_manipulator_label">
+                                        <widget class="QLabel" name="text_effekt_manipulator">
                                          <property name="minimumSize">
                                           <size>
                                            <width>100</width>
@@ -2796,7 +2796,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </widget>
                                        </item>
                                        <item row="8" column="1">
-                                        <widget class="QLabel" name="effekt_manipulator">
+                                        <widget class="QLabel" name="label_effekt_manipulator_2">
                                          <property name="minimumSize">
                                           <size>
                                            <width>90</width>
@@ -2845,7 +2845,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                   </widget>
                                  </item>
                                  <item>
-                                  <widget class="QFrame" name="temperatur_container">
+                                  <widget class="QFrame" name="rovTempContainer">
                                    <property name="minimumSize">
                                     <size>
                                      <width>250</width>
@@ -2878,7 +2878,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      <number>0</number>
                                     </property>
                                     <item>
-                                     <widget class="QLabel" name="temp_ROV_label">
+                                     <widget class="QLabel" name="label_temp_ROV">
                                       <property name="maximumSize">
                                        <size>
                                         <width>16777215</width>
@@ -2903,7 +2903,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </widget>
                                     </item>
                                     <item>
-                                     <widget class="QFrame" name="temp_rov">
+                                     <widget class="QFrame" name="rovTempContainer2">
                                       <property name="minimumSize">
                                        <size>
                                         <width>0</width>
@@ -2942,7 +2942,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         <number>0</number>
                                        </property>
                                        <item>
-                                        <widget class="QFrame" name="temp_btn_container">
+                                        <widget class="QFrame" name="tempBtnContainer">
                                          <property name="maximumSize">
                                           <size>
                                            <width>200</width>
@@ -2969,7 +2969,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                            <number>0</number>
                                           </property>
                                           <item>
-                                           <widget class="QLabel" name="temp_ROV_1">
+                                           <widget class="QLabel" name="label_temp_ROV_1">
                                             <property name="minimumSize">
                                              <size>
                                               <width>50</width>
@@ -3012,7 +3012,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                            </widget>
                                           </item>
                                           <item>
-                                           <widget class="QLabel" name="temp_ROV_2">
+                                           <widget class="QLabel" name="labe_temp_ROV_2">
                                             <property name="minimumSize">
                                              <size>
                                               <width>50</width>
@@ -3055,7 +3055,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                            </widget>
                                           </item>
                                           <item>
-                                           <widget class="QLabel" name="temp_ROV_3">
+                                           <widget class="QLabel" name="label_temp_ROV_3">
                                             <property name="minimumSize">
                                              <size>
                                               <width>50</width>
@@ -3101,7 +3101,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </widget>
                                        </item>
                                        <item>
-                                        <widget class="QLabel" name="gjsnitttemp_label">
+                                        <widget class="QLabel" name="text_gjsnitttemp">
                                          <property name="minimumSize">
                                           <size>
                                            <width>150</width>
@@ -3138,7 +3138,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </widget>
                                        </item>
                                        <item>
-                                        <widget class="QLabel" name="gjsnitt_temp_ROV">
+                                        <widget class="QLabel" name="label_gjsnitt_temp_ROV">
                                          <property name="minimumSize">
                                           <size>
                                            <width>50</width>
@@ -3187,7 +3187,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                   </widget>
                                  </item>
                                  <item>
-                                  <widget class="QFrame" name="vannlekk_container">
+                                  <widget class="QFrame" name="vannlekkContainer">
                                    <property name="minimumSize">
                                     <size>
                                      <width>0</width>
@@ -3220,7 +3220,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      <number>0</number>
                                     </property>
                                     <item>
-                                     <widget class="QLabel" name="vannlekk_label">
+                                     <widget class="QLabel" name="title_vannlekk">
                                       <property name="maximumSize">
                                        <size>
                                         <width>16777215</width>
@@ -3245,7 +3245,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </widget>
                                     </item>
                                     <item>
-                                     <widget class="QFrame" name="vannlekk_btn_container">
+                                     <widget class="QFrame" name="vannlekkBtnContainer">
                                       <property name="minimumSize">
                                        <size>
                                         <width>0</width>
@@ -3284,7 +3284,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         <number>0</number>
                                        </property>
                                        <item>
-                                        <widget class="QFrame" name="vannlekk_btn">
+                                        <widget class="QFrame" name="vannlekkBtnContainer2">
                                          <property name="maximumSize">
                                           <size>
                                            <width>190</width>
@@ -3314,7 +3314,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                            <number>0</number>
                                           </property>
                                           <item>
-                                           <widget class="QLabel" name="vannlekk_1">
+                                           <widget class="QLabel" name="label_vannlekk_1">
                                             <property name="minimumSize">
                                              <size>
                                               <width>50</width>
@@ -3357,7 +3357,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                            </widget>
                                           </item>
                                           <item>
-                                           <widget class="QLabel" name="vannlekk_2">
+                                           <widget class="QLabel" name="label_vannlekk_2">
                                             <property name="minimumSize">
                                              <size>
                                               <width>50</width>
@@ -3400,7 +3400,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                            </widget>
                                           </item>
                                           <item>
-                                           <widget class="QLabel" name="vannlekk_3">
+                                           <widget class="QLabel" name="label_vannlekk_3">
                                             <property name="minimumSize">
                                              <size>
                                               <width>50</width>
@@ -3491,7 +3491,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                   <number>0</number>
                                  </property>
                                  <item>
-                                  <widget class="QFrame" name="motorpaadrag_container">
+                                  <widget class="QFrame" name="motorpaadragContainer">
                                    <property name="minimumSize">
                                     <size>
                                      <width>0</width>
@@ -3527,7 +3527,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      <number>0</number>
                                     </property>
                                     <item>
-                                     <widget class="QLabel" name="motor_title">
+                                     <widget class="QLabel" name="title_motor">
                                       <property name="font">
                                        <font>
                                         <family>Segoe UI</family>
@@ -3543,7 +3543,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </widget>
                                     </item>
                                     <item>
-                                     <widget class="QLabel" name="rov_label">
+                                     <widget class="QLabel" name="text_rov">
                                       <property name="styleSheet">
                                        <string notr="true">color: rgb(113, 126, 149);</string>
                                       </property>
@@ -3559,7 +3559,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </widget>
                                     </item>
                                     <item>
-                                     <widget class="QFrame" name="motor_containter">
+                                     <widget class="QFrame" name="motorContainter">
                                       <property name="minimumSize">
                                        <size>
                                         <width>0</width>
@@ -3572,7 +3572,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       <property name="frameShadow">
                                        <enum>QFrame::Raised</enum>
                                       </property>
-                                      <widget class="QLabel" name="motor_img">
+                                      <widget class="QLabel" name="img_motor">
                                        <property name="geometry">
                                         <rect>
                                          <x>100</x>
@@ -3609,7 +3609,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         <bool>true</bool>
                                        </property>
                                       </widget>
-                                      <widget class="QFrame" name="VHF2">
+                                      <widget class="QFrame" name="frame_VHF_2">
                                        <property name="geometry">
                                         <rect>
                                          <x>19</x>
@@ -3627,7 +3627,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        <property name="frameShadow">
                                         <enum>QFrame::Raised</enum>
                                        </property>
-                                       <widget class="QLabel" name="VHF_percentage">
+                                       <widget class="QLabel" name="label_percentage_VHF">
                                         <property name="geometry">
                                          <rect>
                                           <x>6</x>
@@ -3662,7 +3662,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </property>
                                        </widget>
                                       </widget>
-                                      <widget class="QFrame" name="VHF">
+                                      <widget class="QFrame" name="frame_VHF">
                                        <property name="geometry">
                                         <rect>
                                          <x>14</x>
@@ -3681,7 +3681,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         <enum>QFrame::Raised</enum>
                                        </property>
                                       </widget>
-                                      <widget class="QFrame" name="VVF">
+                                      <widget class="QFrame" name="frame_VVF">
                                        <property name="geometry">
                                         <rect>
                                          <x>75</x>
@@ -3700,7 +3700,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         <enum>QFrame::Raised</enum>
                                        </property>
                                       </widget>
-                                      <widget class="QFrame" name="VVF2">
+                                      <widget class="QFrame" name="frame_VVF_2">
                                        <property name="geometry">
                                         <rect>
                                          <x>80</x>
@@ -3718,7 +3718,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        <property name="frameShadow">
                                         <enum>QFrame::Raised</enum>
                                        </property>
-                                       <widget class="QLabel" name="VVF_percentage">
+                                       <widget class="QLabel" name="label_percentage_VVF">
                                         <property name="geometry">
                                          <rect>
                                           <x>6</x>
@@ -3753,7 +3753,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </property>
                                        </widget>
                                       </widget>
-                                      <widget class="QFrame" name="HHF2">
+                                      <widget class="QFrame" name="frame_HHF_2">
                                        <property name="geometry">
                                         <rect>
                                          <x>270</x>
@@ -3771,7 +3771,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        <property name="frameShadow">
                                         <enum>QFrame::Raised</enum>
                                        </property>
-                                       <widget class="QLabel" name="HHF_percentage">
+                                       <widget class="QLabel" name="label_percentage_HHF">
                                         <property name="geometry">
                                          <rect>
                                           <x>6</x>
@@ -3806,7 +3806,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </property>
                                        </widget>
                                       </widget>
-                                      <widget class="QFrame" name="HHF">
+                                      <widget class="QFrame" name="frame_HHF">
                                        <property name="geometry">
                                         <rect>
                                          <x>265</x>
@@ -3825,7 +3825,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         <enum>QFrame::Raised</enum>
                                        </property>
                                       </widget>
-                                      <widget class="QFrame" name="HVF2">
+                                      <widget class="QFrame" name="frame_HVF_2">
                                        <property name="geometry">
                                         <rect>
                                          <x>210</x>
@@ -3843,7 +3843,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        <property name="frameShadow">
                                         <enum>QFrame::Raised</enum>
                                        </property>
-                                       <widget class="QLabel" name="HVF_percentage">
+                                       <widget class="QLabel" name="label_percentage_HVF">
                                         <property name="geometry">
                                          <rect>
                                           <x>6</x>
@@ -3878,7 +3878,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </property>
                                        </widget>
                                       </widget>
-                                      <widget class="QFrame" name="HVF">
+                                      <widget class="QFrame" name="frame_HVF">
                                        <property name="geometry">
                                         <rect>
                                          <x>205</x>
@@ -3897,7 +3897,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         <enum>QFrame::Raised</enum>
                                        </property>
                                       </widget>
-                                      <widget class="QFrame" name="HVB2">
+                                      <widget class="QFrame" name="frame_HVB_2">
                                        <property name="geometry">
                                         <rect>
                                          <x>220</x>
@@ -3915,7 +3915,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        <property name="frameShadow">
                                         <enum>QFrame::Raised</enum>
                                        </property>
-                                       <widget class="QLabel" name="HVB_percentage">
+                                       <widget class="QLabel" name="label_percentage_HVB">
                                         <property name="geometry">
                                          <rect>
                                           <x>6</x>
@@ -3950,7 +3950,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </property>
                                        </widget>
                                       </widget>
-                                      <widget class="QFrame" name="HVB">
+                                      <widget class="QFrame" name="frame_HVB">
                                        <property name="geometry">
                                         <rect>
                                          <x>215</x>
@@ -3969,7 +3969,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         <enum>QFrame::Raised</enum>
                                        </property>
                                       </widget>
-                                      <widget class="QFrame" name="HHB2">
+                                      <widget class="QFrame" name="frame_HHB_2">
                                        <property name="geometry">
                                         <rect>
                                          <x>260</x>
@@ -3987,7 +3987,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        <property name="frameShadow">
                                         <enum>QFrame::Raised</enum>
                                        </property>
-                                       <widget class="QLabel" name="HHB_percentage">
+                                       <widget class="QLabel" name="label_percentage_HHB">
                                         <property name="geometry">
                                          <rect>
                                           <x>6</x>
@@ -4022,7 +4022,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </property>
                                        </widget>
                                       </widget>
-                                      <widget class="QFrame" name="HHB">
+                                      <widget class="QFrame" name="frame_HHB">
                                        <property name="geometry">
                                         <rect>
                                          <x>255</x>
@@ -4041,7 +4041,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         <enum>QFrame::Raised</enum>
                                        </property>
                                       </widget>
-                                      <widget class="QFrame" name="VVB">
+                                      <widget class="QFrame" name="frame_VVB">
                                        <property name="geometry">
                                         <rect>
                                          <x>70</x>
@@ -4060,7 +4060,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         <enum>QFrame::Raised</enum>
                                        </property>
                                       </widget>
-                                      <widget class="QFrame" name="VVB2">
+                                      <widget class="QFrame" name="frame_VVB_2">
                                        <property name="geometry">
                                         <rect>
                                          <x>75</x>
@@ -4078,7 +4078,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        <property name="frameShadow">
                                         <enum>QFrame::Raised</enum>
                                        </property>
-                                       <widget class="QLabel" name="VVB_percentage">
+                                       <widget class="QLabel" name="label_percentage_VVB">
                                         <property name="geometry">
                                          <rect>
                                           <x>6</x>
@@ -4113,7 +4113,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </property>
                                        </widget>
                                       </widget>
-                                      <widget class="QFrame" name="VHB2">
+                                      <widget class="QFrame" name="frame_VHB_2">
                                        <property name="geometry">
                                         <rect>
                                          <x>10</x>
@@ -4131,7 +4131,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        <property name="frameShadow">
                                         <enum>QFrame::Raised</enum>
                                        </property>
-                                       <widget class="QLabel" name="VHB_percentage">
+                                       <widget class="QLabel" name="label_percentage_VHB">
                                         <property name="geometry">
                                          <rect>
                                           <x>6</x>
@@ -4166,7 +4166,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </property>
                                        </widget>
                                       </widget>
-                                      <widget class="QFrame" name="VHB">
+                                      <widget class="QFrame" name="frame_VHB">
                                        <property name="geometry">
                                         <rect>
                                          <x>5</x>
@@ -4185,27 +4185,27 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         <enum>QFrame::Raised</enum>
                                        </property>
                                       </widget>
-                                      <zorder>motor_img</zorder>
-                                      <zorder>VHB</zorder>
-                                      <zorder>HVB</zorder>
-                                      <zorder>HHB</zorder>
-                                      <zorder>HHF</zorder>
-                                      <zorder>HVF</zorder>
-                                      <zorder>VHF</zorder>
-                                      <zorder>VHF2</zorder>
-                                      <zorder>VVF</zorder>
-                                      <zorder>VVF2</zorder>
-                                      <zorder>HHF2</zorder>
-                                      <zorder>HVF2</zorder>
-                                      <zorder>HVB2</zorder>
-                                      <zorder>HHB2</zorder>
-                                      <zorder>VVB</zorder>
-                                      <zorder>VVB2</zorder>
-                                      <zorder>VHB2</zorder>
+                                      <zorder>img_motor</zorder>
+                                      <zorder>frame_VHB</zorder>
+                                      <zorder>frame_HVB</zorder>
+                                      <zorder>frame_HHB</zorder>
+                                      <zorder>frame_HHF</zorder>
+                                      <zorder>frame_HVF</zorder>
+                                      <zorder>frame_VHF</zorder>
+                                      <zorder>frame_VHF_2</zorder>
+                                      <zorder>frame_VVF</zorder>
+                                      <zorder>frame_VVF_2</zorder>
+                                      <zorder>frame_HHF_2</zorder>
+                                      <zorder>frame_HVF_2</zorder>
+                                      <zorder>frame_HVB_2</zorder>
+                                      <zorder>frame_HHB_2</zorder>
+                                      <zorder>frame_VVB</zorder>
+                                      <zorder>frame_VVB_2</zorder>
+                                      <zorder>frame_VHB_2</zorder>
                                      </widget>
                                     </item>
                                     <item>
-                                     <widget class="QLabel" name="manipulator_label">
+                                     <widget class="QLabel" name="text_manipulator">
                                       <property name="styleSheet">
                                        <string notr="true">color: rgb(113, 126, 149);</string>
                                       </property>
@@ -4221,7 +4221,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </widget>
                                     </item>
                                     <item>
-                                     <widget class="QFrame" name="mani_container">
+                                     <widget class="QFrame" name="maniContainer">
                                       <property name="minimumSize">
                                        <size>
                                         <width>0</width>
@@ -4234,7 +4234,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       <property name="frameShadow">
                                        <enum>QFrame::Raised</enum>
                                       </property>
-                                      <widget class="QLabel" name="manipulator_img">
+                                      <widget class="QLabel" name="img_manipulator">
                                        <property name="geometry">
                                         <rect>
                                          <x>20</x>
@@ -4271,7 +4271,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         <bool>true</bool>
                                        </property>
                                       </widget>
-                                      <widget class="QFrame" name="mani_circle_2">
+                                      <widget class="QFrame" name="maniCircle2">
                                        <property name="geometry">
                                         <rect>
                                          <x>150</x>
@@ -4289,7 +4289,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        <property name="frameShadow">
                                         <enum>QFrame::Raised</enum>
                                        </property>
-                                       <widget class="QLabel" name="mani_percentage_2">
+                                       <widget class="QLabel" name="label_percentage_mani_2">
                                         <property name="geometry">
                                          <rect>
                                           <x>6</x>
@@ -4324,7 +4324,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </property>
                                        </widget>
                                       </widget>
-                                      <widget class="QFrame" name="mani_1">
+                                      <widget class="QFrame" name="frame_mani_1">
                                        <property name="geometry">
                                         <rect>
                                          <x>145</x>
@@ -4343,7 +4343,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         <enum>QFrame::Raised</enum>
                                        </property>
                                       </widget>
-                                      <widget class="QFrame" name="mani_2">
+                                      <widget class="QFrame" name="frame_mani_2">
                                        <property name="geometry">
                                         <rect>
                                          <x>200</x>
@@ -4362,7 +4362,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         <enum>QFrame::Raised</enum>
                                        </property>
                                       </widget>
-                                      <widget class="QFrame" name="mani_circle_3">
+                                      <widget class="QFrame" name="maniCircle3">
                                        <property name="geometry">
                                         <rect>
                                          <x>205</x>
@@ -4380,7 +4380,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        <property name="frameShadow">
                                         <enum>QFrame::Raised</enum>
                                        </property>
-                                       <widget class="QLabel" name="mani_percentage_3">
+                                       <widget class="QLabel" name="label_percentage_mani_3">
                                         <property name="geometry">
                                          <rect>
                                           <x>6</x>
@@ -4415,7 +4415,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </property>
                                        </widget>
                                       </widget>
-                                      <widget class="QFrame" name="mani_3">
+                                      <widget class="QFrame" name="frame_mani_3">
                                        <property name="geometry">
                                         <rect>
                                          <x>54</x>
@@ -4434,7 +4434,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         <enum>QFrame::Raised</enum>
                                        </property>
                                       </widget>
-                                      <widget class="QFrame" name="mani_circle_1">
+                                      <widget class="QFrame" name="maniCircle">
                                        <property name="geometry">
                                         <rect>
                                          <x>59</x>
@@ -4452,7 +4452,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        <property name="frameShadow">
                                         <enum>QFrame::Raised</enum>
                                        </property>
-                                       <widget class="QLabel" name="mani_percentage_1">
+                                       <widget class="QLabel" name="label_percentage_mani_1">
                                         <property name="geometry">
                                          <rect>
                                           <x>6</x>
@@ -4487,13 +4487,13 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </property>
                                        </widget>
                                       </widget>
-                                      <zorder>manipulator_img</zorder>
-                                      <zorder>mani_1</zorder>
-                                      <zorder>mani_circle_2</zorder>
-                                      <zorder>mani_2</zorder>
-                                      <zorder>mani_circle_3</zorder>
-                                      <zorder>mani_3</zorder>
-                                      <zorder>mani_circle_1</zorder>
+                                      <zorder>img_manipulator</zorder>
+                                      <zorder>frame_mani_1</zorder>
+                                      <zorder>maniCircle2</zorder>
+                                      <zorder>frame_mani_2</zorder>
+                                      <zorder>maniCircle3</zorder>
+                                      <zorder>frame_mani_3</zorder>
+                                      <zorder>maniCircle</zorder>
                                      </widget>
                                     </item>
                                     <item>
@@ -4522,16 +4522,16 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </widget>
                                     </item>
                                    </layout>
-                                   <zorder>mani_container</zorder>
-                                   <zorder>motor_containter</zorder>
-                                   <zorder>motor_title</zorder>
-                                   <zorder>rov_label</zorder>
+                                   <zorder>maniContainer</zorder>
+                                   <zorder>motorContainter</zorder>
+                                   <zorder>title_motor</zorder>
+                                   <zorder>text_rov</zorder>
                                    <zorder>slider</zorder>
-                                   <zorder>manipulator_label</zorder>
+                                   <zorder>text_manipulator</zorder>
                                   </widget>
                                  </item>
                                  <item>
-                                  <widget class="QFrame" name="lys_frame">
+                                  <widget class="QFrame" name="lysFrame">
                                    <property name="minimumSize">
                                     <size>
                                      <width>0</width>
@@ -4598,7 +4598,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </widget>
                                     </item>
                                     <item>
-                                     <widget class="QFrame" name="lys_container">
+                                     <widget class="QFrame" name="lysContainer">
                                       <property name="minimumSize">
                                        <size>
                                         <width>0</width>
@@ -4631,7 +4631,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         <number>0</number>
                                        </property>
                                        <item row="2" column="0">
-                                        <widget class="QLabel" name="lys_down_label">
+                                        <widget class="QLabel" name="text_lys_down">
                                          <property name="minimumSize">
                                           <size>
                                            <width>50</width>
@@ -4659,7 +4659,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </widget>
                                        </item>
                                        <item row="0" column="0">
-                                        <widget class="QLabel" name="lys_forward_label">
+                                        <widget class="QLabel" name="text_lys_forward">
                                          <property name="minimumSize">
                                           <size>
                                            <width>50</width>
@@ -4687,7 +4687,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </widget>
                                        </item>
                                        <item row="0" column="1">
-                                        <widget class="QSlider" name="lys_slider_forward">
+                                        <widget class="QSlider" name="slider_lys_forward">
                                          <property name="minimumSize">
                                           <size>
                                            <width>0</width>
@@ -4733,7 +4733,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </widget>
                                        </item>
                                        <item row="0" column="2">
-                                        <widget class="QFrame" name="lys_forward_frame">
+                                        <widget class="QFrame" name="lysForwardFrame">
                                          <property name="minimumSize">
                                           <size>
                                            <width>70</width>
@@ -4746,7 +4746,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          <property name="frameShadow">
                                           <enum>QFrame::Raised</enum>
                                          </property>
-                                         <widget class="QFrame" name="lys_forward">
+                                         <widget class="QFrame" name="frame_lys_forward">
                                           <property name="geometry">
                                            <rect>
                                             <x>2</x>
@@ -4765,7 +4765,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                            <enum>QFrame::Raised</enum>
                                           </property>
                                          </widget>
-                                         <widget class="QFrame" name="lys_forward_container">
+                                         <widget class="QFrame" name="lysForwardContainer">
                                           <property name="geometry">
                                            <rect>
                                             <x>7</x>
@@ -4783,7 +4783,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                           <property name="frameShadow">
                                            <enum>QFrame::Raised</enum>
                                           </property>
-                                          <widget class="QLabel" name="lys_forward_percentage">
+                                          <widget class="QLabel" name="label_percentage_lys_forward">
                                            <property name="geometry">
                                             <rect>
                                              <x>6</x>
@@ -4821,7 +4821,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </widget>
                                        </item>
                                        <item row="2" column="1">
-                                        <widget class="QSlider" name="lys_slider_down">
+                                        <widget class="QSlider" name="slider_lys_down">
                                          <property name="minimumSize">
                                           <size>
                                            <width>0</width>
@@ -4864,7 +4864,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </widget>
                                        </item>
                                        <item row="2" column="2">
-                                        <widget class="QFrame" name="lys_down_frame">
+                                        <widget class="QFrame" name="lysDownFrame">
                                          <property name="minimumSize">
                                           <size>
                                            <width>70</width>
@@ -4877,7 +4877,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          <property name="frameShadow">
                                           <enum>QFrame::Raised</enum>
                                          </property>
-                                         <widget class="QFrame" name="lys_down">
+                                         <widget class="QFrame" name="frame_lys_down">
                                           <property name="geometry">
                                            <rect>
                                             <x>4</x>
@@ -4896,7 +4896,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                            <enum>QFrame::Raised</enum>
                                           </property>
                                          </widget>
-                                         <widget class="QFrame" name="lys_down_container">
+                                         <widget class="QFrame" name="lysDownContainer">
                                           <property name="geometry">
                                            <rect>
                                             <x>9</x>
@@ -4914,7 +4914,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                           <property name="frameShadow">
                                            <enum>QFrame::Raised</enum>
                                           </property>
-                                          <widget class="QLabel" name="lys_down_percentage">
+                                          <widget class="QLabel" name="label_percentage_lys_down">
                                            <property name="geometry">
                                             <rect>
                                              <x>6</x>
@@ -4994,7 +4994,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                   <number>0</number>
                                  </property>
                                  <item>
-                                  <widget class="QFrame" name="bilde_container">
+                                  <widget class="QFrame" name="bildeContainer">
                                    <property name="minimumSize">
                                     <size>
                                      <width>0</width>
@@ -5027,7 +5027,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      <number>0</number>
                                     </property>
                                     <item>
-                                     <widget class="QLabel" name="bilde_title">
+                                     <widget class="QLabel" name="title_bilde">
                                       <property name="font">
                                        <font>
                                         <family>Segoe UI</family>
@@ -5046,7 +5046,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </widget>
                                     </item>
                                     <item>
-                                     <widget class="QFrame" name="bilde_container_2">
+                                     <widget class="QFrame" name="bildeContainer2">
                                       <property name="maximumSize">
                                        <size>
                                         <width>16777215</width>
@@ -5073,7 +5073,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         <number>0</number>
                                        </property>
                                        <item row="0" column="0">
-                                        <widget class="QPushButton" name="beregn_strl_btn">
+                                        <widget class="QPushButton" name="btn_beregn_strl">
                                          <property name="minimumSize">
                                           <size>
                                            <width>150</width>
@@ -5101,7 +5101,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </widget>
                                        </item>
                                        <item row="0" column="1">
-                                        <widget class="QLabel" name="bilde_label_3">
+                                        <widget class="QLabel" name="text_bilde_3">
                                          <property name="styleSheet">
                                           <string notr="true">color: rgb(113, 126, 149);</string>
                                          </property>
@@ -5117,7 +5117,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </widget>
                                        </item>
                                        <item row="1" column="0">
-                                        <widget class="QPushButton" name="fotomoasaikk_btn">
+                                        <widget class="QPushButton" name="btn_fotomoasaikk">
                                          <property name="minimumSize">
                                           <size>
                                            <width>150</width>
@@ -5145,7 +5145,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </widget>
                                        </item>
                                        <item row="1" column="1">
-                                        <widget class="QLabel" name="bilde_label_2">
+                                        <widget class="QLabel" name="text_bilde_2">
                                          <property name="styleSheet">
                                           <string notr="true">color: rgb(113, 126, 149);</string>
                                          </property>
@@ -5167,7 +5167,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                   </widget>
                                  </item>
                                  <item>
-                                  <widget class="QFrame" name="kamera_container">
+                                  <widget class="QFrame" name="kameraContainer">
                                    <property name="maximumSize">
                                     <size>
                                      <width>16777215</width>
@@ -5194,7 +5194,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      <number>0</number>
                                     </property>
                                     <item>
-                                     <widget class="QLabel" name="kamera_title">
+                                     <widget class="QLabel" name="title_video">
                                       <property name="font">
                                        <font>
                                         <family>Segoe UI</family>
@@ -5213,7 +5213,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </widget>
                                     </item>
                                     <item>
-                                     <widget class="QPushButton" name="start_video_btn">
+                                     <widget class="QPushButton" name="btn_start_video">
                                       <property name="minimumSize">
                                        <size>
                                         <width>150</width>
@@ -5245,7 +5245,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </widget>
                                     </item>
                                     <item>
-                                     <widget class="QPushButton" name="stopp_video_btn">
+                                     <widget class="QPushButton" name="btn_stopp_video">
                                       <property name="minimumSize">
                                        <size>
                                         <width>150</width>
@@ -5277,7 +5277,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </widget>
                                     </item>
                                     <item>
-                                     <widget class="QLabel" name="kamera_title_2">
+                                     <widget class="QLabel" name="tite_kamera">
                                       <property name="font">
                                        <font>
                                         <family>Segoe UI</family>
@@ -5296,7 +5296,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </widget>
                                     </item>
                                     <item>
-                                     <widget class="QPushButton" name="ta_bilde_frontkamera_btn">
+                                     <widget class="QPushButton" name="btn_ta_bilde_frontkamera">
                                       <property name="minimumSize">
                                        <size>
                                         <width>150</width>
@@ -5328,7 +5328,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </widget>
                                     </item>
                                     <item>
-                                     <widget class="QPushButton" name="ta_bilde_havbunn_btn">
+                                     <widget class="QPushButton" name="btn_ta_bilde_havbunn">
                                       <property name="minimumSize">
                                        <size>
                                         <width>150</width>
@@ -5360,7 +5360,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </widget>
                                     </item>
                                     <item>
-                                     <widget class="QPushButton" name="slett_bilde_btn">
+                                     <widget class="QPushButton" name="btn_slett_bilde">
                                       <property name="minimumSize">
                                        <size>
                                         <width>150</width>
@@ -5392,7 +5392,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </widget>
                                     </item>
                                     <item>
-                                     <widget class="QLabel" name="siste_bilde_label">
+                                     <widget class="QLabel" name="text_siste_bilde">
                                       <property name="styleSheet">
                                        <string notr="true">color: rgb(113, 126, 149);</string>
                                       </property>
@@ -5408,7 +5408,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </widget>
                                     </item>
                                     <item>
-                                     <widget class="QLabel" name="show_image">
+                                     <widget class="QLabel" name="img_recent">
                                       <property name="minimumSize">
                                        <size>
                                         <width>0</width>
@@ -5459,7 +5459,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                      <widget class="QWidget" name="kontroller">
                       <layout class="QVBoxLayout" name="verticalLayout_20">
                        <item>
-                        <widget class="QFrame" name="hoved_frame_column">
+                        <widget class="QFrame" name="hovedFrameColumn">
                          <property name="styleSheet">
                           <string notr="true">color: black;</string>
                          </property>
@@ -5480,7 +5480,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                            <number>12</number>
                           </property>
                           <item>
-                           <widget class="QScrollArea" name="scrollarea">
+                           <widget class="QScrollArea" name="scrollArea2">
                             <property name="frameShape">
                              <enum>QFrame::NoFrame</enum>
                             </property>
@@ -5525,7 +5525,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                <number>0</number>
                               </property>
                               <item>
-                               <widget class="QFrame" name="kontroller_container">
+                               <widget class="QFrame" name="kontrollerContainer">
                                 <property name="frameShape">
                                  <enum>QFrame::NoFrame</enum>
                                 </property>
@@ -5546,7 +5546,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                   <number>0</number>
                                  </property>
                                  <item>
-                                  <widget class="QFrame" name="kontroller_rows">
+                                  <widget class="QFrame" name="kontrollerRows">
                                    <property name="maximumSize">
                                     <size>
                                      <width>1400</width>
@@ -5573,7 +5573,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      <number>0</number>
                                     </property>
                                     <item>
-                                     <widget class="QFrame" name="kontroller_btn_container">
+                                     <widget class="QFrame" name="btn_kontroller_container">
                                       <property name="maximumSize">
                                        <size>
                                         <width>16777215</width>
@@ -5588,7 +5588,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <layout class="QHBoxLayout" name="horizontalLayout_13">
                                        <item>
-                                        <widget class="QFrame" name="text_container">
+                                        <widget class="QFrame" name="kontrollerTextContainer">
                                          <property name="frameShape">
                                           <enum>QFrame::StyledPanel</enum>
                                          </property>
@@ -5597,7 +5597,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          </property>
                                          <layout class="QVBoxLayout" name="verticalLayout_22">
                                           <item>
-                                           <widget class="QLabel" name="kontroller_title">
+                                           <widget class="QLabel" name="title_kontroller">
                                             <property name="minimumSize">
                                              <size>
                                               <width>0</width>
@@ -5625,7 +5625,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                            </widget>
                                           </item>
                                           <item>
-                                           <widget class="QLabel" name="kontroller_text_label">
+                                           <widget class="QLabel" name="text_kontroller_description">
                                             <property name="styleSheet">
                                              <string notr="true">color: rgb(113, 126, 149);</string>
                                             </property>
@@ -5647,7 +5647,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </widget>
                                        </item>
                                        <item>
-                                        <widget class="QFrame" name="profile_container">
+                                        <widget class="QFrame" name="profileContainer">
                                          <property name="minimumSize">
                                           <size>
                                            <width>0</width>
@@ -5680,7 +5680,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                            <number>30</number>
                                           </property>
                                           <item>
-                                           <widget class="QLabel" name="velg_profil_label">
+                                           <widget class="QLabel" name="text_velg_profil">
                                             <property name="minimumSize">
                                              <size>
                                               <width>0</width>
@@ -5764,7 +5764,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </widget>
                                        </item>
                                        <item>
-                                        <widget class="QFrame" name="profile_btn_container">
+                                        <widget class="QFrame" name="profileBtnContainer">
                                          <property name="minimumSize">
                                           <size>
                                            <width>0</width>
@@ -5777,7 +5777,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          <property name="frameShadow">
                                           <enum>QFrame::Raised</enum>
                                          </property>
-                                         <widget class="QPushButton" name="reset_btn">
+                                         <widget class="QPushButton" name="btn_reset">
                                           <property name="geometry">
                                            <rect>
                                             <x>40</x>
@@ -5815,7 +5815,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                             <normaloff>:/icons/images/icons/cil-x-circle.png</normaloff>:/icons/images/icons/cil-x-circle.png</iconset>
                                           </property>
                                          </widget>
-                                         <widget class="QPushButton" name="make_new_profile_btn">
+                                         <widget class="QPushButton" name="btn_make_new_profile">
                                           <property name="geometry">
                                            <rect>
                                             <x>40</x>
@@ -5859,7 +5859,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </widget>
                                     </item>
                                     <item>
-                                     <widget class="QFrame" name="kontroller_image">
+                                     <widget class="QFrame" name="kontrollerImgContainer">
                                       <property name="minimumSize">
                                        <size>
                                         <width>1300</width>
@@ -6476,7 +6476,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </property>
                                        </item>
                                       </widget>
-                                      <widget class="QPushButton" name="save_profile_btn">
+                                      <widget class="QPushButton" name="btn_save_profile">
                                        <property name="enabled">
                                         <bool>false</bool>
                                        </property>
