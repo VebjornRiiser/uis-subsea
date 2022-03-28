@@ -1,4 +1,4 @@
-# uis-subsea
+# UiS Subsea
 This project is the gui, network handler and handler for controller input.
 
 Installing is done by (assumes that you have python 3.10 and pip installed and added to path):
