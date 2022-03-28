@@ -24,7 +24,7 @@ import numpy as np
 from stl import mesh
 import matplotlib.pyplot as plt
 import matplotlib
-
+import time
 from Subsea_QT_GUI.py_toggle import PyToggle
 
 os.environ["QT_WEBENGINE_DISABLE_GPU"] = "1"
@@ -52,6 +52,7 @@ class AnotherWindow(QWidget):
     def __init__(self, port, threadwatcher: Threadwatcher, id):
         super().__init__()
         self.threadwatcher = threadwatcher
+        self.id = id
         self.label = QLabel("Another Window")
 
         self.setWindowTitle(f"{'havbunnskamera' if port-6888 == 0 else 'frontkamera'}")
@@ -604,15 +605,18 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         "accel": self.gui_acceleration_update,
         "gyro": self.gui_gyro_update}
         while self.t_watch.should_run(self.id):
-            print("waiting for sensordata")
-            # if conn.poll():
-                
-            sensordata: dict = conn.recv()
-            print("got sensordata")
+            # print("waiting for sensordata")
+            data_is_ready = conn.poll()
 
-            for key in sensordata.keys():
-                if key in self.sensor_update_function:
-                    self.sensor_update_function[key](sensordata)
+            if data_is_ready:
+
+                sensordata: dict = conn.recv()
+
+                for key in sensordata.keys():
+                    if key in self.sensor_update_function:
+                        self.sensor_update_function[key](sensordata[key])
+            else:
+                time.sleep(0.15)
     
         print("recieved close thread. trying to close")
         self.shutdown()
@@ -621,14 +625,20 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
 
     def gui_lekk_temp_update(self, sensordata):
-        self.check_data_types(sensordata["lekk_temp"], (int, float, float, float))
+        # self.check_data_types(sensordata["lekk_temp"], (int, float, float, float))
         print(f"ran gui_lekk_temp_update {sensordata = }")
-        lekkasje = sensordata[0]
-        temp1 = sensordata[1]
-        temp2 = sensordata[2]
-        temp3 = sensordata[3]
-        # print(sensordata)
-        
+        lekkasje_sensor_1 = sensordata[0]
+        lekkasje_sensor_2 = sensordata[1]
+        lekkasje_sensor_3 = sensordata[2]
+        if not isinstance(lekkasje_sensor_1, bool):
+            raise TypeError(f"Lekkasje sensor 1 has wrong type. {type(lekkasje_sensor_1) = }, {lekkasje_sensor_1} ")
+        temp1 = sensordata[3]
+        temp2 = sensordata[4]
+        temp3 = sensordata[5]
+        self.label_temp_ROV_1.setText(temp1)
+        self.label_temp_ROV_2.setText(temp2)
+        self.label_temp_ROV_3.setText(temp3)
+
     def gui_thrust_update(self, sensordata):
         print(f"ran gui_thrust_update {sensordata = }")
 
