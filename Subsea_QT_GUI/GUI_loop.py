@@ -42,6 +42,9 @@ GLOBAL_TITLE_BAR = True
 # os.system('pyuic5 -x NYGUI.ui -o SUBSEAGUI.py')
 os.environ["QT_FONT_DPI"] = "96" # FIX Problem for High DPI and Scale above 100%
 
+class Fakeslider:
+    def __init__(self) -> None:
+        self.value = 35
 
 class AnotherWindow(QWidget):
     """
@@ -412,7 +415,7 @@ void main() {
     # KJØRE MODUS
     def manuell_btn_clicked(self):
         print("manuell btn clicked")
-        if self.auto_btn.isChecked():
+        if self.btn_auto.isChecked():
             # Hvis automatisk kjøring knappen er 'checked', må den endres til 'unchecked'
             # kan ikke ha både manuell og automatisk kjøring samtidig
             pass
