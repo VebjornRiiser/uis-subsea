@@ -124,7 +124,7 @@ Left Menu */
 
 
 /* Toggle Button */
-#toggleButton {
+#btn_toggle {
 	background-position: left center;
     background-repeat: no-repeat;
 	border: none;
@@ -134,10 +134,10 @@ Left Menu */
 	padding-left: 44px;
 	color: rgb(113, 126, 149);
 }
-#toggleButton:hover {
+#btn_toggle:hover {
 	background-color: rgb(40, 44, 52);
 }
-#toggleButton:pressed {
+#btn_toggle:pressed {
 	background-color: rgb(74, 82, 91);
 }
 
