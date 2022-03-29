@@ -791,7 +791,7 @@ void main() {
         self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_mani_3, self.frame_mani_3, "rgba(85, 170, 255, 255)"))
 
         self.slider_lys_forward.valueChanged.connect(lambda: self.setTestValue(self.slider_lys_forward, self.label_percentage_lys_forward, self.frame_lys_forward, "rgba(85, 170, 255, 255)"))
-        self.slider_lys_down.valueChanged.connect(lambda: self.setTestValue(self.lys_slider_down, self. label_percentage_lys_down, self.frame_lys_down, "rgba(85, 170, 255, 255)"))
+        self.slider_lys_down.valueChanged.connect(lambda: self.setTestValue(self.slider_lys_down, self.label_percentage_lys_down, self.frame_lys_down, "rgba(85, 170, 255, 255)"))
 
 
 

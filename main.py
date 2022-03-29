@@ -492,11 +492,11 @@ if __name__ == "__main__":
             count = 0
             while True:
                 count += 1
-                sensordata = {"lekk_temp": [False, False, False, (25+count)%100, (37+count)%100, (61.420+count)%100]}
+                sensordata = {"lekk_temp": [False, False, False, (25+count)%99, (37+count)%99, (61+count)%99]}
                 gui_parent_pipe.send(sensordata)
-                sensordata = {"thrust": [(0+count)%100, (13+count)%100, (25+count)%100, (38+count)%100, (37+count)%100, (50+count)%100, (63+count)%100, (75+count)%100, (88+count)%100, (107+count)%100]}
+                sensordata = {"thrust": [(0+count)%99, (13+count)%99, (25+count)%99, (38+count)%99, (37+count)%99, (50+count)%99, (63+count)%99, (75+count)%99, (88+count)%99, (107+count)%99]}
                 gui_parent_pipe.send(sensordata)
-                time.sleep(2)
+                time.sleep(0.5)
 
         while True:
             time.sleep(1)
