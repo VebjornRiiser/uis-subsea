@@ -27,8 +27,7 @@ import matplotlib
 import time
 from Subsea_QT_GUI.py_toggle import PyToggle
 
-os.environ["QT_WEBENGINE_DISABLE_GPU"] = "1"
-QApplication.setAttribute(Qt.AA_UseDesktopOpenGL)
+# QApplication.setAttribute(Qt.AA_UseDesktopOpenGL)
 
 QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)  # enable highdpi scaling
 QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)  # use highdpi icons
@@ -70,6 +69,7 @@ class AnotherWindow(QWidget):
             self.showFullScreen()
         else:
             self.showMaximized()
+            self.showFullScreen()
 
 PROFILE_UPDATE_ID = 2
 COMMAND_TO_ROV_ID = 3
@@ -93,7 +93,6 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         
         self.setup_gui_with_folder_change()
 
-
         # Set the stylesheet of the application
         #self.set_style(self, self.auto_btn)
         #self.styleSheet.setStyleSheet(s)
@@ -106,6 +105,29 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
 
         # SHADER
+        # gl.shaders.Shaders.append(gl.shaders.ShaderProgram('myShader', [
+        # gl.shaders.VertexShader("""
+        #         varying vec3 normal;
+        #         void main() {
+        #             // compute here for use in fragment shader
+        #             normal = normalize(gl_NormalMatrix * gl_Normal);
+        #             gl_FrontColor = gl_Color;
+        #             gl_BackColor = gl_Color;
+        #             gl_Position = ftransform();
+        #         }
+        #     """),
+        # gl.shaders.FragmentShader("""
+        #         varying vec3 normal;
+        #         void main() {
+        #             vec4 color = gl_Color;
+        #             color.x = 4.5;
+        #             color.y = (normal.y + 1.0) * 0.5;
+        #             color.z = 0.0;
+        #             gl_FragColor = color;
+        #         }
+        #     """)
+        # ]))
+
         gl.shaders.Shaders.append(gl.shaders.ShaderProgram('myShader', [
         gl.shaders.VertexShader("""
                 varying vec3 normal;
@@ -118,70 +140,47 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
                 }
             """),
         gl.shaders.FragmentShader("""
-                varying vec3 normal;
-                void main() {
-                    vec4 color = gl_Color;
-                    color.x = 4.5;
-                    color.y = (normal.y + 1.0) * 0.5;
-                    color.z = 0.0;
-                    gl_FragColor = color;
-                }
+                #ifdef GL_ES
+precision mediump float;
+#endif
+/* Color palette */
+#define BLACK           vec3(0.0, 0.0, 0.0)
+#define WHITE           vec3(1.0, 1.0, 1.0)
+#define RED             vec3(1.0, 0.0, 0.0)
+#define GREEN           vec3(0.0, 1.0, 0.0)
+#define BLUE            vec3(0.0, 0.0, 1.0)
+#define YELLOW          vec3(1.0, 1.0, 0.0)
+#define CYAN            vec3(0.0, 1.0, 1.0)
+#define MAGENTA         vec3(1.0, 0.0, 1.0)
+#define ORANGE          vec3(1.0, 0.5, 0.0)
+#define PURPLE          vec3(1.0, 0.0, 0.5)
+#define LIME            vec3(0.5, 1.0, 0.0)
+#define ACQUA           vec3(0.0, 1.0, 0.5)
+#define VIOLET          vec3(0.5, 0.0, 1.0)
+#define AZUR            vec3(0.0, 0.5, 1.0)
+#define PI 3.14159
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+
+float ylargerthanxsquared(vec2 normalpos) {
+    //should be 1 when y is larger than x^2  
+    return step(pow(normalpos.x, 2.) ,normalpos.y) - 1.*step(2.,pow(normalpos.x,2.));
+    
+}
+
+void main() {
+    vec2 normal_pixel = ((gl_FragCoord.xy/u_resolution)-0.5);
+    // step(normal_pixel.x,0.)*step(normal_pixel.y,0.);
+    
+
+    // float stepresult = pow((normal_pixel[0]),2.0);
+
+    // gl_FragColor = vec4(stepresult),0.0,0.0,1.0);
+    // gl_FragColor = vec4(ylargerthanxsquared(normal_pixel),0.0,0.0,1.0);
+    gl_FragColor = vec4(abs(ylargerthanxsquared(normal_pixel*10.)*step(0.,normal_pixel.y)),0.0,0.0,1.0);
+    }
             """)
         ]))
-
-#         gl.shaders.Shaders.append(gl.shaders.ShaderProgram('myShader', [
-#         gl.shaders.VertexShader("""
-#                 varying vec3 normal;
-#                 void main() {
-#                     // compute here for use in fragment shader
-#                     normal = normalize(gl_NormalMatrix * gl_Normal);
-#                     gl_FrontColor = gl_Color;
-#                     gl_BackColor = gl_Color;
-#                     gl_Position = ftransform();
-#                 }
-#             """),
-#         gl.shaders.FragmentShader("""
-#                 #ifdef GL_ES
-# precision mediump float;
-# #endif
-# /* Color palette */
-# #define BLACK           vec3(0.0, 0.0, 0.0)
-# #define WHITE           vec3(1.0, 1.0, 1.0)
-# #define RED             vec3(1.0, 0.0, 0.0)
-# #define GREEN           vec3(0.0, 1.0, 0.0)
-# #define BLUE            vec3(0.0, 0.0, 1.0)
-# #define YELLOW          vec3(1.0, 1.0, 0.0)
-# #define CYAN            vec3(0.0, 1.0, 1.0)
-# #define MAGENTA         vec3(1.0, 0.0, 1.0)
-# #define ORANGE          vec3(1.0, 0.5, 0.0)
-# #define PURPLE          vec3(1.0, 0.0, 0.5)
-# #define LIME            vec3(0.5, 1.0, 0.0)
-# #define ACQUA           vec3(0.0, 1.0, 0.5)
-# #define VIOLET          vec3(0.5, 0.0, 1.0)
-# #define AZUR            vec3(0.0, 0.5, 1.0)
-# #define PI 3.14159
-# uniform vec2 u_resolution;
-# uniform vec2 u_mouse;
-
-# float ylargerthanxsquared(vec2 normalpos) {
-#     //should be 1 when y is larger than x^2  
-#     return step(pow(normalpos.x, 2.) ,normalpos.y) - 1.*step(2.,pow(normalpos.x,2.));
-    
-# }
-
-# void main() {
-#     vec2 normal_pixel = ((gl_FragCoord.xy/u_resolution)-0.5);
-#     // step(normal_pixel.x,0.)*step(normal_pixel.y,0.);
-    
-
-#     // float stepresult = pow((normal_pixel[0]),2.0);
-
-#     // gl_FragColor = vec4(stepresult),0.0,0.0,1.0);
-#     // gl_FragColor = vec4(ylargerthanxsquared(normal_pixel),0.0,0.0,1.0);
-#     gl_FragColor = vec4(abs(ylargerthanxsquared(normal_pixel*10.)*step(0.,normal_pixel.y)),0.0,0.0,1.0);
-#     }
-#             """)
-#         ]))
 
         cwd = os.getcwd()
         self.stl_mesh = mesh.Mesh.from_file(f'{cwd}/ROV.STL') # Imported stl file
@@ -231,8 +230,8 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         # GUI buttons clicked
         
         # KJØREMODUS
-        self.manuell_btn.clicked.connect(self.manuell_btn_clicked)
-        self.auto_btn.clicked.connect(self.auto_btn_clicked)
+        self.btn_manuell.clicked.connect(self.manuell_btn_clicked)
+        self.btn_auto.clicked.connect(self.auto_btn_clicked)
 
 
         # Toggle buttons 
@@ -263,7 +262,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.toggle_layout.addWidget(self.toggle_havbunnslys, alignment=QtCore.Qt.AlignRight)
 
         # APPLY VALUES TO PROGREESBAR
-        self.setValue(self.VHF_percentage, self.VHF, "rgba(85, 170, 255, 255)")
+        self.set_widget_percent(self.label_percentage_VHF, 42, self.frame_VHF, "rgba(85, 170, 255, 255)")
         # self.setValue(self.VVF_percentage, self.VVF, "rgba(85, 170, 255, 255)")
         # self.setValue(self.HHF_percentage, self.HHF, "rgba(85, 170, 255, 255)")
         # self.setValue(self.HVF_percentage, self.HVF, "rgba(85, 170, 255, 255)")
@@ -291,9 +290,9 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         #self.show_image
         
         # Menu button clicked
-        self.toggleButton.clicked.connect(lambda: self.change_current_widget(0))
-        self.kontroller_btn.clicked.connect(lambda: self.change_current_widget(2))
-        self.informasjon_btn.clicked.connect(lambda: self.change_current_widget(1))
+        self.btn_toggle.clicked.connect(lambda: self.change_current_widget(0))
+        self.btn_kontroller.clicked.connect(lambda: self.change_current_widget(2))
+        self.btn_informasjon.clicked.connect(lambda: self.change_current_widget(1))
         
 
 
@@ -301,15 +300,15 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         # CONTROLLER PAGE:
         # "Lag ny profil"-button clicked
-        self.make_new_profile_btn.clicked.connect(self.make_new_profile)
+        self.btn_make_new_profile.clicked.connect(self.make_new_profile)
         #self.make_new_profile_btn.clicked.connect(self.make_new_profile)
 
         # "Reset"-button clicked
-        self.reset_btn.clicked.connect(self.reset_profile)
+        self.btn_reset.clicked.connect(self.reset_profile)
 
         # "Lagre"-button clicked
-        self.save_profile_btn.clicked.connect(lambda: self.save_profile())
-        self.save_profile_btn.setEnabled(False)
+        self.btn_save_profile.clicked.connect(lambda: self.save_profile())
+        self.btn_save_profile.setEnabled(False)
 
         # ///////////////////////////////////////////////////////////////
 
@@ -349,7 +348,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         
         self.connect_test_values()
 
-        self.camera_windows_opened = True
+        self.camera_windows_opened = False
         if self.camera_windows_opened:
             self.start_camera_windows()
 
@@ -383,6 +382,8 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.lys_slider.sliderMoved.connect(self.button_test)'''
 
         # ///////////////////////////////////////////////////////////////
+
+
 
 
     # HOME PAGE FUNCTIONS
@@ -443,7 +444,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         for index, combobox in enumerate(self.btn_combobox_list):
             combobox.setCurrentIndex(options[index])
-        self.save_profile_btn.setEnabled(False)
+        self.btn_save_profile.setEnabled(False)
         self.set_active_profile_in_combobox("Standard profil")
 
     def load_selected_profile(self) -> None:
@@ -453,7 +454,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         options = self.get_profile_from_file(f"{name}.userprofile")
         for index, combobox in enumerate(self.btn_combobox_list):
             combobox.setCurrentIndex(options[index])
-        self.save_profile_btn.setEnabled(False)
+        self.btn_save_profile.setEnabled(False)
         self.set_active_profile_in_combobox(name)
 
 
@@ -476,7 +477,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.send_data_to_main(command, COMMAND_TO_ROV_ID)
 
     def updated_profile_settings(self):
-        self.save_profile_btn.setEnabled(True)
+        self.btn_save_profile.setEnabled(True)
         self.send_profile_to_main()
 
     def send_profile_to_main(self):
@@ -492,7 +493,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             self.save_profile(name=fname[0].split("/")[-1])
             self.update_current_profiles()
             self.set_active_profile_in_combobox(fname[0].split('/')[-1])
-            self.save_profile_btn.setEnabled(False) # we have now saved so there is no need to save again before changes
+            self.btn_save_profile.setEnabled(False) # we have now saved so there is no need to save again before changes
 
         else:
             print(f"Fname[0] is empty: {fname[0]}")
@@ -519,7 +520,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             print(f"{name = }")
             with open(name+".userprofile", 'w', encoding="utf-8") as profile:
                 profile.write(json.dumps([btn.currentIndex() for btn in self.btn_combobox_list]))
-        self.save_profile_btn.setEnabled(False)
+        self.btn_save_profile.setEnabled(False)
 
 
 
@@ -596,7 +597,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             self.dybde.setText(str(round(data["dybde"],4)))
             self.tid.setText(str(data["tid"]))
             self.spenning.setText(str(round(data["spenning"],4)))
-            self.temp_ROV_1.setText(str(round(data["temp_rov"],4)))
+            self.label_temp_ROV_1.setText(str(round(data["temp_rov"],4)))
 
     def recieve_and_set_text(self, conn):
         self.sensor_update_function = {
@@ -632,15 +633,27 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         lekkasje_sensor_3 = sensordata[2]
         if not isinstance(lekkasje_sensor_1, bool):
             raise TypeError(f"Lekkasje sensor 1 has wrong type. {type(lekkasje_sensor_1) = }, {lekkasje_sensor_1} ")
-        temp1 = sensordata[3]
-        temp2 = sensordata[4]
-        temp3 = sensordata[5]
-        self.label_temp_ROV_1.setText(temp1)
-        self.label_temp_ROV_2.setText(temp2)
-        self.label_temp_ROV_3.setText(temp3)
+        temp1 = round(sensordata[3])
+        temp2 = round(sensordata[4])
+        temp3 = round(sensordata[5])
+        average_temp =  round(sum((temp1, temp2, temp3))/3)
+        self.label_temp_ROV_1.setText(str(temp1))
+        self.labe_temp_ROV_2.setText(str(temp2))
+        self.label_temp_ROV_3.setText(str(temp3))
+        self.label_gjsnitt_temp_ROV.setText(str(average_temp))
 
     def gui_thrust_update(self, sensordata):
         print(f"ran gui_thrust_update {sensordata = }")
+        
+        self.set_widget_percent(self.label_percentage_HHF, sensordata[0], self.frame_HHF, "rgba(85, 170, 255, 255)")
+        self.set_widget_percent(self.label_percentage_HHB, sensordata[1], self.frame_HHB, "rgba(85, 170, 255, 255)")
+        self.set_widget_percent(self.label_percentage_HVB, sensordata[2], self.frame_HVB, "rgba(85, 170, 255, 255)")
+        self.set_widget_percent(self.label_percentage_HVF, sensordata[3], self.frame_HVF, "rgba(85, 170, 255, 255)")
+        self.set_widget_percent(self.label_percentage_VHF, sensordata[4], self.frame_VHF, "rgba(85, 170, 255, 255)")
+        self.set_widget_percent(self.label_percentage_VHB, sensordata[5], self.frame_VHB, "rgba(85, 170, 255, 255)")
+        self.set_widget_percent(self.label_percentage_VVB, sensordata[6], self.frame_VVB, "rgba(85, 170, 255, 255)")
+        self.set_widget_percent(self.label_percentage_VVF, sensordata[7], self.frame_VVF, "rgba(85, 170, 255, 255)")
+
 
 
     def gui_acceleration_update(self, sensordata):
@@ -661,12 +674,12 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
                 raise TypeError(f"{value = } is not of type {data_types[index]}")
 
     def send_current_ligth_intensity(self):
-        self.send_data_to_main([self.lys_slider_forward, self.lys_paa_forward_btn, self.lys_slider_down, self.lys_paa_down_btn], self.COMMAND_TO_ROV_ID)
+        self.send_data_to_main([self.slider_lys_forward , self.lys_paa_forward_btn, self.lys_slider_down, self.lys_paa_down_btn], self.COMMAND_TO_ROV_ID)
         print(f"slider changed to {self.lys_slider.value()}")
 
 
     def button_test(self):
-        print(f"slider changed to {self.lys_slider_forward.value()}")
+        print(f"slider changed to {self.slider_lys_forward.value()}")
         # print(f"{self.comboBox_velg_profil.findText('Standard profil') = }")
 
         # self.w1.stream1.load(QtCore.QUrl("http://vg.no"))
@@ -728,9 +741,8 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.progressBarValue(sliderValue, progressBarName, color)
 
     ## SET VALUES TO DEF progressBarValue
-    def setValue(self, labelPercentage, progressBarName, color):
-        # GET SLIDER VALUE
-        value = 30
+    def set_widget_percent(self, labelPercentage, value, progressBarName, color):
+
         # CONVERT VALUE TO INT
         sliderValue = int(value)
         # HTML TEXT PERCENTAGE
@@ -771,11 +783,10 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     def connect_test_values(self):
         #self.slider.valueChanged.connect(lambda: self.setValue_test(self.slider, self.VHF_percentage, self.VHF, "rgba(85, 170, 255, 255)"))
         self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.HVF_percentage, self.HVF, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.VVF_percentage, self.VVF, "rgba(85, 170, 255, 255)"))
         self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.HHF_percentage, self.HHF, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.VVF_percentage, self.VVF, "rgba(85, 170, 255, 255)"))
         self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.HVF_percentage, self.HVF, "rgba(85, 170, 255, 255)"))
         self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.VVB_percentage, self.VVB, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.HVB_percentage, self.HVB, "rgba(85, 170, 255, 255)"))
         self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.HVB_percentage, self.HVB, "rgba(85, 170, 255, 255)"))
         self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.VHB_percentage, self.VHB, "rgba(85, 170, 255, 255)"))
         self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.HHB_percentage, self.HHB, "rgba(85, 170, 255, 255)"))
@@ -784,8 +795,8 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.mani_percentage_2, self.mani_2, "rgba(85, 170, 255, 255)"))
         self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.mani_percentage_3, self.mani_3, "rgba(85, 170, 255, 255)"))
 
-        self.lys_slider_forward.valueChanged.connect(lambda: self.setTestValue(self.lys_slider_forward, self.lys_forward_percentage, self.lys_forward, "rgba(85, 170, 255, 255)"))
-        self.lys_slider_down.valueChanged.connect(lambda: self.setTestValue(self.lys_slider_down, self.lys_down_percentage, self.lys_down, "rgba(85, 170, 255, 255)"))
+        self.slider_lys_forward.valueChanged.connect(lambda: self.setTestValue(self.lys_slider_forward, self.lys_forward_percentage, self.lys_forward, "rgba(85, 170, 255, 255)"))
+        self.slider_lys_down.valueChanged.connect(lambda: self.setTestValue(self.lys_slider_down, self.lys_down_percentage, self.lys_down, "rgba(85, 170, 255, 255)"))
 
 
 
@@ -917,7 +928,14 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         print("2: ye:", ye, ", xe:", xe)
 
 
+def suppress_qt_warnings():
+    os.environ["QT_DEVICE_PIXEL_RATIO"] = "0"
+    os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
+    os.environ["QT_SCREEN_SCALE_FACTORS"] = "1"
+    os.environ["QT_SCALE_FACTOR"] = "1"
+
 def run(conn, queue_for_rov, t_watch: Threadwatcher, id):
+    suppress_qt_warnings()
     app = QtWidgets.QApplication(sys.argv)
 
 
