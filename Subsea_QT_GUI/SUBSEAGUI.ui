@@ -720,7 +720,7 @@ Button */
             <property name="lineWidth">
              <number>0</number>
             </property>
-            <widget class="QFrame" name="boxToggle">
+            <widget class="QFrame" name="toggleBox">
              <property name="geometry">
               <rect>
                <x>0</x>
@@ -758,7 +758,7 @@ Button */
                <number>0</number>
               </property>
               <item>
-               <widget class="QPushButton" name="btn_toggle">
+               <widget class="QPushButton" name="toggleButton">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
