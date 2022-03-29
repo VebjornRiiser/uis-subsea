@@ -782,18 +782,17 @@ void main() {
 
     def connect_test_values(self):
         #self.slider.valueChanged.connect(lambda: self.setValue_test(self.slider, self.VHF_percentage, self.VHF, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.HVF_percentage, self.HVF, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.HHF_percentage, self.HHF, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.VVF_percentage, self.VVF, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.HVF_percentage, self.HVF, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.VVB_percentage, self.VVB, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.HVB_percentage, self.HVB, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.VHB_percentage, self.VHB, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.HHB_percentage, self.HHB, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_HVF, self.frame_HVF, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_HHF, self.frame_HHF, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_VVF, self.frame_VVF, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_VVB, self.frame_VVB, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_HVB, self.frame_HVB, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_VHB, self.frame_VHB, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_HHB, self.frame_HHB, "rgba(85, 170, 255, 255)"))
 
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.mani_percentage_1, self.mani_1, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.mani_percentage_2, self.mani_2, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.mani_percentage_3, self.mani_3, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_mani_1, self.frame_mani_1, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_mani_2, self.frame_mani_2, "rgba(85, 170, 255, 255)"))
+        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_mani_3, self.frame_mani_3, "rgba(85, 170, 255, 255)"))
 
         self.slider_lys_forward.valueChanged.connect(lambda: self.setTestValue(self.lys_slider_forward, self.lys_forward_percentage, self.lys_forward, "rgba(85, 170, 255, 255)"))
         self.slider_lys_down.valueChanged.connect(lambda: self.setTestValue(self.lys_slider_down, self.lys_down_percentage, self.lys_down, "rgba(85, 170, 255, 255)"))
