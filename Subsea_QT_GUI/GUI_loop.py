@@ -376,10 +376,6 @@ void main() {
         self.setStyle(QStyleFactory.create('Windows'))
         self.comboBox_Y_btn.setStyle(QStyleFactory.create('Windows'))
         self.comboBox_velg_profil.currentIndexChanged.connect(self.load_selected_profile)
-        
-        '''self.lys_slider : QSlider
-        self.lys_slider.setValue(52)
-        self.lys_slider.sliderMoved.connect(self.button_test)'''
 
         # ///////////////////////////////////////////////////////////////
 
@@ -794,8 +790,8 @@ void main() {
         self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_mani_2, self.frame_mani_2, "rgba(85, 170, 255, 255)"))
         self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_mani_3, self.frame_mani_3, "rgba(85, 170, 255, 255)"))
 
-        self.slider_lys_forward.valueChanged.connect(lambda: self.setTestValue(self.lys_slider_forward, self.lys_forward_percentage, self.lys_forward, "rgba(85, 170, 255, 255)"))
-        self.slider_lys_down.valueChanged.connect(lambda: self.setTestValue(self.lys_slider_down, self.lys_down_percentage, self.lys_down, "rgba(85, 170, 255, 255)"))
+        self.slider_lys_forward.valueChanged.connect(lambda: self.setTestValue(self.slider_lys_forward, self.label_percentage_lys_forward, self.frame_lys_forward, "rgba(85, 170, 255, 255)"))
+        self.slider_lys_down.valueChanged.connect(lambda: self.setTestValue(self.lys_slider_down, self. label_percentage_lys_down, self.frame_lys_down, "rgba(85, 170, 255, 255)"))
 
 
 
