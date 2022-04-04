@@ -43,8 +43,10 @@ GLOBAL_TITLE_BAR = True
 os.environ["QT_FONT_DPI"] = "96" # FIX Problem for High DPI and Scale above 100%
 
 class Fakeslider:
-    def __init__(self) -> None:
-        self.value = 35
+    def __init__(self, value) -> None:
+        self.slider_value = value
+    def value(self):
+        return self.slider_value
 
 class AnotherWindow(QWidget):
     """
@@ -598,23 +600,19 @@ void main() {
             self.spenning.setText(str(round(data["spenning"],4)))
             self.label_temp_ROV_1.setText(str(round(data["temp_rov"],4)))
 
+
+
     def recieve_and_set_text(self, conn):
-        self.sensor_update_function = {
-        "lekk_temp": self.gui_lekk_temp_update, 
-        "thrust" : self.gui_thrust_update,
-        "accel": self.gui_acceleration_update,
-        "gyro": self.gui_gyro_update}
+        self.communicate = Communicate()
+        self.communicate.data_signal.connect(self.decide_gui_update)
         while self.t_watch.should_run(self.id):
             # print("waiting for sensordata")
             data_is_ready = conn.poll()
 
             if data_is_ready:
-
                 sensordata: dict = conn.recv()
+                self.communicate.data_signal.emit(sensordata)
 
-                for key in sensordata.keys():
-                    if key in self.sensor_update_function:
-                        self.sensor_update_function[key](sensordata[key])
             else:
                 time.sleep(0.15)
     
@@ -622,11 +620,19 @@ void main() {
         self.shutdown()
         exit(0)
         
-
+    def decide_gui_update(self, sensordata):
+        self.sensor_update_function = {
+        "lekk_temp": self.gui_lekk_temp_update, 
+        "thrust" : self.gui_thrust_update,
+        "accel": self.gui_acceleration_update,
+        "gyro": self.gui_gyro_update}
+        for key in sensordata.keys():
+            if key in self.sensor_update_function:
+                self.sensor_update_function[key](sensordata[key])
 
     def gui_lekk_temp_update(self, sensordata):
         # self.check_data_types(sensordata["lekk_temp"], (int, float, float, float))
-        print(f"ran gui_lekk_temp_update {sensordata = }")
+        # print(f"ran gui_lekk_temp_update {sensordata = }")
         lekkasje_sensor_1 = sensordata[0]
         lekkasje_sensor_2 = sensordata[1]
         lekkasje_sensor_3 = sensordata[2]
@@ -642,20 +648,43 @@ void main() {
         self.label_gjsnitt_temp_ROV.setText(str(average_temp))
 
     def gui_thrust_update(self, sensordata):
-        print(f"ran gui_thrust_update {sensordata = }")
-        
-        self.set_widget_percent(self.label_percentage_HHF, sensordata[0], self.frame_HHF, "rgba(85, 170, 255, 255)")
-        self.set_widget_percent(self.label_percentage_HHB, sensordata[1], self.frame_HHB, "rgba(85, 170, 255, 255)")
-        self.set_widget_percent(self.label_percentage_HVB, sensordata[2], self.frame_HVB, "rgba(85, 170, 255, 255)")
-        self.set_widget_percent(self.label_percentage_HVF, sensordata[3], self.frame_HVF, "rgba(85, 170, 255, 255)")
-        self.set_widget_percent(self.label_percentage_VHF, sensordata[4], self.frame_VHF, "rgba(85, 170, 255, 255)")
-        self.set_widget_percent(self.label_percentage_VHB, sensordata[5], self.frame_VHB, "rgba(85, 170, 255, 255)")
-        self.set_widget_percent(self.label_percentage_VVB, sensordata[6], self.frame_VVB, "rgba(85, 170, 255, 255)")
-        self.set_widget_percent(self.label_percentage_VVF, sensordata[7], self.frame_VVF, "rgba(85, 170, 255, 255)")
+        # print(f"ran gui_thrust_update {sensordata = }")
+        self.update_round_percent_visualizer(sensordata[0], self.label_percentage_HHF, self.frame_HHF)
+        self.update_round_percent_visualizer(sensordata[1], self.label_percentage_HHB, self.frame_HHB)
+        self.update_round_percent_visualizer(sensordata[2], self.label_percentage_HVB, self.frame_HVB)
+        self.update_round_percent_visualizer(sensordata[3], self.label_percentage_HVF, self.frame_HVF)
+        self.update_round_percent_visualizer(sensordata[4], self.label_percentage_VHF, self.frame_VHF)
+        self.update_round_percent_visualizer(sensordata[5], self.label_percentage_VHB, self.frame_VHB)
+        self.update_round_percent_visualizer(sensordata[6], self.label_percentage_VVB, self.frame_VVB)
+        self.update_round_percent_visualizer(sensordata[7], self.label_percentage_VVF, self.frame_VVF)
 
 
+        # self.update_round_percent_visualizer(sensordata[0], self.label_percentage_HHB, self.frame_HHB)
+
+
+    def update_round_percent_visualizer(self, value, text_label, round_frame):
+        """This function will update the various circles with a progress bar around and percent in the middle"""
+        blue = "rgba(85, 170, 255, 255)"
+        red = "rgb(226, 47, 53)"
+        progress = (100 - value) / 100.0
+        stop_1 = str(progress - 0.001)
+        stop_2 = str(progress)
+        color = blue
+        if value < 0:
+            stop_1 = str(progress - 1)
+            stop_2 = str(progress - 0.001 -1)
+            color = red
+        if value == 100:
+            stop_1 = "1.000"
+            stop_2 = "1.000"
+        htmlText = f"""<p align="center"><span style=" font-size:9pt;">{value}</span><span style=" font-size:9pt; vertical-align:super;">%</span></p>"""
+        text_label.setText(htmlText)
+        styleSheet = """QFrame{ border-radius: 30px; background-color: qconicalgradient(cx:0.5, cy:0.5, angle:90, stop:{STOP_1} rgba(255, 0, 127, 0), stop:{STOP_2} {COLOR}); }"""
+        styleSheet = styleSheet.replace("{STOP_1}", str(stop_1)).replace("{STOP_2}", str(stop_2)).replace("{COLOR}", color)
+        round_frame.setStyleSheet(styleSheet)
 
     def gui_acceleration_update(self, sensordata):
+        
         print(f"ran gui_acceleration_update {sensordata = }")
 
 
@@ -678,7 +707,7 @@ void main() {
 
 
     def button_test(self):
-        print(f"slider changed to {self.slider_lys_forward.value()}")
+        print(f"function was called")
         # print(f"{self.comboBox_velg_profil.findText('Standard profil') = }")
 
         # self.w1.stream1.load(QtCore.QUrl("http://vg.no"))
@@ -952,6 +981,8 @@ def run(conn, queue_for_rov, t_watch: Threadwatcher, id):
     # win.close()
     sys.exit(app.exec())
   
+class Communicate(QtCore.QObject):
+    data_signal = QtCore.pyqtSignal(dict)
 
 if __name__ == "__main__":
     #import SUBSEAGUI

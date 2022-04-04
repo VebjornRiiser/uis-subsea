@@ -106,6 +106,7 @@ class Rov_state:
         self.packets_to_send = []
 
         self.manipulator_active = True
+        self.regulator_active: list[bool] = [True, True, True]
 
         self.light_intensity_forward = 100
         self.ligth_forward_is_on = True
@@ -189,6 +190,27 @@ class Rov_state:
             print(f"Changed active camera to {self.active_camera}")
             self.camera_toggle_wait_counter = 6
 
+    def reset_fuse_on_power_supply(self, fuse_number):
+        """reset_fuse_on_power_supply creates and adds
+        packets for reseting a fuse on the ROV"""
+        fuse_reset_signal = [False]*3
+        fuse_reset_signal[fuse_number] = True
+        
+        for item in self.regulator_active :
+            fuse_reset_signal.append(item)
+
+        self.packets_to_send.append(fuse_reset_signal)
+
+    def switch_power_supply_regulator(self, regulator_number: int, switch_on: bool):
+        """switch_power_supply_regulator creates and adds packets
+        for switching the regulator on the rov of or on depending
+        on the state of the switch_on variable"""
+        fuse_reset_signal = [False]*3
+        self.regulator_active[regulator_number] = switch_on        
+        for item in self.regulator_active:
+            fuse_reset_signal.append(item)
+
+        self.packets_to_send.append(fuse_reset_signal)
 
     def get_from_queue(self):
         """Takes data from the queue and sends it to the correct handler"""
@@ -200,7 +222,7 @@ class Rov_state:
             print(id, packet)
             self.button_to_function_map = packet
         elif id == GUI_loop.COMMAND_TO_ROV_ID:
-            commands = {"update_light_value": self.update_light_value}
+            commands = {"update_light_value": self.update_light_value, "switch_light": self.switch_light}
             print("got command")
             print(id, packet)
             if packet.split(":")[0] not in commands:
@@ -225,6 +247,9 @@ class Rov_state:
             self.camera_tilt_control_active = not self.camera_tilt_control_active
             print(f"{self.camera_tilt_control_active = }")
             self.right_joystick_toggle_wait_counter = 7
+
+    def switch_light():
+        pass
 
     def update_light_value(self):
         self.light_intensity_forward = 100
@@ -321,7 +346,6 @@ class Rov_state:
                 self.camera_tilt_allowed[camera_id] = False
             # print(f"{self.image_processing_mode = }")
             self.image_processing_mode_wait_counter = 7
-
 
 def run(network_handler: Network, t_watch: Threadwatcher, id: int, queue_for_rov: multiprocessing.Queue, gui_pipe):
     print(f"{network_handler = }")
@@ -489,15 +513,16 @@ if __name__ == "__main__":
             snd_data_to_rov.start()
 
         if run_send_fake_sensordata:
+            thrust_list = [num for num in range(-100,101)]
             count = 0
             while True:
                 count += 1
-                # sensordata = {"lekk_temp": [False, False, False, (25+count)%99, (37+count)%99, (61+count)%99]}
-                # gui_parent_pipe.send(sensordata)
-                # sensordata = {"thrust": [(0+count)%99, (13+count)%99, (25+count)%99, (38+count)%99, (37+count)%99, (50+count)%99, (63+count)%99, (75+count)%99, (88+count)%99, (107+count)%99]}
-                sensordata = {"thrust": [16]*8}
+                sensordata = {"lekk_temp": [False, False, False, (25+count)%99, (37+count)%99, (61+count)%99]}
                 gui_parent_pipe.send(sensordata)
-                time.sleep(0.5)
+                sensordata = {"thrust": [thrust_list[(0+count)%201], thrust_list[(13+count)%201], thrust_list[(25+count)%201], thrust_list[(38+count)%201], thrust_list[(37+count)%201], thrust_list[(50+count)%201], thrust_list[(63+count)%201], thrust_list[(75+count)%201], thrust_list[(88+count)%201], thrust_list[(107+count)%201]]}
+                # sensordata = {"thrust": [16]*8}
+                gui_parent_pipe.send(sensordata)
+                time.sleep(0.03333)
 
         while True:
             time.sleep(1)
