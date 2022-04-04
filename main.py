@@ -104,6 +104,7 @@ class Rov_state:
         # determines which camera is controlled
         self.active_camera = 0
         self.packets_to_send = []
+        self.start_time = time.time() 
 
         self.manipulator_active = True
         self.regulator_active: list[bool] = [True, True, True]
@@ -123,13 +124,10 @@ class Rov_state:
     # Need to clear the button that sets this value so that the original function does not altso trigger
     def manipulator_grip(self, button_index):
         self.data["buttons"][BUTTON_GRAB] = 1
-        print("grip")
-
 
     # bit hacky since we overwrite the actual value of the button
     def manipulator_release(self, button_index):
         self.data["buttons"][BUTTON_RELEASE] = 1
-        print("release")
 
 
     def toggle_manipulator_enabled(self):
@@ -222,18 +220,18 @@ class Rov_state:
             print(id, packet)
             self.button_to_function_map = packet
         elif id == GUI_loop.COMMAND_TO_ROV_ID:
-            commands = {"update_light_value": self.update_light_value, "switch_light": self.switch_light}
+            commands = {"update_light_value": self.update_light_value,}
             print("got command")
             print(id, packet)
-            if packet.split(":")[0] not in commands:
+            if packet[0] not in commands:
                 print(f"Got unrecognized command from gui {packet}")
                 return
-            commands[packet[0]]()
+            commands[packet[0]](packet)
 
 
     def send_packets(self):
         """Sends the created network packets and clears it"""
-        print(self.packets_to_send)
+        # print(self.packets_to_send)
 
         if self.network_handler is None:
             self.packets_to_send = []
@@ -248,18 +246,16 @@ class Rov_state:
             print(f"{self.camera_tilt_control_active = }")
             self.right_joystick_toggle_wait_counter = 7
 
-    def switch_light():
-        pass
-
-    def update_light_value(self):
-        self.light_intensity_forward = 100
-        self.ligth_forward_is_on = True
+    def update_light_value(self, packet: list):
+        self.light_intensity_forward = packet[1]
+        self.ligth_forward_is_on = packet[2]
         
-        self.light_intensity_down = 100
-        self.ligth_down_is_on = True
+        self.light_intensity_down = packet[3]
+        self.ligth_down_is_on = packet[4]
 
         ligth_down = self.light_intensity_down * self.ligth_down_is_on
         ligth_forward = self.light_intensity_forward * self.ligth_forward_is_on
+        print(f"Lys oppdatert. verdien vi sender er {[142, ligth_forward, ligth_down]}")
         self.packets_to_send.append([142, ligth_forward, ligth_down])
 
     def update_camera_tilt(self):
@@ -285,6 +281,7 @@ class Rov_state:
 
                 if old_tilt != self.camera_tilt[self.active_camera]:
                     self.packets_to_send.append([200 + self.active_camera, {"tilt": self.camera_tilt[self.active_camera]}])
+                    [[200/201, {"video_recording": True, "take_picture": True}]]
 
     def build_styredata(self):
         #  X,Y,Z, rotasjon, m.teleskop, m.vri, m.klype + uint8 throttle  ##########
@@ -329,10 +326,10 @@ class Rov_state:
         return byte_val
 
     def send_sensordata_to_gui(self, data):
-        print(f"sending data from main to gui: {data =}")
+        # print(f"sending data from main to gui: {data =}")
         self.gui_pipe.send(data)
 
-    def  update_bildebehandlingsmodus(self, camera_id: int = None, mode: int = None):
+    def update_bildebehandlingsmodus(self, camera_id: int = None, mode: int = None):
         camera_modes = [0,1,5,6]
         if self.image_processing_mode_wait_counter == 0:
             if camera_id is None and mode is None:
@@ -347,6 +344,18 @@ class Rov_state:
             # print(f"{self.image_processing_mode = }")
             self.image_processing_mode_wait_counter = 7
 
+    def send_local_sensordata(self):
+        time_since_start = time.time()-self.start_time
+        rotation = self.data["dpad"][0] * 100
+        in_out = self.data["dpad"][1] * 100
+        grip_percent = 0
+        if self.data["buttons"][BUTTON_GRAB] == 1:
+            grip_percent = 100
+        elif self.data["buttons"][BUTTON_RELEASE] == 1:
+            grip_percent = -100
+
+        self.send_sensordata_to_gui({"time": [time_since_start], "manipulator": [grip_percent, in_out, rotation]})
+
 def run(network_handler: Network, t_watch: Threadwatcher, id: int, queue_for_rov: multiprocessing.Queue, gui_pipe):
     print(f"{network_handler = }")
     rov_state = Rov_state(queue_for_rov, network_handler, gui_pipe)
@@ -358,7 +367,8 @@ def run(network_handler: Network, t_watch: Threadwatcher, id: int, queue_for_rov
         if rov_state.data == {}:
             continue
         rov_state.check_controls()
-        print(rov_state.packets_to_send)
+        rov_state.send_local_sensordata()
+        # print(rov_state.packets_to_send)
         rov_state.send_packets()
 
 ID = 0
@@ -444,9 +454,11 @@ def recieve_data_from_rov(network: Network, t_watch: Threadwatcher, id: int):
             decoded = decode_packets(data)
             if decoded == []:
                 continue
-            # if len(decoded)>0:
-                # print(decoded)
-            # print(decoded)
+
+            for message in decoded:
+                print(message)
+                # Rov_state.send_sensordata_to_gui(Rov_state, message)
+
         except json.JSONDecodeError as e:
             print(f"{data = }, {e = }")
 
@@ -459,7 +471,6 @@ def get_args():
 
 
 if __name__ == "__main__":
-    # print(check_camera_command([[201, {"on": True, "bildebehandlingsmodus": 1}], [70, [0, 0, 0, 0, 0, 0, 0, 0]]]))
     # get_args()
     # exit(0)
     try:
@@ -468,7 +479,7 @@ if __name__ == "__main__":
         global run_gui
         start_time_sec = time.time()
         run_gui = True
-        run_get_controllerdata = False
+        run_get_controllerdata = True
         run_network = False
         run_send_fake_sensordata = True
         

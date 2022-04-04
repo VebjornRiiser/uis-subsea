@@ -1,5 +1,6 @@
 from ast import arguments
 import multiprocessing
+from typing import Type
 #from tkinter import Widget
 from PyQt5 import QtCore, QtGui, QtWidgets, Qt
 from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QCheckBox, QLabel, QFileDialog, QApplication, QWidget, QVBoxLayout, QSizeGrip, QFrame, QMessageBox, QStyleFactory, QSizeGrip, QGraphicsDropShadowEffect, QPushButton, QComboBox, QDesktopWidget
@@ -300,7 +301,8 @@ void main() {
         self.btn_informasjon.clicked.connect(lambda: self.change_current_widget(1))
         
 
-
+        self.slider_lys_down.valueChanged.connect(self.send_current_ligth_intensity)
+        self.slider_lys_forward.valueChanged.connect(self.send_current_ligth_intensity)
         # ///////////////////////////////////////////////////////////////
 
         # CONTROLLER PAGE:
@@ -377,10 +379,12 @@ void main() {
         self.send_profile_to_main()
 
         self.combobox_styling()
-
         self.setStyle(QStyleFactory.create('Windows'))
         self.comboBox_Y_btn.setStyle(QStyleFactory.create('Windows'))
         self.comboBox_velg_profil.currentIndexChanged.connect(self.load_selected_profile)
+        self.toggle_frontlys.setChecked(True)
+        self.toggle_havbunnslys.setChecked(True)
+        self.send_current_ligth_intensity()
 
         # ///////////////////////////////////////////////////////////////
 
@@ -559,6 +563,8 @@ void main() {
     def send_data_to_main(self, data, id):
         if self.queue is not None:
             self.queue.put([id, data])
+        else:
+            raise TypeError("self.queue does not exist inside send_data_to_main")
 
     def shutdown(self):
         print("shutdown ran")
@@ -625,10 +631,31 @@ void main() {
         "lekk_temp": self.gui_lekk_temp_update, 
         "thrust" : self.gui_thrust_update,
         "accel": self.gui_acceleration_update,
-        "gyro": self.gui_gyro_update}
+        "gyro": self.gui_gyro_update,
+        "time": self.gui_time_update,
+        "manipulator": self.gui_manipulator_update}
         for key in sensordata.keys():
             if key in self.sensor_update_function:
                 self.sensor_update_function[key](sensordata[key])
+
+    def gui_time_update(self, sensordata):
+        self.label_tid.setText(str(round(sensordata[0])))
+
+    def gui_manipulator_update(self, sensordata):
+        self.update_round_percent_visualizer(sensordata[0], self.label_percentage_mani_1, self.frame_mani_1)
+        self.update_round_percent_visualizer(sensordata[1], self.label_percentage_mani_2, self.frame_mani_2)
+        self.update_round_percent_visualizer(sensordata[2], self.label_percentage_mani_3, self.frame_mani_3)
+
+    def gui_thrust_update(self, sensordata):
+        # print(f"ran gui_thrust_update {sensordata = }")
+        self.update_round_percent_visualizer(sensordata[0], self.label_percentage_HHF, self.frame_HHF)
+        self.update_round_percent_visualizer(sensordata[1], self.label_percentage_HHB, self.frame_HHB)
+        self.update_round_percent_visualizer(sensordata[2], self.label_percentage_HVB, self.frame_HVB)
+        self.update_round_percent_visualizer(sensordata[3], self.label_percentage_HVF, self.frame_HVF)
+        self.update_round_percent_visualizer(sensordata[4], self.label_percentage_VHF, self.frame_VHF)
+        self.update_round_percent_visualizer(sensordata[5], self.label_percentage_VHB, self.frame_VHB)
+        self.update_round_percent_visualizer(sensordata[6], self.label_percentage_VVB, self.frame_VVB)
+        self.update_round_percent_visualizer(sensordata[7], self.label_percentage_VVF, self.frame_VVF)
 
     def gui_lekk_temp_update(self, sensordata):
         # self.check_data_types(sensordata["lekk_temp"], (int, float, float, float))
@@ -647,16 +674,6 @@ void main() {
         self.label_temp_ROV_3.setText(str(temp3))
         self.label_gjsnitt_temp_ROV.setText(str(average_temp))
 
-    def gui_thrust_update(self, sensordata):
-        # print(f"ran gui_thrust_update {sensordata = }")
-        self.update_round_percent_visualizer(sensordata[0], self.label_percentage_HHF, self.frame_HHF)
-        self.update_round_percent_visualizer(sensordata[1], self.label_percentage_HHB, self.frame_HHB)
-        self.update_round_percent_visualizer(sensordata[2], self.label_percentage_HVB, self.frame_HVB)
-        self.update_round_percent_visualizer(sensordata[3], self.label_percentage_HVF, self.frame_HVF)
-        self.update_round_percent_visualizer(sensordata[4], self.label_percentage_VHF, self.frame_VHF)
-        self.update_round_percent_visualizer(sensordata[5], self.label_percentage_VHB, self.frame_VHB)
-        self.update_round_percent_visualizer(sensordata[6], self.label_percentage_VVB, self.frame_VVB)
-        self.update_round_percent_visualizer(sensordata[7], self.label_percentage_VVF, self.frame_VVF)
 
 
         # self.update_round_percent_visualizer(sensordata[0], self.label_percentage_HHB, self.frame_HHB)
@@ -702,9 +719,16 @@ void main() {
                 raise TypeError(f"{value = } is not of type {data_types[index]}")
 
     def send_current_ligth_intensity(self):
-        self.send_data_to_main([self.slider_lys_forward , self.lys_paa_forward_btn, self.lys_slider_down, self.lys_paa_down_btn], self.COMMAND_TO_ROV_ID)
-        print(f"slider changed to {self.lys_slider.value()}")
+        frontlys_on: bool = False
+        if self.toggle_frontlys.checkState() != 0:
+            frontlys_on = True
 
+        havbunnslys_on: bool = False
+        if self.toggle_havbunnslys.checkState() != 0:
+            havbunnslys_on = True
+
+        self.send_data_to_main(["update_light_value", self.slider_lys_forward.value(), frontlys_on, self.slider_lys_down.value(), havbunnslys_on], COMMAND_TO_ROV_ID)
+        # print(f"sent command to rov. {frontlys_on = }, {havbunnslys_on = }")
 
     def button_test(self):
         print(f"function was called")
