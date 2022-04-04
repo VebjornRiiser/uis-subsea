@@ -1793,8 +1793,8 @@ p, li { white-space: pre-wrap; }
                               <rect>
                                <x>0</x>
                                <y>0</y>
-                               <width>1232</width>
-                               <height>800</height>
+                               <width>1200</width>
+                               <height>801</height>
                               </rect>
                              </property>
                              <layout class="QHBoxLayout" name="horizontalLayout_10">
@@ -1830,7 +1830,7 @@ p, li { white-space: pre-wrap; }
                                 <property name="maximumSize">
                                  <size>
                                   <width>440</width>
-                                  <height>800</height>
+                                  <height>900</height>
                                  </size>
                                 </property>
                                 <property name="frameShape">
@@ -1859,13 +1859,13 @@ p, li { white-space: pre-wrap; }
                                   <widget class="QFrame" name="kjoringContainer">
                                    <property name="minimumSize">
                                     <size>
-                                     <width>0</width>
+                                     <width>400</width>
                                      <height>0</height>
                                     </size>
                                    </property>
                                    <property name="maximumSize">
                                     <size>
-                                     <width>16777215</width>
+                                     <width>400</width>
                                      <height>200</height>
                                     </size>
                                    </property>
@@ -1928,10 +1928,17 @@ p, li { white-space: pre-wrap; }
                                        <number>1</number>
                                       </property>
                                       <property name="text">
-                                       <string>Velg mellom automatisk eller manuell kjøring</string>
+                                       <string>Velg mellom autonom eller manuell kjøring</string>
                                       </property>
                                       <property name="alignment">
                                        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                                      </property>
+                                     </widget>
+                                    </item>
+                                    <item>
+                                     <widget class="QRadioButton" name="radioButton">
+                                      <property name="text">
+                                       <string>RadioButton</string>
                                       </property>
                                      </widget>
                                     </item>
@@ -1960,7 +1967,7 @@ p, li { white-space: pre-wrap; }
 QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }</string>
                                       </property>
                                       <property name="text">
-                                       <string>Automatisk</string>
+                                       <string>Autonom kjøring</string>
                                       </property>
                                       <property name="checkable">
                                        <bool>true</bool>
@@ -1995,7 +2002,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
 QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }</string>
                                       </property>
                                       <property name="text">
-                                       <string>Manuell</string>
+                                       <string>Manuell kjøring</string>
                                       </property>
                                       <property name="checkable">
                                        <bool>true</bool>
@@ -4324,7 +4331,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </property>
                                        </widget>
                                       </widget>
-                                      <widget class="QFrame" name="frame_mani_1">
+                                      <widget class="QFrame" name="frame_mani_2">
                                        <property name="geometry">
                                         <rect>
                                          <x>145</x>
@@ -4343,7 +4350,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         <enum>QFrame::Raised</enum>
                                        </property>
                                       </widget>
-                                      <widget class="QFrame" name="frame_mani_2">
+                                      <widget class="QFrame" name="frame_mani_3">
                                        <property name="geometry">
                                         <rect>
                                          <x>200</x>
@@ -4366,9 +4373,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        <property name="geometry">
                                         <rect>
                                          <x>205</x>
-                                         <y>95</y>
-                                         <width>50</width>
-                                         <height>50</height>
+                                         <y>94</y>
+                                         <width>51</width>
+                                         <height>51</height>
                                         </rect>
                                        </property>
                                        <property name="styleSheet">
@@ -4415,7 +4422,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </property>
                                        </widget>
                                       </widget>
-                                      <widget class="QFrame" name="frame_mani_3">
+                                      <widget class="QFrame" name="frame_mani_1">
                                        <property name="geometry">
                                         <rect>
                                          <x>54</x>
@@ -4488,37 +4495,12 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </widget>
                                       </widget>
                                       <zorder>img_manipulator</zorder>
-                                      <zorder>frame_mani_1</zorder>
-                                      <zorder>maniCircle2</zorder>
                                       <zorder>frame_mani_2</zorder>
-                                      <zorder>maniCircle3</zorder>
+                                      <zorder>maniCircle2</zorder>
                                       <zorder>frame_mani_3</zorder>
+                                      <zorder>maniCircle3</zorder>
+                                      <zorder>frame_mani_1</zorder>
                                       <zorder>maniCircle</zorder>
-                                     </widget>
-                                    </item>
-                                    <item>
-                                     <widget class="QSlider" name="slider">
-                                      <property name="minimumSize">
-                                       <size>
-                                        <width>0</width>
-                                        <height>68</height>
-                                       </size>
-                                      </property>
-                                      <property name="maximumSize">
-                                       <size>
-                                        <width>150</width>
-                                        <height>68</height>
-                                       </size>
-                                      </property>
-                                      <property name="minimum">
-                                       <number>-100</number>
-                                      </property>
-                                      <property name="maximum">
-                                       <number>100</number>
-                                      </property>
-                                      <property name="orientation">
-                                       <enum>Qt::Horizontal</enum>
-                                      </property>
                                      </widget>
                                     </item>
                                    </layout>
@@ -4526,7 +4508,6 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                    <zorder>motorContainter</zorder>
                                    <zorder>title_motor</zorder>
                                    <zorder>text_rov</zorder>
-                                   <zorder>slider</zorder>
                                    <zorder>text_manipulator</zorder>
                                   </widget>
                                  </item>
@@ -4964,13 +4945,13 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                <widget class="QFrame" name="column3">
                                 <property name="minimumSize">
                                  <size>
-                                  <width>350</width>
+                                  <width>300</width>
                                   <height>0</height>
                                  </size>
                                 </property>
                                 <property name="maximumSize">
                                  <size>
-                                  <width>350</width>
+                                  <width>300</width>
                                   <height>1000</height>
                                  </size>
                                 </property>
@@ -4998,13 +4979,13 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                    <property name="minimumSize">
                                     <size>
                                      <width>0</width>
-                                     <height>0</height>
+                                     <height>250</height>
                                     </size>
                                    </property>
                                    <property name="maximumSize">
                                     <size>
                                      <width>16777215</width>
-                                     <height>180</height>
+                                     <height>16777215</height>
                                     </size>
                                    </property>
                                    <property name="frameShape">
@@ -5047,6 +5028,12 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                     </item>
                                     <item>
                                      <widget class="QFrame" name="bildeContainer2">
+                                      <property name="minimumSize">
+                                       <size>
+                                        <width>0</width>
+                                        <height>0</height>
+                                       </size>
+                                      </property>
                                       <property name="maximumSize">
                                        <size>
                                         <width>16777215</width>
@@ -5072,8 +5059,8 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        <property name="bottomMargin">
                                         <number>0</number>
                                        </property>
-                                       <item row="0" column="0">
-                                        <widget class="QPushButton" name="btn_beregn_strl">
+                                       <item row="4" column="0">
+                                        <widget class="QPushButton" name="btn_finn_fisk">
                                          <property name="minimumSize">
                                           <size>
                                            <width>150</width>
@@ -5096,12 +5083,12 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                           <string notr="true">QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}</string>
                                          </property>
                                          <property name="text">
-                                          <string>Beregne størrelse</string>
+                                          <string>Finn fisk</string>
                                          </property>
                                         </widget>
                                        </item>
-                                       <item row="0" column="1">
-                                        <widget class="QLabel" name="text_bilde_3">
+                                       <item row="0" column="0">
+                                        <widget class="QLabel" name="text_bildeinfo">
                                          <property name="styleSheet">
                                           <string notr="true">color: rgb(113, 126, 149);</string>
                                          </property>
@@ -5109,14 +5096,70 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                           <number>1</number>
                                          </property>
                                          <property name="text">
-                                          <string>Siste bilde analyseres</string>
+                                          <string>Velg mellom bildebehandlingsmodusene:</string>
                                          </property>
                                          <property name="alignment">
                                           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                                          </property>
                                         </widget>
                                        </item>
+                                       <item row="2" column="0">
+                                        <widget class="QPushButton" name="btn_bildemoasaikk">
+                                         <property name="minimumSize">
+                                          <size>
+                                           <width>150</width>
+                                           <height>45</height>
+                                          </size>
+                                         </property>
+                                         <property name="font">
+                                          <font>
+                                           <family>Segoe UI</family>
+                                           <pointsize>10</pointsize>
+                                           <weight>50</weight>
+                                           <italic>false</italic>
+                                           <bold>false</bold>
+                                          </font>
+                                         </property>
+                                         <property name="cursor">
+                                          <cursorShape>PointingHandCursor</cursorShape>
+                                         </property>
+                                         <property name="styleSheet">
+                                          <string notr="true">QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}</string>
+                                         </property>
+                                         <property name="text">
+                                          <string>Bildemoasaikk</string>
+                                         </property>
+                                        </widget>
+                                       </item>
                                        <item row="1" column="0">
+                                        <widget class="QPushButton" name="btn_autonom_merd">
+                                         <property name="minimumSize">
+                                          <size>
+                                           <width>150</width>
+                                           <height>45</height>
+                                          </size>
+                                         </property>
+                                         <property name="font">
+                                          <font>
+                                           <family>Segoe UI</family>
+                                           <pointsize>10</pointsize>
+                                           <weight>50</weight>
+                                           <italic>false</italic>
+                                           <bold>false</bold>
+                                          </font>
+                                         </property>
+                                         <property name="cursor">
+                                          <cursorShape>PointingHandCursor</cursorShape>
+                                         </property>
+                                         <property name="styleSheet">
+                                          <string notr="true">QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}</string>
+                                         </property>
+                                         <property name="text">
+                                          <string>Autonom merd</string>
+                                         </property>
+                                        </widget>
+                                       </item>
+                                       <item row="3" column="0">
                                         <widget class="QPushButton" name="btn_fotomoasaikk">
                                          <property name="minimumSize">
                                           <size>
@@ -5140,23 +5183,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                           <string notr="true">QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}</string>
                                          </property>
                                          <property name="text">
-                                          <string>Fotomoasaikk</string>
-                                         </property>
-                                        </widget>
-                                       </item>
-                                       <item row="1" column="1">
-                                        <widget class="QLabel" name="text_bilde_2">
-                                         <property name="styleSheet">
-                                          <string notr="true">color: rgb(113, 126, 149);</string>
-                                         </property>
-                                         <property name="lineWidth">
-                                          <number>1</number>
-                                         </property>
-                                         <property name="text">
-                                          <string>Siste bilde analyseres</string>
-                                         </property>
-                                         <property name="alignment">
-                                          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                                          <string>Autonom parkering</string>
                                          </property>
                                         </widget>
                                        </item>
@@ -5168,10 +5195,16 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                  </item>
                                  <item>
                                   <widget class="QFrame" name="kameraContainer">
+                                   <property name="minimumSize">
+                                    <size>
+                                     <width>0</width>
+                                     <height>500</height>
+                                    </size>
+                                   </property>
                                    <property name="maximumSize">
                                     <size>
                                      <width>16777215</width>
-                                     <height>700</height>
+                                     <height>1000</height>
                                     </size>
                                    </property>
                                    <property name="frameShape">
@@ -5213,11 +5246,11 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </widget>
                                     </item>
                                     <item>
-                                     <widget class="QPushButton" name="btn_start_video">
-                                      <property name="minimumSize">
+                                     <widget class="QLabel" name="title_start_videoopptak">
+                                      <property name="maximumSize">
                                        <size>
-                                        <width>150</width>
-                                        <height>45</height>
+                                        <width>16777215</width>
+                                        <height>40</height>
                                        </size>
                                       </property>
                                       <property name="font">
@@ -5229,52 +5262,149 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         <bold>false</bold>
                                        </font>
                                       </property>
-                                      <property name="cursor">
-                                       <cursorShape>PointingHandCursor</cursorShape>
-                                      </property>
                                       <property name="styleSheet">
-                                       <string notr="true">QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}</string>
+                                       <string notr="true"/>
                                       </property>
                                       <property name="text">
-                                       <string> Start videoopptak</string>
-                                      </property>
-                                      <property name="icon">
-                                       <iconset resource="resources.qrc">
-                                        <normaloff>:/icons/images/icons/cil-media-play.png</normaloff>:/icons/images/icons/cil-media-play.png</iconset>
+                                       <string>Start og stopp videoopptak</string>
                                       </property>
                                      </widget>
                                     </item>
                                     <item>
-                                     <widget class="QPushButton" name="btn_stopp_video">
-                                      <property name="minimumSize">
-                                       <size>
-                                        <width>150</width>
-                                        <height>45</height>
-                                       </size>
-                                      </property>
-                                      <property name="font">
-                                       <font>
-                                        <family>Segoe UI</family>
-                                        <pointsize>10</pointsize>
-                                        <weight>50</weight>
-                                        <italic>false</italic>
-                                        <bold>false</bold>
-                                       </font>
-                                      </property>
-                                      <property name="cursor">
-                                       <cursorShape>PointingHandCursor</cursorShape>
-                                      </property>
-                                      <property name="styleSheet">
-                                       <string notr="true">QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}</string>
-                                      </property>
-                                      <property name="text">
-                                       <string> Stopp videoopptakk</string>
-                                      </property>
-                                      <property name="icon">
-                                       <iconset resource="resources.qrc">
-                                        <normaloff>:/icons/images/icons/cil-media-stop.png</normaloff>:/icons/images/icons/cil-media-stop.png</iconset>
-                                      </property>
-                                     </widget>
+                                     <layout class="QHBoxLayout" name="videoopptakContainer">
+                                      <item>
+                                       <widget class="QPushButton" name="btn_start_video_frontkamera">
+                                        <property name="minimumSize">
+                                         <size>
+                                          <width>150</width>
+                                          <height>45</height>
+                                         </size>
+                                        </property>
+                                        <property name="font">
+                                         <font>
+                                          <family>Segoe UI</family>
+                                          <pointsize>10</pointsize>
+                                          <weight>50</weight>
+                                          <italic>false</italic>
+                                          <bold>false</bold>
+                                         </font>
+                                        </property>
+                                        <property name="cursor">
+                                         <cursorShape>PointingHandCursor</cursorShape>
+                                        </property>
+                                        <property name="styleSheet">
+                                         <string notr="true">QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}</string>
+                                        </property>
+                                        <property name="text">
+                                         <string>Frontkamera</string>
+                                        </property>
+                                        <property name="icon">
+                                         <iconset resource="resources.qrc">
+                                          <normaloff>:/icons/images/icons/cil-media-play.png</normaloff>:/icons/images/icons/cil-media-play.png</iconset>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                      <item>
+                                       <widget class="QPushButton" name="btn_stopp_video_frontkamera">
+                                        <property name="minimumSize">
+                                         <size>
+                                          <width>150</width>
+                                          <height>45</height>
+                                         </size>
+                                        </property>
+                                        <property name="font">
+                                         <font>
+                                          <family>Segoe UI</family>
+                                          <pointsize>10</pointsize>
+                                          <weight>50</weight>
+                                          <italic>false</italic>
+                                          <bold>false</bold>
+                                         </font>
+                                        </property>
+                                        <property name="cursor">
+                                         <cursorShape>PointingHandCursor</cursorShape>
+                                        </property>
+                                        <property name="styleSheet">
+                                         <string notr="true">QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}</string>
+                                        </property>
+                                        <property name="text">
+                                         <string>Frontkamera</string>
+                                        </property>
+                                        <property name="icon">
+                                         <iconset resource="resources.qrc">
+                                          <normaloff>:/icons/images/icons/cil-media-stop.png</normaloff>:/icons/images/icons/cil-media-stop.png</iconset>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                     </layout>
+                                    </item>
+                                    <item>
+                                     <layout class="QHBoxLayout" name="VideoopptakContainer2">
+                                      <item>
+                                       <widget class="QPushButton" name="btn_start_video_havbunn">
+                                        <property name="minimumSize">
+                                         <size>
+                                          <width>150</width>
+                                          <height>45</height>
+                                         </size>
+                                        </property>
+                                        <property name="font">
+                                         <font>
+                                          <family>Segoe UI</family>
+                                          <pointsize>10</pointsize>
+                                          <weight>50</weight>
+                                          <italic>false</italic>
+                                          <bold>false</bold>
+                                         </font>
+                                        </property>
+                                        <property name="cursor">
+                                         <cursorShape>PointingHandCursor</cursorShape>
+                                        </property>
+                                        <property name="styleSheet">
+                                         <string notr="true">QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}</string>
+                                        </property>
+                                        <property name="text">
+                                         <string>Havbunnskamera</string>
+                                        </property>
+                                        <property name="icon">
+                                         <iconset resource="resources.qrc">
+                                          <normaloff>:/icons/images/icons/cil-media-play.png</normaloff>:/icons/images/icons/cil-media-play.png</iconset>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                      <item>
+                                       <widget class="QPushButton" name="btn_stopp_video_havbunn">
+                                        <property name="minimumSize">
+                                         <size>
+                                          <width>150</width>
+                                          <height>45</height>
+                                         </size>
+                                        </property>
+                                        <property name="font">
+                                         <font>
+                                          <family>Segoe UI</family>
+                                          <pointsize>10</pointsize>
+                                          <weight>50</weight>
+                                          <italic>false</italic>
+                                          <bold>false</bold>
+                                         </font>
+                                        </property>
+                                        <property name="cursor">
+                                         <cursorShape>PointingHandCursor</cursorShape>
+                                        </property>
+                                        <property name="styleSheet">
+                                         <string notr="true">QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}</string>
+                                        </property>
+                                        <property name="text">
+                                         <string> Havbunnskamera</string>
+                                        </property>
+                                        <property name="icon">
+                                         <iconset resource="resources.qrc">
+                                          <normaloff>:/icons/images/icons/cil-media-stop.png</normaloff>:/icons/images/icons/cil-media-stop.png</iconset>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                     </layout>
                                     </item>
                                     <item>
                                      <widget class="QLabel" name="tite_kamera">
@@ -5291,80 +5421,84 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        <string notr="true"/>
                                       </property>
                                       <property name="text">
-                                       <string>KAMERA</string>
+                                       <string>TA BILDE</string>
                                       </property>
                                      </widget>
                                     </item>
                                     <item>
-                                     <widget class="QPushButton" name="btn_ta_bilde_frontkamera">
-                                      <property name="minimumSize">
-                                       <size>
-                                        <width>150</width>
-                                        <height>45</height>
-                                       </size>
-                                      </property>
-                                      <property name="font">
-                                       <font>
-                                        <family>Segoe UI</family>
-                                        <pointsize>10</pointsize>
-                                        <weight>50</weight>
-                                        <italic>false</italic>
-                                        <bold>false</bold>
-                                       </font>
-                                      </property>
-                                      <property name="cursor">
-                                       <cursorShape>PointingHandCursor</cursorShape>
-                                      </property>
-                                      <property name="styleSheet">
-                                       <string notr="true">QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}</string>
-                                      </property>
-                                      <property name="text">
-                                       <string> Ta bilde frontkamera</string>
-                                      </property>
-                                      <property name="icon">
-                                       <iconset resource="resources.qrc">
-                                        <normaloff>:/images/images/camera.png</normaloff>:/images/images/camera.png</iconset>
-                                      </property>
-                                     </widget>
-                                    </item>
-                                    <item>
-                                     <widget class="QPushButton" name="btn_ta_bilde_havbunn">
-                                      <property name="minimumSize">
-                                       <size>
-                                        <width>150</width>
-                                        <height>45</height>
-                                       </size>
-                                      </property>
-                                      <property name="font">
-                                       <font>
-                                        <family>Segoe UI</family>
-                                        <pointsize>10</pointsize>
-                                        <weight>50</weight>
-                                        <italic>false</italic>
-                                        <bold>false</bold>
-                                       </font>
-                                      </property>
-                                      <property name="cursor">
-                                       <cursorShape>PointingHandCursor</cursorShape>
-                                      </property>
-                                      <property name="styleSheet">
-                                       <string notr="true">QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}</string>
-                                      </property>
-                                      <property name="text">
-                                       <string> Ta bilde havbunnskamera</string>
-                                      </property>
-                                      <property name="icon">
-                                       <iconset resource="resources.qrc">
-                                        <normaloff>:/images/images/camera.png</normaloff>:/images/images/camera.png</iconset>
-                                      </property>
-                                     </widget>
+                                     <layout class="QHBoxLayout" name="taBildeContainer">
+                                      <item>
+                                       <widget class="QPushButton" name="btn_ta_bilde_frontkamera">
+                                        <property name="minimumSize">
+                                         <size>
+                                          <width>150</width>
+                                          <height>45</height>
+                                         </size>
+                                        </property>
+                                        <property name="font">
+                                         <font>
+                                          <family>Segoe UI</family>
+                                          <pointsize>10</pointsize>
+                                          <weight>50</weight>
+                                          <italic>false</italic>
+                                          <bold>false</bold>
+                                         </font>
+                                        </property>
+                                        <property name="cursor">
+                                         <cursorShape>PointingHandCursor</cursorShape>
+                                        </property>
+                                        <property name="styleSheet">
+                                         <string notr="true">QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}</string>
+                                        </property>
+                                        <property name="text">
+                                         <string> Frontkamera</string>
+                                        </property>
+                                        <property name="icon">
+                                         <iconset resource="resources.qrc">
+                                          <normaloff>:/images/images/camera.png</normaloff>:/images/images/camera.png</iconset>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                      <item>
+                                       <widget class="QPushButton" name="btn_ta_bilde_havbunn">
+                                        <property name="minimumSize">
+                                         <size>
+                                          <width>150</width>
+                                          <height>45</height>
+                                         </size>
+                                        </property>
+                                        <property name="font">
+                                         <font>
+                                          <family>Segoe UI</family>
+                                          <pointsize>10</pointsize>
+                                          <weight>50</weight>
+                                          <italic>false</italic>
+                                          <bold>false</bold>
+                                         </font>
+                                        </property>
+                                        <property name="cursor">
+                                         <cursorShape>PointingHandCursor</cursorShape>
+                                        </property>
+                                        <property name="styleSheet">
+                                         <string notr="true">QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}</string>
+                                        </property>
+                                        <property name="text">
+                                         <string>Havbunnskamera</string>
+                                        </property>
+                                        <property name="icon">
+                                         <iconset resource="resources.qrc">
+                                          <normaloff>:/images/images/camera.png</normaloff>:/images/images/camera.png</iconset>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                     </layout>
                                     </item>
                                     <item>
                                      <widget class="QPushButton" name="btn_slett_bilde">
                                       <property name="minimumSize">
                                        <size>
                                         <width>150</width>
-                                        <height>45</height>
+                                        <height>40</height>
                                        </size>
                                       </property>
                                       <property name="font">
@@ -5380,7 +5514,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        <cursorShape>PointingHandCursor</cursorShape>
                                       </property>
                                       <property name="styleSheet">
-                                       <string notr="true">QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}</string>
+                                       <string notr="true">QPushButton { border-color: rgb(80, 36, 37); background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.495, y2:1, stop:0.00492611 rgba(211, 94, 94, 255), stop:1 rgba(96, 14, 14, 255))} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.495, y2:1, stop:0.00492611 rgba(255, 113, 113, 255), stop:0.995074 rgba(120, 18, 18, 255))}</string>
                                       </property>
                                       <property name="text">
                                        <string> Slett det siste bildet</string>
@@ -5412,13 +5546,13 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       <property name="minimumSize">
                                        <size>
                                         <width>0</width>
-                                        <height>250</height>
+                                        <height>200</height>
                                        </size>
                                       </property>
                                       <property name="maximumSize">
                                        <size>
                                         <width>360</width>
-                                        <height>250</height>
+                                        <height>200</height>
                                        </size>
                                       </property>
                                       <property name="styleSheet">
@@ -5428,7 +5562,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        <string/>
                                       </property>
                                       <property name="pixmap">
-                                       <pixmap resource="resources.qrc">:/images/images/show_image.png</pixmap>
+                                       <pixmap resource="resources.qrc">:/images/images/underwater.png</pixmap>
                                       </property>
                                       <property name="scaledContents">
                                        <bool>true</bool>
@@ -6869,7 +7003,6 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
  </widget>
  <resources>
   <include location="resources.qrc"/>
-  <include location="../../.designer/backup/resources.qrc"/>
  </resources>
  <connections/>
 </ui>
