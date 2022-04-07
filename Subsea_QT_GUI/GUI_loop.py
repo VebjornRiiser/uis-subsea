@@ -1,3 +1,4 @@
+import math
 from ast import arguments
 import multiprocessing
 from typing import Type
@@ -6,7 +7,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets, Qt
 from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QCheckBox, QLabel, QFileDialog, QApplication, QWidget, QVBoxLayout, QSizeGrip, QFrame, QMessageBox, QStyleFactory, QSizeGrip, QGraphicsDropShadowEffect, QPushButton, QComboBox, QDesktopWidget
 # Må kommentere ut QtWebEngineWidgets for at 3D-modellen (STL) vises ... 
 # TODO: finne ut hvorfor
-#from PyQt5.QtWebEngineWidgets import * 
+from PyQt5.QtWebEngineWidgets import * 
 from PyQt5.Qt import *
 from PyQt5.QtGui import QColor, QIcon, QCursor, QFont
 from PyQt5.QtCore import Qt, QtMsgType, QTimer, QEvent
@@ -92,8 +93,9 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.pipe_conn_only_rcv = pipe_conn_only_rcv
         self.t_watch = t_watch
         self.id = id
-
-
+        self.rov_3d_coordinates = [0, 0, 0]
+        self.rotation_counter = 0
+        self.last_rotation = [0, 0]
         # Remove frame around window
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         
@@ -200,10 +202,12 @@ void main() {
         self.viewer.addItem(self.meshitem)
 
         self.meshitem.rotate(0, 0, 0, 0)
- 
+        # self.meshitem.translate(0, 100, 100)
         self.layout = self.QVBoxLayout
         self.layout.addWidget(self.viewer, 1)
         self.viewer.setCameraPosition(distance=200)
+        print(self.viewer.cameraPosition())
+        # self.viewer.setCameraPosition(rotation=90)
 
         g = gl.GLGridItem()
         g.setSize(1000, 1000)
@@ -258,8 +262,8 @@ void main() {
         self.toggle_mani.stateChanged.connect(lambda:self.check_btn_state(self.toggle_mani))
         self.toggle_dybde.stateChanged.connect(lambda:self.check_btn_state(self.toggle_dybde))
         self.toggle_helning.stateChanged.connect(lambda:self.check_btn_state(self.toggle_helning))
-        self.toggle_frontlys.stateChanged.connect(lambda:self.check_btn_state(self.toggle_frontlys))
-        self.toggle_havbunnslys.stateChanged.connect(lambda:self.check_btn_state(self.toggle_havbunnslys))
+        self.toggle_frontlys.stateChanged.connect(self.send_current_ligth_intensity)
+        self.toggle_havbunnslys.stateChanged.connect(self.send_current_ligth_intensity)
 
 
         self.toggle_layout.addWidget(self.toggle_mani, alignment=QtCore.Qt.AlignRight)
@@ -386,6 +390,7 @@ void main() {
         self.toggle_frontlys.setChecked(True)
         self.toggle_havbunnslys.setChecked(True)
         self.send_current_ligth_intensity()
+        self.maximize_restore()
 
         # ///////////////////////////////////////////////////////////////
 
@@ -614,8 +619,9 @@ void main() {
         self.communicate.data_signal.connect(self.decide_gui_update)
         while self.t_watch.should_run(self.id):
             # print("waiting for sensordata")
-            data_is_ready = conn.poll()
 
+            data_is_ready = conn.poll()
+            # print(self.viewer.cameraPosition())
             if data_is_ready:
                 sensordata: dict = conn.recv()
                 self.communicate.data_signal.emit(sensordata)
@@ -634,18 +640,40 @@ void main() {
         "accel": self.gui_acceleration_update,
         "gyro": self.gui_gyro_update,
         "time": self.gui_time_update,
-        "manipulator": self.gui_manipulator_update}
+        "manipulator": self.gui_manipulator_update,
+        "power_consumption": self.gui_watt_update}
         for key in sensordata.keys():
             if key in self.sensor_update_function:
                 self.sensor_update_function[key](sensordata[key])
 
+    def gui_watt_update(self, sensordata):
+        effekt_liste: list[QLabel] = [self.label_effekt_thrustere_2, self.label_effekt_manipulator_2, self.label_effekt_elektronikk_2]
+        color_list = ["rgb(30, 33, 38);"]*3
+        if sensordata[0] > 1000:
+            color_list[0] = "#ff0000"
+        if sensordata[1] > 200:
+            color_list[1] = "#ff0000"
+        if sensordata[2] > 40:
+            color_list[2] = "#ff0000"
+
+        for index, label in enumerate(effekt_liste):
+            label.setText(str(round(sensordata[index])) + " W")
+            label.setStyleSheet(f"background-color: {color_list[index]}; border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
+
+
+        # self.label_effekt_manipulator_2.setText(str(round(sensordata[1])) + " W")
+        # self.label_effekt_elektronikk_2.setText(str(round(sensordata[2])) +" W")
+        
+
+
     def gui_time_update(self, sensordata):
-        self.label_tid.setText(str(round(sensordata[0])))
+        self.label_tid.setText(str(round(sensordata[0]))+"s")
 
     def gui_manipulator_update(self, sensordata):
-        self.update_round_percent_visualizer(sensordata[0], self.label_percentage_mani_1, self.frame_mani_1)
-        self.update_round_percent_visualizer(sensordata[1], self.label_percentage_mani_2, self.frame_mani_2)
-        self.update_round_percent_visualizer(sensordata[2], self.label_percentage_mani_3, self.frame_mani_3)
+        if sensordata[3]:
+            self.update_round_percent_visualizer(sensordata[0], self.label_percentage_mani_1, self.frame_mani_1)
+            self.update_round_percent_visualizer(sensordata[1], self.label_percentage_mani_2, self.frame_mani_2)
+            self.update_round_percent_visualizer(sensordata[2], self.label_percentage_mani_3, self.frame_mani_3)
 
     def gui_thrust_update(self, sensordata):
         # print(f"ran gui_thrust_update {sensordata = }")
@@ -661,9 +689,9 @@ void main() {
     def gui_lekk_temp_update(self, sensordata):
         # self.check_data_types(sensordata["lekk_temp"], (int, float, float, float))
         # print(f"ran gui_lekk_temp_update {sensordata = }")
-        lekkasje_sensor_1 = sensordata[0]
-        lekkasje_sensor_2 = sensordata[1]
-        lekkasje_sensor_3 = sensordata[2]
+        lekkasje_sensor_1:bool = sensordata[0]
+        lekkasje_sensor_2:bool = sensordata[1]
+        lekkasje_sensor_3:bool = sensordata[2]
         if not isinstance(lekkasje_sensor_1, bool):
             raise TypeError(f"Lekkasje sensor 1 has wrong type. {type(lekkasje_sensor_1) = }, {lekkasje_sensor_1} ")
         temp1 = round(sensordata[3])
@@ -674,9 +702,10 @@ void main() {
         self.labe_temp_ROV_2.setText(str(temp2))
         self.label_temp_ROV_3.setText(str(temp3))
         self.label_gjsnitt_temp_ROV.setText(str(average_temp))
-
-
-
+        lekkasje_nr = 2
+        if lekkasje_sensor_1:
+            command_string = r"""ffplay -ss 26.35 -t 2 -i .\uis_subsea_promo.mp4 -vf "drawtext=:text='Når du skal forklare hvorfor lekkasjesensor """ + str(lekkasje_nr) + ''' sier at det lekker':fontcolor=white:fontsize=36:box=1:boxcolor=black@1.0:boxborderw=5:x=(w-text_w)/2:y=h-th-10"'''
+            os.system(command_string)
         # self.update_round_percent_visualizer(sensordata[0], self.label_percentage_HHB, self.frame_HHB)
 
 
@@ -705,10 +734,23 @@ void main() {
         
         print(f"ran gui_acceleration_update {sensordata = }")
 
-
     def gui_gyro_update(self, sensordata):
-        print(f"ran gui_gyro_update {sensordata = }")
-        
+        # print(f"{self.rov_3d_coordinates = } : {sensordata = }")
+        self.meshitem.rotate(self.rov_3d_coordinates[1], 0, 1, 0, local=True)
+        self.meshitem.rotate(self.rov_3d_coordinates[0], 1, 0, 0, local=True)
+
+        self.meshitem.rotate(-sensordata[0], 1, 0, 0, local=True)
+        self.meshitem.rotate(-sensordata[1], 0, 1, 0, local=True)
+
+        height_diff = sensordata[2]-self.rov_3d_coordinates[2]
+
+        self.meshitem.translate(0,0, height_diff)
+
+        self.rov_3d_coordinates = sensordata 
+
+
+
+
 
     def check_data_types(self, values: tuple, data_types: tuple):
         """Takes in n arguments and n data types and checks that they are equal"""
@@ -834,19 +876,6 @@ void main() {
         widget.setStyleSheet(newStylesheet)
 
     def connect_test_values(self):
-        #self.slider.valueChanged.connect(lambda: self.setValue_test(self.slider, self.VHF_percentage, self.VHF, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_HVF, self.frame_HVF, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_HHF, self.frame_HHF, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_VVF, self.frame_VVF, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_VVB, self.frame_VVB, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_HVB, self.frame_HVB, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_VHB, self.frame_VHB, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_HHB, self.frame_HHB, "rgba(85, 170, 255, 255)"))
-
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_mani_1, self.frame_mani_1, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_mani_2, self.frame_mani_2, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_mani_3, self.frame_mani_3, "rgba(85, 170, 255, 255)"))
-
         self.slider_lys_forward.valueChanged.connect(lambda: self.setTestValue(self.slider_lys_forward, self.label_percentage_lys_forward, self.frame_lys_forward, "rgba(85, 170, 255, 255)"))
         self.slider_lys_down.valueChanged.connect(lambda: self.setTestValue(self.slider_lys_down, self.label_percentage_lys_down, self.frame_lys_down, "rgba(85, 170, 255, 255)"))
 

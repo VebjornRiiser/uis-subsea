@@ -28,7 +28,7 @@ class Logger:
         self.error_logger.addHandler(error_filehandler)
         self.error_logger.setLevel(logging.WARNING)
 
-        self.sensor_logger.info("logger should save this")
+        # self.sensor_logger.info("Start of run")
 
         
 if __name__ == "__main__":
