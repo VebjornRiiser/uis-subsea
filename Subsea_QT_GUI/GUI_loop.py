@@ -205,13 +205,15 @@ void main() {
         # self.meshitem.translate(0, 100, 100)
         self.layout = self.QVBoxLayout
         self.layout.addWidget(self.viewer, 1)
-        self.viewer.setCameraPosition(distance=200)
-        print(self.viewer.cameraPosition())
+        self.viewer.setCameraPosition(distance=350)
+        self.meshitem.translate(0,0, 60)
         # self.viewer.setCameraPosition(rotation=90)
 
         g = gl.GLGridItem()
         g.setSize(1000, 1000)
         g.setSpacing(100, 100)
+        color = QColor("#ffffff")
+        g.setColor(color)
         self.viewer.addItem(g)
 
         self.rotation = [0, 0, 0]
@@ -364,7 +366,7 @@ void main() {
         if self.camera_windows_opened:
             self.start_camera_windows()
 
-        self.recieve = threading.Thread(target=self.recieve_and_set_text, daemon=True, args=(self.pipe_conn_only_rcv,))
+        self.recieve = threading.Thread(target=self.recieve_sensordata, daemon=True, args=(self.pipe_conn_only_rcv,))
         self.recieve.start()
         
         # print(f"type of self.widget: {type(self.widget)}")
@@ -614,7 +616,7 @@ void main() {
 
 
 
-    def recieve_and_set_text(self, conn):
+    def recieve_sensordata(self, conn):
         self.communicate = Communicate()
         self.communicate.data_signal.connect(self.decide_gui_update)
         while self.t_watch.should_run(self.id):
@@ -735,20 +737,26 @@ void main() {
         print(f"ran gui_acceleration_update {sensordata = }")
 
     def gui_gyro_update(self, sensordata):
-        # print(f"{self.rov_3d_coordinates = } : {sensordata = }")
+        # Removes the previous rotation. We do not have yaw rotation
+        # so it is not necesarry to reset or rotate it
+        print(f"{sensordata = }")
         self.meshitem.rotate(self.rov_3d_coordinates[1], 0, 1, 0, local=True)
         self.meshitem.rotate(self.rov_3d_coordinates[0], 1, 0, 0, local=True)
 
         self.meshitem.rotate(-sensordata[0], 1, 0, 0, local=True)
         self.meshitem.rotate(-sensordata[1], 0, 1, 0, local=True)
 
+        # height translation
         height_diff = sensordata[2]-self.rov_3d_coordinates[2]
-
         self.meshitem.translate(0,0, height_diff)
 
-        self.rov_3d_coordinates = sensordata 
+        self.rov_3d_coordinates = sensordata
 
+        self.label_dybde.setText(str(round(self.rov_3d_coordinates[2]))+ " cm")
 
+    def set_start_point_depth_sensor(self):
+        self.send_command_to_rov([129, ])
+        self.meshitem.translate()
 
 
 
@@ -770,7 +778,7 @@ void main() {
         if self.toggle_havbunnslys.checkState() != 0:
             havbunnslys_on = True
 
-        self.send_data_to_main(["update_light_value", self.slider_lys_forward.value(), frontlys_on, self.slider_lys_down.value(), havbunnslys_on], COMMAND_TO_ROV_ID)
+        self.send_command_to_rov(["update_light_value", self.slider_lys_forward.value(), frontlys_on, self.slider_lys_down.value(), havbunnslys_on])
         # print(f"sent command to rov. {frontlys_on = }, {havbunnslys_on = }")
 
     def button_test(self):
