@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1458</width>
-    <height>864</height>
+    <width>1512</width>
+    <height>964</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -1696,7 +1696,7 @@ p, li { white-space: pre-wrap; }
                     <widget class="QStackedWidget" name="stackedWidget">
                      <property name="maximumSize">
                       <size>
-                       <width>1200</width>
+                       <width>16777215</width>
                        <height>16777215</height>
                       </size>
                      </property>
@@ -1793,8 +1793,8 @@ p, li { white-space: pre-wrap; }
                               <rect>
                                <x>0</x>
                                <y>0</y>
-                               <width>1200</width>
-                               <height>801</height>
+                               <width>1414</width>
+                               <height>873</height>
                               </rect>
                              </property>
                              <layout class="QHBoxLayout" name="horizontalLayout_10">
@@ -1829,8 +1829,8 @@ p, li { white-space: pre-wrap; }
                                 </property>
                                 <property name="maximumSize">
                                  <size>
-                                  <width>440</width>
-                                  <height>900</height>
+                                  <width>16777215</width>
+                                  <height>16777215</height>
                                  </size>
                                 </property>
                                 <property name="frameShape">
@@ -1865,8 +1865,8 @@ p, li { white-space: pre-wrap; }
                                    </property>
                                    <property name="maximumSize">
                                     <size>
-                                     <width>400</width>
-                                     <height>200</height>
+                                     <width>0</width>
+                                     <height>16777215</height>
                                     </size>
                                    </property>
                                    <property name="styleSheet">
@@ -1932,13 +1932,6 @@ p, li { white-space: pre-wrap; }
                                       </property>
                                       <property name="alignment">
                                        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                                      </property>
-                                     </widget>
-                                    </item>
-                                    <item>
-                                     <widget class="QRadioButton" name="radioButton">
-                                      <property name="text">
-                                       <string>RadioButton</string>
                                       </property>
                                      </widget>
                                     </item>
@@ -2012,6 +2005,34 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <property name="autoRepeat">
                                        <bool>false</bool>
+                                      </property>
+                                     </widget>
+                                    </item>
+                                    <item>
+                                     <widget class="QPushButton" name="btn_fotomoasaikk">
+                                      <property name="minimumSize">
+                                       <size>
+                                        <width>150</width>
+                                        <height>45</height>
+                                       </size>
+                                      </property>
+                                      <property name="font">
+                                       <font>
+                                        <family>Segoe UI</family>
+                                        <pointsize>10</pointsize>
+                                        <weight>50</weight>
+                                        <italic>false</italic>
+                                        <bold>false</bold>
+                                       </font>
+                                      </property>
+                                      <property name="cursor">
+                                       <cursorShape>PointingHandCursor</cursorShape>
+                                      </property>
+                                      <property name="styleSheet">
+                                       <string notr="true">QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}</string>
+                                      </property>
+                                      <property name="text">
+                                       <string>Autonom parkering</string>
                                       </property>
                                      </widget>
                                     </item>
@@ -3471,7 +3492,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                 </property>
                                 <property name="maximumSize">
                                  <size>
-                                  <width>350</width>
+                                  <width>16777215</width>
                                   <height>16777215</height>
                                  </size>
                                 </property>
@@ -4258,8 +4279,8 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="maximumSize">
                                         <size>
-                                         <width>320</width>
-                                         <height>150</height>
+                                         <width>16777215</width>
+                                         <height>16777215</height>
                                         </size>
                                        </property>
                                        <property name="sizeIncrement">
@@ -4558,7 +4579,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       <property name="maximumSize">
                                        <size>
                                         <width>16777215</width>
-                                        <height>15</height>
+                                        <height>16777215</height>
                                        </size>
                                       </property>
                                       <property name="font">
@@ -4678,7 +4699,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          <property name="maximumSize">
                                           <size>
                                            <width>150</width>
-                                           <height>68</height>
+                                           <height>16777215</height>
                                           </size>
                                          </property>
                                          <property name="font">
@@ -4951,8 +4972,8 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                 </property>
                                 <property name="maximumSize">
                                  <size>
-                                  <width>300</width>
-                                  <height>1000</height>
+                                  <width>16777215</width>
+                                  <height>16777215</height>
                                  </size>
                                 </property>
                                 <property name="frameShape">
@@ -5159,34 +5180,6 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          </property>
                                         </widget>
                                        </item>
-                                       <item row="3" column="0">
-                                        <widget class="QPushButton" name="btn_fotomoasaikk">
-                                         <property name="minimumSize">
-                                          <size>
-                                           <width>150</width>
-                                           <height>45</height>
-                                          </size>
-                                         </property>
-                                         <property name="font">
-                                          <font>
-                                           <family>Segoe UI</family>
-                                           <pointsize>10</pointsize>
-                                           <weight>50</weight>
-                                           <italic>false</italic>
-                                           <bold>false</bold>
-                                          </font>
-                                         </property>
-                                         <property name="cursor">
-                                          <cursorShape>PointingHandCursor</cursorShape>
-                                         </property>
-                                         <property name="styleSheet">
-                                          <string notr="true">QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}</string>
-                                         </property>
-                                         <property name="text">
-                                          <string>Autonom parkering</string>
-                                         </property>
-                                        </widget>
-                                       </item>
                                       </layout>
                                      </widget>
                                     </item>
@@ -5241,7 +5234,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        <string notr="true"/>
                                       </property>
                                       <property name="text">
-                                       <string>VIDEO</string>
+                                       <string>KAMERA</string>
                                       </property>
                                      </widget>
                                     </item>
@@ -5250,7 +5243,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       <property name="maximumSize">
                                        <size>
                                         <width>16777215</width>
-                                        <height>40</height>
+                                        <height>16777215</height>
                                        </size>
                                       </property>
                                       <property name="font">
@@ -5421,7 +5414,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        <string notr="true"/>
                                       </property>
                                       <property name="text">
-                                       <string>TA BILDE</string>
+                                       <string>Ta bilde</string>
                                       </property>
                                      </widget>
                                     </item>
