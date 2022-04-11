@@ -118,6 +118,7 @@ class Rov_state:
 
         self.light_intensity_down = 100
         self.ligth_down_is_on = True
+
         self.send_startup_commands()
 
     def send_startup_commands(self):
@@ -140,12 +141,20 @@ class Rov_state:
         self.data["buttons"][BUTTON_RELEASE] = 1
 
 
-    def toggle_manipulator_enabled(self, button_index):
-        # print("")
+    def toggle_manipulator_enabled(self, button_index = None, state = None):
+        
+        if state is not None and button_index is None:
+            print(f"{state=}, {button_index=}")
+            self.manipulator_active = state
+            print(f"{self.manipulator_active = }")
+            return
+
         if self.manipulator_toggle_wait_counter == 0:    
             self.manipulator_active = not self.manipulator_active
             print(f"{self.manipulator_active = }")
             self.manipulator_toggle_wait_counter = 7
+
+        self.send_sensordata_to_gui({"manipulator_toggled": [self.manipulator_active]})
     
 
     def toggle_camera_on_or_off(self, id=None):
@@ -231,9 +240,13 @@ class Rov_state:
             self.button_to_function_map = packet
         elif id == GUI_loop.COMMAND_TO_ROV_ID:
             commands = {"update_light_value": self.update_light_value,"reset_depth": self.set_depth_zeroing,
-            "update_bildebehandling": self.update_bildebehandlingsmodus, "take_pic": self.take_pic}
-            if packet[0] == "update_bildebehandling" or packet[0] == "take_pic":
-                # print(f"{packet}")
+            "update_bildebehandling": self.update_bildebehandlingsmodus, "take_pic": self.take_pic,
+            "manipulator_toggle": self.toggle_manipulator_enabled}
+
+            unpacking_list = ["update_bildebehandling", "take_pic", "manipulator_toggle"]
+
+            if packet[0] in unpacking_list:
+                print(f"{packet}")
                 commands[packet[0]](*packet[1:]) #unpacking
                 return
 
@@ -268,8 +281,8 @@ class Rov_state:
         """Sends the created network packets and clears it"""
         # print(self.packets_to_send)
         for packet in self.packets_to_send:
-            if packet[0] != 70:
-                print(packet)
+            # if packet[0] != 70:
+            print(packet)
         self.logger.sensor_logger.info(self.packets_to_send)
         if self.network_handler is None:
             self.packets_to_send = []

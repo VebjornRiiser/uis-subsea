@@ -253,6 +253,7 @@ void main() {
         self.toggle_havbunnslys.setText("Havbunnslys")
 
         self.toggle_mani.stateChanged.connect(self.toggle_manipulator_enable)
+        self.toggle_mani.setChecked(True)
 
         self.toggle_dybde.stateChanged.connect(lambda:self.check_btn_state(self.toggle_dybde))
         self.toggle_helning.stateChanged.connect(lambda:self.check_btn_state(self.toggle_helning))
@@ -396,8 +397,10 @@ void main() {
 
         # ///////////////////////////////////////////////////////////////
     def toggle_manipulator_enable(self):
-        if self.toggle_mani.checkState != 0:
-            print("manipulator on")
+        if self.toggle_mani.checkState() != 0:
+            self.send_command_to_rov(["manipulator_toggle", None, True])
+        else:
+            self.send_command_to_rov(["manipulator_toggle", None, False])
             
 
     def set_bildebehandlingsmodus(self, modus_kamera_1: int, modus_kamera_2: int):
@@ -656,10 +659,14 @@ void main() {
         "gyro": self.gui_gyro_update,
         "time": self.gui_time_update,
         "manipulator": self.gui_manipulator_update,
-        "power_consumption": self.gui_watt_update}
+        "power_consumption": self.gui_watt_update,
+        "manipulator_toggled": self.gui_manipulator_state_update}
         for key in sensordata.keys():
             if key in self.sensor_update_function:
                 self.sensor_update_function[key](sensordata[key])
+
+    def gui_manipulator_state_update(self, sensordata):
+        self.toggle_mani.setChecked(sensordata[0])
 
     def gui_watt_update(self, sensordata):
         effekt_liste: list[QLabel] = [self.label_effekt_thrustere_2, self.label_effekt_manipulator_2, self.label_effekt_elektronikk_2]
