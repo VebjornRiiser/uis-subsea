@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1277</width>
-    <height>907</height>
+    <width>1233</width>
+    <height>855</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -1793,7 +1793,7 @@ p, li { white-space: pre-wrap; }
                                <x>0</x>
                                <y>0</y>
                                <width>1164</width>
-                               <height>816</height>
+                               <height>800</height>
                               </rect>
                              </property>
                              <layout class="QHBoxLayout" name="horizontalLayout_10">
@@ -1871,20 +1871,49 @@ p, li { white-space: pre-wrap; }
                                    <property name="frameShadow">
                                     <enum>QFrame::Raised</enum>
                                    </property>
-                                   <layout class="QGridLayout" name="gridLayout_6">
-                                    <property name="leftMargin">
-                                     <number>0</number>
-                                    </property>
-                                    <property name="topMargin">
-                                     <number>0</number>
-                                    </property>
-                                    <property name="rightMargin">
-                                     <number>0</number>
-                                    </property>
-                                    <property name="bottomMargin">
-                                     <number>0</number>
-                                    </property>
-                                    <item row="2" column="0">
+                                   <layout class="QVBoxLayout" name="verticalLayout_15">
+                                    <item>
+                                     <widget class="QLabel" name="title_kjoring">
+                                      <property name="minimumSize">
+                                       <size>
+                                        <width>0</width>
+                                        <height>20</height>
+                                       </size>
+                                      </property>
+                                      <property name="font">
+                                       <font>
+                                        <family>Segoe UI</family>
+                                        <pointsize>10</pointsize>
+                                        <weight>50</weight>
+                                        <italic>false</italic>
+                                        <bold>false</bold>
+                                       </font>
+                                      </property>
+                                      <property name="styleSheet">
+                                       <string notr="true"/>
+                                      </property>
+                                      <property name="text">
+                                       <string>KJØREMODUS</string>
+                                      </property>
+                                     </widget>
+                                    </item>
+                                    <item>
+                                     <widget class="QLabel" name="label_kjoring">
+                                      <property name="styleSheet">
+                                       <string notr="true">color: rgb(113, 126, 149);</string>
+                                      </property>
+                                      <property name="lineWidth">
+                                       <number>1</number>
+                                      </property>
+                                      <property name="text">
+                                       <string>Velg kjøremodus</string>
+                                      </property>
+                                      <property name="alignment">
+                                       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                                      </property>
+                                     </widget>
+                                    </item>
+                                    <item>
                                      <widget class="QPushButton" name="btn_manuell">
                                       <property name="minimumSize">
                                        <size>
@@ -1929,116 +1958,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                      </widget>
                                     </item>
-                                    <item row="5" column="0">
-                                     <widget class="QPushButton" name="btn_bildemoasaikk">
-                                      <property name="minimumSize">
-                                       <size>
-                                        <width>150</width>
-                                        <height>45</height>
-                                       </size>
-                                      </property>
-                                      <property name="font">
-                                       <font>
-                                        <family>Segoe UI</family>
-                                        <pointsize>10</pointsize>
-                                        <weight>50</weight>
-                                        <italic>false</italic>
-                                        <bold>false</bold>
-                                       </font>
-                                      </property>
-                                      <property name="cursor">
-                                       <cursorShape>PointingHandCursor</cursorShape>
-                                      </property>
-                                      <property name="styleSheet">
-                                       <string notr="true">QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}</string>
-                                      </property>
-                                      <property name="text">
-                                       <string>Bildemoasaikk</string>
-                                      </property>
-                                     </widget>
-                                    </item>
-                                    <item row="6" column="0">
-                                     <widget class="QPushButton" name="btn_autonom_parkering">
-                                      <property name="minimumSize">
-                                       <size>
-                                        <width>150</width>
-                                        <height>45</height>
-                                       </size>
-                                      </property>
-                                      <property name="font">
-                                       <font>
-                                        <family>Segoe UI</family>
-                                        <pointsize>10</pointsize>
-                                        <weight>50</weight>
-                                        <italic>false</italic>
-                                        <bold>false</bold>
-                                       </font>
-                                      </property>
-                                      <property name="cursor">
-                                       <cursorShape>PointingHandCursor</cursorShape>
-                                      </property>
-                                      <property name="styleSheet">
-                                       <string notr="true">QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}</string>
-                                      </property>
-                                      <property name="text">
-                                       <string>Autonom parkering</string>
-                                      </property>
-                                     </widget>
-                                    </item>
-                                    <item row="0" column="0">
-                                     <widget class="QLabel" name="title_kjoring">
-                                      <property name="minimumSize">
-                                       <size>
-                                        <width>0</width>
-                                        <height>20</height>
-                                       </size>
-                                      </property>
-                                      <property name="font">
-                                       <font>
-                                        <family>Segoe UI</family>
-                                        <pointsize>10</pointsize>
-                                        <weight>50</weight>
-                                        <italic>false</italic>
-                                        <bold>false</bold>
-                                       </font>
-                                      </property>
-                                      <property name="styleSheet">
-                                       <string notr="true"/>
-                                      </property>
-                                      <property name="text">
-                                       <string>KJØREMODUS</string>
-                                      </property>
-                                     </widget>
-                                    </item>
-                                    <item row="4" column="0">
-                                     <widget class="QPushButton" name="btn_autonom_merd">
-                                      <property name="minimumSize">
-                                       <size>
-                                        <width>150</width>
-                                        <height>45</height>
-                                       </size>
-                                      </property>
-                                      <property name="font">
-                                       <font>
-                                        <family>Segoe UI</family>
-                                        <pointsize>10</pointsize>
-                                        <weight>50</weight>
-                                        <italic>false</italic>
-                                        <bold>false</bold>
-                                       </font>
-                                      </property>
-                                      <property name="cursor">
-                                       <cursorShape>PointingHandCursor</cursorShape>
-                                      </property>
-                                      <property name="styleSheet">
-                                       <string notr="true">QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}</string>
-                                      </property>
-                                      <property name="text">
-                                       <string>Autonom merd</string>
-                                      </property>
-                                     </widget>
-                                    </item>
-                                    <item row="3" column="0">
+                                    <item>
                                      <widget class="QPushButton" name="btn_finn_fisk">
                                       <property name="minimumSize">
                                        <size>
@@ -2066,12 +1986,12 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                      </widget>
                                     </item>
-                                    <item row="7" column="0">
-                                     <widget class="QLabel" name="title_kjoring_2">
+                                    <item>
+                                     <widget class="QPushButton" name="btn_autonom_merd">
                                       <property name="minimumSize">
                                        <size>
-                                        <width>0</width>
-                                        <height>20</height>
+                                        <width>150</width>
+                                        <height>45</height>
                                        </size>
                                       </property>
                                       <property name="font">
@@ -2083,42 +2003,23 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         <bold>false</bold>
                                        </font>
                                       </property>
+                                      <property name="cursor">
+                                       <cursorShape>PointingHandCursor</cursorShape>
+                                      </property>
                                       <property name="styleSheet">
-                                       <string notr="true"/>
+                                       <string notr="true">QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}</string>
                                       </property>
                                       <property name="text">
-                                       <string>Bildebehandlingen som kjøres:</string>
+                                       <string>Autonom merd</string>
                                       </property>
                                      </widget>
                                     </item>
-                                    <item row="1" column="0">
-                                     <widget class="QLabel" name="label_kjoring">
-                                      <property name="styleSheet">
-                                       <string notr="true">color: rgb(113, 126, 149);</string>
-                                      </property>
-                                      <property name="lineWidth">
-                                       <number>1</number>
-                                      </property>
-                                      <property name="text">
-                                       <string>Velg kjøremodus</string>
-                                      </property>
-                                      <property name="alignment">
-                                       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                                      </property>
-                                     </widget>
-                                    </item>
-                                    <item row="8" column="0">
-                                     <widget class="QLabel" name="label_effekt_elektronikk_2">
+                                    <item>
+                                     <widget class="QPushButton" name="btn_bildemoasaikk">
                                       <property name="minimumSize">
                                        <size>
-                                        <width>40</width>
-                                        <height>30</height>
-                                       </size>
-                                      </property>
-                                      <property name="maximumSize">
-                                       <size>
-                                        <width>16777215</width>
-                                        <height>16777215</height>
+                                        <width>150</width>
+                                        <height>45</height>
                                        </size>
                                       </property>
                                       <property name="font">
@@ -2130,25 +2031,116 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         <bold>false</bold>
                                        </font>
                                       </property>
+                                      <property name="cursor">
+                                       <cursorShape>PointingHandCursor</cursorShape>
+                                      </property>
                                       <property name="styleSheet">
-                                       <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);</string>
-                                      </property>
-                                      <property name="frameShape">
-                                       <enum>QFrame::NoFrame</enum>
-                                      </property>
-                                      <property name="lineWidth">
-                                       <number>0</number>
-                                      </property>
-                                      <property name="midLineWidth">
-                                       <number>0</number>
+                                       <string notr="true">QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}</string>
                                       </property>
                                       <property name="text">
-                                       <string>---</string>
-                                      </property>
-                                      <property name="alignment">
-                                       <set>Qt::AlignCenter</set>
+                                       <string>Bildemoasaikk</string>
                                       </property>
                                      </widget>
+                                    </item>
+                                    <item>
+                                     <widget class="QPushButton" name="btn_autonom_parkering">
+                                      <property name="minimumSize">
+                                       <size>
+                                        <width>150</width>
+                                        <height>45</height>
+                                       </size>
+                                      </property>
+                                      <property name="font">
+                                       <font>
+                                        <family>Segoe UI</family>
+                                        <pointsize>10</pointsize>
+                                        <weight>50</weight>
+                                        <italic>false</italic>
+                                        <bold>false</bold>
+                                       </font>
+                                      </property>
+                                      <property name="cursor">
+                                       <cursorShape>PointingHandCursor</cursorShape>
+                                      </property>
+                                      <property name="styleSheet">
+                                       <string notr="true">QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}</string>
+                                      </property>
+                                      <property name="text">
+                                       <string>Autonom parkering</string>
+                                      </property>
+                                     </widget>
+                                    </item>
+                                    <item>
+                                     <layout class="QHBoxLayout" name="bildebehandlingContainer">
+                                      <item>
+                                       <widget class="QLabel" name="text_bildebehandlingsmodus">
+                                        <property name="minimumSize">
+                                         <size>
+                                          <width>0</width>
+                                          <height>20</height>
+                                         </size>
+                                        </property>
+                                        <property name="font">
+                                         <font>
+                                          <family>Segoe UI</family>
+                                          <pointsize>10</pointsize>
+                                          <weight>50</weight>
+                                          <italic>false</italic>
+                                          <bold>false</bold>
+                                         </font>
+                                        </property>
+                                        <property name="styleSheet">
+                                         <string notr="true"/>
+                                        </property>
+                                        <property name="text">
+                                         <string>Bildebehandlingen som kjøres:</string>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                      <item>
+                                       <widget class="QLabel" name="label_bildebehandlingsmodus">
+                                        <property name="minimumSize">
+                                         <size>
+                                          <width>40</width>
+                                          <height>30</height>
+                                         </size>
+                                        </property>
+                                        <property name="maximumSize">
+                                         <size>
+                                          <width>16777215</width>
+                                          <height>16777215</height>
+                                         </size>
+                                        </property>
+                                        <property name="font">
+                                         <font>
+                                          <family>Segoe UI</family>
+                                          <pointsize>10</pointsize>
+                                          <weight>50</weight>
+                                          <italic>false</italic>
+                                          <bold>false</bold>
+                                         </font>
+                                        </property>
+                                        <property name="styleSheet">
+                                         <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);</string>
+                                        </property>
+                                        <property name="frameShape">
+                                         <enum>QFrame::NoFrame</enum>
+                                        </property>
+                                        <property name="lineWidth">
+                                         <number>0</number>
+                                        </property>
+                                        <property name="midLineWidth">
+                                         <number>0</number>
+                                        </property>
+                                        <property name="text">
+                                         <string>---</string>
+                                        </property>
+                                        <property name="alignment">
+                                         <set>Qt::AlignCenter</set>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                     </layout>
                                     </item>
                                    </layout>
                                   </widget>
@@ -2494,8 +2486,143 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        <property name="bottomMargin">
                                         <number>0</number>
                                        </property>
-                                       <item row="9" column="1">
-                                        <widget class="QLabel" name="label_effekt_thrustere_2">
+                                       <item row="10" column="3">
+                                        <widget class="QPushButton" name="btn_reset_sikring_thrustere">
+                                         <property name="minimumSize">
+                                          <size>
+                                           <width>45</width>
+                                           <height>30</height>
+                                          </size>
+                                         </property>
+                                         <property name="maximumSize">
+                                          <size>
+                                           <width>16777215</width>
+                                           <height>16777215</height>
+                                          </size>
+                                         </property>
+                                         <property name="font">
+                                          <font>
+                                           <family>Segoe UI</family>
+                                           <pointsize>10</pointsize>
+                                           <weight>50</weight>
+                                           <italic>false</italic>
+                                           <bold>false</bold>
+                                          </font>
+                                         </property>
+                                         <property name="cursor">
+                                          <cursorShape>PointingHandCursor</cursorShape>
+                                         </property>
+                                         <property name="styleSheet">
+                                          <string notr="true">QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255)); } QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}
+QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }
+</string>
+                                         </property>
+                                         <property name="text">
+                                          <string>Reset</string>
+                                         </property>
+                                         <property name="checkable">
+                                          <bool>false</bool>
+                                         </property>
+                                         <property name="checked">
+                                          <bool>false</bool>
+                                         </property>
+                                         <property name="autoRepeat">
+                                          <bool>false</bool>
+                                         </property>
+                                        </widget>
+                                       </item>
+                                       <item row="2" column="2" colspan="2">
+                                        <widget class="QPushButton" name="btn_reset_nullpunkt">
+                                         <property name="minimumSize">
+                                          <size>
+                                           <width>45</width>
+                                           <height>30</height>
+                                          </size>
+                                         </property>
+                                         <property name="maximumSize">
+                                          <size>
+                                           <width>16777215</width>
+                                           <height>16777215</height>
+                                          </size>
+                                         </property>
+                                         <property name="font">
+                                          <font>
+                                           <family>Segoe UI</family>
+                                           <pointsize>10</pointsize>
+                                           <weight>50</weight>
+                                           <italic>false</italic>
+                                           <bold>false</bold>
+                                          </font>
+                                         </property>
+                                         <property name="cursor">
+                                          <cursorShape>PointingHandCursor</cursorShape>
+                                         </property>
+                                         <property name="styleSheet">
+                                          <string notr="true">QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255)); } QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}
+QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }
+</string>
+                                         </property>
+                                         <property name="text">
+                                          <string>Reset</string>
+                                         </property>
+                                         <property name="checkable">
+                                          <bool>false</bool>
+                                         </property>
+                                         <property name="checked">
+                                          <bool>false</bool>
+                                         </property>
+                                         <property name="autoRepeat">
+                                          <bool>false</bool>
+                                         </property>
+                                        </widget>
+                                       </item>
+                                       <item row="11" column="2">
+                                        <widget class="QPushButton" name="btn_regulator_manipulator">
+                                         <property name="minimumSize">
+                                          <size>
+                                           <width>45</width>
+                                           <height>30</height>
+                                          </size>
+                                         </property>
+                                         <property name="maximumSize">
+                                          <size>
+                                           <width>16777215</width>
+                                           <height>16777215</height>
+                                          </size>
+                                         </property>
+                                         <property name="font">
+                                          <font>
+                                           <family>Segoe UI</family>
+                                           <pointsize>10</pointsize>
+                                           <weight>50</weight>
+                                           <italic>false</italic>
+                                           <bold>false</bold>
+                                          </font>
+                                         </property>
+                                         <property name="cursor">
+                                          <cursorShape>PointingHandCursor</cursorShape>
+                                         </property>
+                                         <property name="styleSheet">
+                                          <string notr="true">QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255)); } QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}
+QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }
+</string>
+                                         </property>
+                                         <property name="text">
+                                          <string>Av/På</string>
+                                         </property>
+                                         <property name="checkable">
+                                          <bool>true</bool>
+                                         </property>
+                                         <property name="checked">
+                                          <bool>false</bool>
+                                         </property>
+                                         <property name="autoRepeat">
+                                          <bool>false</bool>
+                                         </property>
+                                        </widget>
+                                       </item>
+                                       <item row="10" column="1">
+                                        <widget class="QLabel" name="label_effekt_thrustere">
                                          <property name="minimumSize">
                                           <size>
                                            <width>40</width>
@@ -2537,32 +2664,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          </property>
                                         </widget>
                                        </item>
-                                       <item row="2" column="0">
-                                        <widget class="QLabel" name="text_orientering">
-                                         <property name="minimumSize">
-                                          <size>
-                                           <width>100</width>
-                                           <height>30</height>
-                                          </size>
-                                         </property>
-                                         <property name="font">
-                                          <font>
-                                           <family>Segoe UI</family>
-                                           <pointsize>10</pointsize>
-                                           <weight>50</weight>
-                                           <italic>false</italic>
-                                           <bold>false</bold>
-                                          </font>
-                                         </property>
-                                         <property name="text">
-                                          <string>Orientering:</string>
-                                         </property>
-                                         <property name="textFormat">
-                                          <enum>Qt::PlainText</enum>
-                                         </property>
-                                        </widget>
-                                       </item>
-                                       <item row="3" column="0">
+                                       <item row="4" column="0">
                                         <widget class="QLabel" name="title_effektforbruk">
                                          <property name="minimumSize">
                                           <size>
@@ -2593,7 +2695,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          </property>
                                         </widget>
                                        </item>
-                                       <item row="5" column="0">
+                                       <item row="6" column="0">
                                         <widget class="QLabel" name="text_effekt_elektronikk">
                                          <property name="minimumSize">
                                           <size>
@@ -2621,8 +2723,8 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          </property>
                                         </widget>
                                        </item>
-                                       <item row="10" column="1">
-                                        <widget class="QLabel" name="label_effekt_manipulator_2">
+                                       <item row="11" column="1">
+                                        <widget class="QLabel" name="label_effekt_manipulator">
                                          <property name="minimumSize">
                                           <size>
                                            <width>40</width>
@@ -2664,7 +2766,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          </property>
                                         </widget>
                                        </item>
-                                       <item row="10" column="0">
+                                       <item row="11" column="0">
                                         <widget class="QLabel" name="text_effekt_manipulator">
                                          <property name="minimumSize">
                                           <size>
@@ -2696,13 +2798,13 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         <widget class="QLabel" name="label_tid">
                                          <property name="minimumSize">
                                           <size>
-                                           <width>90</width>
+                                           <width>70</width>
                                            <height>30</height>
                                           </size>
                                          </property>
                                          <property name="maximumSize">
                                           <size>
-                                           <width>90</width>
+                                           <width>70</width>
                                            <height>30</height>
                                           </size>
                                          </property>
@@ -2735,60 +2837,17 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          </property>
                                         </widget>
                                        </item>
-                                       <item row="1" column="1">
+                                       <item row="2" column="1">
                                         <widget class="QLabel" name="label_dybde">
                                          <property name="minimumSize">
                                           <size>
-                                           <width>90</width>
+                                           <width>70</width>
                                            <height>30</height>
                                           </size>
                                          </property>
                                          <property name="maximumSize">
                                           <size>
-                                           <width>90</width>
-                                           <height>30</height>
-                                          </size>
-                                         </property>
-                                         <property name="font">
-                                          <font>
-                                           <family>Segoe UI</family>
-                                           <pointsize>10</pointsize>
-                                           <weight>50</weight>
-                                           <italic>false</italic>
-                                           <bold>false</bold>
-                                          </font>
-                                         </property>
-                                         <property name="styleSheet">
-                                          <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);</string>
-                                         </property>
-                                         <property name="frameShape">
-                                          <enum>QFrame::NoFrame</enum>
-                                         </property>
-                                         <property name="lineWidth">
-                                          <number>0</number>
-                                         </property>
-                                         <property name="midLineWidth">
-                                          <number>0</number>
-                                         </property>
-                                         <property name="text">
-                                          <string>-----</string>
-                                         </property>
-                                         <property name="alignment">
-                                          <set>Qt::AlignCenter</set>
-                                         </property>
-                                        </widget>
-                                       </item>
-                                       <item row="2" column="1">
-                                        <widget class="QLabel" name="label_orientering">
-                                         <property name="minimumSize">
-                                          <size>
-                                           <width>90</width>
-                                           <height>30</height>
-                                          </size>
-                                         </property>
-                                         <property name="maximumSize">
-                                          <size>
-                                           <width>90</width>
+                                           <width>70</width>
                                            <height>30</height>
                                           </size>
                                          </property>
@@ -2846,7 +2905,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          </property>
                                         </widget>
                                        </item>
-                                       <item row="9" column="0">
+                                       <item row="10" column="0">
                                         <widget class="QLabel" name="text_effekt_thrustere">
                                          <property name="minimumSize">
                                           <size>
@@ -2874,7 +2933,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          </property>
                                         </widget>
                                        </item>
-                                       <item row="1" column="0">
+                                       <item row="2" column="0">
                                         <widget class="QLabel" name="text_dybde">
                                          <property name="minimumSize">
                                           <size>
@@ -2899,7 +2958,52 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          </property>
                                         </widget>
                                        </item>
-                                       <item row="5" column="2">
+                                       <item row="11" column="3">
+                                        <widget class="QPushButton" name="btn_reset_sikring_manipulator">
+                                         <property name="minimumSize">
+                                          <size>
+                                           <width>45</width>
+                                           <height>30</height>
+                                          </size>
+                                         </property>
+                                         <property name="maximumSize">
+                                          <size>
+                                           <width>16777215</width>
+                                           <height>16777215</height>
+                                          </size>
+                                         </property>
+                                         <property name="font">
+                                          <font>
+                                           <family>Segoe UI</family>
+                                           <pointsize>10</pointsize>
+                                           <weight>50</weight>
+                                           <italic>false</italic>
+                                           <bold>false</bold>
+                                          </font>
+                                         </property>
+                                         <property name="cursor">
+                                          <cursorShape>PointingHandCursor</cursorShape>
+                                         </property>
+                                         <property name="styleSheet">
+                                          <string notr="true">QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255)); } QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}
+QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }
+</string>
+                                         </property>
+                                         <property name="text">
+                                          <string>Reset</string>
+                                         </property>
+                                         <property name="checkable">
+                                          <bool>false</bool>
+                                         </property>
+                                         <property name="checked">
+                                          <bool>false</bool>
+                                         </property>
+                                         <property name="autoRepeat">
+                                          <bool>false</bool>
+                                         </property>
+                                        </widget>
+                                       </item>
+                                       <item row="6" column="2">
                                         <widget class="QPushButton" name="btn_regulator_elektronikk">
                                          <property name="minimumSize">
                                           <size>
@@ -2944,7 +3048,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          </property>
                                         </widget>
                                        </item>
-                                       <item row="9" column="2">
+                                       <item row="10" column="2">
                                         <widget class="QPushButton" name="btn_regulator_thrustere">
                                          <property name="minimumSize">
                                           <size>
@@ -2989,143 +3093,119 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          </property>
                                         </widget>
                                        </item>
-                                       <item row="5" column="3">
+                                       <item row="6" column="1">
+                                        <widget class="QLabel" name="label_effekt_elektronikk">
+                                         <property name="minimumSize">
+                                          <size>
+                                           <width>40</width>
+                                           <height>30</height>
+                                          </size>
+                                         </property>
+                                         <property name="maximumSize">
+                                          <size>
+                                           <width>16777215</width>
+                                           <height>16777215</height>
+                                          </size>
+                                         </property>
+                                         <property name="font">
+                                          <font>
+                                           <family>Segoe UI</family>
+                                           <pointsize>10</pointsize>
+                                           <weight>50</weight>
+                                           <italic>false</italic>
+                                           <bold>false</bold>
+                                          </font>
+                                         </property>
+                                         <property name="styleSheet">
+                                          <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);</string>
+                                         </property>
+                                         <property name="frameShape">
+                                          <enum>QFrame::NoFrame</enum>
+                                         </property>
+                                         <property name="lineWidth">
+                                          <number>0</number>
+                                         </property>
+                                         <property name="midLineWidth">
+                                          <number>0</number>
+                                         </property>
+                                         <property name="text">
+                                          <string>---</string>
+                                         </property>
+                                         <property name="alignment">
+                                          <set>Qt::AlignCenter</set>
+                                         </property>
+                                        </widget>
+                                       </item>
+                                       <item row="1" column="0">
+                                        <widget class="QLabel" name="text_orientering">
+                                         <property name="minimumSize">
+                                          <size>
+                                           <width>100</width>
+                                           <height>30</height>
+                                          </size>
+                                         </property>
+                                         <property name="font">
+                                          <font>
+                                           <family>Segoe UI</family>
+                                           <pointsize>10</pointsize>
+                                           <weight>50</weight>
+                                           <italic>false</italic>
+                                           <bold>false</bold>
+                                          </font>
+                                         </property>
+                                         <property name="text">
+                                          <string>Orientering:</string>
+                                         </property>
+                                         <property name="textFormat">
+                                          <enum>Qt::PlainText</enum>
+                                         </property>
+                                        </widget>
+                                       </item>
+                                       <item row="1" column="1">
+                                        <widget class="QLabel" name="label_orientering">
+                                         <property name="minimumSize">
+                                          <size>
+                                           <width>70</width>
+                                           <height>30</height>
+                                          </size>
+                                         </property>
+                                         <property name="maximumSize">
+                                          <size>
+                                           <width>70</width>
+                                           <height>30</height>
+                                          </size>
+                                         </property>
+                                         <property name="font">
+                                          <font>
+                                           <family>Segoe UI</family>
+                                           <pointsize>10</pointsize>
+                                           <weight>50</weight>
+                                           <italic>false</italic>
+                                           <bold>false</bold>
+                                          </font>
+                                         </property>
+                                         <property name="styleSheet">
+                                          <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);</string>
+                                         </property>
+                                         <property name="frameShape">
+                                          <enum>QFrame::NoFrame</enum>
+                                         </property>
+                                         <property name="lineWidth">
+                                          <number>0</number>
+                                         </property>
+                                         <property name="midLineWidth">
+                                          <number>0</number>
+                                         </property>
+                                         <property name="text">
+                                          <string>-----</string>
+                                         </property>
+                                         <property name="alignment">
+                                          <set>Qt::AlignCenter</set>
+                                         </property>
+                                        </widget>
+                                       </item>
+                                       <item row="6" column="3">
                                         <widget class="QPushButton" name="btn_reset_sikring_elektronikk">
-                                         <property name="minimumSize">
-                                          <size>
-                                           <width>45</width>
-                                           <height>30</height>
-                                          </size>
-                                         </property>
-                                         <property name="maximumSize">
-                                          <size>
-                                           <width>16777215</width>
-                                           <height>16777215</height>
-                                          </size>
-                                         </property>
-                                         <property name="font">
-                                          <font>
-                                           <family>Segoe UI</family>
-                                           <pointsize>10</pointsize>
-                                           <weight>50</weight>
-                                           <italic>false</italic>
-                                           <bold>false</bold>
-                                          </font>
-                                         </property>
-                                         <property name="cursor">
-                                          <cursorShape>PointingHandCursor</cursorShape>
-                                         </property>
-                                         <property name="styleSheet">
-                                          <string notr="true">QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255)); } QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}
-QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }
-</string>
-                                         </property>
-                                         <property name="text">
-                                          <string>Reset</string>
-                                         </property>
-                                         <property name="checkable">
-                                          <bool>false</bool>
-                                         </property>
-                                         <property name="checked">
-                                          <bool>false</bool>
-                                         </property>
-                                         <property name="autoRepeat">
-                                          <bool>false</bool>
-                                         </property>
-                                        </widget>
-                                       </item>
-                                       <item row="9" column="3">
-                                        <widget class="QPushButton" name="btnl_reset_sikring_thrustere">
-                                         <property name="minimumSize">
-                                          <size>
-                                           <width>45</width>
-                                           <height>30</height>
-                                          </size>
-                                         </property>
-                                         <property name="maximumSize">
-                                          <size>
-                                           <width>16777215</width>
-                                           <height>16777215</height>
-                                          </size>
-                                         </property>
-                                         <property name="font">
-                                          <font>
-                                           <family>Segoe UI</family>
-                                           <pointsize>10</pointsize>
-                                           <weight>50</weight>
-                                           <italic>false</italic>
-                                           <bold>false</bold>
-                                          </font>
-                                         </property>
-                                         <property name="cursor">
-                                          <cursorShape>PointingHandCursor</cursorShape>
-                                         </property>
-                                         <property name="styleSheet">
-                                          <string notr="true">QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255)); } QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}
-QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }
-</string>
-                                         </property>
-                                         <property name="text">
-                                          <string>Reset</string>
-                                         </property>
-                                         <property name="checkable">
-                                          <bool>false</bool>
-                                         </property>
-                                         <property name="checked">
-                                          <bool>false</bool>
-                                         </property>
-                                         <property name="autoRepeat">
-                                          <bool>false</bool>
-                                         </property>
-                                        </widget>
-                                       </item>
-                                       <item row="10" column="2">
-                                        <widget class="QPushButton" name="btn_regulator_manipulator">
-                                         <property name="minimumSize">
-                                          <size>
-                                           <width>45</width>
-                                           <height>30</height>
-                                          </size>
-                                         </property>
-                                         <property name="maximumSize">
-                                          <size>
-                                           <width>16777215</width>
-                                           <height>16777215</height>
-                                          </size>
-                                         </property>
-                                         <property name="font">
-                                          <font>
-                                           <family>Segoe UI</family>
-                                           <pointsize>10</pointsize>
-                                           <weight>50</weight>
-                                           <italic>false</italic>
-                                           <bold>false</bold>
-                                          </font>
-                                         </property>
-                                         <property name="cursor">
-                                          <cursorShape>PointingHandCursor</cursorShape>
-                                         </property>
-                                         <property name="styleSheet">
-                                          <string notr="true">QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255)); } QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}
-QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }
-</string>
-                                         </property>
-                                         <property name="text">
-                                          <string>Av/På</string>
-                                         </property>
-                                         <property name="checkable">
-                                          <bool>true</bool>
-                                         </property>
-                                         <property name="checked">
-                                          <bool>false</bool>
-                                         </property>
-                                         <property name="autoRepeat">
-                                          <bool>false</bool>
-                                         </property>
-                                        </widget>
-                                       </item>
-                                       <item row="10" column="3">
-                                        <widget class="QPushButton" name="btn_reset_sikring_manipulator">
                                          <property name="minimumSize">
                                           <size>
                                            <width>45</width>
