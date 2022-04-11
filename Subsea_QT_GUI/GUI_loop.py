@@ -302,6 +302,9 @@ void main() {
         self.btn_autonom_merd.clicked.connect(lambda: self.set_bildebehandlingsmodus(2, 0))
         self.btn_bildemoasaikk.clicked.connect(lambda: self.set_bildebehandlingsmodus(0, 3))
         self.btn_autonom_parkering.clicked.connect(lambda: self.set_bildebehandlingsmodus(4, 0))
+
+        self.btn_ta_bilde_frontkamera.clicked.connect(lambda: self.ta_bilde(0))
+        self.btn_ta_bilde_havbunn.clicked.connect(lambda: self.ta_bilde(1))
         
 
         self.slider_lys_down.valueChanged.connect(self.send_current_ligth_intensity)
@@ -427,6 +430,9 @@ void main() {
             else:
                 print(b.text()+" is deselected")
 
+
+    def ta_bilde(self, kamera_id):
+        self.send_command_to_rov(["take_pic", kamera_id])
 
     # KJØRE MODUS
     def manuell_btn_clicked(self):

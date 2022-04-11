@@ -231,8 +231,8 @@ class Rov_state:
             self.button_to_function_map = packet
         elif id == GUI_loop.COMMAND_TO_ROV_ID:
             commands = {"update_light_value": self.update_light_value,"reset_depth": self.set_depth_zeroing,
-            "update_bildebehandling": self.update_bildebehandlingsmodus}
-            if packet[0] == "update_bildebehandling":
+            "update_bildebehandling": self.update_bildebehandlingsmodus, "take_pic": self.take_pic}
+            if packet[0] == "update_bildebehandling" or packet[0] == "take_pic":
                 # print(f"{packet}")
                 commands[packet[0]](*packet[1:]) #unpacking
                 return
@@ -319,7 +319,7 @@ class Rov_state:
 
                 if old_tilt != self.camera_tilt[self.active_camera]:
                     self.packets_to_send.append([200 + self.active_camera, {"tilt": self.camera_tilt[self.active_camera]}])
-                    [[200/201, {"video_recording": True, "take_picture": True}]]
+                    # [[200/201, {"video_recording": True, "take_pic": True}]]
 
     def build_styredata(self):
         #  X,Y,Z, rotasjon, m.teleskop, m.vri, m.klype + uint8 throttle  ##########
@@ -372,12 +372,12 @@ class Rov_state:
         self.video_recording_active[camera_id] = not self.video_recording_active[camera_id]
         self.packets_to_send.append([200+camera_id, {"video_recording": self.video_recording_active[camera_id]}])
 
-    def take_picture(self, camera_id):
+    def take_pic(self, camera_id):
         """sends a command to the rov to take a picture. Which camera the picture is taken on depends on the id"""
         self.packets_to_send.append([200+camera_id, {"take_pic": True}])
 
     def update_bildebehandlingsmodus(self, camera_id: int, mode: int):
-        print(f"{camera_id=}, {mode=}")
+        # print(f"{camera_id=}, {mode=}")
         self.image_processing_mode[camera_id] = self.camera_modes.index(mode)
         self.packets_to_send.append([200+camera_id, {"bildebehandlingsmodus": mode}])
         if self.image_processing_mode[camera_id] == 0 or self.image_processing_mode[camera_id] == 1:
@@ -419,14 +419,19 @@ class Rov_state:
             self.position[2] += self.data["joysticks"][Z_axis]*(3/100)
         
 
-        self.send_sensordata_to_gui({"time": [time_since_start], "manipulator": [grip_percent, in_out, rotation, self.manipulator_active], "gyro": self.position})
+        if manual_input_rotation:
+            self.send_sensordata_to_gui({"time": [time_since_start], "manipulator": [grip_percent, in_out, rotation, self.manipulator_active]})
+        else:
+            self.send_sensordata_to_gui({"time": [time_since_start], "manipulator": [grip_percent, in_out, rotation, self.manipulator_active], "gyro": self.position})
 
 def run(network_handler: Network, t_watch: Threadwatcher, id: int, queue_for_rov: multiprocessing.Queue, gui_pipe):
     print(f"{network_handler = }")
     rov_state = Rov_state(queue_for_rov, network_handler, gui_pipe)
     while t_watch.should_run(id):
         rov_state.tick()
-        # rov_state.get_rotation_input()
+
+        if manual_input_rotation:
+            rov_state.get_rotation_input()
 
         rov_state.get_from_queue()
         if rov_state.data == {}:
@@ -543,11 +548,13 @@ if __name__ == "__main__":
 
         global start_time_sec
         global run_gui
+        global manual_input_rotation
         start_time_sec = time.time()
         run_gui = True
         run_get_controllerdata = True
         run_network = False
         run_send_fake_sensordata = True
+        manual_input_rotation = False
         
         queue_for_rov = multiprocessing.Queue()
 
