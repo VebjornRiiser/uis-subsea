@@ -4,9 +4,7 @@ from typing import Type
 #from tkinter import Widget
 from PyQt5 import QtCore, QtGui, QtWidgets, Qt
 from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QCheckBox, QLabel, QFileDialog, QApplication, QWidget, QVBoxLayout, QSizeGrip, QFrame, QMessageBox, QStyleFactory, QSizeGrip, QGraphicsDropShadowEffect, QPushButton, QComboBox, QDesktopWidget
-# Må kommentere ut QtWebEngineWidgets for at 3D-modellen (STL) vises ... 
-# TODO: finne ut hvorfor
-#from PyQt5.QtWebEngineWidgets import * 
+from PyQt5.QtWebEngineWidgets import * 
 from PyQt5.Qt import *
 from PyQt5.QtGui import QColor, QIcon, QCursor, QFont
 from PyQt5.QtCore import Qt, QtMsgType, QTimer, QEvent
@@ -29,19 +27,17 @@ import time
 from Subsea_QT_GUI.py_toggle import PyToggle
 
 # QApplication.setAttribute(Qt.AA_UseDesktopOpenGL)
-
 QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)  # enable highdpi scaling
 QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)  # use highdpi icons
-QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
-QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True) #use highdpi icons
+#QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
+#QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True) #use highdpi icons
+os.environ["QT_FONT_DPI"] = "96" # FIX Problem for High DPI and Scale above 100%
+
 
 # GLOBALS
 # ///////////////////////////////////////////////////////////////
 GLOBAL_STATE = False
 GLOBAL_TITLE_BAR = True
-
-# os.system('pyuic5 -x NYGUI.ui -o SUBSEAGUI.py')
-os.environ["QT_FONT_DPI"] = "96" # FIX Problem for High DPI and Scale above 100%
 
 class Fakeslider:
     def __init__(self, value) -> None:
@@ -79,8 +75,6 @@ class AnotherWindow(QWidget):
 
 PROFILE_UPDATE_ID = 2
 COMMAND_TO_ROV_ID = 3
-
-
 
 
 class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
@@ -834,18 +828,18 @@ void main() {
         widget.setStyleSheet(newStylesheet)
 
     def connect_test_values(self):
-        #self.slider.valueChanged.connect(lambda: self.setValue_test(self.slider, self.VHF_percentage, self.VHF, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_HVF, self.frame_HVF, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_HHF, self.frame_HHF, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_VVF, self.frame_VVF, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_VVB, self.frame_VVB, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_HVB, self.frame_HVB, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_VHB, self.frame_VHB, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_HHB, self.frame_HHB, "rgba(85, 170, 255, 255)"))
+        # self.slider.valueChanged.connect(lambda: self.setValue_test(self.slider, self.VHF_percentage, self.VHF, "rgba(85, 170, 255, 255)"))
+        # self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_HVF, self.frame_HVF, "rgba(85, 170, 255, 255)"))
+        # self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_HHF, self.frame_HHF, "rgba(85, 170, 255, 255)"))
+        # self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_VVF, self.frame_VVF, "rgba(85, 170, 255, 255)"))
+        # self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_VVB, self.frame_VVB, "rgba(85, 170, 255, 255)"))
+        # self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_HVB, self.frame_HVB, "rgba(85, 170, 255, 255)"))
+        # self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_VHB, self.frame_VHB, "rgba(85, 170, 255, 255)"))
+        # self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_HHB, self.frame_HHB, "rgba(85, 170, 255, 255)"))
 
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_mani_1, self.frame_mani_1, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_mani_2, self.frame_mani_2, "rgba(85, 170, 255, 255)"))
-        self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_mani_3, self.frame_mani_3, "rgba(85, 170, 255, 255)"))
+        # self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_mani_1, self.frame_mani_1, "rgba(85, 170, 255, 255)"))
+        # self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_mani_2, self.frame_mani_2, "rgba(85, 170, 255, 255)"))
+        # self.slider.valueChanged.connect(lambda: self.setTestValue(self.slider, self.label_percentage_mani_3, self.frame_mani_3, "rgba(85, 170, 255, 255)"))
 
         self.slider_lys_forward.valueChanged.connect(lambda: self.setTestValue(self.slider_lys_forward, self.label_percentage_lys_forward, self.frame_lys_forward, "rgba(85, 170, 255, 255)"))
         self.slider_lys_down.valueChanged.connect(lambda: self.setTestValue(self.slider_lys_down, self.label_percentage_lys_down, self.frame_lys_down, "rgba(85, 170, 255, 255)"))
