@@ -5,8 +5,6 @@ from typing import Type
 #from tkinter import Widget
 from PyQt5 import QtCore, QtGui, QtWidgets, Qt
 from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QCheckBox, QLabel, QFileDialog, QApplication, QWidget, QVBoxLayout, QSizeGrip, QFrame, QMessageBox, QStyleFactory, QSizeGrip, QGraphicsDropShadowEffect, QPushButton, QComboBox, QDesktopWidget
-# Må kommentere ut QtWebEngineWidgets for at 3D-modellen (STL) vises ... 
-# TODO: finne ut hvorfor
 from PyQt5.QtWebEngineWidgets import * 
 from PyQt5.Qt import *
 from PyQt5.QtGui import QColor, QIcon, QCursor, QFont
@@ -30,19 +28,17 @@ import time
 from Subsea_QT_GUI.py_toggle import PyToggle
 
 # QApplication.setAttribute(Qt.AA_UseDesktopOpenGL)
-
 QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)  # enable highdpi scaling
 QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)  # use highdpi icons
-QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
-QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True) #use highdpi icons
+#QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
+#QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True) #use highdpi icons
+os.environ["QT_FONT_DPI"] = "96" # FIX Problem for High DPI and Scale above 100%
+
 
 # GLOBALS
 # ///////////////////////////////////////////////////////////////
 GLOBAL_STATE = False
 GLOBAL_TITLE_BAR = True
-
-# os.system('pyuic5 -x NYGUI.ui -o SUBSEAGUI.py')
-os.environ["QT_FONT_DPI"] = "96" # FIX Problem for High DPI and Scale above 100%
 
 class Fakeslider:
     def __init__(self, value) -> None:
@@ -80,8 +76,6 @@ class AnotherWindow(QWidget):
 
 PROFILE_UPDATE_ID = 2
 COMMAND_TO_ROV_ID = 3
-
-
 
 
 class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
