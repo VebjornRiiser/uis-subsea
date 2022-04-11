@@ -683,7 +683,7 @@ void main() {
         self.toggle_mani.setChecked(sensordata[0])
 
     def gui_watt_update(self, sensordata):
-        effekt_liste: list[QLabel] = [self.label_effekt_thrustere_2, self.label_effekt_manipulator_2, self.label_effekt_elektronikk_2]
+        effekt_liste: list[QLabel] = [self.label_effekt_thrustere, self.label_effekt_manipulator, self.label_effekt_elektronikk]
         color_list = ["rgb(30, 33, 38);"]*3
         if sensordata[0] > 1000:
             color_list[0] = "#ff0000"
