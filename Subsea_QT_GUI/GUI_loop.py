@@ -236,9 +236,6 @@ void main() {
         # GUI buttons clicked
         
         # KJØREMODUS
-        self.btn_manuell.clicked.connect(self.manuell_btn_clicked)
-        self.btn_auto.clicked.connect(self.auto_btn_clicked)
-
 
         # Toggle buttons 
         
@@ -300,6 +297,14 @@ void main() {
         self.btn_toggle.clicked.connect(lambda: self.change_current_widget(0))
         self.btn_kontroller.clicked.connect(lambda: self.change_current_widget(2))
         self.btn_informasjon.clicked.connect(lambda: self.change_current_widget(1))
+        self.btn_manuell.clicked.connect(lambda: self.set_bildebehandlingsmodus(0, -1))
+        self.btn_finn_fisk.clicked.connect(lambda: self.set_bildebehandlingsmodus(1, 0))
+        self.btn_autonom_merd.clicked.connect(lambda: self.set_bildebehandlingsmodus(2, 0))
+        self.btn_bildemoasaikk.clicked.connect(lambda: self.set_bildebehandlingsmodus(0, 3))
+        self.btn_autonom_parkering.clicked.connect(lambda: self.set_bildebehandlingsmodus(4, 0))
+
+        self.btn_ta_bilde_frontkamera.clicked.connect(lambda: self.ta_bilde(0))
+        self.btn_ta_bilde_havbunn.clicked.connect(lambda: self.ta_bilde(1))
         
 
         self.slider_lys_down.valueChanged.connect(self.send_current_ligth_intensity)
@@ -390,6 +395,12 @@ void main() {
 
         # ///////////////////////////////////////////////////////////////
 
+    def set_bildebehandlingsmodus(self, modus_kamera_1: int, modus_kamera_2: int):
+        # print(modus_kamera_1, modus_kamera_2)
+        if modus_kamera_1 != -1:
+            self.send_command_to_rov(["update_bildebehandling", 0, modus_kamera_1])
+        if modus_kamera_2 != -1:
+            self.send_command_to_rov(["update_bildebehandling", 1, modus_kamera_2])
 
 
 
@@ -420,6 +431,9 @@ void main() {
                 print(b.text()+" is deselected")
 
 
+    def ta_bilde(self, kamera_id):
+        self.send_command_to_rov(["take_pic", kamera_id])
+
     # KJØRE MODUS
     def manuell_btn_clicked(self):
         print("manuell btn clicked")
@@ -429,7 +443,7 @@ void main() {
             pass
     
     def auto_btn_clicked(self):
-        print("auto btn clicked")
+        self.send_command_to_rov(["update_bildebehandling", [-1, ]])
 
 
     # ///////////////////////////////////////////////////////////////
@@ -666,10 +680,16 @@ void main() {
         self.label_tid.setText(str(round(sensordata[0]))+"s")
 
     def gui_manipulator_update(self, sensordata):
+        self.update_round_percent_visualizer(0, self.label_percentage_mani_1, self.frame_mani_1)
+        self.update_round_percent_visualizer(0, self.label_percentage_mani_2, self.frame_mani_2)
+        self.update_round_percent_visualizer(0, self.label_percentage_mani_3, self.frame_mani_3)
         if sensordata[3]:
-            self.update_round_percent_visualizer(sensordata[0], self.label_percentage_mani_1, self.frame_mani_1)
-            self.update_round_percent_visualizer(sensordata[1], self.label_percentage_mani_2, self.frame_mani_2)
-            self.update_round_percent_visualizer(sensordata[2], self.label_percentage_mani_3, self.frame_mani_3)
+            if sensordata[0] != 0: # åpne/lukke manipulator
+                self.update_round_percent_visualizer(sensordata[0], self.label_percentage_mani_1, self.frame_mani_1)
+            elif sensordata[2] != 0: # rotere manipulator
+                self.update_round_percent_visualizer(sensordata[2], self.label_percentage_mani_2, self.frame_mani_2)
+            elif sensordata[1] != 0: # inn ut med manipulator
+                self.update_round_percent_visualizer(sensordata[1], self.label_percentage_mani_3, self.frame_mani_3)
 
     def gui_thrust_update(self, sensordata):
         # print(f"ran gui_thrust_update {sensordata = }")
@@ -685,11 +705,9 @@ void main() {
     def gui_lekk_temp_update(self, sensordata):
         # self.check_data_types(sensordata["lekk_temp"], (int, float, float, float))
         # print(f"ran gui_lekk_temp_update {sensordata = }")
-        lekkasje_sensor_1:bool = sensordata[0]
-        lekkasje_sensor_2:bool = sensordata[1]
-        lekkasje_sensor_3:bool = sensordata[2]
-        if not isinstance(lekkasje_sensor_1, bool):
-            raise TypeError(f"Lekkasje sensor 1 has wrong type. {type(lekkasje_sensor_1) = }, {lekkasje_sensor_1} ")
+        lekkasje_liste: list[bool] = [sensordata[0], sensordata[1], sensordata[2]]
+        if not isinstance(lekkasje_liste[0], bool):
+            raise TypeError(f"Lekkasje sensor 1 has wrong type. {type(lekkasje_liste[0]) = }, {lekkasje_liste[0]} ")
         temp1 = round(sensordata[3])
         temp2 = round(sensordata[4])
         temp3 = round(sensordata[5])
@@ -698,11 +716,15 @@ void main() {
         self.labe_temp_ROV_2.setText(str(temp2))
         self.label_temp_ROV_3.setText(str(temp3))
         self.label_gjsnitt_temp_ROV.setText(str(average_temp))
-        lekkasje_nr = 2
-        if lekkasje_sensor_1:
-            command_string = r"""ffplay -ss 26.35 -t 2 -i .\uis_subsea_promo.mp4 -vf "drawtext=:text='Når du skal forklare hvorfor lekkasjesensor """ + str(lekkasje_nr) + ''' sier at det lekker':fontcolor=white:fontsize=36:box=1:boxcolor=black@1.0:boxborderw=5:x=(w-text_w)/2:y=h-th-10"'''
-            os.system(command_string)
-        # self.update_round_percent_visualizer(sensordata[0], self.label_percentage_HHB, self.frame_HHB)
+
+        for lekkasje_nr, is_lekkasje in enumerate(lekkasje_liste):
+            if is_lekkasje:
+                self.lekkasje_varsel(lekkasje_nr+1)
+                # self.update_round_percent_visualizer(sensordata[0], self.label_percentage_HHB, self.frame_HHB)
+
+    def lekkasje_varsel(self, sensor_nr):
+        command_string = r"""ffplay -ss 26.35 -t 2 -i .\uis_subsea_promo.mp4 -vf "drawtext=:text='Når du skal forklare hvorfor lekkasjesensor """ + str(sensor_nr) + ''' sier at det lekker':fontcolor=white:fontsize=36:box=1:boxcolor=black@1.0:boxborderw=5:x=(w-text_w)/2:y=h-th-10"'''
+        os.system(command_string)
 
 
     def update_round_percent_visualizer(self, value, text_label, round_frame):
@@ -733,7 +755,7 @@ void main() {
     def gui_gyro_update(self, sensordata):
         # Removes the previous rotation. We do not have yaw rotation
         # so it is not necesarry to reset or rotate it
-        print(f"{sensordata = }")
+        # print(f"{sensordata = }")
         self.meshitem.rotate(self.rov_3d_coordinates[1], 0, 1, 0, local=True)
         self.meshitem.rotate(self.rov_3d_coordinates[0], 1, 0, 0, local=True)
 
@@ -749,8 +771,8 @@ void main() {
         self.label_dybde.setText(str(round(self.rov_3d_coordinates[2]))+ " cm")
 
     def set_start_point_depth_sensor(self):
-        self.send_command_to_rov([129, ])
-        self.meshitem.translate()
+        self.send_command_to_rov(["reset_depth", []])
+        # self.meshitem.translate()
 
 
 
