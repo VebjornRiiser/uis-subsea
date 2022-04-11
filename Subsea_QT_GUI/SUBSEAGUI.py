@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '.\Subsea_QT_GUI\SUBSEAGUI.ui'
+# Form implementation generated from reading ui file 'SUBSEAGUI.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.6
 #
@@ -672,7 +672,7 @@ class Ui_MainWindow(object):
         self.btn_kontroller.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.btn_kontroller.setStyleSheet("background-image: url(:/icons/images/icons/cil-gamepad.png);")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(".\\Subsea_QT_GUI\\../../Downloads/uis-subsea/Subsea_QT_GUI/images/kontroller.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("../../Downloads/uis-subsea/Subsea_QT_GUI/images/kontroller.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btn_kontroller.setIcon(icon)
         self.btn_kontroller.setCheckable(True)
         self.btn_kontroller.setObjectName("btn_kontroller")
@@ -2138,17 +2138,17 @@ class Ui_MainWindow(object):
         self.btn_autonom_merd.setStyleSheet("QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}")
         self.btn_autonom_merd.setObjectName("btn_autonom_merd")
         self.gridLayout.addWidget(self.btn_autonom_merd, 1, 0, 1, 1)
-        self.btn_fotomoasaikk = QtWidgets.QPushButton(self.bildeContainer2)
-        self.btn_fotomoasaikk.setMinimumSize(QtCore.QSize(150, 45))
+        self.btn_autonom_parkering = QtWidgets.QPushButton(self.bildeContainer2)
+        self.btn_autonom_parkering.setMinimumSize(QtCore.QSize(150, 45))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(False)
         font.setItalic(False)
-        self.btn_fotomoasaikk.setFont(font)
-        self.btn_fotomoasaikk.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btn_fotomoasaikk.setStyleSheet("QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}")
-        self.btn_fotomoasaikk.setObjectName("btn_fotomoasaikk")
-        self.gridLayout.addWidget(self.btn_fotomoasaikk, 3, 0, 1, 1)
+        self.btn_autonom_parkering.setFont(font)
+        self.btn_autonom_parkering.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_autonom_parkering.setStyleSheet("QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}")
+        self.btn_autonom_parkering.setObjectName("btn_autonom_parkering")
+        self.gridLayout.addWidget(self.btn_autonom_parkering, 3, 0, 1, 1)
         self.verticalLayout_27.addWidget(self.bildeContainer2)
         self.verticalLayout_39.addWidget(self.bildeContainer)
         self.kameraContainer = QtWidgets.QFrame(self.column3)
@@ -2924,7 +2924,7 @@ class Ui_MainWindow(object):
         self.text_bildeinfo.setText(_translate("MainWindow", "Velg mellom bildebehandlingsmodusene:"))
         self.btn_bildemoasaikk.setText(_translate("MainWindow", "Bildemoasaikk"))
         self.btn_autonom_merd.setText(_translate("MainWindow", "Autonom merd"))
-        self.btn_fotomoasaikk.setText(_translate("MainWindow", "Autonom parkering"))
+        self.btn_autonom_parkering.setText(_translate("MainWindow", "Autonom parkering"))
         self.title_video.setText(_translate("MainWindow", "VIDEO"))
         self.title_start_videoopptak.setText(_translate("MainWindow", "Start og stopp videoopptak"))
         self.btn_start_video_frontkamera.setText(_translate("MainWindow", "Frontkamera"))

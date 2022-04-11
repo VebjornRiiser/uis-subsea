@@ -1,5 +1,6 @@
 from getopt import getopt
 import multiprocessing
+from pickle import FALSE
 # import multiprocessing
 from logger import Logger
 from os import pipe
@@ -96,13 +97,14 @@ class Rov_state:
         # self.cam_is_enabled = [True, True]
         # list of functions that can be triggered by buttons. # need a function to tell it to grip and release and not do it by button like we do in build manipulator byte
         # theese functions need to line up their indexes with the line in button_config.txt
-        self.button_function_list = [self.skip, self.toggle_active_camera, self.toggle_between_rotation_and_camera_tilt, self.toggle_manipulator_enabled, self.manipulator_grip, self.manipulator_release, self.update_bildebehandlingsmodus, self.skip]
+        self.button_function_list = [self.skip, self.toggle_active_camera, self.toggle_between_rotation_and_camera_tilt, self.toggle_manipulator_enabled, self.manipulator_grip, self.manipulator_release, self.update_bildebehandlingsmodus_controller, self.skip]
         #maps a button to a index in button_function_list Can be changed from gui
         self.button_to_function_map = [0, 6, 0, 1, 4, 5, 0, 0, 3, 2]
         self.camera_is_on = [True, True]
         self.camera_command: list[list[int, dict]] = None
         self.joystick_moves_camera = False
         self.image_processing_mode:list[int, int] = [0, 0]
+        self.camera_modes = [0,1,2,3,4,5]
         # determines which camera is controlled
         self.active_camera = 0
         self.packets_to_send = []
@@ -228,9 +230,13 @@ class Rov_state:
             # print(id, packet)
             self.button_to_function_map = packet
         elif id == GUI_loop.COMMAND_TO_ROV_ID:
-            commands = {"update_light_value": self.update_light_value,"reset_depth": self.set_depth_zeroing}
-            # print("got command")
-            # print(id, packet)
+            commands = {"update_light_value": self.update_light_value,"reset_depth": self.set_depth_zeroing,
+            "update_bildebehandling": self.update_bildebehandlingsmodus}
+            if packet[0] == "update_bildebehandling":
+                # print(f"{packet}")
+                commands[packet[0]](*packet[1:]) #unpacking
+                return
+
             if packet[0] not in commands:
                 print(f"Got unrecognized command from gui {packet}")
                 return
@@ -264,12 +270,12 @@ class Rov_state:
         for packet in self.packets_to_send:
             if packet[0] != 70:
                 print(packet)
+        self.logger.sensor_logger.info(self.packets_to_send)
         if self.network_handler is None:
             self.packets_to_send = []
             return
 
         self.network_handler.send(network_format(self.packets_to_send))
-        self.logger.sensor_logger.info(self.packets_to_send)
         self.packets_to_send = []
 
     def toggle_between_rotation_and_camera_tilt(self, button_index):
@@ -370,14 +376,27 @@ class Rov_state:
         """sends a command to the rov to take a picture. Which camera the picture is taken on depends on the id"""
         self.packets_to_send.append([200+camera_id, {"take_pic": True}])
 
-    def update_bildebehandlingsmodus(self, button_index, camera_id: int = None, mode: int = None):
-        camera_modes = [0,1,5,6]
+    def update_bildebehandlingsmodus(self, camera_id: int, mode: int):
+        print(f"{camera_id=}, {mode=}")
+        self.image_processing_mode[camera_id] = self.camera_modes.index(mode)
+        self.packets_to_send.append([200+camera_id, {"bildebehandlingsmodus": mode}])
+        if self.image_processing_mode[camera_id] == 0 or self.image_processing_mode[camera_id] == 1:
+            self.camera_tilt_allowed[camera_id] = True
+        else:
+            self.camera_tilt_allowed[camera_id] = False
+        print(f"{self.image_processing_mode = }")
+
+    def update_bildebehandlingsmodus_controller(self, button_index, camera_id: int = None, mode: int = None):
         if self.image_processing_mode_wait_counter == 0:
-            if camera_id is None and mode is None:
+            if camera_id is None:
                 camera_id = self.active_camera
-                self.image_processing_mode[camera_id] = (self.image_processing_mode[camera_id]+1)%4
-            self.packets_to_send.append([200+camera_id, {"bildebehandlingsmodus": camera_modes[self.image_processing_mode[camera_id]]}])
-            # print([200+camera_id, {"bildebehandlingsmodus": camera_modes[self.image_processing_mode[camera_id]]}])
+            if mode is None:
+                self.image_processing_mode[camera_id] = (self.image_processing_mode[camera_id]+1)%len(self.camera_modes)
+            else:
+                self.image_processing_mode[camera_id] = mode
+
+            self.packets_to_send.append([200+camera_id, {"bildebehandlingsmodus": self.camera_modes[self.image_processing_mode[camera_id]]}])
+
             if self.image_processing_mode[camera_id] == 0 or self.image_processing_mode[camera_id] == 1:
                 self.camera_tilt_allowed[camera_id] = True
             else:
@@ -400,21 +419,20 @@ class Rov_state:
             self.position[2] += self.data["joysticks"][Z_axis]*(3/100)
         
 
-        self.send_sensordata_to_gui({"time": [time_since_start], "manipulator": [grip_percent, in_out, rotation, self.manipulator_active]})#, "gyro": self.position})
+        self.send_sensordata_to_gui({"time": [time_since_start], "manipulator": [grip_percent, in_out, rotation, self.manipulator_active], "gyro": self.position})
 
 def run(network_handler: Network, t_watch: Threadwatcher, id: int, queue_for_rov: multiprocessing.Queue, gui_pipe):
     print(f"{network_handler = }")
     rov_state = Rov_state(queue_for_rov, network_handler, gui_pipe)
     while t_watch.should_run(id):
         rov_state.tick()
-        rov_state.get_rotation_input()
+        # rov_state.get_rotation_input()
 
         rov_state.get_from_queue()
         if rov_state.data == {}:
             continue
         rov_state.check_controls()
         rov_state.send_local_sensordata()
-        # print(rov_state.packets_to_send)
         rov_state.send_packets()
 
 ID = 0
@@ -503,7 +521,8 @@ def recieve_data_from_rov(network: Network, t_watch: Threadwatcher, id: int):
 
             for message in decoded:
                 print(message)
-                # Rov_state.logger.sensor_logger.info(message)
+
+                Rov_state.logger.sensor_logger.info(Rov_state, message)
                 # Rov_state.send_sensordata_to_gui(Rov_state, message)
 
         except json.JSONDecodeError as e:
@@ -575,7 +594,7 @@ if __name__ == "__main__":
             power_list = [num for num in range(0, 101)]
             count = -1
             sensordata = {}
-            # sensordata["lekk_temp"] = [True, False, False, (25+count)%99, (37+count)%99, (61+count)%99]
+            # sensordata["lekk_temp"] = [True, True, False, (25+count)%99, (37+count)%99, (61+count)%99]
             gui_parent_pipe.send(sensordata)
             while True:
                 count += 1
