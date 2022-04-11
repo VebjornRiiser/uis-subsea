@@ -1261,6 +1261,21 @@ class Ui_MainWindow(object):
         self.gridLayout_4 = QGridLayout(self.rovColumn)
         self.gridLayout_4.setObjectName(u"gridLayout_4")
         self.gridLayout_4.setContentsMargins(0, 0, 0, 0)
+        self.btn_reset_sikring_elektronikk = QPushButton(self.rovColumn)
+        self.btn_reset_sikring_elektronikk.setObjectName(u"btn_reset_sikring_elektronikk")
+        self.btn_reset_sikring_elektronikk.setMinimumSize(QSize(45, 30))
+        self.btn_reset_sikring_elektronikk.setMaximumSize(QSize(16777215, 16777215))
+        self.btn_reset_sikring_elektronikk.setFont(font)
+        self.btn_reset_sikring_elektronikk.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_reset_sikring_elektronikk.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255)); } QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}\n"
+"QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }\n"
+"")
+        self.btn_reset_sikring_elektronikk.setCheckable(False)
+        self.btn_reset_sikring_elektronikk.setChecked(False)
+        self.btn_reset_sikring_elektronikk.setAutoRepeat(False)
+
+        self.gridLayout_4.addWidget(self.btn_reset_sikring_elektronikk, 5, 3, 1, 1)
+
         self.btn_reset_sikring_thrustere = QPushButton(self.rovColumn)
         self.btn_reset_sikring_thrustere.setObjectName(u"btn_reset_sikring_thrustere")
         self.btn_reset_sikring_thrustere.setMinimumSize(QSize(45, 30))
@@ -1274,7 +1289,7 @@ class Ui_MainWindow(object):
         self.btn_reset_sikring_thrustere.setChecked(False)
         self.btn_reset_sikring_thrustere.setAutoRepeat(False)
 
-        self.gridLayout_4.addWidget(self.btn_reset_sikring_thrustere, 10, 3, 1, 1)
+        self.gridLayout_4.addWidget(self.btn_reset_sikring_thrustere, 9, 3, 1, 1)
 
         self.btn_reset_nullpunkt = QPushButton(self.rovColumn)
         self.btn_reset_nullpunkt.setObjectName(u"btn_reset_nullpunkt")
@@ -1289,7 +1304,7 @@ class Ui_MainWindow(object):
         self.btn_reset_nullpunkt.setChecked(False)
         self.btn_reset_nullpunkt.setAutoRepeat(False)
 
-        self.gridLayout_4.addWidget(self.btn_reset_nullpunkt, 2, 2, 1, 2)
+        self.gridLayout_4.addWidget(self.btn_reset_nullpunkt, 1, 2, 1, 2)
 
         self.btn_regulator_manipulator = QPushButton(self.rovColumn)
         self.btn_regulator_manipulator.setObjectName(u"btn_regulator_manipulator")
@@ -1304,7 +1319,7 @@ class Ui_MainWindow(object):
         self.btn_regulator_manipulator.setChecked(False)
         self.btn_regulator_manipulator.setAutoRepeat(False)
 
-        self.gridLayout_4.addWidget(self.btn_regulator_manipulator, 11, 2, 1, 1)
+        self.gridLayout_4.addWidget(self.btn_regulator_manipulator, 10, 2, 1, 1)
 
         self.label_effekt_thrustere = QLabel(self.rovColumn)
         self.label_effekt_thrustere.setObjectName(u"label_effekt_thrustere")
@@ -1317,7 +1332,7 @@ class Ui_MainWindow(object):
         self.label_effekt_thrustere.setMidLineWidth(0)
         self.label_effekt_thrustere.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout_4.addWidget(self.label_effekt_thrustere, 10, 1, 1, 1)
+        self.gridLayout_4.addWidget(self.label_effekt_thrustere, 9, 1, 1, 1)
 
         self.title_effektforbruk = QLabel(self.rovColumn)
         self.title_effektforbruk.setObjectName(u"title_effektforbruk")
@@ -1326,7 +1341,7 @@ class Ui_MainWindow(object):
         self.title_effektforbruk.setFont(font)
         self.title_effektforbruk.setStyleSheet(u"")
 
-        self.gridLayout_4.addWidget(self.title_effektforbruk, 4, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.title_effektforbruk, 3, 0, 1, 1)
 
         self.text_effekt_elektronikk = QLabel(self.rovColumn)
         self.text_effekt_elektronikk.setObjectName(u"text_effekt_elektronikk")
@@ -1335,7 +1350,7 @@ class Ui_MainWindow(object):
         self.text_effekt_elektronikk.setStyleSheet(u"color: rgb(113, 126, 149);")
         self.text_effekt_elektronikk.setTextFormat(Qt.RichText)
 
-        self.gridLayout_4.addWidget(self.text_effekt_elektronikk, 6, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.text_effekt_elektronikk, 5, 0, 1, 1)
 
         self.label_effekt_manipulator = QLabel(self.rovColumn)
         self.label_effekt_manipulator.setObjectName(u"label_effekt_manipulator")
@@ -1348,7 +1363,7 @@ class Ui_MainWindow(object):
         self.label_effekt_manipulator.setMidLineWidth(0)
         self.label_effekt_manipulator.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout_4.addWidget(self.label_effekt_manipulator, 11, 1, 1, 1)
+        self.gridLayout_4.addWidget(self.label_effekt_manipulator, 10, 1, 1, 1)
 
         self.text_effekt_manipulator = QLabel(self.rovColumn)
         self.text_effekt_manipulator.setObjectName(u"text_effekt_manipulator")
@@ -1357,7 +1372,7 @@ class Ui_MainWindow(object):
         self.text_effekt_manipulator.setStyleSheet(u"color: rgb(113, 126, 149);")
         self.text_effekt_manipulator.setTextFormat(Qt.RichText)
 
-        self.gridLayout_4.addWidget(self.text_effekt_manipulator, 11, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.text_effekt_manipulator, 10, 0, 1, 1)
 
         self.label_tid = QLabel(self.rovColumn)
         self.label_tid.setObjectName(u"label_tid")
@@ -1383,7 +1398,7 @@ class Ui_MainWindow(object):
         self.label_dybde.setMidLineWidth(0)
         self.label_dybde.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout_4.addWidget(self.label_dybde, 2, 1, 1, 1)
+        self.gridLayout_4.addWidget(self.label_dybde, 1, 1, 1, 1)
 
         self.text_tid = QLabel(self.rovColumn)
         self.text_tid.setObjectName(u"text_tid")
@@ -1400,7 +1415,7 @@ class Ui_MainWindow(object):
         self.text_effekt_thrustere.setStyleSheet(u"color: rgb(113, 126, 149);")
         self.text_effekt_thrustere.setTextFormat(Qt.PlainText)
 
-        self.gridLayout_4.addWidget(self.text_effekt_thrustere, 10, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.text_effekt_thrustere, 9, 0, 1, 1)
 
         self.text_dybde = QLabel(self.rovColumn)
         self.text_dybde.setObjectName(u"text_dybde")
@@ -1408,7 +1423,7 @@ class Ui_MainWindow(object):
         self.text_dybde.setFont(font)
         self.text_dybde.setTextFormat(Qt.RichText)
 
-        self.gridLayout_4.addWidget(self.text_dybde, 2, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.text_dybde, 1, 0, 1, 1)
 
         self.btn_reset_sikring_manipulator = QPushButton(self.rovColumn)
         self.btn_reset_sikring_manipulator.setObjectName(u"btn_reset_sikring_manipulator")
@@ -1423,7 +1438,7 @@ class Ui_MainWindow(object):
         self.btn_reset_sikring_manipulator.setChecked(False)
         self.btn_reset_sikring_manipulator.setAutoRepeat(False)
 
-        self.gridLayout_4.addWidget(self.btn_reset_sikring_manipulator, 11, 3, 1, 1)
+        self.gridLayout_4.addWidget(self.btn_reset_sikring_manipulator, 10, 3, 1, 1)
 
         self.btn_regulator_elektronikk = QPushButton(self.rovColumn)
         self.btn_regulator_elektronikk.setObjectName(u"btn_regulator_elektronikk")
@@ -1438,7 +1453,7 @@ class Ui_MainWindow(object):
         self.btn_regulator_elektronikk.setChecked(False)
         self.btn_regulator_elektronikk.setAutoRepeat(False)
 
-        self.gridLayout_4.addWidget(self.btn_regulator_elektronikk, 6, 2, 1, 1)
+        self.gridLayout_4.addWidget(self.btn_regulator_elektronikk, 5, 2, 1, 1)
 
         self.btn_regulator_thrustere = QPushButton(self.rovColumn)
         self.btn_regulator_thrustere.setObjectName(u"btn_regulator_thrustere")
@@ -1453,7 +1468,7 @@ class Ui_MainWindow(object):
         self.btn_regulator_thrustere.setChecked(False)
         self.btn_regulator_thrustere.setAutoRepeat(False)
 
-        self.gridLayout_4.addWidget(self.btn_regulator_thrustere, 10, 2, 1, 1)
+        self.gridLayout_4.addWidget(self.btn_regulator_thrustere, 9, 2, 1, 1)
 
         self.label_effekt_elektronikk = QLabel(self.rovColumn)
         self.label_effekt_elektronikk.setObjectName(u"label_effekt_elektronikk")
@@ -1466,43 +1481,7 @@ class Ui_MainWindow(object):
         self.label_effekt_elektronikk.setMidLineWidth(0)
         self.label_effekt_elektronikk.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout_4.addWidget(self.label_effekt_elektronikk, 6, 1, 1, 1)
-
-        self.text_orientering = QLabel(self.rovColumn)
-        self.text_orientering.setObjectName(u"text_orientering")
-        self.text_orientering.setMinimumSize(QSize(100, 30))
-        self.text_orientering.setFont(font)
-        self.text_orientering.setTextFormat(Qt.PlainText)
-
-        self.gridLayout_4.addWidget(self.text_orientering, 1, 0, 1, 1)
-
-        self.label_orientering = QLabel(self.rovColumn)
-        self.label_orientering.setObjectName(u"label_orientering")
-        self.label_orientering.setMinimumSize(QSize(70, 30))
-        self.label_orientering.setMaximumSize(QSize(70, 30))
-        self.label_orientering.setFont(font)
-        self.label_orientering.setStyleSheet(u"background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
-        self.label_orientering.setFrameShape(QFrame.NoFrame)
-        self.label_orientering.setLineWidth(0)
-        self.label_orientering.setMidLineWidth(0)
-        self.label_orientering.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout_4.addWidget(self.label_orientering, 1, 1, 1, 1)
-
-        self.btn_reset_sikring_elektronikk = QPushButton(self.rovColumn)
-        self.btn_reset_sikring_elektronikk.setObjectName(u"btn_reset_sikring_elektronikk")
-        self.btn_reset_sikring_elektronikk.setMinimumSize(QSize(45, 30))
-        self.btn_reset_sikring_elektronikk.setMaximumSize(QSize(16777215, 16777215))
-        self.btn_reset_sikring_elektronikk.setFont(font)
-        self.btn_reset_sikring_elektronikk.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_reset_sikring_elektronikk.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255)); } QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}\n"
-"QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }\n"
-"")
-        self.btn_reset_sikring_elektronikk.setCheckable(False)
-        self.btn_reset_sikring_elektronikk.setChecked(False)
-        self.btn_reset_sikring_elektronikk.setAutoRepeat(False)
-
-        self.gridLayout_4.addWidget(self.btn_reset_sikring_elektronikk, 6, 3, 1, 1)
+        self.gridLayout_4.addWidget(self.label_effekt_elektronikk, 5, 1, 1, 1)
 
 
         self.gridLayout_5.addWidget(self.rovColumn, 0, 0, 1, 1)
@@ -2859,6 +2838,7 @@ class Ui_MainWindow(object):
         self.text_helning.setText(QCoreApplication.translate("MainWindow", u"Helningsregulator", None))
         self.text_frontlys.setText(QCoreApplication.translate("MainWindow", u"Frontlys", None))
         self.text_havbunnslys.setText(QCoreApplication.translate("MainWindow", u"Havbunnslys", None))
+        self.btn_reset_sikring_elektronikk.setText(QCoreApplication.translate("MainWindow", u"Reset", None))
         self.btn_reset_sikring_thrustere.setText(QCoreApplication.translate("MainWindow", u"Reset", None))
         self.btn_reset_nullpunkt.setText(QCoreApplication.translate("MainWindow", u"Reset", None))
         self.btn_regulator_manipulator.setText(QCoreApplication.translate("MainWindow", u"Av/P\u00e5", None))
@@ -2876,9 +2856,6 @@ class Ui_MainWindow(object):
         self.btn_regulator_elektronikk.setText(QCoreApplication.translate("MainWindow", u"Av/P\u00e5", None))
         self.btn_regulator_thrustere.setText(QCoreApplication.translate("MainWindow", u"Av/P\u00e5", None))
         self.label_effekt_elektronikk.setText(QCoreApplication.translate("MainWindow", u"---", None))
-        self.text_orientering.setText(QCoreApplication.translate("MainWindow", u"Orientering:", None))
-        self.label_orientering.setText(QCoreApplication.translate("MainWindow", u"-----", None))
-        self.btn_reset_sikring_elektronikk.setText(QCoreApplication.translate("MainWindow", u"Reset", None))
         self.label_temp_ROV.setText(QCoreApplication.translate("MainWindow", u"TEMPERATUR I ROV", None))
         self.label_temp_ROV_1.setText(QCoreApplication.translate("MainWindow", u"---", None))
         self.labe_temp_ROV_2.setText(QCoreApplication.translate("MainWindow", u"---", None))
