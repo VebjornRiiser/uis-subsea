@@ -241,7 +241,8 @@ class Rov_state:
         elif id == GUI_loop.COMMAND_TO_ROV_ID:
             commands = {"update_light_value": self.update_light_value,"reset_depth": self.set_depth_zeroing,
             "update_bildebehandling": self.update_bildebehandlingsmodus, "take_pic": self.take_pic,
-            "manipulator_toggle": self.toggle_manipulator_enabled, "reset_sikring": self.reset_fuse_on_power_supply}
+            "manipulator_toggle": self.toggle_manipulator_enabled, "reset_sikring": self.reset_fuse_on_power_supply,
+            "toggle_regulator": self.switch_power_supply_regulator}
 
             if packet[0] not in commands:
                 print(f"Got unrecognized command from gui {packet}")

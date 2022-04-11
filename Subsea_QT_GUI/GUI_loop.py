@@ -309,6 +309,10 @@ void main() {
         self.btn_reset_sikring_manipulator.clicked.connect(lambda: self.reset_sikring(1))
         self.btn_reset_sikring_thrustere.clicked.connect(lambda: self.reset_sikring(2))
 
+        self.btn_regulator_elektronikk.clicked.connect(lambda: self.toggle_regulator(0, self.btn_regulator_elektronikk))
+        self.btn_regulator_manipulator.clicked.connect(lambda: self.toggle_regulator(1, self.btn_regulator_manipulator))
+        self.btn_regulator_thrustere.clicked.connect(lambda: self.toggle_regulator(2, self.btn_regulator_thrustere))
+
         self.btn_ta_bilde_frontkamera.clicked.connect(lambda: self.ta_bilde(0))
         self.btn_ta_bilde_havbunn.clicked.connect(lambda: self.ta_bilde(1))
         
@@ -400,6 +404,8 @@ void main() {
         self.maximize_restore()
 
         # ///////////////////////////////////////////////////////////////
+    def toggle_regulator(self, nr: int, btn: QPushButton):
+        self.send_command_to_rov(["toggle_regulator", nr, not btn.isChecked()])
 
     def reset_sikring(self, nr: int):
         self.send_command_to_rov(["reset_sikring", nr])
