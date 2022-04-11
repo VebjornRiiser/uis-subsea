@@ -1,7 +1,7 @@
 from getopt import getopt
 import multiprocessing
 # import multiprocessing
-# from logger import logging
+from logger import Logger
 from os import pipe
 from Subsea_QT_GUI import GUI_loop
 from multiprocessing import Pipe, Process, Queue
@@ -69,8 +69,10 @@ BUTTON_RELEASE = 5
 
 class Rov_state:
     def __init__(self, queue, network_handler, gui_pipe) -> None:
+        self.logger = Logger()
         self.data:dict = {}
         self.virtual_buttons: list[int] = []
+        self.position = [0, 0, 0]
         # prevents the camera from toggling back again immediately if we hold the button down
         self.camera_toggle_wait_counter: int = 0
         # prevents the tilt toggle from toggling back again immediately if we hold the button down
@@ -108,12 +110,18 @@ class Rov_state:
 
         self.manipulator_active = True
         self.regulator_active: list[bool] = [True, True, True]
-
+        self.video_recording_active = [False, False]
         self.light_intensity_forward = 100
         self.ligth_forward_is_on = True
 
         self.light_intensity_down = 100
         self.ligth_down_is_on = True
+        self.send_startup_commands()
+
+    def send_startup_commands(self):
+        self.packets_to_send.append([200, {"tilt": self.camera_tilt[0]}])
+        self.packets_to_send.append([201, {"tilt": self.camera_tilt[1]}])
+        self.set_depth_zeroing()
 
 
     def skip(self, button_index):
@@ -130,7 +138,7 @@ class Rov_state:
         self.data["buttons"][BUTTON_RELEASE] = 1
 
 
-    def toggle_manipulator_enabled(self):
+    def toggle_manipulator_enabled(self, button_index):
         # print("")
         if self.manipulator_toggle_wait_counter == 0:    
             self.manipulator_active = not self.manipulator_active
@@ -181,7 +189,7 @@ class Rov_state:
                 # print(f"button with {index = } is pressed")
 
     
-    def toggle_active_camera(self):
+    def toggle_active_camera(self, button_index):
         """Toggles which camera should get the commands from the controller"""
         if self.camera_toggle_wait_counter == 0:
             self.active_camera = (self.active_camera+1)%2  # Changes camera id betwen 0 and 1
@@ -217,30 +225,54 @@ class Rov_state:
             self.data = packet
         elif id == GUI_loop.PROFILE_UPDATE_ID:
             # print("Updated profile")
-            print(id, packet)
+            # print(id, packet)
             self.button_to_function_map = packet
         elif id == GUI_loop.COMMAND_TO_ROV_ID:
-            commands = {"update_light_value": self.update_light_value,}
-            print("got command")
-            print(id, packet)
+            commands = {"update_light_value": self.update_light_value,"reset_depth": self.set_depth_zeroing}
+            # print("got command")
+            # print(id, packet)
             if packet[0] not in commands:
                 print(f"Got unrecognized command from gui {packet}")
                 return
             commands[packet[0]](packet)
 
+    def set_depth_zeroing(self):
+        self.packets_to_send.append([129, []])
+
+    def get_rotation_input(self):
+        # rotate_input = input("Rotate theta degrees around x,y,z axis")
+        # rotation = [int(item.strip()) for item in rotate_input.split(",")]
+        # if len(rotation) != 4:
+        #     rotation = [0]*4
+        # sensordata = {"rotate": [rotation[0], rotation[1], rotation[2], rotation[3]]}
+
+        rotate_input = input()
+        try:
+            rotation = [float(item.strip()) for item in rotate_input.split(",")]
+        except Exception:
+            print("wrong input")
+            return
+        if len(rotation) != 2:
+            rotation = [0, 0]
+        sensordata = {"gyro": [rotation[0], rotation[1], 0]}
+
+        self.send_sensordata_to_gui(sensordata)
 
     def send_packets(self):
         """Sends the created network packets and clears it"""
         # print(self.packets_to_send)
-
+        for packet in self.packets_to_send:
+            if packet[0] != 70:
+                print(packet)
         if self.network_handler is None:
             self.packets_to_send = []
             return
 
         self.network_handler.send(network_format(self.packets_to_send))
+        self.logger.sensor_logger.info(self.packets_to_send)
         self.packets_to_send = []
 
-    def toggle_between_rotation_and_camera_tilt(self):
+    def toggle_between_rotation_and_camera_tilt(self, button_index):
         if self.right_joystick_toggle_wait_counter == 0:
             self.camera_tilt_control_active = not self.camera_tilt_control_active
             print(f"{self.camera_tilt_control_active = }")
@@ -255,7 +287,7 @@ class Rov_state:
 
         ligth_down = self.light_intensity_down * self.ligth_down_is_on
         ligth_forward = self.light_intensity_forward * self.ligth_forward_is_on
-        print(f"Lys oppdatert. verdien vi sender er {[142, ligth_forward, ligth_down]}")
+        # print(f"Lys oppdatert. verdien vi sender er {[142, ligth_forward, ligth_down]}")
         self.packets_to_send.append([142, ligth_forward, ligth_down])
 
     def update_camera_tilt(self):
@@ -329,19 +361,28 @@ class Rov_state:
         # print(f"sending data from main to gui: {data =}")
         self.gui_pipe.send(data)
 
-    def update_bildebehandlingsmodus(self, camera_id: int = None, mode: int = None):
+    def toggle_video_recording(self, camera_id):
+        """toggle_video_recording turns of video recording on the rov and changes the state topside"""
+        self.video_recording_active[camera_id] = not self.video_recording_active[camera_id]
+        self.packets_to_send.append([200+camera_id, {"video_recording": self.video_recording_active[camera_id]}])
+
+    def take_picture(self, camera_id):
+        """sends a command to the rov to take a picture. Which camera the picture is taken on depends on the id"""
+        self.packets_to_send.append([200+camera_id, {"take_pic": True}])
+
+    def update_bildebehandlingsmodus(self, button_index, camera_id: int = None, mode: int = None):
         camera_modes = [0,1,5,6]
         if self.image_processing_mode_wait_counter == 0:
             if camera_id is None and mode is None:
                 camera_id = self.active_camera
-                self.image_processing_mode[camera_id] = (self.image_processing_mode[camera_id]+1)%3
+                self.image_processing_mode[camera_id] = (self.image_processing_mode[camera_id]+1)%4
             self.packets_to_send.append([200+camera_id, {"bildebehandlingsmodus": camera_modes[self.image_processing_mode[camera_id]]}])
             # print([200+camera_id, {"bildebehandlingsmodus": camera_modes[self.image_processing_mode[camera_id]]}])
             if self.image_processing_mode[camera_id] == 0 or self.image_processing_mode[camera_id] == 1:
                 self.camera_tilt_allowed[camera_id] = True
             else:
                 self.camera_tilt_allowed[camera_id] = False
-            # print(f"{self.image_processing_mode = }")
+            print(f"{self.image_processing_mode = }")
             self.image_processing_mode_wait_counter = 7
 
     def send_local_sensordata(self):
@@ -353,15 +394,20 @@ class Rov_state:
             grip_percent = 100
         elif self.data["buttons"][BUTTON_RELEASE] == 1:
             grip_percent = -100
+        if run_send_fake_sensordata:
+            self.position[0] += self.data["joysticks"][Y_axis]*(3/100)
+            self.position[1] += self.data["joysticks"][X_axis]*(3/100)
+            self.position[2] += self.data["joysticks"][Z_axis]*(3/100)
+        
 
-        self.send_sensordata_to_gui({"time": [time_since_start], "manipulator": [grip_percent, in_out, rotation]})
+        self.send_sensordata_to_gui({"time": [time_since_start], "manipulator": [grip_percent, in_out, rotation, self.manipulator_active]})#, "gyro": self.position})
 
 def run(network_handler: Network, t_watch: Threadwatcher, id: int, queue_for_rov: multiprocessing.Queue, gui_pipe):
     print(f"{network_handler = }")
     rov_state = Rov_state(queue_for_rov, network_handler, gui_pipe)
     while t_watch.should_run(id):
-
         rov_state.tick()
+        rov_state.get_rotation_input()
 
         rov_state.get_from_queue()
         if rov_state.data == {}:
@@ -457,6 +503,7 @@ def recieve_data_from_rov(network: Network, t_watch: Threadwatcher, id: int):
 
             for message in decoded:
                 print(message)
+                # Rov_state.logger.sensor_logger.info(message)
                 # Rov_state.send_sensordata_to_gui(Rov_state, message)
 
         except json.JSONDecodeError as e:
@@ -525,13 +572,16 @@ if __name__ == "__main__":
 
         if run_send_fake_sensordata:
             thrust_list = [num for num in range(-100,101)]
-            count = 0
+            power_list = [num for num in range(0, 101)]
+            count = -1
+            sensordata = {}
+            # sensordata["lekk_temp"] = [True, False, False, (25+count)%99, (37+count)%99, (61+count)%99]
+            gui_parent_pipe.send(sensordata)
             while True:
                 count += 1
-                sensordata = {"lekk_temp": [False, False, False, (25+count)%99, (37+count)%99, (61+count)%99]}
-                gui_parent_pipe.send(sensordata)
-                sensordata = {"thrust": [thrust_list[(0+count)%201], thrust_list[(13+count)%201], thrust_list[(25+count)%201], thrust_list[(38+count)%201], thrust_list[(37+count)%201], thrust_list[(50+count)%201], thrust_list[(63+count)%201], thrust_list[(75+count)%201], thrust_list[(88+count)%201], thrust_list[(107+count)%201]]}
-                # sensordata = {"thrust": [16]*8}
+                sensordata["lekk_temp"] = [False, False, False, (25+count)%99, (37+count)%99, (61+count)%99]
+                sensordata["thrust"] = [thrust_list[(0+count)%201], thrust_list[(13+count)%201], thrust_list[(25+count)%201], thrust_list[(38+count)%201], thrust_list[(37+count)%201], thrust_list[(50+count)%201], thrust_list[(63+count)%201], thrust_list[(75+count)%201], thrust_list[(88+count)%201], thrust_list[(107+count)%201]]
+                sensordata["power_consumption"] = [power_list[count%101]*13, power_list[count%101]*2.4, power_list[count%101]*0.65]
                 gui_parent_pipe.send(sensordata)
                 time.sleep(0.03333)
 
