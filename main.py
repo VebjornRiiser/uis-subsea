@@ -322,7 +322,7 @@ class Rov_state:
                     # [[200/201, {"video_recording": True, "take_pic": True}]]
 
     def build_styredata(self):
-        #  X,Y,Z, rotasjon, m.teleskop, m.vri, m.klype + uint8 throttle  ##########
+        #  X, Y, Z, rotasjon, (m.teleskop, m.vri, m.klype, enable), fri, fri,  throttle  ##########
         styredata = []
         styredata.append(self.data["joysticks"][X_axis])
         styredata.append(self.data["joysticks"][Y_axis])

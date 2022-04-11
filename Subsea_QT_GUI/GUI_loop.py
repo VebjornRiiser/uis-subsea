@@ -252,7 +252,8 @@ void main() {
         self.toggle_frontlys.setText("Frontlys")
         self.toggle_havbunnslys.setText("Havbunnslys")
 
-        self.toggle_mani.stateChanged.connect(lambda:self.check_btn_state(self.toggle_mani))
+        self.toggle_mani.stateChanged.connect(self.toggle_manipulator_enable)
+
         self.toggle_dybde.stateChanged.connect(lambda:self.check_btn_state(self.toggle_dybde))
         self.toggle_helning.stateChanged.connect(lambda:self.check_btn_state(self.toggle_helning))
         self.toggle_frontlys.stateChanged.connect(self.send_current_ligth_intensity)
@@ -394,6 +395,10 @@ void main() {
         self.maximize_restore()
 
         # ///////////////////////////////////////////////////////////////
+    def toggle_manipulator_enable(self):
+        if self.toggle_mani.checkState != 0:
+            print("manipulator on")
+            
 
     def set_bildebehandlingsmodus(self, modus_kamera_1: int, modus_kamera_2: int):
         # print(modus_kamera_1, modus_kamera_2)
