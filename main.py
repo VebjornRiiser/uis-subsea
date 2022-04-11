@@ -243,19 +243,12 @@ class Rov_state:
             "update_bildebehandling": self.update_bildebehandlingsmodus, "take_pic": self.take_pic,
             "manipulator_toggle": self.toggle_manipulator_enabled}
 
-            unpacking_list = ["update_bildebehandling", "take_pic", "manipulator_toggle"]
-
-            if packet[0] in unpacking_list:
-                print(f"{packet}")
-                commands[packet[0]](*packet[1:]) #unpacking
-                return
-
             if packet[0] not in commands:
                 print(f"Got unrecognized command from gui {packet}")
                 return
-            commands[packet[0]](packet)
+            commands[packet[0]](*packet[1:]) # * unpacks list
 
-    def set_depth_zeroing(self):
+    def set_depth_zeroing(self, sensordata=None):
         self.packets_to_send.append([129, []])
 
     def get_rotation_input(self):
@@ -281,8 +274,8 @@ class Rov_state:
         """Sends the created network packets and clears it"""
         # print(self.packets_to_send)
         for packet in self.packets_to_send:
-            # if packet[0] != 70:
-            print(packet)
+            if packet[0] != 70:
+                print(f"{packet = }")
         self.logger.sensor_logger.info(self.packets_to_send)
         if self.network_handler is None:
             self.packets_to_send = []
@@ -297,12 +290,12 @@ class Rov_state:
             print(f"{self.camera_tilt_control_active = }")
             self.right_joystick_toggle_wait_counter = 7
 
-    def update_light_value(self, packet: list):
-        self.light_intensity_forward = packet[1]
-        self.ligth_forward_is_on = packet[2]
+    def update_light_value(self, light_intensity_forward: int, ligth_forward_is_on: bool, light_intensity_down: int, ligth_down_is_on: bool):
+        self.light_intensity_forward = light_intensity_forward
+        self.ligth_forward_is_on = ligth_forward_is_on
         
-        self.light_intensity_down = packet[3]
-        self.ligth_down_is_on = packet[4]
+        self.light_intensity_down = light_intensity_down
+        self.ligth_down_is_on = ligth_down_is_on
 
         ligth_down = self.light_intensity_down * self.ligth_down_is_on
         ligth_forward = self.light_intensity_forward * self.ligth_forward_is_on
