@@ -18,7 +18,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1277, 907)
+        MainWindow.resize(1233, 855)
         MainWindow.setMinimumSize(QSize(940, 560))
         self.styleSheet = QWidget(MainWindow)
         self.styleSheet.setObjectName(u"styleSheet")
@@ -1021,7 +1021,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignTop)
         self.scrollAreaWidgetContent = QWidget()
         self.scrollAreaWidgetContent.setObjectName(u"scrollAreaWidgetContent")
-        self.scrollAreaWidgetContent.setGeometry(QRect(0, 0, 1164, 816))
+        self.scrollAreaWidgetContent.setGeometry(QRect(0, 0, 1164, 800))
         self.horizontalLayout_10 = QHBoxLayout(self.scrollAreaWidgetContent)
         self.horizontalLayout_10.setSpacing(7)
         self.horizontalLayout_10.setObjectName(u"horizontalLayout_10")
@@ -1044,9 +1044,24 @@ class Ui_MainWindow(object):
         self.kjoringContainer.setStyleSheet(u"")
         self.kjoringContainer.setFrameShape(QFrame.NoFrame)
         self.kjoringContainer.setFrameShadow(QFrame.Raised)
-        self.gridLayout_6 = QGridLayout(self.kjoringContainer)
-        self.gridLayout_6.setObjectName(u"gridLayout_6")
-        self.gridLayout_6.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_15 = QVBoxLayout(self.kjoringContainer)
+        self.verticalLayout_15.setObjectName(u"verticalLayout_15")
+        self.title_kjoring = QLabel(self.kjoringContainer)
+        self.title_kjoring.setObjectName(u"title_kjoring")
+        self.title_kjoring.setMinimumSize(QSize(0, 20))
+        self.title_kjoring.setFont(font)
+        self.title_kjoring.setStyleSheet(u"")
+
+        self.verticalLayout_15.addWidget(self.title_kjoring)
+
+        self.label_kjoring = QLabel(self.kjoringContainer)
+        self.label_kjoring.setObjectName(u"label_kjoring")
+        self.label_kjoring.setStyleSheet(u"color: rgb(113, 126, 149);")
+        self.label_kjoring.setLineWidth(1)
+        self.label_kjoring.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
+
+        self.verticalLayout_15.addWidget(self.label_kjoring)
+
         self.btn_manuell = QPushButton(self.kjoringContainer)
         self.btn_manuell.setObjectName(u"btn_manuell")
         self.btn_manuell.setMinimumSize(QSize(150, 45))
@@ -1060,42 +1075,7 @@ class Ui_MainWindow(object):
         self.btn_manuell.setChecked(False)
         self.btn_manuell.setAutoRepeat(False)
 
-        self.gridLayout_6.addWidget(self.btn_manuell, 2, 0, 1, 1)
-
-        self.btn_bildemoasaikk = QPushButton(self.kjoringContainer)
-        self.btn_bildemoasaikk.setObjectName(u"btn_bildemoasaikk")
-        self.btn_bildemoasaikk.setMinimumSize(QSize(150, 45))
-        self.btn_bildemoasaikk.setFont(font)
-        self.btn_bildemoasaikk.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_bildemoasaikk.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}")
-
-        self.gridLayout_6.addWidget(self.btn_bildemoasaikk, 5, 0, 1, 1)
-
-        self.btn_autonom_parkering = QPushButton(self.kjoringContainer)
-        self.btn_autonom_parkering.setObjectName(u"btn_autonom_parkering")
-        self.btn_autonom_parkering.setMinimumSize(QSize(150, 45))
-        self.btn_autonom_parkering.setFont(font)
-        self.btn_autonom_parkering.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_autonom_parkering.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}")
-
-        self.gridLayout_6.addWidget(self.btn_autonom_parkering, 6, 0, 1, 1)
-
-        self.title_kjoring = QLabel(self.kjoringContainer)
-        self.title_kjoring.setObjectName(u"title_kjoring")
-        self.title_kjoring.setMinimumSize(QSize(0, 20))
-        self.title_kjoring.setFont(font)
-        self.title_kjoring.setStyleSheet(u"")
-
-        self.gridLayout_6.addWidget(self.title_kjoring, 0, 0, 1, 1)
-
-        self.btn_autonom_merd = QPushButton(self.kjoringContainer)
-        self.btn_autonom_merd.setObjectName(u"btn_autonom_merd")
-        self.btn_autonom_merd.setMinimumSize(QSize(150, 45))
-        self.btn_autonom_merd.setFont(font)
-        self.btn_autonom_merd.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_autonom_merd.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}")
-
-        self.gridLayout_6.addWidget(self.btn_autonom_merd, 4, 0, 1, 1)
+        self.verticalLayout_15.addWidget(self.btn_manuell)
 
         self.btn_finn_fisk = QPushButton(self.kjoringContainer)
         self.btn_finn_fisk.setObjectName(u"btn_finn_fisk")
@@ -1104,36 +1084,60 @@ class Ui_MainWindow(object):
         self.btn_finn_fisk.setCursor(QCursor(Qt.PointingHandCursor))
         self.btn_finn_fisk.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}")
 
-        self.gridLayout_6.addWidget(self.btn_finn_fisk, 3, 0, 1, 1)
+        self.verticalLayout_15.addWidget(self.btn_finn_fisk)
 
-        self.title_kjoring_2 = QLabel(self.kjoringContainer)
-        self.title_kjoring_2.setObjectName(u"title_kjoring_2")
-        self.title_kjoring_2.setMinimumSize(QSize(0, 20))
-        self.title_kjoring_2.setFont(font)
-        self.title_kjoring_2.setStyleSheet(u"")
+        self.btn_autonom_merd = QPushButton(self.kjoringContainer)
+        self.btn_autonom_merd.setObjectName(u"btn_autonom_merd")
+        self.btn_autonom_merd.setMinimumSize(QSize(150, 45))
+        self.btn_autonom_merd.setFont(font)
+        self.btn_autonom_merd.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_autonom_merd.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}")
 
-        self.gridLayout_6.addWidget(self.title_kjoring_2, 7, 0, 1, 1)
+        self.verticalLayout_15.addWidget(self.btn_autonom_merd)
 
-        self.label_kjoring = QLabel(self.kjoringContainer)
-        self.label_kjoring.setObjectName(u"label_kjoring")
-        self.label_kjoring.setStyleSheet(u"color: rgb(113, 126, 149);")
-        self.label_kjoring.setLineWidth(1)
-        self.label_kjoring.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
+        self.btn_bildemoasaikk = QPushButton(self.kjoringContainer)
+        self.btn_bildemoasaikk.setObjectName(u"btn_bildemoasaikk")
+        self.btn_bildemoasaikk.setMinimumSize(QSize(150, 45))
+        self.btn_bildemoasaikk.setFont(font)
+        self.btn_bildemoasaikk.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_bildemoasaikk.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}")
 
-        self.gridLayout_6.addWidget(self.label_kjoring, 1, 0, 1, 1)
+        self.verticalLayout_15.addWidget(self.btn_bildemoasaikk)
 
-        self.label_effekt_elektronikk_2 = QLabel(self.kjoringContainer)
-        self.label_effekt_elektronikk_2.setObjectName(u"label_effekt_elektronikk_2")
-        self.label_effekt_elektronikk_2.setMinimumSize(QSize(40, 30))
-        self.label_effekt_elektronikk_2.setMaximumSize(QSize(16777215, 16777215))
-        self.label_effekt_elektronikk_2.setFont(font)
-        self.label_effekt_elektronikk_2.setStyleSheet(u"background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
-        self.label_effekt_elektronikk_2.setFrameShape(QFrame.NoFrame)
-        self.label_effekt_elektronikk_2.setLineWidth(0)
-        self.label_effekt_elektronikk_2.setMidLineWidth(0)
-        self.label_effekt_elektronikk_2.setAlignment(Qt.AlignCenter)
+        self.btn_autonom_parkering = QPushButton(self.kjoringContainer)
+        self.btn_autonom_parkering.setObjectName(u"btn_autonom_parkering")
+        self.btn_autonom_parkering.setMinimumSize(QSize(150, 45))
+        self.btn_autonom_parkering.setFont(font)
+        self.btn_autonom_parkering.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_autonom_parkering.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}")
 
-        self.gridLayout_6.addWidget(self.label_effekt_elektronikk_2, 8, 0, 1, 1)
+        self.verticalLayout_15.addWidget(self.btn_autonom_parkering)
+
+        self.bildebehandlingContainer = QHBoxLayout()
+        self.bildebehandlingContainer.setObjectName(u"bildebehandlingContainer")
+        self.text_bildebehandlingsmodus = QLabel(self.kjoringContainer)
+        self.text_bildebehandlingsmodus.setObjectName(u"text_bildebehandlingsmodus")
+        self.text_bildebehandlingsmodus.setMinimumSize(QSize(0, 20))
+        self.text_bildebehandlingsmodus.setFont(font)
+        self.text_bildebehandlingsmodus.setStyleSheet(u"")
+
+        self.bildebehandlingContainer.addWidget(self.text_bildebehandlingsmodus)
+
+        self.label_bildebehandlingsmodus = QLabel(self.kjoringContainer)
+        self.label_bildebehandlingsmodus.setObjectName(u"label_bildebehandlingsmodus")
+        self.label_bildebehandlingsmodus.setMinimumSize(QSize(40, 30))
+        self.label_bildebehandlingsmodus.setMaximumSize(QSize(16777215, 16777215))
+        self.label_bildebehandlingsmodus.setFont(font)
+        self.label_bildebehandlingsmodus.setStyleSheet(u"background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
+        self.label_bildebehandlingsmodus.setFrameShape(QFrame.NoFrame)
+        self.label_bildebehandlingsmodus.setLineWidth(0)
+        self.label_bildebehandlingsmodus.setMidLineWidth(0)
+        self.label_bildebehandlingsmodus.setAlignment(Qt.AlignCenter)
+
+        self.bildebehandlingContainer.addWidget(self.label_bildebehandlingsmodus)
+
+
+        self.verticalLayout_15.addLayout(self.bildebehandlingContainer)
 
 
         self.verticalLayout_26.addWidget(self.kjoringContainer)
@@ -1257,26 +1261,63 @@ class Ui_MainWindow(object):
         self.gridLayout_4 = QGridLayout(self.rovColumn)
         self.gridLayout_4.setObjectName(u"gridLayout_4")
         self.gridLayout_4.setContentsMargins(0, 0, 0, 0)
-        self.label_effekt_thrustere_2 = QLabel(self.rovColumn)
-        self.label_effekt_thrustere_2.setObjectName(u"label_effekt_thrustere_2")
-        self.label_effekt_thrustere_2.setMinimumSize(QSize(40, 30))
-        self.label_effekt_thrustere_2.setMaximumSize(QSize(16777215, 16777215))
-        self.label_effekt_thrustere_2.setFont(font)
-        self.label_effekt_thrustere_2.setStyleSheet(u"background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
-        self.label_effekt_thrustere_2.setFrameShape(QFrame.NoFrame)
-        self.label_effekt_thrustere_2.setLineWidth(0)
-        self.label_effekt_thrustere_2.setMidLineWidth(0)
-        self.label_effekt_thrustere_2.setAlignment(Qt.AlignCenter)
+        self.btn_reset_sikring_thrustere = QPushButton(self.rovColumn)
+        self.btn_reset_sikring_thrustere.setObjectName(u"btn_reset_sikring_thrustere")
+        self.btn_reset_sikring_thrustere.setMinimumSize(QSize(45, 30))
+        self.btn_reset_sikring_thrustere.setMaximumSize(QSize(16777215, 16777215))
+        self.btn_reset_sikring_thrustere.setFont(font)
+        self.btn_reset_sikring_thrustere.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_reset_sikring_thrustere.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255)); } QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}\n"
+"QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }\n"
+"")
+        self.btn_reset_sikring_thrustere.setCheckable(False)
+        self.btn_reset_sikring_thrustere.setChecked(False)
+        self.btn_reset_sikring_thrustere.setAutoRepeat(False)
 
-        self.gridLayout_4.addWidget(self.label_effekt_thrustere_2, 9, 1, 1, 1)
+        self.gridLayout_4.addWidget(self.btn_reset_sikring_thrustere, 10, 3, 1, 1)
 
-        self.text_orientering = QLabel(self.rovColumn)
-        self.text_orientering.setObjectName(u"text_orientering")
-        self.text_orientering.setMinimumSize(QSize(100, 30))
-        self.text_orientering.setFont(font)
-        self.text_orientering.setTextFormat(Qt.PlainText)
+        self.btn_reset_nullpunkt = QPushButton(self.rovColumn)
+        self.btn_reset_nullpunkt.setObjectName(u"btn_reset_nullpunkt")
+        self.btn_reset_nullpunkt.setMinimumSize(QSize(45, 30))
+        self.btn_reset_nullpunkt.setMaximumSize(QSize(16777215, 16777215))
+        self.btn_reset_nullpunkt.setFont(font)
+        self.btn_reset_nullpunkt.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_reset_nullpunkt.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255)); } QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}\n"
+"QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }\n"
+"")
+        self.btn_reset_nullpunkt.setCheckable(False)
+        self.btn_reset_nullpunkt.setChecked(False)
+        self.btn_reset_nullpunkt.setAutoRepeat(False)
 
-        self.gridLayout_4.addWidget(self.text_orientering, 2, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.btn_reset_nullpunkt, 2, 2, 1, 2)
+
+        self.btn_regulator_manipulator = QPushButton(self.rovColumn)
+        self.btn_regulator_manipulator.setObjectName(u"btn_regulator_manipulator")
+        self.btn_regulator_manipulator.setMinimumSize(QSize(45, 30))
+        self.btn_regulator_manipulator.setMaximumSize(QSize(16777215, 16777215))
+        self.btn_regulator_manipulator.setFont(font)
+        self.btn_regulator_manipulator.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_regulator_manipulator.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255)); } QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}\n"
+"QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }\n"
+"")
+        self.btn_regulator_manipulator.setCheckable(True)
+        self.btn_regulator_manipulator.setChecked(False)
+        self.btn_regulator_manipulator.setAutoRepeat(False)
+
+        self.gridLayout_4.addWidget(self.btn_regulator_manipulator, 11, 2, 1, 1)
+
+        self.label_effekt_thrustere = QLabel(self.rovColumn)
+        self.label_effekt_thrustere.setObjectName(u"label_effekt_thrustere")
+        self.label_effekt_thrustere.setMinimumSize(QSize(40, 30))
+        self.label_effekt_thrustere.setMaximumSize(QSize(16777215, 16777215))
+        self.label_effekt_thrustere.setFont(font)
+        self.label_effekt_thrustere.setStyleSheet(u"background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
+        self.label_effekt_thrustere.setFrameShape(QFrame.NoFrame)
+        self.label_effekt_thrustere.setLineWidth(0)
+        self.label_effekt_thrustere.setMidLineWidth(0)
+        self.label_effekt_thrustere.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout_4.addWidget(self.label_effekt_thrustere, 10, 1, 1, 1)
 
         self.title_effektforbruk = QLabel(self.rovColumn)
         self.title_effektforbruk.setObjectName(u"title_effektforbruk")
@@ -1285,7 +1326,7 @@ class Ui_MainWindow(object):
         self.title_effektforbruk.setFont(font)
         self.title_effektforbruk.setStyleSheet(u"")
 
-        self.gridLayout_4.addWidget(self.title_effektforbruk, 3, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.title_effektforbruk, 4, 0, 1, 1)
 
         self.text_effekt_elektronikk = QLabel(self.rovColumn)
         self.text_effekt_elektronikk.setObjectName(u"text_effekt_elektronikk")
@@ -1294,20 +1335,20 @@ class Ui_MainWindow(object):
         self.text_effekt_elektronikk.setStyleSheet(u"color: rgb(113, 126, 149);")
         self.text_effekt_elektronikk.setTextFormat(Qt.RichText)
 
-        self.gridLayout_4.addWidget(self.text_effekt_elektronikk, 5, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.text_effekt_elektronikk, 6, 0, 1, 1)
 
-        self.label_effekt_manipulator_2 = QLabel(self.rovColumn)
-        self.label_effekt_manipulator_2.setObjectName(u"label_effekt_manipulator_2")
-        self.label_effekt_manipulator_2.setMinimumSize(QSize(40, 30))
-        self.label_effekt_manipulator_2.setMaximumSize(QSize(16777215, 16777215))
-        self.label_effekt_manipulator_2.setFont(font)
-        self.label_effekt_manipulator_2.setStyleSheet(u"background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
-        self.label_effekt_manipulator_2.setFrameShape(QFrame.NoFrame)
-        self.label_effekt_manipulator_2.setLineWidth(0)
-        self.label_effekt_manipulator_2.setMidLineWidth(0)
-        self.label_effekt_manipulator_2.setAlignment(Qt.AlignCenter)
+        self.label_effekt_manipulator = QLabel(self.rovColumn)
+        self.label_effekt_manipulator.setObjectName(u"label_effekt_manipulator")
+        self.label_effekt_manipulator.setMinimumSize(QSize(40, 30))
+        self.label_effekt_manipulator.setMaximumSize(QSize(16777215, 16777215))
+        self.label_effekt_manipulator.setFont(font)
+        self.label_effekt_manipulator.setStyleSheet(u"background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
+        self.label_effekt_manipulator.setFrameShape(QFrame.NoFrame)
+        self.label_effekt_manipulator.setLineWidth(0)
+        self.label_effekt_manipulator.setMidLineWidth(0)
+        self.label_effekt_manipulator.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout_4.addWidget(self.label_effekt_manipulator_2, 10, 1, 1, 1)
+        self.gridLayout_4.addWidget(self.label_effekt_manipulator, 11, 1, 1, 1)
 
         self.text_effekt_manipulator = QLabel(self.rovColumn)
         self.text_effekt_manipulator.setObjectName(u"text_effekt_manipulator")
@@ -1316,12 +1357,12 @@ class Ui_MainWindow(object):
         self.text_effekt_manipulator.setStyleSheet(u"color: rgb(113, 126, 149);")
         self.text_effekt_manipulator.setTextFormat(Qt.RichText)
 
-        self.gridLayout_4.addWidget(self.text_effekt_manipulator, 10, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.text_effekt_manipulator, 11, 0, 1, 1)
 
         self.label_tid = QLabel(self.rovColumn)
         self.label_tid.setObjectName(u"label_tid")
-        self.label_tid.setMinimumSize(QSize(90, 30))
-        self.label_tid.setMaximumSize(QSize(90, 30))
+        self.label_tid.setMinimumSize(QSize(70, 30))
+        self.label_tid.setMaximumSize(QSize(70, 30))
         self.label_tid.setFont(font)
         self.label_tid.setStyleSheet(u"background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
         self.label_tid.setFrameShape(QFrame.NoFrame)
@@ -1333,8 +1374,8 @@ class Ui_MainWindow(object):
 
         self.label_dybde = QLabel(self.rovColumn)
         self.label_dybde.setObjectName(u"label_dybde")
-        self.label_dybde.setMinimumSize(QSize(90, 30))
-        self.label_dybde.setMaximumSize(QSize(90, 30))
+        self.label_dybde.setMinimumSize(QSize(70, 30))
+        self.label_dybde.setMaximumSize(QSize(70, 30))
         self.label_dybde.setFont(font)
         self.label_dybde.setStyleSheet(u"background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
         self.label_dybde.setFrameShape(QFrame.NoFrame)
@@ -1342,20 +1383,7 @@ class Ui_MainWindow(object):
         self.label_dybde.setMidLineWidth(0)
         self.label_dybde.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout_4.addWidget(self.label_dybde, 1, 1, 1, 1)
-
-        self.label_orientering = QLabel(self.rovColumn)
-        self.label_orientering.setObjectName(u"label_orientering")
-        self.label_orientering.setMinimumSize(QSize(90, 30))
-        self.label_orientering.setMaximumSize(QSize(90, 30))
-        self.label_orientering.setFont(font)
-        self.label_orientering.setStyleSheet(u"background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
-        self.label_orientering.setFrameShape(QFrame.NoFrame)
-        self.label_orientering.setLineWidth(0)
-        self.label_orientering.setMidLineWidth(0)
-        self.label_orientering.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout_4.addWidget(self.label_orientering, 2, 1, 1, 1)
+        self.gridLayout_4.addWidget(self.label_dybde, 2, 1, 1, 1)
 
         self.text_tid = QLabel(self.rovColumn)
         self.text_tid.setObjectName(u"text_tid")
@@ -1372,7 +1400,7 @@ class Ui_MainWindow(object):
         self.text_effekt_thrustere.setStyleSheet(u"color: rgb(113, 126, 149);")
         self.text_effekt_thrustere.setTextFormat(Qt.PlainText)
 
-        self.gridLayout_4.addWidget(self.text_effekt_thrustere, 9, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.text_effekt_thrustere, 10, 0, 1, 1)
 
         self.text_dybde = QLabel(self.rovColumn)
         self.text_dybde.setObjectName(u"text_dybde")
@@ -1380,82 +1408,7 @@ class Ui_MainWindow(object):
         self.text_dybde.setFont(font)
         self.text_dybde.setTextFormat(Qt.RichText)
 
-        self.gridLayout_4.addWidget(self.text_dybde, 1, 0, 1, 1)
-
-        self.btn_regulator_elektronikk = QPushButton(self.rovColumn)
-        self.btn_regulator_elektronikk.setObjectName(u"btn_regulator_elektronikk")
-        self.btn_regulator_elektronikk.setMinimumSize(QSize(45, 30))
-        self.btn_regulator_elektronikk.setMaximumSize(QSize(16777215, 16777215))
-        self.btn_regulator_elektronikk.setFont(font)
-        self.btn_regulator_elektronikk.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_regulator_elektronikk.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255)); } QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}\n"
-"QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }\n"
-"")
-        self.btn_regulator_elektronikk.setCheckable(True)
-        self.btn_regulator_elektronikk.setChecked(False)
-        self.btn_regulator_elektronikk.setAutoRepeat(False)
-
-        self.gridLayout_4.addWidget(self.btn_regulator_elektronikk, 5, 2, 1, 1)
-
-        self.btn_regulator_thrustere = QPushButton(self.rovColumn)
-        self.btn_regulator_thrustere.setObjectName(u"btn_regulator_thrustere")
-        self.btn_regulator_thrustere.setMinimumSize(QSize(45, 30))
-        self.btn_regulator_thrustere.setMaximumSize(QSize(16777215, 16777215))
-        self.btn_regulator_thrustere.setFont(font)
-        self.btn_regulator_thrustere.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_regulator_thrustere.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255)); } QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}\n"
-"QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }\n"
-"")
-        self.btn_regulator_thrustere.setCheckable(True)
-        self.btn_regulator_thrustere.setChecked(False)
-        self.btn_regulator_thrustere.setAutoRepeat(False)
-
-        self.gridLayout_4.addWidget(self.btn_regulator_thrustere, 9, 2, 1, 1)
-
-        self.btn_reset_sikring_elektronikk = QPushButton(self.rovColumn)
-        self.btn_reset_sikring_elektronikk.setObjectName(u"btn_reset_sikring_elektronikk")
-        self.btn_reset_sikring_elektronikk.setMinimumSize(QSize(45, 30))
-        self.btn_reset_sikring_elektronikk.setMaximumSize(QSize(16777215, 16777215))
-        self.btn_reset_sikring_elektronikk.setFont(font)
-        self.btn_reset_sikring_elektronikk.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_reset_sikring_elektronikk.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255)); } QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}\n"
-"QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }\n"
-"")
-        self.btn_reset_sikring_elektronikk.setCheckable(False)
-        self.btn_reset_sikring_elektronikk.setChecked(False)
-        self.btn_reset_sikring_elektronikk.setAutoRepeat(False)
-
-        self.gridLayout_4.addWidget(self.btn_reset_sikring_elektronikk, 5, 3, 1, 1)
-
-        self.btnl_reset_sikring_thrustere = QPushButton(self.rovColumn)
-        self.btnl_reset_sikring_thrustere.setObjectName(u"btnl_reset_sikring_thrustere")
-        self.btnl_reset_sikring_thrustere.setMinimumSize(QSize(45, 30))
-        self.btnl_reset_sikring_thrustere.setMaximumSize(QSize(16777215, 16777215))
-        self.btnl_reset_sikring_thrustere.setFont(font)
-        self.btnl_reset_sikring_thrustere.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btnl_reset_sikring_thrustere.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255)); } QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}\n"
-"QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }\n"
-"")
-        self.btnl_reset_sikring_thrustere.setCheckable(False)
-        self.btnl_reset_sikring_thrustere.setChecked(False)
-        self.btnl_reset_sikring_thrustere.setAutoRepeat(False)
-
-        self.gridLayout_4.addWidget(self.btnl_reset_sikring_thrustere, 9, 3, 1, 1)
-
-        self.btn_regulator_manipulator = QPushButton(self.rovColumn)
-        self.btn_regulator_manipulator.setObjectName(u"btn_regulator_manipulator")
-        self.btn_regulator_manipulator.setMinimumSize(QSize(45, 30))
-        self.btn_regulator_manipulator.setMaximumSize(QSize(16777215, 16777215))
-        self.btn_regulator_manipulator.setFont(font)
-        self.btn_regulator_manipulator.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_regulator_manipulator.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255)); } QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}\n"
-"QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }\n"
-"")
-        self.btn_regulator_manipulator.setCheckable(True)
-        self.btn_regulator_manipulator.setChecked(False)
-        self.btn_regulator_manipulator.setAutoRepeat(False)
-
-        self.gridLayout_4.addWidget(self.btn_regulator_manipulator, 10, 2, 1, 1)
+        self.gridLayout_4.addWidget(self.text_dybde, 2, 0, 1, 1)
 
         self.btn_reset_sikring_manipulator = QPushButton(self.rovColumn)
         self.btn_reset_sikring_manipulator.setObjectName(u"btn_reset_sikring_manipulator")
@@ -1470,7 +1423,86 @@ class Ui_MainWindow(object):
         self.btn_reset_sikring_manipulator.setChecked(False)
         self.btn_reset_sikring_manipulator.setAutoRepeat(False)
 
-        self.gridLayout_4.addWidget(self.btn_reset_sikring_manipulator, 10, 3, 1, 1)
+        self.gridLayout_4.addWidget(self.btn_reset_sikring_manipulator, 11, 3, 1, 1)
+
+        self.btn_regulator_elektronikk = QPushButton(self.rovColumn)
+        self.btn_regulator_elektronikk.setObjectName(u"btn_regulator_elektronikk")
+        self.btn_regulator_elektronikk.setMinimumSize(QSize(45, 30))
+        self.btn_regulator_elektronikk.setMaximumSize(QSize(16777215, 16777215))
+        self.btn_regulator_elektronikk.setFont(font)
+        self.btn_regulator_elektronikk.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_regulator_elektronikk.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255)); } QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}\n"
+"QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }\n"
+"")
+        self.btn_regulator_elektronikk.setCheckable(True)
+        self.btn_regulator_elektronikk.setChecked(False)
+        self.btn_regulator_elektronikk.setAutoRepeat(False)
+
+        self.gridLayout_4.addWidget(self.btn_regulator_elektronikk, 6, 2, 1, 1)
+
+        self.btn_regulator_thrustere = QPushButton(self.rovColumn)
+        self.btn_regulator_thrustere.setObjectName(u"btn_regulator_thrustere")
+        self.btn_regulator_thrustere.setMinimumSize(QSize(45, 30))
+        self.btn_regulator_thrustere.setMaximumSize(QSize(16777215, 16777215))
+        self.btn_regulator_thrustere.setFont(font)
+        self.btn_regulator_thrustere.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_regulator_thrustere.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255)); } QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}\n"
+"QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }\n"
+"")
+        self.btn_regulator_thrustere.setCheckable(True)
+        self.btn_regulator_thrustere.setChecked(False)
+        self.btn_regulator_thrustere.setAutoRepeat(False)
+
+        self.gridLayout_4.addWidget(self.btn_regulator_thrustere, 10, 2, 1, 1)
+
+        self.label_effekt_elektronikk = QLabel(self.rovColumn)
+        self.label_effekt_elektronikk.setObjectName(u"label_effekt_elektronikk")
+        self.label_effekt_elektronikk.setMinimumSize(QSize(40, 30))
+        self.label_effekt_elektronikk.setMaximumSize(QSize(16777215, 16777215))
+        self.label_effekt_elektronikk.setFont(font)
+        self.label_effekt_elektronikk.setStyleSheet(u"background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
+        self.label_effekt_elektronikk.setFrameShape(QFrame.NoFrame)
+        self.label_effekt_elektronikk.setLineWidth(0)
+        self.label_effekt_elektronikk.setMidLineWidth(0)
+        self.label_effekt_elektronikk.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout_4.addWidget(self.label_effekt_elektronikk, 6, 1, 1, 1)
+
+        self.text_orientering = QLabel(self.rovColumn)
+        self.text_orientering.setObjectName(u"text_orientering")
+        self.text_orientering.setMinimumSize(QSize(100, 30))
+        self.text_orientering.setFont(font)
+        self.text_orientering.setTextFormat(Qt.PlainText)
+
+        self.gridLayout_4.addWidget(self.text_orientering, 1, 0, 1, 1)
+
+        self.label_orientering = QLabel(self.rovColumn)
+        self.label_orientering.setObjectName(u"label_orientering")
+        self.label_orientering.setMinimumSize(QSize(70, 30))
+        self.label_orientering.setMaximumSize(QSize(70, 30))
+        self.label_orientering.setFont(font)
+        self.label_orientering.setStyleSheet(u"background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
+        self.label_orientering.setFrameShape(QFrame.NoFrame)
+        self.label_orientering.setLineWidth(0)
+        self.label_orientering.setMidLineWidth(0)
+        self.label_orientering.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout_4.addWidget(self.label_orientering, 1, 1, 1, 1)
+
+        self.btn_reset_sikring_elektronikk = QPushButton(self.rovColumn)
+        self.btn_reset_sikring_elektronikk.setObjectName(u"btn_reset_sikring_elektronikk")
+        self.btn_reset_sikring_elektronikk.setMinimumSize(QSize(45, 30))
+        self.btn_reset_sikring_elektronikk.setMaximumSize(QSize(16777215, 16777215))
+        self.btn_reset_sikring_elektronikk.setFont(font)
+        self.btn_reset_sikring_elektronikk.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_reset_sikring_elektronikk.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255)); } QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}\n"
+"QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }\n"
+"")
+        self.btn_reset_sikring_elektronikk.setCheckable(False)
+        self.btn_reset_sikring_elektronikk.setChecked(False)
+        self.btn_reset_sikring_elektronikk.setAutoRepeat(False)
+
+        self.gridLayout_4.addWidget(self.btn_reset_sikring_elektronikk, 6, 3, 1, 1)
 
 
         self.gridLayout_5.addWidget(self.rovColumn, 0, 0, 1, 1)
@@ -2813,38 +2845,40 @@ class Ui_MainWindow(object):
         self.closeAppBtn.setToolTip(QCoreApplication.translate("MainWindow", u"Close", None))
 #endif // QT_CONFIG(tooltip)
         self.closeAppBtn.setText("")
+        self.title_kjoring.setText(QCoreApplication.translate("MainWindow", u"KJ\u00d8REMODUS", None))
+        self.label_kjoring.setText(QCoreApplication.translate("MainWindow", u"Velg kj\u00f8remodus", None))
         self.btn_manuell.setText(QCoreApplication.translate("MainWindow", u"Manuell kj\u00f8ring", None))
+        self.btn_finn_fisk.setText(QCoreApplication.translate("MainWindow", u"Finn fisk (og kalkul\u00e9r n\u00e6rmeste avstand)", None))
+        self.btn_autonom_merd.setText(QCoreApplication.translate("MainWindow", u"Autonom merd", None))
         self.btn_bildemoasaikk.setText(QCoreApplication.translate("MainWindow", u"Bildemoasaikk", None))
         self.btn_autonom_parkering.setText(QCoreApplication.translate("MainWindow", u"Autonom parkering", None))
-        self.title_kjoring.setText(QCoreApplication.translate("MainWindow", u"KJ\u00d8REMODUS", None))
-        self.btn_autonom_merd.setText(QCoreApplication.translate("MainWindow", u"Autonom merd", None))
-        self.btn_finn_fisk.setText(QCoreApplication.translate("MainWindow", u"Finn fisk (og kalkul\u00e9r n\u00e6rmeste avstand)", None))
-        self.title_kjoring_2.setText(QCoreApplication.translate("MainWindow", u"Bildebehandlingen som kj\u00f8res:", None))
-        self.label_kjoring.setText(QCoreApplication.translate("MainWindow", u"Velg kj\u00f8remodus", None))
-        self.label_effekt_elektronikk_2.setText(QCoreApplication.translate("MainWindow", u"---", None))
+        self.text_bildebehandlingsmodus.setText(QCoreApplication.translate("MainWindow", u"Bildebehandlingen som kj\u00f8res:", None))
+        self.label_bildebehandlingsmodus.setText(QCoreApplication.translate("MainWindow", u"---", None))
         self.text_mani.setText(QCoreApplication.translate("MainWindow", u"Manipulator", None))
         self.text_dybde_reg.setText(QCoreApplication.translate("MainWindow", u"Dybde regulator", None))
         self.text_helning.setText(QCoreApplication.translate("MainWindow", u"Helningsregulator", None))
         self.text_frontlys.setText(QCoreApplication.translate("MainWindow", u"Frontlys", None))
         self.text_havbunnslys.setText(QCoreApplication.translate("MainWindow", u"Havbunnslys", None))
-        self.label_effekt_thrustere_2.setText(QCoreApplication.translate("MainWindow", u"---", None))
-        self.text_orientering.setText(QCoreApplication.translate("MainWindow", u"Orientering:", None))
+        self.btn_reset_sikring_thrustere.setText(QCoreApplication.translate("MainWindow", u"Reset", None))
+        self.btn_reset_nullpunkt.setText(QCoreApplication.translate("MainWindow", u"Reset", None))
+        self.btn_regulator_manipulator.setText(QCoreApplication.translate("MainWindow", u"Av/P\u00e5", None))
+        self.label_effekt_thrustere.setText(QCoreApplication.translate("MainWindow", u"---", None))
         self.title_effektforbruk.setText(QCoreApplication.translate("MainWindow", u"EFFEKTFORBRUK", None))
         self.text_effekt_elektronikk.setText(QCoreApplication.translate("MainWindow", u"Elektronikk:", None))
-        self.label_effekt_manipulator_2.setText(QCoreApplication.translate("MainWindow", u"---", None))
+        self.label_effekt_manipulator.setText(QCoreApplication.translate("MainWindow", u"---", None))
         self.text_effekt_manipulator.setText(QCoreApplication.translate("MainWindow", u"Manipulator:", None))
         self.label_tid.setText(QCoreApplication.translate("MainWindow", u"00:00:00", None))
         self.label_dybde.setText(QCoreApplication.translate("MainWindow", u"-----", None))
-        self.label_orientering.setText(QCoreApplication.translate("MainWindow", u"-----", None))
         self.text_tid.setText(QCoreApplication.translate("MainWindow", u"Tid:", None))
         self.text_effekt_thrustere.setText(QCoreApplication.translate("MainWindow", u"Thrustere:", None))
         self.text_dybde.setText(QCoreApplication.translate("MainWindow", u"Dybde:", None))
+        self.btn_reset_sikring_manipulator.setText(QCoreApplication.translate("MainWindow", u"Reset", None))
         self.btn_regulator_elektronikk.setText(QCoreApplication.translate("MainWindow", u"Av/P\u00e5", None))
         self.btn_regulator_thrustere.setText(QCoreApplication.translate("MainWindow", u"Av/P\u00e5", None))
+        self.label_effekt_elektronikk.setText(QCoreApplication.translate("MainWindow", u"---", None))
+        self.text_orientering.setText(QCoreApplication.translate("MainWindow", u"Orientering:", None))
+        self.label_orientering.setText(QCoreApplication.translate("MainWindow", u"-----", None))
         self.btn_reset_sikring_elektronikk.setText(QCoreApplication.translate("MainWindow", u"Reset", None))
-        self.btnl_reset_sikring_thrustere.setText(QCoreApplication.translate("MainWindow", u"Reset", None))
-        self.btn_regulator_manipulator.setText(QCoreApplication.translate("MainWindow", u"Av/P\u00e5", None))
-        self.btn_reset_sikring_manipulator.setText(QCoreApplication.translate("MainWindow", u"Reset", None))
         self.label_temp_ROV.setText(QCoreApplication.translate("MainWindow", u"TEMPERATUR I ROV", None))
         self.label_temp_ROV_1.setText(QCoreApplication.translate("MainWindow", u"---", None))
         self.labe_temp_ROV_2.setText(QCoreApplication.translate("MainWindow", u"---", None))

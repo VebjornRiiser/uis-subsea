@@ -2448,7 +2448,52 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        <property name="bottomMargin">
                                         <number>0</number>
                                        </property>
-                                       <item row="10" column="3">
+                                       <item row="5" column="3">
+                                        <widget class="QPushButton" name="btn_reset_sikring_elektronikk">
+                                         <property name="minimumSize">
+                                          <size>
+                                           <width>45</width>
+                                           <height>30</height>
+                                          </size>
+                                         </property>
+                                         <property name="maximumSize">
+                                          <size>
+                                           <width>16777215</width>
+                                           <height>16777215</height>
+                                          </size>
+                                         </property>
+                                         <property name="font">
+                                          <font>
+                                           <family>Segoe UI</family>
+                                           <pointsize>10</pointsize>
+                                           <weight>50</weight>
+                                           <italic>false</italic>
+                                           <bold>false</bold>
+                                          </font>
+                                         </property>
+                                         <property name="cursor">
+                                          <cursorShape>PointingHandCursor</cursorShape>
+                                         </property>
+                                         <property name="styleSheet">
+                                          <string notr="true">QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255)); } QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}
+QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }
+</string>
+                                         </property>
+                                         <property name="text">
+                                          <string>Reset</string>
+                                         </property>
+                                         <property name="checkable">
+                                          <bool>false</bool>
+                                         </property>
+                                         <property name="checked">
+                                          <bool>false</bool>
+                                         </property>
+                                         <property name="autoRepeat">
+                                          <bool>false</bool>
+                                         </property>
+                                        </widget>
+                                       </item>
+                                       <item row="9" column="3">
                                         <widget class="QPushButton" name="btn_reset_sikring_thrustere">
                                          <property name="minimumSize">
                                           <size>
@@ -2491,7 +2536,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          </property>
                                         </widget>
                                        </item>
-                                       <item row="2" column="2" colspan="2">
+                                       <item row="1" column="2" colspan="2">
                                         <widget class="QPushButton" name="btn_reset_nullpunkt">
                                          <property name="minimumSize">
                                           <size>
@@ -2534,7 +2579,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          </property>
                                         </widget>
                                        </item>
-                                       <item row="11" column="2">
+                                       <item row="10" column="2">
                                         <widget class="QPushButton" name="btn_regulator_manipulator">
                                          <property name="minimumSize">
                                           <size>
@@ -2577,8 +2622,8 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          </property>
                                         </widget>
                                        </item>
-                                       <item row="10" column="1">
-                                        <widget class="QLabel" name="label_effekt_thrustere">
+                                       <item row="9" column="1">
+                                        <widget class="QLabel" name="label_effekt_thrustere_2">
                                          <property name="minimumSize">
                                           <size>
                                            <width>40</width>
@@ -2618,7 +2663,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          </property>
                                         </widget>
                                        </item>
-                                       <item row="4" column="0">
+                                       <item row="3" column="0">
                                         <widget class="QLabel" name="title_effektforbruk">
                                          <property name="minimumSize">
                                           <size>
@@ -2649,7 +2694,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          </property>
                                         </widget>
                                        </item>
-                                       <item row="6" column="0">
+                                       <item row="5" column="0">
                                         <widget class="QLabel" name="text_effekt_elektronikk">
                                          <property name="minimumSize">
                                           <size>
@@ -2675,7 +2720,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          </property>
                                         </widget>
                                        </item>
-                                       <item row="11" column="1">
+                                       <item row="10" column="1">
                                         <widget class="QLabel" name="label_effekt_manipulator">
                                          <property name="minimumSize">
                                           <size>
@@ -2716,7 +2761,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          </property>
                                         </widget>
                                        </item>
-                                       <item row="11" column="0">
+                                       <item row="10" column="0">
                                         <widget class="QLabel" name="text_effekt_manipulator">
                                          <property name="minimumSize">
                                           <size>
@@ -2785,7 +2830,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          </property>
                                         </widget>
                                        </item>
-                                       <item row="2" column="1">
+                                       <item row="1" column="1">
                                         <widget class="QLabel" name="label_dybde">
                                          <property name="minimumSize">
                                           <size>
@@ -2849,7 +2894,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          </property>
                                         </widget>
                                        </item>
-                                       <item row="10" column="0">
+                                       <item row="9" column="0">
                                         <widget class="QLabel" name="text_effekt_thrustere">
                                          <property name="minimumSize">
                                           <size>
@@ -2875,7 +2920,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          </property>
                                         </widget>
                                        </item>
-                                       <item row="2" column="0">
+                                       <item row="1" column="0">
                                         <widget class="QLabel" name="text_dybde">
                                          <property name="minimumSize">
                                           <size>
@@ -2898,7 +2943,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          </property>
                                         </widget>
                                        </item>
-                                       <item row="11" column="3">
+                                       <item row="10" column="3">
                                         <widget class="QPushButton" name="btn_reset_sikring_manipulator">
                                          <property name="minimumSize">
                                           <size>
@@ -2941,7 +2986,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          </property>
                                         </widget>
                                        </item>
-                                       <item row="6" column="2">
+                                       <item row="5" column="2">
                                         <widget class="QPushButton" name="btn_regulator_elektronikk">
                                          <property name="minimumSize">
                                           <size>
@@ -2984,7 +3029,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          </property>
                                         </widget>
                                        </item>
-                                       <item row="10" column="2">
+                                       <item row="9" column="2">
                                         <widget class="QPushButton" name="btn_regulator_thrustere">
                                          <property name="minimumSize">
                                           <size>
@@ -3027,7 +3072,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          </property>
                                         </widget>
                                        </item>
-                                       <item row="6" column="1">
+                                       <item row="5" column="1">
                                         <widget class="QLabel" name="label_effekt_elektronikk">
                                          <property name="minimumSize">
                                           <size>
@@ -3065,115 +3110,6 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          </property>
                                          <property name="alignment">
                                           <set>Qt::AlignCenter</set>
-                                         </property>
-                                        </widget>
-                                       </item>
-                                       <item row="1" column="0">
-                                        <widget class="QLabel" name="text_orientering">
-                                         <property name="minimumSize">
-                                          <size>
-                                           <width>100</width>
-                                           <height>30</height>
-                                          </size>
-                                         </property>
-                                         <property name="font">
-                                          <font>
-                                           <family>Segoe UI</family>
-                                           <pointsize>10</pointsize>
-                                           <weight>50</weight>
-                                           <italic>false</italic>
-                                           <bold>false</bold>
-                                          </font>
-                                         </property>
-                                         <property name="text">
-                                          <string>Orientering:</string>
-                                         </property>
-                                         <property name="textFormat">
-                                          <enum>Qt::PlainText</enum>
-                                         </property>
-                                        </widget>
-                                       </item>
-                                       <item row="1" column="1">
-                                        <widget class="QLabel" name="label_orientering">
-                                         <property name="minimumSize">
-                                          <size>
-                                           <width>70</width>
-                                           <height>30</height>
-                                          </size>
-                                         </property>
-                                         <property name="maximumSize">
-                                          <size>
-                                           <width>70</width>
-                                           <height>30</height>
-                                          </size>
-                                         </property>
-                                         <property name="font">
-                                          <font>
-                                           <pointsize>10</pointsize>
-                                           <italic>false</italic>
-                                           <bold>false</bold>
-                                          </font>
-                                         </property>
-                                         <property name="styleSheet">
-                                          <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);</string>
-                                         </property>
-                                         <property name="frameShape">
-                                          <enum>QFrame::NoFrame</enum>
-                                         </property>
-                                         <property name="lineWidth">
-                                          <number>0</number>
-                                         </property>
-                                         <property name="midLineWidth">
-                                          <number>0</number>
-                                         </property>
-                                         <property name="text">
-                                          <string>-----</string>
-                                         </property>
-                                         <property name="alignment">
-                                          <set>Qt::AlignCenter</set>
-                                         </property>
-                                        </widget>
-                                       </item>
-                                       <item row="6" column="3">
-                                        <widget class="QPushButton" name="btn_reset_sikring_elektronikk">
-                                         <property name="minimumSize">
-                                          <size>
-                                           <width>45</width>
-                                           <height>30</height>
-                                          </size>
-                                         </property>
-                                         <property name="maximumSize">
-                                          <size>
-                                           <width>16777215</width>
-                                           <height>16777215</height>
-                                          </size>
-                                         </property>
-                                         <property name="font">
-                                          <font>
-                                           <pointsize>10</pointsize>
-                                           <italic>false</italic>
-                                           <bold>false</bold>
-                                          </font>
-                                         </property>
-                                         <property name="cursor">
-                                          <cursorShape>PointingHandCursor</cursorShape>
-                                         </property>
-                                         <property name="styleSheet">
-                                          <string notr="true">QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255)); } QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}
-QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }
-</string>
-                                         </property>
-                                         <property name="text">
-                                          <string>Reset</string>
-                                         </property>
-                                         <property name="checkable">
-                                          <bool>false</bool>
-                                         </property>
-                                         <property name="checked">
-                                          <bool>false</bool>
-                                         </property>
-                                         <property name="autoRepeat">
-                                          <bool>false</bool>
                                          </property>
                                         </widget>
                                        </item>
