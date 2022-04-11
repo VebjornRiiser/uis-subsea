@@ -305,6 +305,10 @@ void main() {
         self.btn_bildemoasaikk.clicked.connect(lambda: self.set_bildebehandlingsmodus(0, 3))
         self.btn_autonom_parkering.clicked.connect(lambda: self.set_bildebehandlingsmodus(4, 0))
 
+        self.btn_reset_sikring_elektronikk.clicked.connect(lambda: self.reset_sikring(0))
+        self.btn_reset_sikring_manipulator.clicked.connect(lambda: self.reset_sikring(1))
+        self.btn_reset_sikring_thrustere.clicked.connect(lambda: self.reset_sikring(2))
+
         self.btn_ta_bilde_frontkamera.clicked.connect(lambda: self.ta_bilde(0))
         self.btn_ta_bilde_havbunn.clicked.connect(lambda: self.ta_bilde(1))
         
@@ -396,6 +400,10 @@ void main() {
         self.maximize_restore()
 
         # ///////////////////////////////////////////////////////////////
+
+    def reset_sikring(self, nr: int):
+        self.send_command_to_rov(["reset_sikring", nr])
+
     def toggle_manipulator_enable(self):
         if self.toggle_mani.checkState() != 0:
             self.send_command_to_rov(["manipulator_toggle", None, True])
