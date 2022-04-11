@@ -13,13 +13,12 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
 import resources_rc
-import resources_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1458, 864)
+        MainWindow.resize(1277, 907)
         MainWindow.setMinimumSize(QSize(940, 560))
         self.styleSheet = QWidget(MainWindow)
         self.styleSheet.setObjectName(u"styleSheet")
@@ -123,7 +122,7 @@ class Ui_MainWindow(object):
 "\n"
 "\n"
 "/* Toggle Button */\n"
-"#toggleButton {\n"
+"#btn_toggle {\n"
 "	background-position: left center;\n"
 "    background-repeat: no-repeat;\n"
 "	border: none;\n"
@@ -133,11 +132,11 @@ class Ui_MainWindow(object):
 "	padding-left: 44px;\n"
 "	color: rgb(113, 126, 149);\n"
 "}\n"
-"#toggleButton:hov"
-                        "er {\n"
+"#btn_toggle:hover {"
+                        "\n"
 "	background-color: rgb(40, 44, 52);\n"
 "}\n"
-"#toggleButton:pressed {\n"
+"#btn_toggle:pressed {\n"
 "	background-color: rgb(74, 82, 91);\n"
 "}\n"
 "\n"
@@ -167,8 +166,8 @@ class Ui_MainWindow(object):
 "/* Btn Close */\n"
 "#extraCloseColumnBtn { background-color: rgba(255, 255, 255, 0); border: none;  border-radius: 5px; }\n"
 "#extraCloseColumnBtn:hover { background-color: rgb(196, 161, 249); border-style: solid; border-radius: 4px; }\n"
-"#extraCloseColumnBtn:pressed { background-color: rgb(180, 141, 238); bo"
-                        "rder-style: solid; border-radius: 4px; }\n"
+"#extraCloseColumnBtn:pressed { background-color: rgb(180, 141, 238); border-s"
+                        "tyle: solid; border-radius: 4px; }\n"
 "\n"
 "/* Extra Content */\n"
 "#extraContent{\n"
@@ -206,8 +205,8 @@ class Ui_MainWindow(object):
 "\n"
 "\n"
 "\n"
-""
-                        "/* Top Buttons */\n"
+"/* "
+                        "Top Buttons */\n"
 "#rightButtons .QPushButton { background-color: rgba(255, 255, 255, 0); border: none;  border-radius: 5px; }\n"
 "#rightButtons .QPushButton:hover { background-color: rgb(44, 49, 57); border-style: solid; border-radius: 4px; }\n"
 "#rightButtons .QPushButton:pressed { background-color: rgb(23, 26, 30); border-style: solid; border-radius: 4px; }\n"
@@ -229,8 +228,8 @@ class Ui_MainWindow(object):
 "	border-left: 22px solid transparent;\n"
 "	background-color:transparent;\n"
 "	text-align: left;\n"
-"	paddin"
-                        "g-left: 44px;\n"
+"	padding-l"
+                        "eft: 44px;\n"
 "}\n"
 "#contentSettings .QPushButton:hover {\n"
 "	background-color: rgb(40, 44, 52);\n"
@@ -264,8 +263,8 @@ class Ui_MainWindow(object):
 "	border: 1px solid rgb(44, 49, 58);\n"
 "	border-style: none;\n"
 "    border-bottom: 1px solid rgb(44, 49, 60);\n"
-"    border-right: 1px solid rgb(4"
-                        "4, 49, 60);\n"
+"    border-right: 1px solid rgb(44, "
+                        "49, 60);\n"
 "}\n"
 "QTableWidget::horizontalHeader {	\n"
 "	background-color: rgb(33, 37, 43);\n"
@@ -300,8 +299,8 @@ class Ui_MainWindow(object):
 "	border: 2px solid rgb(91, 101, 124);\n"
 "}\n"
 "\n"
-"/* ////////////////////////////////////////////////////////////////////////////////////////////"
-                        "/////\n"
+"/* ///////////////////////////////////////////////////////////////////////////////////////////////"
+                        "//\n"
 "PlainTextEdit */\n"
 "QPlainTextEdit {\n"
 "	background-color: rgb(27, 29, 35);\n"
@@ -339,8 +338,8 @@ class Ui_MainWindow(object):
 "}\n"
 "QScrollBar::add-line:horizontal {\n"
 "    border: none;\n"
-"    backgroun"
-                        "d: rgb(55, 63, 77);\n"
+"    background: "
+                        "rgb(55, 63, 77);\n"
 "    width: 20px;\n"
 "	border-top-right-radius: 4px;\n"
 "    border-bottom-right-radius: 4px;\n"
@@ -377,8 +376,8 @@ class Ui_MainWindow(object):
 "	border-radius: 4px\n"
 " }\n"
 " QScrollBar::add-line:vertical {\n"
-"     border"
-                        ": none;\n"
+"     border: n"
+                        "one;\n"
 "    background: rgb(55, 63, 77);\n"
 "     height: 20px;\n"
 "	border-bottom-left-radius: 4px;\n"
@@ -412,8 +411,8 @@ class Ui_MainWindow(object):
 "	border-radius: 10px;\n"
 "    background: rgb(44, 49, 60);\n"
 "}\n"
-"QCheckBox::indi"
-                        "cator:hover {\n"
+"QCheckBox::indicat"
+                        "or:hover {\n"
 "    border: 3px solid rgb(58, 66, 81);\n"
 "}\n"
 "QCheckBox::indicator:checked {\n"
@@ -444,8 +443,8 @@ class Ui_MainWindow(object):
 "QComboBox{\n"
 "	background-color: rgb(27, 29, 35);\n"
 "	border-radius: 5px;\n"
-"	border: 2px solid rgb(33, 3"
-                        "7, 43);\n"
+"	border: 2px solid rgb(33, 37, "
+                        "43);\n"
 "	padding: 5px;\n"
 "	padding-left: 10px;\n"
 "}\n"
@@ -480,8 +479,8 @@ class Ui_MainWindow(object):
 "	margin: 0px;\n"
 "	background-color: rgb(52, 59, 72);\n"
 "}\n"
-""
-                        "QSlider::groove:horizontal:hover {\n"
+"QS"
+                        "lider::groove:horizontal:hover {\n"
 "	background-color: rgb(55, 62, 76);\n"
 "}\n"
 "QSlider::handle:horizontal {\n"
@@ -520,8 +519,8 @@ class Ui_MainWindow(object):
 "    background-color: rgb(185, 155, 255);\n"
 "}\n"
 "QSlider::handle:vertical:pressed {\n"
-"    bac"
-                        "kground-color: rgb(102, 91, 201);\n"
+"    backg"
+                        "round-color: rgb(102, 91, 201);\n"
 "}\n"
 "\n"
 ".QSlider {\n"
@@ -561,8 +560,8 @@ class Ui_MainWindow(object):
 "	background-color: rgb(52, 58, 71);\n"
 "}\n"
 "\n"
-"/* //////////////////////////////////////////////////////////"
-                        "///////////////////////////////////////\n"
+"/* ////////////////////////////////////////////////////////////"
+                        "/////////////////////////////////////\n"
 "Button */\n"
 "#pagesContainer QPushButton {\n"
 "	border: 2px solid rgb(52, 59, 72);\n"
@@ -627,17 +626,17 @@ class Ui_MainWindow(object):
         self.leftMenuFrame.setFrameShape(QFrame.NoFrame)
         self.leftMenuFrame.setFrameShadow(QFrame.Raised)
         self.leftMenuFrame.setLineWidth(0)
-        self.boxToggle = QFrame(self.leftMenuFrame)
-        self.boxToggle.setObjectName(u"boxToggle")
-        self.boxToggle.setGeometry(QRect(0, 3, 60, 45))
-        self.boxToggle.setMaximumSize(QSize(16777215, 45))
-        self.boxToggle.setFrameShape(QFrame.NoFrame)
-        self.boxToggle.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_4 = QVBoxLayout(self.boxToggle)
+        self.toggleBox = QFrame(self.leftMenuFrame)
+        self.toggleBox.setObjectName(u"toggleBox")
+        self.toggleBox.setGeometry(QRect(0, 3, 60, 45))
+        self.toggleBox.setMaximumSize(QSize(16777215, 45))
+        self.toggleBox.setFrameShape(QFrame.NoFrame)
+        self.toggleBox.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_4 = QVBoxLayout(self.toggleBox)
         self.verticalLayout_4.setSpacing(0)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
         self.verticalLayout_4.setContentsMargins(0, 0, 0, 0)
-        self.btn_toggle = QPushButton(self.boxToggle)
+        self.btn_toggle = QPushButton(self.toggleBox)
         self.btn_toggle.setObjectName(u"btn_toggle")
         sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -924,14 +923,7 @@ class Ui_MainWindow(object):
         self.maximizeRestoreAppBtn.setObjectName(u"maximizeRestoreAppBtn")
         self.maximizeRestoreAppBtn.setMinimumSize(QSize(28, 28))
         self.maximizeRestoreAppBtn.setMaximumSize(QSize(28, 28))
-        font1 = QFont()
-        font1.setFamily(u"Segoe UI")
-        font1.setPointSize(10)
-        font1.setBold(False)
-        font1.setItalic(False)
-        font1.setWeight(50)
-        font1.setStyleStrategy(QFont.PreferDefault)
-        self.maximizeRestoreAppBtn.setFont(font1)
+        self.maximizeRestoreAppBtn.setFont(font)
         self.maximizeRestoreAppBtn.setCursor(QCursor(Qt.PointingHandCursor))
         icon3 = QIcon()
         icon3.addFile(u":/icons/images/icons/icon_maximize.png", QSize(), QIcon.Normal, QIcon.Off)
@@ -989,7 +981,7 @@ class Ui_MainWindow(object):
 
         self.stackedWidget = QStackedWidget(self.pagesContainer)
         self.stackedWidget.setObjectName(u"stackedWidget")
-        self.stackedWidget.setMaximumSize(QSize(1200, 16777215))
+        self.stackedWidget.setMaximumSize(QSize(1100, 16777215))
         self.stackedWidget.setAutoFillBackground(False)
         self.stackedWidget.setStyleSheet(u"background-color: transparent;")
         self.home = QWidget()
@@ -1029,11 +1021,9 @@ class Ui_MainWindow(object):
         self.scrollArea.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignTop)
         self.scrollAreaWidgetContent = QWidget()
         self.scrollAreaWidgetContent.setObjectName(u"scrollAreaWidgetContent")
-        self.scrollAreaWidgetContent.setGeometry(QRect(0, 0, 1232, 800))
+        self.scrollAreaWidgetContent.setGeometry(QRect(0, 0, 1164, 816))
         self.horizontalLayout_10 = QHBoxLayout(self.scrollAreaWidgetContent)
-#ifndef Q_OS_MAC
-        self.horizontalLayout_10.setSpacing(-1)
-#endif
+        self.horizontalLayout_10.setSpacing(7)
         self.horizontalLayout_10.setObjectName(u"horizontalLayout_10")
         self.horizontalLayout_10.setContentsMargins(0, 0, 0, 0)
         self.column1 = QFrame(self.scrollAreaWidgetContent)
@@ -1041,35 +1031,88 @@ class Ui_MainWindow(object):
         sizePolicy3.setHeightForWidth(self.column1.sizePolicy().hasHeightForWidth())
         self.column1.setSizePolicy(sizePolicy3)
         self.column1.setMinimumSize(QSize(500, 800))
-        self.column1.setMaximumSize(QSize(440, 800))
         self.column1.setFrameShape(QFrame.NoFrame)
         self.column1.setFrameShadow(QFrame.Raised)
         self.verticalLayout_26 = QVBoxLayout(self.column1)
-#ifndef Q_OS_MAC
-        self.verticalLayout_26.setSpacing(-1)
-#endif
+        self.verticalLayout_26.setSpacing(7)
         self.verticalLayout_26.setObjectName(u"verticalLayout_26")
         self.verticalLayout_26.setContentsMargins(0, 0, 0, 0)
         self.kjoringContainer = QFrame(self.column1)
         self.kjoringContainer.setObjectName(u"kjoringContainer")
-        self.kjoringContainer.setMinimumSize(QSize(0, 0))
-        self.kjoringContainer.setMaximumSize(QSize(16777215, 200))
+        self.kjoringContainer.setMinimumSize(QSize(400, 0))
+        self.kjoringContainer.setMaximumSize(QSize(0, 16777215))
         self.kjoringContainer.setStyleSheet(u"")
         self.kjoringContainer.setFrameShape(QFrame.NoFrame)
         self.kjoringContainer.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_25 = QVBoxLayout(self.kjoringContainer)
-#ifndef Q_OS_MAC
-        self.verticalLayout_25.setSpacing(-1)
-#endif
-        self.verticalLayout_25.setObjectName(u"verticalLayout_25")
-        self.verticalLayout_25.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout_6 = QGridLayout(self.kjoringContainer)
+        self.gridLayout_6.setObjectName(u"gridLayout_6")
+        self.gridLayout_6.setContentsMargins(0, 0, 0, 0)
+        self.btn_manuell = QPushButton(self.kjoringContainer)
+        self.btn_manuell.setObjectName(u"btn_manuell")
+        self.btn_manuell.setMinimumSize(QSize(150, 45))
+        self.btn_manuell.setMaximumSize(QSize(16777215, 16777215))
+        self.btn_manuell.setFont(font)
+        self.btn_manuell.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_manuell.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255)); } QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}\n"
+"QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }\n"
+"")
+        self.btn_manuell.setCheckable(True)
+        self.btn_manuell.setChecked(False)
+        self.btn_manuell.setAutoRepeat(False)
+
+        self.gridLayout_6.addWidget(self.btn_manuell, 2, 0, 1, 1)
+
+        self.btn_bildemoasaikk = QPushButton(self.kjoringContainer)
+        self.btn_bildemoasaikk.setObjectName(u"btn_bildemoasaikk")
+        self.btn_bildemoasaikk.setMinimumSize(QSize(150, 45))
+        self.btn_bildemoasaikk.setFont(font)
+        self.btn_bildemoasaikk.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_bildemoasaikk.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}")
+
+        self.gridLayout_6.addWidget(self.btn_bildemoasaikk, 5, 0, 1, 1)
+
+        self.btn_autonom_parkering = QPushButton(self.kjoringContainer)
+        self.btn_autonom_parkering.setObjectName(u"btn_autonom_parkering")
+        self.btn_autonom_parkering.setMinimumSize(QSize(150, 45))
+        self.btn_autonom_parkering.setFont(font)
+        self.btn_autonom_parkering.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_autonom_parkering.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}")
+
+        self.gridLayout_6.addWidget(self.btn_autonom_parkering, 6, 0, 1, 1)
+
         self.title_kjoring = QLabel(self.kjoringContainer)
         self.title_kjoring.setObjectName(u"title_kjoring")
         self.title_kjoring.setMinimumSize(QSize(0, 20))
         self.title_kjoring.setFont(font)
         self.title_kjoring.setStyleSheet(u"")
 
-        self.verticalLayout_25.addWidget(self.title_kjoring)
+        self.gridLayout_6.addWidget(self.title_kjoring, 0, 0, 1, 1)
+
+        self.btn_autonom_merd = QPushButton(self.kjoringContainer)
+        self.btn_autonom_merd.setObjectName(u"btn_autonom_merd")
+        self.btn_autonom_merd.setMinimumSize(QSize(150, 45))
+        self.btn_autonom_merd.setFont(font)
+        self.btn_autonom_merd.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_autonom_merd.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}")
+
+        self.gridLayout_6.addWidget(self.btn_autonom_merd, 4, 0, 1, 1)
+
+        self.btn_finn_fisk = QPushButton(self.kjoringContainer)
+        self.btn_finn_fisk.setObjectName(u"btn_finn_fisk")
+        self.btn_finn_fisk.setMinimumSize(QSize(150, 45))
+        self.btn_finn_fisk.setFont(font)
+        self.btn_finn_fisk.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_finn_fisk.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}")
+
+        self.gridLayout_6.addWidget(self.btn_finn_fisk, 3, 0, 1, 1)
+
+        self.title_kjoring_2 = QLabel(self.kjoringContainer)
+        self.title_kjoring_2.setObjectName(u"title_kjoring_2")
+        self.title_kjoring_2.setMinimumSize(QSize(0, 20))
+        self.title_kjoring_2.setFont(font)
+        self.title_kjoring_2.setStyleSheet(u"")
+
+        self.gridLayout_6.addWidget(self.title_kjoring_2, 7, 0, 1, 1)
 
         self.label_kjoring = QLabel(self.kjoringContainer)
         self.label_kjoring.setObjectName(u"label_kjoring")
@@ -1077,35 +1120,35 @@ class Ui_MainWindow(object):
         self.label_kjoring.setLineWidth(1)
         self.label_kjoring.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
 
-        self.verticalLayout_25.addWidget(self.label_kjoring)
+        self.gridLayout_6.addWidget(self.label_kjoring, 1, 0, 1, 1)
 
-        self.btn_auto = QPushButton(self.kjoringContainer)
-        self.btn_auto.setObjectName(u"btn_auto")
-        self.btn_auto.setMinimumSize(QSize(150, 45))
-        self.btn_auto.setFont(font)
-        self.btn_auto.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_auto.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}\n"
-"QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }")
-        self.btn_auto.setCheckable(True)
-        self.btn_auto.setChecked(False)
+        self.label_effekt_elektronikk_2 = QLabel(self.kjoringContainer)
+        self.label_effekt_elektronikk_2.setObjectName(u"label_effekt_elektronikk_2")
+        self.label_effekt_elektronikk_2.setMinimumSize(QSize(40, 30))
+        self.label_effekt_elektronikk_2.setMaximumSize(QSize(16777215, 16777215))
+        self.label_effekt_elektronikk_2.setFont(font)
+        self.label_effekt_elektronikk_2.setStyleSheet(u"background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
+        self.label_effekt_elektronikk_2.setFrameShape(QFrame.NoFrame)
+        self.label_effekt_elektronikk_2.setLineWidth(0)
+        self.label_effekt_elektronikk_2.setMidLineWidth(0)
+        self.label_effekt_elektronikk_2.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout_25.addWidget(self.btn_auto)
-
-        self.btn_manuell = QPushButton(self.kjoringContainer)
-        self.btn_manuell.setObjectName(u"btn_manuell")
-        self.btn_manuell.setMinimumSize(QSize(150, 45))
-        self.btn_manuell.setFont(font)
-        self.btn_manuell.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_manuell.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}\n"
-"QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }")
-        self.btn_manuell.setCheckable(True)
-        self.btn_manuell.setChecked(False)
-        self.btn_manuell.setAutoRepeat(False)
-
-        self.verticalLayout_25.addWidget(self.btn_manuell)
+        self.gridLayout_6.addWidget(self.label_effekt_elektronikk_2, 8, 0, 1, 1)
 
 
         self.verticalLayout_26.addWidget(self.kjoringContainer)
+
+        self.bildeContainer2 = QFrame(self.column1)
+        self.bildeContainer2.setObjectName(u"bildeContainer2")
+        self.bildeContainer2.setMinimumSize(QSize(0, 0))
+        self.bildeContainer2.setMaximumSize(QSize(16777215, 16777215))
+        self.bildeContainer2.setFrameShape(QFrame.NoFrame)
+        self.bildeContainer2.setFrameShadow(QFrame.Raised)
+        self.gridLayout = QGridLayout(self.bildeContainer2)
+        self.gridLayout.setObjectName(u"gridLayout")
+        self.gridLayout.setContentsMargins(0, 0, 0, 0)
+
+        self.verticalLayout_26.addWidget(self.bildeContainer2)
 
         self.rovContainer = QFrame(self.column1)
         self.rovContainer.setObjectName(u"rovContainer")
@@ -1157,9 +1200,7 @@ class Ui_MainWindow(object):
         self.toogleBtnLabels.setFrameShape(QFrame.NoFrame)
         self.toogleBtnLabels.setFrameShadow(QFrame.Raised)
         self.verticalLayout_32 = QVBoxLayout(self.toogleBtnLabels)
-#ifndef Q_OS_MAC
-        self.verticalLayout_32.setSpacing(-1)
-#endif
+        self.verticalLayout_32.setSpacing(7)
         self.verticalLayout_32.setObjectName(u"verticalLayout_32")
         self.verticalLayout_32.setContentsMargins(0, 10, 0, 10)
         self.text_mani = QLabel(self.toogleBtnLabels)
@@ -1213,17 +1254,69 @@ class Ui_MainWindow(object):
         self.rovColumn.setMaximumSize(QSize(16777215, 16777215))
         self.rovColumn.setFrameShape(QFrame.NoFrame)
         self.rovColumn.setFrameShadow(QFrame.Raised)
-        self.formLayout = QFormLayout(self.rovColumn)
-        self.formLayout.setObjectName(u"formLayout")
-        self.formLayout.setRowWrapPolicy(QFormLayout.WrapLongRows)
-        self.formLayout.setContentsMargins(0, 0, 0, 0)
-        self.text_tid = QLabel(self.rovColumn)
-        self.text_tid.setObjectName(u"text_tid")
-        self.text_tid.setMinimumSize(QSize(100, 30))
-        self.text_tid.setFont(font)
-        self.text_tid.setTextFormat(Qt.RichText)
+        self.gridLayout_4 = QGridLayout(self.rovColumn)
+        self.gridLayout_4.setObjectName(u"gridLayout_4")
+        self.gridLayout_4.setContentsMargins(0, 0, 0, 0)
+        self.label_effekt_thrustere_2 = QLabel(self.rovColumn)
+        self.label_effekt_thrustere_2.setObjectName(u"label_effekt_thrustere_2")
+        self.label_effekt_thrustere_2.setMinimumSize(QSize(40, 30))
+        self.label_effekt_thrustere_2.setMaximumSize(QSize(16777215, 16777215))
+        self.label_effekt_thrustere_2.setFont(font)
+        self.label_effekt_thrustere_2.setStyleSheet(u"background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
+        self.label_effekt_thrustere_2.setFrameShape(QFrame.NoFrame)
+        self.label_effekt_thrustere_2.setLineWidth(0)
+        self.label_effekt_thrustere_2.setMidLineWidth(0)
+        self.label_effekt_thrustere_2.setAlignment(Qt.AlignCenter)
 
-        self.formLayout.setWidget(0, QFormLayout.LabelRole, self.text_tid)
+        self.gridLayout_4.addWidget(self.label_effekt_thrustere_2, 9, 1, 1, 1)
+
+        self.text_orientering = QLabel(self.rovColumn)
+        self.text_orientering.setObjectName(u"text_orientering")
+        self.text_orientering.setMinimumSize(QSize(100, 30))
+        self.text_orientering.setFont(font)
+        self.text_orientering.setTextFormat(Qt.PlainText)
+
+        self.gridLayout_4.addWidget(self.text_orientering, 2, 0, 1, 1)
+
+        self.title_effektforbruk = QLabel(self.rovColumn)
+        self.title_effektforbruk.setObjectName(u"title_effektforbruk")
+        self.title_effektforbruk.setMinimumSize(QSize(100, 0))
+        self.title_effektforbruk.setMaximumSize(QSize(16777215, 16777215))
+        self.title_effektforbruk.setFont(font)
+        self.title_effektforbruk.setStyleSheet(u"")
+
+        self.gridLayout_4.addWidget(self.title_effektforbruk, 3, 0, 1, 1)
+
+        self.text_effekt_elektronikk = QLabel(self.rovColumn)
+        self.text_effekt_elektronikk.setObjectName(u"text_effekt_elektronikk")
+        self.text_effekt_elektronikk.setMinimumSize(QSize(100, 30))
+        self.text_effekt_elektronikk.setFont(font)
+        self.text_effekt_elektronikk.setStyleSheet(u"color: rgb(113, 126, 149);")
+        self.text_effekt_elektronikk.setTextFormat(Qt.RichText)
+
+        self.gridLayout_4.addWidget(self.text_effekt_elektronikk, 5, 0, 1, 1)
+
+        self.label_effekt_manipulator_2 = QLabel(self.rovColumn)
+        self.label_effekt_manipulator_2.setObjectName(u"label_effekt_manipulator_2")
+        self.label_effekt_manipulator_2.setMinimumSize(QSize(40, 30))
+        self.label_effekt_manipulator_2.setMaximumSize(QSize(16777215, 16777215))
+        self.label_effekt_manipulator_2.setFont(font)
+        self.label_effekt_manipulator_2.setStyleSheet(u"background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
+        self.label_effekt_manipulator_2.setFrameShape(QFrame.NoFrame)
+        self.label_effekt_manipulator_2.setLineWidth(0)
+        self.label_effekt_manipulator_2.setMidLineWidth(0)
+        self.label_effekt_manipulator_2.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout_4.addWidget(self.label_effekt_manipulator_2, 10, 1, 1, 1)
+
+        self.text_effekt_manipulator = QLabel(self.rovColumn)
+        self.text_effekt_manipulator.setObjectName(u"text_effekt_manipulator")
+        self.text_effekt_manipulator.setMinimumSize(QSize(100, 30))
+        self.text_effekt_manipulator.setFont(font)
+        self.text_effekt_manipulator.setStyleSheet(u"color: rgb(113, 126, 149);")
+        self.text_effekt_manipulator.setTextFormat(Qt.RichText)
+
+        self.gridLayout_4.addWidget(self.text_effekt_manipulator, 10, 0, 1, 1)
 
         self.label_tid = QLabel(self.rovColumn)
         self.label_tid.setObjectName(u"label_tid")
@@ -1236,58 +1329,20 @@ class Ui_MainWindow(object):
         self.label_tid.setMidLineWidth(0)
         self.label_tid.setAlignment(Qt.AlignCenter)
 
-        self.formLayout.setWidget(0, QFormLayout.FieldRole, self.label_tid)
+        self.gridLayout_4.addWidget(self.label_tid, 0, 1, 1, 1)
 
-        self.text_dybde = QLabel(self.rovColumn)
-        self.text_dybde.setObjectName(u"text_dybde")
-        self.text_dybde.setMinimumSize(QSize(100, 30))
-        self.text_dybde.setFont(font)
-        self.text_dybde.setTextFormat(Qt.RichText)
+        self.label_dybde = QLabel(self.rovColumn)
+        self.label_dybde.setObjectName(u"label_dybde")
+        self.label_dybde.setMinimumSize(QSize(90, 30))
+        self.label_dybde.setMaximumSize(QSize(90, 30))
+        self.label_dybde.setFont(font)
+        self.label_dybde.setStyleSheet(u"background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
+        self.label_dybde.setFrameShape(QFrame.NoFrame)
+        self.label_dybde.setLineWidth(0)
+        self.label_dybde.setMidLineWidth(0)
+        self.label_dybde.setAlignment(Qt.AlignCenter)
 
-        self.formLayout.setWidget(1, QFormLayout.LabelRole, self.text_dybde)
-
-        self.dybde = QLabel(self.rovColumn)
-        self.dybde.setObjectName(u"dybde")
-        self.dybde.setMinimumSize(QSize(90, 30))
-        self.dybde.setMaximumSize(QSize(90, 30))
-        self.dybde.setFont(font)
-        self.dybde.setStyleSheet(u"background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
-        self.dybde.setFrameShape(QFrame.NoFrame)
-        self.dybde.setLineWidth(0)
-        self.dybde.setMidLineWidth(0)
-        self.dybde.setAlignment(Qt.AlignCenter)
-
-        self.formLayout.setWidget(1, QFormLayout.FieldRole, self.dybde)
-
-        self.text_spenning = QLabel(self.rovColumn)
-        self.text_spenning.setObjectName(u"text_spenning")
-        self.text_spenning.setMinimumSize(QSize(100, 30))
-        self.text_spenning.setFont(font)
-        self.text_spenning.setTextFormat(Qt.RichText)
-
-        self.formLayout.setWidget(2, QFormLayout.LabelRole, self.text_spenning)
-
-        self.label_spenning = QLabel(self.rovColumn)
-        self.label_spenning.setObjectName(u"label_spenning")
-        self.label_spenning.setMinimumSize(QSize(90, 30))
-        self.label_spenning.setMaximumSize(QSize(90, 30))
-        self.label_spenning.setFont(font)
-        self.label_spenning.setStyleSheet(u"background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
-        self.label_spenning.setFrameShape(QFrame.NoFrame)
-        self.label_spenning.setFrameShadow(QFrame.Raised)
-        self.label_spenning.setLineWidth(0)
-        self.label_spenning.setMidLineWidth(0)
-        self.label_spenning.setAlignment(Qt.AlignCenter)
-
-        self.formLayout.setWidget(2, QFormLayout.FieldRole, self.label_spenning)
-
-        self.text_orientering = QLabel(self.rovColumn)
-        self.text_orientering.setObjectName(u"text_orientering")
-        self.text_orientering.setMinimumSize(QSize(100, 30))
-        self.text_orientering.setFont(font)
-        self.text_orientering.setTextFormat(Qt.PlainText)
-
-        self.formLayout.setWidget(3, QFormLayout.LabelRole, self.text_orientering)
+        self.gridLayout_4.addWidget(self.label_dybde, 1, 1, 1, 1)
 
         self.label_orientering = QLabel(self.rovColumn)
         self.label_orientering.setObjectName(u"label_orientering")
@@ -1300,38 +1355,15 @@ class Ui_MainWindow(object):
         self.label_orientering.setMidLineWidth(0)
         self.label_orientering.setAlignment(Qt.AlignCenter)
 
-        self.formLayout.setWidget(3, QFormLayout.FieldRole, self.label_orientering)
+        self.gridLayout_4.addWidget(self.label_orientering, 2, 1, 1, 1)
 
-        self.title_effektforbruk = QLabel(self.rovColumn)
-        self.title_effektforbruk.setObjectName(u"title_effektforbruk")
-        self.title_effektforbruk.setMinimumSize(QSize(100, 0))
-        self.title_effektforbruk.setMaximumSize(QSize(16777215, 16777215))
-        self.title_effektforbruk.setFont(font)
-        self.title_effektforbruk.setStyleSheet(u"")
+        self.text_tid = QLabel(self.rovColumn)
+        self.text_tid.setObjectName(u"text_tid")
+        self.text_tid.setMinimumSize(QSize(100, 30))
+        self.text_tid.setFont(font)
+        self.text_tid.setTextFormat(Qt.RichText)
 
-        self.formLayout.setWidget(5, QFormLayout.LabelRole, self.title_effektforbruk)
-
-        self.text_effekt_elektronikk = QLabel(self.rovColumn)
-        self.text_effekt_elektronikk.setObjectName(u"text_effekt_elektronikk")
-        self.text_effekt_elektronikk.setMinimumSize(QSize(100, 30))
-        self.text_effekt_elektronikk.setFont(font)
-        self.text_effekt_elektronikk.setStyleSheet(u"color: rgb(113, 126, 149);")
-        self.text_effekt_elektronikk.setTextFormat(Qt.RichText)
-
-        self.formLayout.setWidget(6, QFormLayout.LabelRole, self.text_effekt_elektronikk)
-
-        self.label_effekt_elektronikk_2 = QLabel(self.rovColumn)
-        self.label_effekt_elektronikk_2.setObjectName(u"label_effekt_elektronikk_2")
-        self.label_effekt_elektronikk_2.setMinimumSize(QSize(90, 30))
-        self.label_effekt_elektronikk_2.setMaximumSize(QSize(90, 30))
-        self.label_effekt_elektronikk_2.setFont(font)
-        self.label_effekt_elektronikk_2.setStyleSheet(u"background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
-        self.label_effekt_elektronikk_2.setFrameShape(QFrame.NoFrame)
-        self.label_effekt_elektronikk_2.setLineWidth(0)
-        self.label_effekt_elektronikk_2.setMidLineWidth(0)
-        self.label_effekt_elektronikk_2.setAlignment(Qt.AlignCenter)
-
-        self.formLayout.setWidget(6, QFormLayout.FieldRole, self.label_effekt_elektronikk_2)
+        self.gridLayout_4.addWidget(self.text_tid, 0, 0, 1, 1)
 
         self.text_effekt_thrustere = QLabel(self.rovColumn)
         self.text_effekt_thrustere.setObjectName(u"text_effekt_thrustere")
@@ -1340,42 +1372,105 @@ class Ui_MainWindow(object):
         self.text_effekt_thrustere.setStyleSheet(u"color: rgb(113, 126, 149);")
         self.text_effekt_thrustere.setTextFormat(Qt.PlainText)
 
-        self.formLayout.setWidget(7, QFormLayout.LabelRole, self.text_effekt_thrustere)
+        self.gridLayout_4.addWidget(self.text_effekt_thrustere, 9, 0, 1, 1)
 
-        self.label_effekt_thrustere_2 = QLabel(self.rovColumn)
-        self.label_effekt_thrustere_2.setObjectName(u"label_effekt_thrustere_2")
-        self.label_effekt_thrustere_2.setMinimumSize(QSize(90, 30))
-        self.label_effekt_thrustere_2.setMaximumSize(QSize(90, 30))
-        self.label_effekt_thrustere_2.setFont(font)
-        self.label_effekt_thrustere_2.setStyleSheet(u"background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
-        self.label_effekt_thrustere_2.setFrameShape(QFrame.NoFrame)
-        self.label_effekt_thrustere_2.setLineWidth(0)
-        self.label_effekt_thrustere_2.setMidLineWidth(0)
-        self.label_effekt_thrustere_2.setAlignment(Qt.AlignCenter)
+        self.text_dybde = QLabel(self.rovColumn)
+        self.text_dybde.setObjectName(u"text_dybde")
+        self.text_dybde.setMinimumSize(QSize(100, 30))
+        self.text_dybde.setFont(font)
+        self.text_dybde.setTextFormat(Qt.RichText)
 
-        self.formLayout.setWidget(7, QFormLayout.FieldRole, self.label_effekt_thrustere_2)
+        self.gridLayout_4.addWidget(self.text_dybde, 1, 0, 1, 1)
 
-        self.text_effekt_manipulator = QLabel(self.rovColumn)
-        self.text_effekt_manipulator.setObjectName(u"text_effekt_manipulator")
-        self.text_effekt_manipulator.setMinimumSize(QSize(100, 30))
-        self.text_effekt_manipulator.setFont(font)
-        self.text_effekt_manipulator.setStyleSheet(u"color: rgb(113, 126, 149);")
-        self.text_effekt_manipulator.setTextFormat(Qt.RichText)
+        self.btn_regulator_elektronikk = QPushButton(self.rovColumn)
+        self.btn_regulator_elektronikk.setObjectName(u"btn_regulator_elektronikk")
+        self.btn_regulator_elektronikk.setMinimumSize(QSize(45, 30))
+        self.btn_regulator_elektronikk.setMaximumSize(QSize(16777215, 16777215))
+        self.btn_regulator_elektronikk.setFont(font)
+        self.btn_regulator_elektronikk.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_regulator_elektronikk.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255)); } QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}\n"
+"QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }\n"
+"")
+        self.btn_regulator_elektronikk.setCheckable(True)
+        self.btn_regulator_elektronikk.setChecked(False)
+        self.btn_regulator_elektronikk.setAutoRepeat(False)
 
-        self.formLayout.setWidget(8, QFormLayout.LabelRole, self.text_effekt_manipulator)
+        self.gridLayout_4.addWidget(self.btn_regulator_elektronikk, 5, 2, 1, 1)
 
-        self.label_effekt_manipulator_2 = QLabel(self.rovColumn)
-        self.label_effekt_manipulator_2.setObjectName(u"label_effekt_manipulator_2")
-        self.label_effekt_manipulator_2.setMinimumSize(QSize(90, 30))
-        self.label_effekt_manipulator_2.setMaximumSize(QSize(90, 30))
-        self.label_effekt_manipulator_2.setFont(font)
-        self.label_effekt_manipulator_2.setStyleSheet(u"background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
-        self.label_effekt_manipulator_2.setFrameShape(QFrame.NoFrame)
-        self.label_effekt_manipulator_2.setLineWidth(0)
-        self.label_effekt_manipulator_2.setMidLineWidth(0)
-        self.label_effekt_manipulator_2.setAlignment(Qt.AlignCenter)
+        self.btn_regulator_thrustere = QPushButton(self.rovColumn)
+        self.btn_regulator_thrustere.setObjectName(u"btn_regulator_thrustere")
+        self.btn_regulator_thrustere.setMinimumSize(QSize(45, 30))
+        self.btn_regulator_thrustere.setMaximumSize(QSize(16777215, 16777215))
+        self.btn_regulator_thrustere.setFont(font)
+        self.btn_regulator_thrustere.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_regulator_thrustere.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255)); } QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}\n"
+"QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }\n"
+"")
+        self.btn_regulator_thrustere.setCheckable(True)
+        self.btn_regulator_thrustere.setChecked(False)
+        self.btn_regulator_thrustere.setAutoRepeat(False)
 
-        self.formLayout.setWidget(8, QFormLayout.FieldRole, self.label_effekt_manipulator_2)
+        self.gridLayout_4.addWidget(self.btn_regulator_thrustere, 9, 2, 1, 1)
+
+        self.btn_reset_sikring_elektronikk = QPushButton(self.rovColumn)
+        self.btn_reset_sikring_elektronikk.setObjectName(u"btn_reset_sikring_elektronikk")
+        self.btn_reset_sikring_elektronikk.setMinimumSize(QSize(45, 30))
+        self.btn_reset_sikring_elektronikk.setMaximumSize(QSize(16777215, 16777215))
+        self.btn_reset_sikring_elektronikk.setFont(font)
+        self.btn_reset_sikring_elektronikk.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_reset_sikring_elektronikk.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255)); } QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}\n"
+"QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }\n"
+"")
+        self.btn_reset_sikring_elektronikk.setCheckable(False)
+        self.btn_reset_sikring_elektronikk.setChecked(False)
+        self.btn_reset_sikring_elektronikk.setAutoRepeat(False)
+
+        self.gridLayout_4.addWidget(self.btn_reset_sikring_elektronikk, 5, 3, 1, 1)
+
+        self.btnl_reset_sikring_thrustere = QPushButton(self.rovColumn)
+        self.btnl_reset_sikring_thrustere.setObjectName(u"btnl_reset_sikring_thrustere")
+        self.btnl_reset_sikring_thrustere.setMinimumSize(QSize(45, 30))
+        self.btnl_reset_sikring_thrustere.setMaximumSize(QSize(16777215, 16777215))
+        self.btnl_reset_sikring_thrustere.setFont(font)
+        self.btnl_reset_sikring_thrustere.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btnl_reset_sikring_thrustere.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255)); } QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}\n"
+"QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }\n"
+"")
+        self.btnl_reset_sikring_thrustere.setCheckable(False)
+        self.btnl_reset_sikring_thrustere.setChecked(False)
+        self.btnl_reset_sikring_thrustere.setAutoRepeat(False)
+
+        self.gridLayout_4.addWidget(self.btnl_reset_sikring_thrustere, 9, 3, 1, 1)
+
+        self.btn_regulator_manipulator = QPushButton(self.rovColumn)
+        self.btn_regulator_manipulator.setObjectName(u"btn_regulator_manipulator")
+        self.btn_regulator_manipulator.setMinimumSize(QSize(45, 30))
+        self.btn_regulator_manipulator.setMaximumSize(QSize(16777215, 16777215))
+        self.btn_regulator_manipulator.setFont(font)
+        self.btn_regulator_manipulator.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_regulator_manipulator.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255)); } QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}\n"
+"QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }\n"
+"")
+        self.btn_regulator_manipulator.setCheckable(True)
+        self.btn_regulator_manipulator.setChecked(False)
+        self.btn_regulator_manipulator.setAutoRepeat(False)
+
+        self.gridLayout_4.addWidget(self.btn_regulator_manipulator, 10, 2, 1, 1)
+
+        self.btn_reset_sikring_manipulator = QPushButton(self.rovColumn)
+        self.btn_reset_sikring_manipulator.setObjectName(u"btn_reset_sikring_manipulator")
+        self.btn_reset_sikring_manipulator.setMinimumSize(QSize(45, 30))
+        self.btn_reset_sikring_manipulator.setMaximumSize(QSize(16777215, 16777215))
+        self.btn_reset_sikring_manipulator.setFont(font)
+        self.btn_reset_sikring_manipulator.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_reset_sikring_manipulator.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255)); } QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}\n"
+"QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(23, 27, 37); }\n"
+"")
+        self.btn_reset_sikring_manipulator.setCheckable(False)
+        self.btn_reset_sikring_manipulator.setChecked(False)
+        self.btn_reset_sikring_manipulator.setAutoRepeat(False)
+
+        self.gridLayout_4.addWidget(self.btn_reset_sikring_manipulator, 10, 3, 1, 1)
 
 
         self.gridLayout_5.addWidget(self.rovColumn, 0, 0, 1, 1)
@@ -1583,7 +1678,7 @@ class Ui_MainWindow(object):
         self.column2 = QFrame(self.scrollAreaWidgetContent)
         self.column2.setObjectName(u"column2")
         self.column2.setMinimumSize(QSize(350, 0))
-        self.column2.setMaximumSize(QSize(350, 16777215))
+        self.column2.setMaximumSize(QSize(16777215, 16777215))
         self.column2.setFrameShape(QFrame.NoFrame)
         self.column2.setFrameShadow(QFrame.Raised)
         self.verticalLayout_16 = QVBoxLayout(self.column2)
@@ -1824,7 +1919,7 @@ class Ui_MainWindow(object):
         self.img_manipulator.setObjectName(u"img_manipulator")
         self.img_manipulator.setGeometry(QRect(20, 10, 320, 150))
         self.img_manipulator.setMinimumSize(QSize(320, 0))
-        self.img_manipulator.setMaximumSize(QSize(320, 150))
+        self.img_manipulator.setMaximumSize(QSize(16777215, 16777215))
         self.img_manipulator.setSizeIncrement(QSize(0, 0))
         self.img_manipulator.setPixmap(QPixmap(u":/images/images/manipulator.png"))
         self.img_manipulator.setScaledContents(True)
@@ -1842,21 +1937,21 @@ class Ui_MainWindow(object):
         self.label_percentage_mani_2.setScaledContents(False)
         self.label_percentage_mani_2.setAlignment(Qt.AlignCenter)
         self.label_percentage_mani_2.setWordWrap(False)
-        self.frame_mani_1 = QFrame(self.maniContainer)
-        self.frame_mani_1.setObjectName(u"frame_mani_1")
-        self.frame_mani_1.setGeometry(QRect(145, 15, 60, 60))
-        self.frame_mani_1.setStyleSheet(u"QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }")
-        self.frame_mani_1.setFrameShape(QFrame.NoFrame)
-        self.frame_mani_1.setFrameShadow(QFrame.Raised)
         self.frame_mani_2 = QFrame(self.maniContainer)
         self.frame_mani_2.setObjectName(u"frame_mani_2")
-        self.frame_mani_2.setGeometry(QRect(200, 90, 60, 60))
+        self.frame_mani_2.setGeometry(QRect(145, 15, 60, 60))
         self.frame_mani_2.setStyleSheet(u"QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }")
         self.frame_mani_2.setFrameShape(QFrame.NoFrame)
         self.frame_mani_2.setFrameShadow(QFrame.Raised)
+        self.frame_mani_3 = QFrame(self.maniContainer)
+        self.frame_mani_3.setObjectName(u"frame_mani_3")
+        self.frame_mani_3.setGeometry(QRect(200, 90, 60, 60))
+        self.frame_mani_3.setStyleSheet(u"QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }")
+        self.frame_mani_3.setFrameShape(QFrame.NoFrame)
+        self.frame_mani_3.setFrameShadow(QFrame.Raised)
         self.maniCircle3 = QFrame(self.maniContainer)
         self.maniCircle3.setObjectName(u"maniCircle3")
-        self.maniCircle3.setGeometry(QRect(205, 95, 50, 50))
+        self.maniCircle3.setGeometry(QRect(205, 94, 51, 51))
         self.maniCircle3.setStyleSheet(u"QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }")
         self.maniCircle3.setFrameShape(QFrame.StyledPanel)
         self.maniCircle3.setFrameShadow(QFrame.Raised)
@@ -1868,12 +1963,12 @@ class Ui_MainWindow(object):
         self.label_percentage_mani_3.setScaledContents(False)
         self.label_percentage_mani_3.setAlignment(Qt.AlignCenter)
         self.label_percentage_mani_3.setWordWrap(False)
-        self.frame_mani_3 = QFrame(self.maniContainer)
-        self.frame_mani_3.setObjectName(u"frame_mani_3")
-        self.frame_mani_3.setGeometry(QRect(54, 95, 60, 60))
-        self.frame_mani_3.setStyleSheet(u"QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }")
-        self.frame_mani_3.setFrameShape(QFrame.NoFrame)
-        self.frame_mani_3.setFrameShadow(QFrame.Raised)
+        self.frame_mani_1 = QFrame(self.maniContainer)
+        self.frame_mani_1.setObjectName(u"frame_mani_1")
+        self.frame_mani_1.setGeometry(QRect(54, 95, 60, 60))
+        self.frame_mani_1.setStyleSheet(u"QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }")
+        self.frame_mani_1.setFrameShape(QFrame.NoFrame)
+        self.frame_mani_1.setFrameShadow(QFrame.Raised)
         self.maniCircle = QFrame(self.maniContainer)
         self.maniCircle.setObjectName(u"maniCircle")
         self.maniCircle.setGeometry(QRect(59, 100, 50, 50))
@@ -1889,30 +1984,19 @@ class Ui_MainWindow(object):
         self.label_percentage_mani_1.setAlignment(Qt.AlignCenter)
         self.label_percentage_mani_1.setWordWrap(False)
         self.img_manipulator.raise_()
-        self.frame_mani_1.raise_()
-        self.maniCircle2.raise_()
         self.frame_mani_2.raise_()
-        self.maniCircle3.raise_()
+        self.maniCircle2.raise_()
         self.frame_mani_3.raise_()
+        self.maniCircle3.raise_()
+        self.frame_mani_1.raise_()
         self.maniCircle.raise_()
 
         self.verticalLayout_31.addWidget(self.maniContainer)
-
-        self.slider = QSlider(self.motorpaadragContainer)
-        self.slider.setObjectName(u"slider")
-        self.slider.setMinimumSize(QSize(0, 68))
-        self.slider.setMaximumSize(QSize(150, 68))
-        self.slider.setMinimum(-100)
-        self.slider.setMaximum(100)
-        self.slider.setOrientation(Qt.Horizontal)
-
-        self.verticalLayout_31.addWidget(self.slider)
 
         self.maniContainer.raise_()
         self.motorContainter.raise_()
         self.title_motor.raise_()
         self.text_rov.raise_()
-        self.slider.raise_()
         self.text_manipulator.raise_()
 
         self.verticalLayout_16.addWidget(self.motorpaadragContainer)
@@ -1930,7 +2014,7 @@ class Ui_MainWindow(object):
         self.lys_title = QLabel(self.lysFrame)
         self.lys_title.setObjectName(u"lys_title")
         self.lys_title.setMinimumSize(QSize(0, 0))
-        self.lys_title.setMaximumSize(QSize(16777215, 15))
+        self.lys_title.setMaximumSize(QSize(16777215, 16777215))
         self.lys_title.setFont(font)
         self.lys_title.setTextFormat(Qt.PlainText)
 
@@ -2059,80 +2143,17 @@ class Ui_MainWindow(object):
 
         self.column3 = QFrame(self.scrollAreaWidgetContent)
         self.column3.setObjectName(u"column3")
-        self.column3.setMinimumSize(QSize(350, 0))
-        self.column3.setMaximumSize(QSize(350, 1000))
+        self.column3.setMinimumSize(QSize(300, 0))
+        self.column3.setMaximumSize(QSize(16777215, 16777215))
         self.column3.setFrameShape(QFrame.NoFrame)
         self.column3.setFrameShadow(QFrame.Raised)
         self.verticalLayout_39 = QVBoxLayout(self.column3)
         self.verticalLayout_39.setObjectName(u"verticalLayout_39")
         self.verticalLayout_39.setContentsMargins(0, 0, 0, 0)
-        self.bildeContainer = QFrame(self.column3)
-        self.bildeContainer.setObjectName(u"bildeContainer")
-        self.bildeContainer.setMinimumSize(QSize(0, 0))
-        self.bildeContainer.setMaximumSize(QSize(16777215, 180))
-        self.bildeContainer.setFrameShape(QFrame.NoFrame)
-        self.bildeContainer.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_27 = QVBoxLayout(self.bildeContainer)
-        self.verticalLayout_27.setObjectName(u"verticalLayout_27")
-        self.verticalLayout_27.setContentsMargins(0, 0, 0, 0)
-        self.title_bilde = QLabel(self.bildeContainer)
-        self.title_bilde.setObjectName(u"title_bilde")
-        self.title_bilde.setFont(font)
-        self.title_bilde.setStyleSheet(u"")
-
-        self.verticalLayout_27.addWidget(self.title_bilde)
-
-        self.bildeContainer2 = QFrame(self.bildeContainer)
-        self.bildeContainer2.setObjectName(u"bildeContainer2")
-        self.bildeContainer2.setMaximumSize(QSize(16777215, 16777215))
-        self.bildeContainer2.setFrameShape(QFrame.NoFrame)
-        self.bildeContainer2.setFrameShadow(QFrame.Raised)
-        self.gridLayout = QGridLayout(self.bildeContainer2)
-        self.gridLayout.setObjectName(u"gridLayout")
-        self.gridLayout.setContentsMargins(0, 0, 0, 0)
-        self.btn_beregn_strl = QPushButton(self.bildeContainer2)
-        self.btn_beregn_strl.setObjectName(u"btn_beregn_strl")
-        self.btn_beregn_strl.setMinimumSize(QSize(150, 45))
-        self.btn_beregn_strl.setFont(font)
-        self.btn_beregn_strl.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_beregn_strl.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}")
-
-        self.gridLayout.addWidget(self.btn_beregn_strl, 0, 0, 1, 1)
-
-        self.text_bilde_3 = QLabel(self.bildeContainer2)
-        self.text_bilde_3.setObjectName(u"text_bilde_3")
-        self.text_bilde_3.setStyleSheet(u"color: rgb(113, 126, 149);")
-        self.text_bilde_3.setLineWidth(1)
-        self.text_bilde_3.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
-
-        self.gridLayout.addWidget(self.text_bilde_3, 0, 1, 1, 1)
-
-        self.btn_fotomoasaikk = QPushButton(self.bildeContainer2)
-        self.btn_fotomoasaikk.setObjectName(u"btn_fotomoasaikk")
-        self.btn_fotomoasaikk.setMinimumSize(QSize(150, 45))
-        self.btn_fotomoasaikk.setFont(font)
-        self.btn_fotomoasaikk.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_fotomoasaikk.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}")
-
-        self.gridLayout.addWidget(self.btn_fotomoasaikk, 1, 0, 1, 1)
-
-        self.text_bilde_2 = QLabel(self.bildeContainer2)
-        self.text_bilde_2.setObjectName(u"text_bilde_2")
-        self.text_bilde_2.setStyleSheet(u"color: rgb(113, 126, 149);")
-        self.text_bilde_2.setLineWidth(1)
-        self.text_bilde_2.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
-
-        self.gridLayout.addWidget(self.text_bilde_2, 1, 1, 1, 1)
-
-
-        self.verticalLayout_27.addWidget(self.bildeContainer2)
-
-
-        self.verticalLayout_39.addWidget(self.bildeContainer)
-
         self.kameraContainer = QFrame(self.column3)
         self.kameraContainer.setObjectName(u"kameraContainer")
-        self.kameraContainer.setMaximumSize(QSize(16777215, 700))
+        self.kameraContainer.setMinimumSize(QSize(0, 500))
+        self.kameraContainer.setMaximumSize(QSize(16777215, 1000))
         self.kameraContainer.setFrameShape(QFrame.NoFrame)
         self.kameraContainer.setFrameShadow(QFrame.Raised)
         self.verticalLayout_28 = QVBoxLayout(self.kameraContainer)
@@ -2145,29 +2166,67 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_28.addWidget(self.title_video)
 
-        self.btn_start_video = QPushButton(self.kameraContainer)
-        self.btn_start_video.setObjectName(u"btn_start_video")
-        self.btn_start_video.setMinimumSize(QSize(150, 45))
-        self.btn_start_video.setFont(font)
-        self.btn_start_video.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_start_video.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}")
+        self.title_start_videoopptak = QLabel(self.kameraContainer)
+        self.title_start_videoopptak.setObjectName(u"title_start_videoopptak")
+        self.title_start_videoopptak.setMaximumSize(QSize(16777215, 16777215))
+        self.title_start_videoopptak.setFont(font)
+        self.title_start_videoopptak.setStyleSheet(u"")
+
+        self.verticalLayout_28.addWidget(self.title_start_videoopptak)
+
+        self.videoopptakContainer = QHBoxLayout()
+        self.videoopptakContainer.setObjectName(u"videoopptakContainer")
+        self.btn_start_video_frontkamera = QPushButton(self.kameraContainer)
+        self.btn_start_video_frontkamera.setObjectName(u"btn_start_video_frontkamera")
+        self.btn_start_video_frontkamera.setMinimumSize(QSize(150, 45))
+        self.btn_start_video_frontkamera.setFont(font)
+        self.btn_start_video_frontkamera.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_start_video_frontkamera.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}")
         icon4 = QIcon()
         icon4.addFile(u":/icons/images/icons/cil-media-play.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_start_video.setIcon(icon4)
+        self.btn_start_video_frontkamera.setIcon(icon4)
 
-        self.verticalLayout_28.addWidget(self.btn_start_video)
+        self.videoopptakContainer.addWidget(self.btn_start_video_frontkamera)
 
-        self.btn_stopp_video = QPushButton(self.kameraContainer)
-        self.btn_stopp_video.setObjectName(u"btn_stopp_video")
-        self.btn_stopp_video.setMinimumSize(QSize(150, 45))
-        self.btn_stopp_video.setFont(font)
-        self.btn_stopp_video.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_stopp_video.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}")
+        self.btn_stopp_video_frontkamera = QPushButton(self.kameraContainer)
+        self.btn_stopp_video_frontkamera.setObjectName(u"btn_stopp_video_frontkamera")
+        self.btn_stopp_video_frontkamera.setMinimumSize(QSize(150, 45))
+        self.btn_stopp_video_frontkamera.setFont(font)
+        self.btn_stopp_video_frontkamera.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_stopp_video_frontkamera.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}")
         icon5 = QIcon()
         icon5.addFile(u":/icons/images/icons/cil-media-stop.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_stopp_video.setIcon(icon5)
+        self.btn_stopp_video_frontkamera.setIcon(icon5)
 
-        self.verticalLayout_28.addWidget(self.btn_stopp_video)
+        self.videoopptakContainer.addWidget(self.btn_stopp_video_frontkamera)
+
+
+        self.verticalLayout_28.addLayout(self.videoopptakContainer)
+
+        self.VideoopptakContainer2 = QHBoxLayout()
+        self.VideoopptakContainer2.setObjectName(u"VideoopptakContainer2")
+        self.btn_start_video_havbunn = QPushButton(self.kameraContainer)
+        self.btn_start_video_havbunn.setObjectName(u"btn_start_video_havbunn")
+        self.btn_start_video_havbunn.setMinimumSize(QSize(150, 45))
+        self.btn_start_video_havbunn.setFont(font)
+        self.btn_start_video_havbunn.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_start_video_havbunn.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}")
+        self.btn_start_video_havbunn.setIcon(icon4)
+
+        self.VideoopptakContainer2.addWidget(self.btn_start_video_havbunn)
+
+        self.btn_stopp_video_havbunn = QPushButton(self.kameraContainer)
+        self.btn_stopp_video_havbunn.setObjectName(u"btn_stopp_video_havbunn")
+        self.btn_stopp_video_havbunn.setMinimumSize(QSize(150, 45))
+        self.btn_stopp_video_havbunn.setFont(font)
+        self.btn_stopp_video_havbunn.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_stopp_video_havbunn.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}")
+        self.btn_stopp_video_havbunn.setIcon(icon5)
+
+        self.VideoopptakContainer2.addWidget(self.btn_stopp_video_havbunn)
+
+
+        self.verticalLayout_28.addLayout(self.VideoopptakContainer2)
 
         self.tite_kamera = QLabel(self.kameraContainer)
         self.tite_kamera.setObjectName(u"tite_kamera")
@@ -2176,6 +2235,8 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_28.addWidget(self.tite_kamera)
 
+        self.taBildeContainer = QHBoxLayout()
+        self.taBildeContainer.setObjectName(u"taBildeContainer")
         self.btn_ta_bilde_frontkamera = QPushButton(self.kameraContainer)
         self.btn_ta_bilde_frontkamera.setObjectName(u"btn_ta_bilde_frontkamera")
         self.btn_ta_bilde_frontkamera.setMinimumSize(QSize(150, 45))
@@ -2186,7 +2247,7 @@ class Ui_MainWindow(object):
         icon6.addFile(u":/images/images/camera.png", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_ta_bilde_frontkamera.setIcon(icon6)
 
-        self.verticalLayout_28.addWidget(self.btn_ta_bilde_frontkamera)
+        self.taBildeContainer.addWidget(self.btn_ta_bilde_frontkamera)
 
         self.btn_ta_bilde_havbunn = QPushButton(self.kameraContainer)
         self.btn_ta_bilde_havbunn.setObjectName(u"btn_ta_bilde_havbunn")
@@ -2196,14 +2257,17 @@ class Ui_MainWindow(object):
         self.btn_ta_bilde_havbunn.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}")
         self.btn_ta_bilde_havbunn.setIcon(icon6)
 
-        self.verticalLayout_28.addWidget(self.btn_ta_bilde_havbunn)
+        self.taBildeContainer.addWidget(self.btn_ta_bilde_havbunn)
+
+
+        self.verticalLayout_28.addLayout(self.taBildeContainer)
 
         self.btn_slett_bilde = QPushButton(self.kameraContainer)
         self.btn_slett_bilde.setObjectName(u"btn_slett_bilde")
-        self.btn_slett_bilde.setMinimumSize(QSize(150, 45))
+        self.btn_slett_bilde.setMinimumSize(QSize(150, 40))
         self.btn_slett_bilde.setFont(font)
         self.btn_slett_bilde.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_slett_bilde.setStyleSheet(u"QPushButton { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(92, 104, 128, 255), stop:1 rgba(61, 69, 85, 255));}")
+        self.btn_slett_bilde.setStyleSheet(u"QPushButton { border-color: rgb(80, 36, 37); background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.495, y2:1, stop:0.00492611 rgba(211, 94, 94, 255), stop:1 rgba(96, 14, 14, 255))} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.495, y2:1, stop:0.00492611 rgba(255, 113, 113, 255), stop:0.995074 rgba(120, 18, 18, 255))}")
         icon7 = QIcon()
         icon7.addFile(u":/images/images/trash.png", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_slett_bilde.setIcon(icon7)
@@ -2220,10 +2284,10 @@ class Ui_MainWindow(object):
 
         self.img_recent = QLabel(self.kameraContainer)
         self.img_recent.setObjectName(u"img_recent")
-        self.img_recent.setMinimumSize(QSize(0, 250))
-        self.img_recent.setMaximumSize(QSize(360, 250))
+        self.img_recent.setMinimumSize(QSize(0, 200))
+        self.img_recent.setMaximumSize(QSize(360, 200))
         self.img_recent.setStyleSheet(u"")
-        self.img_recent.setPixmap(QPixmap(u":/images/images/show_image.png"))
+        self.img_recent.setPixmap(QPixmap(u":/images/images/underwater.png"))
         self.img_recent.setScaledContents(True)
         self.img_recent.setAlignment(Qt.AlignCenter)
         self.img_recent.setMargin(0)
@@ -2390,14 +2454,7 @@ class Ui_MainWindow(object):
         self.kontrollerImgContainer = QFrame(self.kontrollerRows)
         self.kontrollerImgContainer.setObjectName(u"kontrollerImgContainer")
         self.kontrollerImgContainer.setMinimumSize(QSize(1300, 680))
-        font2 = QFont()
-        font2.setFamily(u"Segoe UI")
-        font2.setPointSize(10)
-        font2.setBold(False)
-        font2.setItalic(False)
-        font2.setWeight(50)
-        font2.setKerning(False)
-        self.kontrollerImgContainer.setFont(font2)
+        self.kontrollerImgContainer.setFont(font)
         self.kontrollerImgContainer.setFrameShape(QFrame.NoFrame)
         self.kontrollerImgContainer.setFrameShadow(QFrame.Raised)
         self.xbox_image = QLabel(self.kontrollerImgContainer)
@@ -2756,30 +2813,38 @@ class Ui_MainWindow(object):
         self.closeAppBtn.setToolTip(QCoreApplication.translate("MainWindow", u"Close", None))
 #endif // QT_CONFIG(tooltip)
         self.closeAppBtn.setText("")
+        self.btn_manuell.setText(QCoreApplication.translate("MainWindow", u"Manuell kj\u00f8ring", None))
+        self.btn_bildemoasaikk.setText(QCoreApplication.translate("MainWindow", u"Bildemoasaikk", None))
+        self.btn_autonom_parkering.setText(QCoreApplication.translate("MainWindow", u"Autonom parkering", None))
         self.title_kjoring.setText(QCoreApplication.translate("MainWindow", u"KJ\u00d8REMODUS", None))
-        self.label_kjoring.setText(QCoreApplication.translate("MainWindow", u"Velg mellom automatisk eller manuell kj\u00f8ring", None))
-        self.btn_auto.setText(QCoreApplication.translate("MainWindow", u"Automatisk", None))
-        self.btn_manuell.setText(QCoreApplication.translate("MainWindow", u"Manuell", None))
+        self.btn_autonom_merd.setText(QCoreApplication.translate("MainWindow", u"Autonom merd", None))
+        self.btn_finn_fisk.setText(QCoreApplication.translate("MainWindow", u"Finn fisk (og kalkul\u00e9r n\u00e6rmeste avstand)", None))
+        self.title_kjoring_2.setText(QCoreApplication.translate("MainWindow", u"Bildebehandlingen som kj\u00f8res:", None))
+        self.label_kjoring.setText(QCoreApplication.translate("MainWindow", u"Velg kj\u00f8remodus", None))
+        self.label_effekt_elektronikk_2.setText(QCoreApplication.translate("MainWindow", u"---", None))
         self.text_mani.setText(QCoreApplication.translate("MainWindow", u"Manipulator", None))
         self.text_dybde_reg.setText(QCoreApplication.translate("MainWindow", u"Dybde regulator", None))
         self.text_helning.setText(QCoreApplication.translate("MainWindow", u"Helningsregulator", None))
         self.text_frontlys.setText(QCoreApplication.translate("MainWindow", u"Frontlys", None))
         self.text_havbunnslys.setText(QCoreApplication.translate("MainWindow", u"Havbunnslys", None))
-        self.text_tid.setText(QCoreApplication.translate("MainWindow", u"Tid:", None))
-        self.label_tid.setText(QCoreApplication.translate("MainWindow", u"00:00:00", None))
-        self.text_dybde.setText(QCoreApplication.translate("MainWindow", u"Dybde:", None))
-        self.dybde.setText(QCoreApplication.translate("MainWindow", u"-----", None))
-        self.text_spenning.setText(QCoreApplication.translate("MainWindow", u"Spenning:", None))
-        self.label_spenning.setText(QCoreApplication.translate("MainWindow", u"-----", None))
+        self.label_effekt_thrustere_2.setText(QCoreApplication.translate("MainWindow", u"---", None))
         self.text_orientering.setText(QCoreApplication.translate("MainWindow", u"Orientering:", None))
-        self.label_orientering.setText(QCoreApplication.translate("MainWindow", u"-----", None))
         self.title_effektforbruk.setText(QCoreApplication.translate("MainWindow", u"EFFEKTFORBRUK", None))
         self.text_effekt_elektronikk.setText(QCoreApplication.translate("MainWindow", u"Elektronikk:", None))
-        self.label_effekt_elektronikk_2.setText(QCoreApplication.translate("MainWindow", u"-----", None))
-        self.text_effekt_thrustere.setText(QCoreApplication.translate("MainWindow", u"Thrustere:", None))
-        self.label_effekt_thrustere_2.setText(QCoreApplication.translate("MainWindow", u"-----", None))
+        self.label_effekt_manipulator_2.setText(QCoreApplication.translate("MainWindow", u"---", None))
         self.text_effekt_manipulator.setText(QCoreApplication.translate("MainWindow", u"Manipulator:", None))
-        self.label_effekt_manipulator_2.setText(QCoreApplication.translate("MainWindow", u"-----", None))
+        self.label_tid.setText(QCoreApplication.translate("MainWindow", u"00:00:00", None))
+        self.label_dybde.setText(QCoreApplication.translate("MainWindow", u"-----", None))
+        self.label_orientering.setText(QCoreApplication.translate("MainWindow", u"-----", None))
+        self.text_tid.setText(QCoreApplication.translate("MainWindow", u"Tid:", None))
+        self.text_effekt_thrustere.setText(QCoreApplication.translate("MainWindow", u"Thrustere:", None))
+        self.text_dybde.setText(QCoreApplication.translate("MainWindow", u"Dybde:", None))
+        self.btn_regulator_elektronikk.setText(QCoreApplication.translate("MainWindow", u"Av/P\u00e5", None))
+        self.btn_regulator_thrustere.setText(QCoreApplication.translate("MainWindow", u"Av/P\u00e5", None))
+        self.btn_reset_sikring_elektronikk.setText(QCoreApplication.translate("MainWindow", u"Reset", None))
+        self.btnl_reset_sikring_thrustere.setText(QCoreApplication.translate("MainWindow", u"Reset", None))
+        self.btn_regulator_manipulator.setText(QCoreApplication.translate("MainWindow", u"Av/P\u00e5", None))
+        self.btn_reset_sikring_manipulator.setText(QCoreApplication.translate("MainWindow", u"Reset", None))
         self.label_temp_ROV.setText(QCoreApplication.translate("MainWindow", u"TEMPERATUR I ROV", None))
         self.label_temp_ROV_1.setText(QCoreApplication.translate("MainWindow", u"---", None))
         self.labe_temp_ROV_2.setText(QCoreApplication.translate("MainWindow", u"---", None))
@@ -2811,17 +2876,15 @@ class Ui_MainWindow(object):
         self.text_lys_forward.setText(QCoreApplication.translate("MainWindow", u"Frontlys:", None))
         self.label_percentage_lys_forward.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:9pt;\">0</span><span style=\" font-size:9pt; vertical-align:super;\">%</span></p></body></html>", None))
         self.label_percentage_lys_down.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:9pt;\">0</span><span style=\" font-size:9pt; vertical-align:super;\">%</span></p></body></html>", None))
-        self.title_bilde.setText(QCoreApplication.translate("MainWindow", u"BILDEBEHANDLING", None))
-        self.btn_beregn_strl.setText(QCoreApplication.translate("MainWindow", u"Beregne st\u00f8rrelse", None))
-        self.text_bilde_3.setText(QCoreApplication.translate("MainWindow", u"Siste bilde analyseres", None))
-        self.btn_fotomoasaikk.setText(QCoreApplication.translate("MainWindow", u"Fotomoasaikk", None))
-        self.text_bilde_2.setText(QCoreApplication.translate("MainWindow", u"Siste bilde analyseres", None))
-        self.title_video.setText(QCoreApplication.translate("MainWindow", u"VIDEO", None))
-        self.btn_start_video.setText(QCoreApplication.translate("MainWindow", u" Start videoopptak", None))
-        self.btn_stopp_video.setText(QCoreApplication.translate("MainWindow", u" Stopp videoopptakk", None))
-        self.tite_kamera.setText(QCoreApplication.translate("MainWindow", u"KAMERA", None))
-        self.btn_ta_bilde_frontkamera.setText(QCoreApplication.translate("MainWindow", u" Ta bilde frontkamera", None))
-        self.btn_ta_bilde_havbunn.setText(QCoreApplication.translate("MainWindow", u" Ta bilde havbunnskamera", None))
+        self.title_video.setText(QCoreApplication.translate("MainWindow", u"KAMERA", None))
+        self.title_start_videoopptak.setText(QCoreApplication.translate("MainWindow", u"Start og stopp videoopptak", None))
+        self.btn_start_video_frontkamera.setText(QCoreApplication.translate("MainWindow", u"Frontkamera", None))
+        self.btn_stopp_video_frontkamera.setText(QCoreApplication.translate("MainWindow", u"Frontkamera", None))
+        self.btn_start_video_havbunn.setText(QCoreApplication.translate("MainWindow", u"Havbunnskamera", None))
+        self.btn_stopp_video_havbunn.setText(QCoreApplication.translate("MainWindow", u" Havbunnskamera", None))
+        self.tite_kamera.setText(QCoreApplication.translate("MainWindow", u"Ta bilde", None))
+        self.btn_ta_bilde_frontkamera.setText(QCoreApplication.translate("MainWindow", u" Frontkamera", None))
+        self.btn_ta_bilde_havbunn.setText(QCoreApplication.translate("MainWindow", u"Havbunnskamera", None))
         self.btn_slett_bilde.setText(QCoreApplication.translate("MainWindow", u" Slett det siste bildet", None))
         self.text_siste_bilde.setText(QCoreApplication.translate("MainWindow", u"Siste bilde tatt vises her:", None))
         self.img_recent.setText("")
