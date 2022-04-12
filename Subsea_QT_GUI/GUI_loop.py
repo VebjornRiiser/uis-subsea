@@ -266,18 +266,6 @@ void main() {
         self.toggle_layout.addWidget(self.toggle_helning, alignment=QtCore.Qt.AlignRight)
         self.toggle_layout.addWidget(self.toggle_frontlys, alignment=QtCore.Qt.AlignRight)
         self.toggle_layout.addWidget(self.toggle_havbunnslys, alignment=QtCore.Qt.AlignRight)
-
-        # APPLY VALUES TO PROGREESBAR
-        self.set_widget_percent(self.label_percentage_VHF, 42, self.frame_VHF, "rgba(85, 170, 255, 255)")
-        # self.setValue(self.VVF_percentage, self.VVF, "rgba(85, 170, 255, 255)")
-        # self.setValue(self.HHF_percentage, self.HHF, "rgba(85, 170, 255, 255)")
-        # self.setValue(self.HVF_percentage, self.HVF, "rgba(85, 170, 255, 255)")
-        # self.setValue(self.VVB_percentage, self.VVB, "rgba(85, 170, 255, 255)")
-        # self.setValue(self.HVB_percentage, self.HVB, "rgba(85, 170, 255, 255)")
-        # self.setValue(self.HVB_percentage, self.HVB, "rgba(85, 170, 255, 255)")
-        # self.setValue(self.VHB_percentage, self.VHB, "rgba(85, 170, 255, 255)")
-        # self.setValue(self.HHB_percentage, self.HHB, "rgba(85, 170, 255, 255)")
-
     
         # BILDEBEHANDLING
         #self.beregn_strl_btn(self.beregn_strl)
@@ -299,15 +287,21 @@ void main() {
         self.btn_toggle.clicked.connect(lambda: self.change_current_widget(0))
         self.btn_kontroller.clicked.connect(lambda: self.change_current_widget(2))
         self.btn_informasjon.clicked.connect(lambda: self.change_current_widget(1))
-        self.btn_manuell.clicked.connect(lambda: self.set_bildebehandlingsmodus(0, -1))
-        self.btn_finn_fisk.clicked.connect(lambda: self.set_bildebehandlingsmodus(1, 0))
-        self.btn_autonom_merd.clicked.connect(lambda: self.set_bildebehandlingsmodus(2, 0))
-        self.btn_bildemoasaikk.clicked.connect(lambda: self.set_bildebehandlingsmodus(0, 3))
-        self.btn_autonom_parkering.clicked.connect(lambda: self.set_bildebehandlingsmodus(4, 0))
+        self.btn_manuell.clicked.connect(lambda: self.set_bildebehandlingsmodus(0, -1, "Manuell kjøring"))
+        self.btn_finn_fisk.clicked.connect(lambda: self.set_bildebehandlingsmodus(1, 0, "Finn fisk"))
+        self.btn_autonom_merd.clicked.connect(lambda: self.set_bildebehandlingsmodus(2, 0, "Autonom merd"))
+        self.btn_bildemoasaikk.clicked.connect(lambda: self.set_bildebehandlingsmodus(0, 3, "Bildemosaikk"))
+        self.btn_autonom_parkering.clicked.connect(lambda: self.set_bildebehandlingsmodus(4, 0, "Autonom parkering"))
 
         self.btn_reset_sikring_elektronikk.clicked.connect(lambda: self.reset_sikring(0))
         self.btn_reset_sikring_manipulator.clicked.connect(lambda: self.reset_sikring(1))
         self.btn_reset_sikring_thrustere.clicked.connect(lambda: self.reset_sikring(2))
+
+        self.btn_reset_nullpunkt.clicked.connect(self.set_start_point_depth_sensor)
+
+        #todo
+        # self.btn_start_video_frontkamera.clicked.connect()
+        # self.btn_start_video_havbunn.clicked.connect()
 
         self.btn_regulator_elektronikk.clicked.connect(lambda: self.toggle_regulator(0, self.btn_regulator_elektronikk))
         self.btn_regulator_manipulator.clicked.connect(lambda: self.toggle_regulator(1, self.btn_regulator_manipulator))
@@ -319,6 +313,12 @@ void main() {
 
         self.slider_lys_down.valueChanged.connect(self.send_current_ligth_intensity)
         self.slider_lys_forward.valueChanged.connect(self.send_current_ligth_intensity)
+        
+        # self.slider_thruster_struping.valueChanged.connect(self.send_thruster_struping)
+
+        self.slider_lys_down.setValue(100)
+        self.slider_lys_forward.setValue(100)
+        self.send_current_ligth_intensity()
         # ///////////////////////////////////////////////////////////////
 
         # CONTROLLER PAGE:
@@ -401,9 +401,14 @@ void main() {
         self.toggle_frontlys.setChecked(True)
         self.toggle_havbunnslys.setChecked(True)
         self.send_current_ligth_intensity()
+        self.set_bildebehandlingsmodus(-1, -1, "Manuell kjøring")
         self.maximize_restore()
 
         # ///////////////////////////////////////////////////////////////
+
+    def send_thruster_struping(self):
+        self.send_command_to_rov(["thruster_struping", self.slider_thruster_struping.value()])
+
     def toggle_regulator(self, nr: int, btn: QPushButton):
         self.send_command_to_rov(["toggle_regulator", nr, not btn.isChecked()])
 
@@ -417,13 +422,13 @@ void main() {
             self.send_command_to_rov(["manipulator_toggle", None, False])
             
 
-    def set_bildebehandlingsmodus(self, modus_kamera_1: int, modus_kamera_2: int):
+    def set_bildebehandlingsmodus(self, modus_kamera_1: int, modus_kamera_2: int, navn: str):
         # print(modus_kamera_1, modus_kamera_2)
         if modus_kamera_1 != -1:
             self.send_command_to_rov(["update_bildebehandling", 0, modus_kamera_1])
         if modus_kamera_2 != -1:
             self.send_command_to_rov(["update_bildebehandling", 1, modus_kamera_2])
-
+        self.label_bildebehandlingsmodus.setText(navn)
 
 
     # HOME PAGE FUNCTIONS
@@ -703,7 +708,17 @@ void main() {
 
 
     def gui_time_update(self, sensordata):
-        self.label_tid.setText(str(round(sensordata[0]))+"s")
+        tid = round(sensordata[0])
+        hours = tid//3600
+        tid -= hours*3600
+
+        minutes = tid//60
+        tid -= minutes*60
+        seconds = tid
+
+        tid_string = f"{str(hours) + ' time' if hours>0 else ''} {str(minutes) + ' minutter' if minutes>0 else ''} {seconds} sekunder"
+
+        self.label_tid.setText(tid_string)
 
     def gui_manipulator_update(self, sensordata):
         self.update_round_percent_visualizer(0, self.label_percentage_mani_1, self.frame_mani_1)
@@ -749,6 +764,7 @@ void main() {
                 # self.update_round_percent_visualizer(sensordata[0], self.label_percentage_HHB, self.frame_HHB)
 
     def lekkasje_varsel(self, sensor_nr):
+        self.label_lekkasje_varsel.setStyleSheet("rgba(255, 255, 255, 200); background-color: rgba(179, 32, 36, 100);")
         command_string = r"""ffplay -ss 26.35 -t 2 -i .\uis_subsea_promo.mp4 -vf "drawtext=:text='Når du skal forklare hvorfor lekkasjesensor """ + str(sensor_nr) + ''' sier at det lekker':fontcolor=white:fontsize=36:box=1:boxcolor=black@1.0:boxborderw=5:x=(w-text_w)/2:y=h-th-10"'''
         os.system(command_string)
 

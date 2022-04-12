@@ -87,7 +87,7 @@ class Rov_state:
         # turn of the ability to change camera tilt, when camera processing is happening on the camera
         self.camera_tilt_allowed = [True, True]  #[cam 0, cam 1]
         # Toggles between controlling rotation or camera tilt on rigth joystick
-        self.camera_tilt_control_active = True
+        self.camera_tilt_control_active = False
         # queue for getting commands from gui and controller
         self.queue: multiprocessing.Queue = queue
         #Pipe to send sensordata back to the gui
@@ -115,6 +115,8 @@ class Rov_state:
         self.video_recording_active = [False, False]
         self.light_intensity_forward = 100
         self.ligth_forward_is_on = True
+        self.regulering_state = {"rull": True, "stamp": True, "hiv": True}
+        self.thruster_struping = 50
 
         self.light_intensity_down = 100
         self.ligth_down_is_on = True
@@ -242,12 +244,15 @@ class Rov_state:
             commands = {"update_light_value": self.update_light_value,"reset_depth": self.set_depth_zeroing,
             "update_bildebehandling": self.update_bildebehandlingsmodus, "take_pic": self.take_pic,
             "manipulator_toggle": self.toggle_manipulator_enabled, "reset_sikring": self.reset_fuse_on_power_supply,
-            "toggle_regulator": self.switch_power_supply_regulator}
+            "toggle_regulator": self.switch_power_supply_regulator, "thruster_struping": self.set_thruster_struping}
 
             if packet[0] not in commands:
                 print(f"Got unrecognized command from gui {packet}")
                 return
             commands[packet[0]](*packet[1:]) # * unpacks list
+
+    def set_thruster_struping(self, sensordata):
+        self.thruster_struping = sensordata[0]
 
     def set_depth_zeroing(self, sensordata=None):
         self.packets_to_send.append([129, []])
@@ -301,7 +306,7 @@ class Rov_state:
         ligth_down = self.light_intensity_down * self.ligth_down_is_on
         ligth_forward = self.light_intensity_forward * self.ligth_forward_is_on
         # print(f"Lys oppdatert. verdien vi sender er {[142, ligth_forward, ligth_down]}")
-        self.packets_to_send.append([142, ligth_forward, ligth_down])
+        self.packets_to_send.append([142, [ligth_forward, ligth_down]])
 
     def update_camera_tilt(self):
         # print("camera tilt update func")
@@ -329,7 +334,7 @@ class Rov_state:
                     # [[200/201, {"video_recording": True, "take_pic": True}]]
 
     def build_styredata(self):
-        #  X, Y, Z, rotasjon, (m.teleskop, m.vri, m.klype, enable), fri, fri,  throttle  ##########
+        #  X, Y, Z, rotasjon, (m.teleskop, m.vri, m.klype, enable), fri, regulering_av_på,  throttle  ##########
         styredata = []
         styredata.append(self.data["joysticks"][X_axis])
         styredata.append(self.data["joysticks"][Y_axis])
@@ -340,10 +345,17 @@ class Rov_state:
             styredata.append(0)
         styredata.append(self.build_manipulator_byte())
         styredata.append(0)
-        styredata.append(0)
-        styredata.append(0)
+        styredata.append(self.build_regulering_byte())
+        styredata.append(self.thruster_struping)
         self.packets_to_send.append([70, styredata])
 
+    def build_regulering_byte(self):
+        values = list(self.regulering_state.values())
+        sum = 0
+        for i in range(3):
+            # Multiplies the each bit with the bolean value controlling the regulator
+            sum += 2**i*list(self.regulering_state.values())[i]
+        return sum
 
     def build_manipulator_byte(self):
         data = list(self.data["dpad"])
@@ -429,7 +441,7 @@ class Rov_state:
         if manual_input_rotation:
             self.send_sensordata_to_gui({"time": [time_since_start], "manipulator": [grip_percent, in_out, rotation, self.manipulator_active]})
         else:
-            self.send_sensordata_to_gui({"time": [time_since_start], "manipulator": [grip_percent, in_out, rotation, self.manipulator_active], "gyro": self.position})
+            self.send_sensordata_to_gui({"time": [65+time_since_start], "manipulator": [grip_percent, in_out, rotation, self.manipulator_active], "gyro": self.position})
 
 def run(network_handler: Network, t_watch: Threadwatcher, id: int, queue_for_rov: multiprocessing.Queue, gui_pipe):
     print(f"{network_handler = }")
@@ -533,8 +545,10 @@ def recieve_data_from_rov(network: Network, t_watch: Threadwatcher, id: int):
 
             for message in decoded:
                 print(message)
+                # Rov_state.handle_
 
-                Rov_state.logger.sensor_logger.info(Rov_state, message)
+
+                # rov_state.logger.sensor_logger.info(rov_state, message)
                 # Rov_state.send_sensordata_to_gui(Rov_state, message)
 
         except json.JSONDecodeError as e:
@@ -556,11 +570,12 @@ if __name__ == "__main__":
         global start_time_sec
         global run_gui
         global manual_input_rotation
+        global run_network
         start_time_sec = time.time()
         run_gui = True
         run_get_controllerdata = True
-        run_network = False
-        run_send_fake_sensordata = True
+        run_network = True
+        run_send_fake_sensordata = False
         manual_input_rotation = False
         
         queue_for_rov = multiprocessing.Queue()
@@ -608,7 +623,7 @@ if __name__ == "__main__":
             power_list = [num for num in range(0, 101)]
             count = -1
             sensordata = {}
-            # sensordata["lekk_temp"] = [True, True, False, (25+count)%99, (37+count)%99, (61+count)%99]
+            # sensordata["lekk_temp"] = [False,  True, False, (25+count)%99, (37+count)%99, (61+count)%99]
             gui_parent_pipe.send(sensordata)
             while True:
                 count += 1
