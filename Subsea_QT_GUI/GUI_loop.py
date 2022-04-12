@@ -218,7 +218,7 @@ void main() {
         button.setText('Rotate')
         xyz = [0, 360, 0]
         button.clicked.connect(lambda: self.update(xyz))
-        self.layout.addWidget(button)
+        #self.layout.addWidget(button)
 
 
 
