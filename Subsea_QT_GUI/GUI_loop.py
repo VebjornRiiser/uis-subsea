@@ -746,6 +746,7 @@ void main() {
     def gui_lekk_temp_update(self, sensordata):
         # self.check_data_types(sensordata["lekk_temp"], (int, float, float, float))
         # print(f"ran gui_lekk_temp_update {sensordata = }")
+        # print(f"{sensordata =}")
         lekkasje_liste: list[bool] = [sensordata[0], sensordata[1], sensordata[2]]
         if not isinstance(lekkasje_liste[0], bool):
             raise TypeError(f"Lekkasje sensor 1 has wrong type. {type(lekkasje_liste[0]) = }, {lekkasje_liste[0]} ")
@@ -766,7 +767,7 @@ void main() {
     def lekkasje_varsel(self, sensor_nr):
         self.label_lekkasje_varsel.setStyleSheet("rgba(255, 255, 255, 200); background-color: rgba(179, 32, 36, 100);")
         command_string = r"""ffplay -ss 26.35 -t 2 -i .\uis_subsea_promo.mp4 -vf "drawtext=:text='Når du skal forklare hvorfor lekkasjesensor """ + str(sensor_nr) + ''' sier at det lekker':fontcolor=white:fontsize=36:box=1:boxcolor=black@1.0:boxborderw=5:x=(w-text_w)/2:y=h-th-10"'''
-        os.system(command_string)
+        # os.system(command_string)
 
 
     def update_round_percent_visualizer(self, value, text_label, round_frame):
@@ -791,13 +792,14 @@ void main() {
         round_frame.setStyleSheet(styleSheet)
 
     def gui_acceleration_update(self, sensordata):
-        
-        print(f"ran gui_acceleration_update {sensordata = }")
+        pass
+        # print(f"gui_acceleration_update {sensordata = }")
 
     def gui_gyro_update(self, sensordata):
         # Removes the previous rotation. We do not have yaw rotation
         # so it is not necesarry to reset or rotate it
         # print(f"{sensordata = }")
+        # stamp, rull, hiv
         self.meshitem.rotate(self.rov_3d_coordinates[1], 0, 1, 0, local=True)
         self.meshitem.rotate(self.rov_3d_coordinates[0], 1, 0, 0, local=True)
 

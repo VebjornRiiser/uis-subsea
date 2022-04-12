@@ -1,3 +1,4 @@
+from concurrent.futures import thread
 from getopt import getopt
 import multiprocessing
 from pickle import FALSE
@@ -83,7 +84,7 @@ class Rov_state:
         # prevents the image processing toggle from toggling back again immediately if we hold the button down
         self.image_processing_mode_wait_counter: int = 0
         # Tilt in degrees of the camera servo motors
-        self.camera_tilt: list[float] = [0.0, 0.0]
+        self.camera_tilt: list[float] = [0, 0]
         # turn of the ability to change camera tilt, when camera processing is happening on the camera
         self.camera_tilt_allowed = [True, True]  #[cam 0, cam 1]
         # Toggles between controlling rotation or camera tilt on rigth joystick
@@ -110,6 +111,8 @@ class Rov_state:
         self.packets_to_send = []
         self.start_time = time.time() 
 
+        self.valid_gui_commands = ["lekk_temp", "thrust", "accel", "gyro", "time", "manipulator", "power_consumption", "manipulator_toggled"]
+
         self.manipulator_active = True
         self.regulator_active: list[bool] = [True, True, True]
         self.video_recording_active = [False, False]
@@ -126,6 +129,10 @@ class Rov_state:
     def send_startup_commands(self):
         self.packets_to_send.append([200, {"tilt": self.camera_tilt[0]}])
         self.packets_to_send.append([201, {"tilt": self.camera_tilt[1]}])
+        self.packets_to_send.append([64,  []])
+        self.packets_to_send.append([96,  []])
+        self.packets_to_send.append([128, []])
+        
         self.set_depth_zeroing()
 
 
@@ -255,7 +262,9 @@ class Rov_state:
         self.thruster_struping = sensordata[0]
 
     def set_depth_zeroing(self, sensordata=None):
-        self.packets_to_send.append([129, []])
+        # self.packets_to_send.append([129, []])
+        self.packets_to_send.append([96,  []])
+
 
     def get_rotation_input(self):
         # rotate_input = input("Rotate theta degrees around x,y,z axis")
@@ -278,10 +287,14 @@ class Rov_state:
 
     def send_packets(self):
         """Sends the created network packets and clears it"""
+        # self.network_handler.send(network_format([[96,[]]]))
+        # return
+
         # print(self.packets_to_send)
         for packet in self.packets_to_send:
-            if packet[0] != 70:
-                print(f"{packet = }")
+            # if packet[0] != 70:
+            #     print(f"{packet = }")
+                pass
         self.logger.sensor_logger.info(self.packets_to_send)
         if self.network_handler is None:
             self.packets_to_send = []
@@ -322,15 +335,15 @@ class Rov_state:
                 tilt_per_ms = total_degrees/(tilt_time_sec*1000)
                 self.camera_tilt[self.active_camera] += (camera_movement/100)*self.data["time_between_updates"]*tilt_per_ms
                 if self.camera_tilt[self.active_camera] > total_degrees/2:
-                    self.camera_tilt[self.active_camera] = total_degrees/2
+                    self.camera_tilt[self.active_camera] = total_degrees//2
 
                 elif self.camera_tilt[self.active_camera] < -total_degrees/2:
-                    self.camera_tilt[self.active_camera] = -total_degrees/2
+                    self.camera_tilt[self.active_camera] = -total_degrees//2
 
                 self.camera_tilt[self.active_camera] = round(self.camera_tilt[self.active_camera])
 
                 if old_tilt != self.camera_tilt[self.active_camera]:
-                    self.packets_to_send.append([200 + self.active_camera, {"tilt": self.camera_tilt[self.active_camera]}])
+                    self.packets_to_send.append([200 + self.active_camera, {"tilt": int(self.camera_tilt[self.active_camera])}])
                     # [[200/201, {"video_recording": True, "take_pic": True}]]
 
     def build_styredata(self):
@@ -405,6 +418,7 @@ class Rov_state:
             self.camera_tilt_allowed[camera_id] = False
         print(f"{self.image_processing_mode = }")
 
+
     def update_bildebehandlingsmodus_controller(self, button_index, camera_id: int = None, mode: int = None):
         if self.image_processing_mode_wait_counter == 0:
             if camera_id is None:
@@ -443,9 +457,51 @@ class Rov_state:
         else:
             self.send_sensordata_to_gui({"time": [65+time_since_start], "manipulator": [grip_percent, in_out, rotation, self.manipulator_active], "gyro": self.position})
 
+
+    def recieve_data_from_rov(self, network: Network, t_watch: Threadwatcher, id: int):
+        while t_watch.should_run(id):
+            try:
+                data = network.receive()
+                if data is None:
+                    continue
+                # print(f"got data from rov {data = }")
+                decoded = decode_packets(data)
+                if decoded == []:
+                    continue
+
+                for message in decoded:
+                    # print(message)
+                    self.handle_data_from_rov(message)
+
+
+                    
+                    # Rov_state.send_sensordata_to_gui(Rov_state, message)
+
+            except json.JSONDecodeError as e:
+                print(f"{data = }, {e = }")
+
+
+    def handle_data_from_rov(self, message: dict):
+        self.logger.sensor_logger.info(message)
+        message_name = list(message.keys())[0]
+        if list(message.keys())[0] in self.valid_gui_commands:
+            self.send_sensordata_to_gui(message)
+        else:
+            print(f"\n\nMESSAGE NOT RECOGNISED AS VALID GUI COMMAND\n{message}\n")
+
+
+    def handle_gyro(self, sensordata):
+        self.position = sensordata
+        self.send_sensordata_to_gui({"gyro": self.position})
+
+
 def run(network_handler: Network, t_watch: Threadwatcher, id: int, queue_for_rov: multiprocessing.Queue, gui_pipe):
     print(f"{network_handler = }")
     rov_state = Rov_state(queue_for_rov, network_handler, gui_pipe)
+    if network_handler != None:
+        id = t_watch.add_thread()
+        threading.Thread(target=rov_state.recieve_data_from_rov, args=(network_handler, t_watch, id), daemon=True).start()
+
     while t_watch.should_run(id):
         rov_state.tick()
 
@@ -532,27 +588,6 @@ def decode_packets(tcp_data: bytes) -> list:
     return decoded_items
 
 
-def recieve_data_from_rov(network: Network, t_watch: Threadwatcher, id: int):
-    while t_watch.should_run(id):
-        try:
-            data = network.receive()
-            if data is None:
-                continue
-            # print(f"recieve data from from {data = }")
-            decoded = decode_packets(data)
-            if decoded == []:
-                continue
-
-            for message in decoded:
-                print(message)
-                # Rov_state.handle_
-
-
-                # rov_state.logger.sensor_logger.info(rov_state, message)
-                # Rov_state.send_sensordata_to_gui(Rov_state, message)
-
-        except json.JSONDecodeError as e:
-            print(f"{data = }, {e = }")
 
 
 def get_args():
@@ -588,11 +623,6 @@ if __name__ == "__main__":
             gui_loop = Process(target=GUI_loop.run, args=(gui_child_pipe, queue_for_rov, t_watch, id)) # and should recieve commands from the gui
             gui_loop.start()
 
-            # id = t_watch.add_thread()
-            # recv_from_gui = threading.Thread(target=recieve_commands_from_gui, args=(gui_parent_pipe, t_watch, id),daemon=True)
-            # recv_from_gui.start()
-
-
 
         if run_get_controllerdata:
             id = t_watch.add_thread()
@@ -601,17 +631,17 @@ if __name__ == "__main__":
             controller_process.start()
 
         # Network is blocking
+        network = None
         if run_network:
             network = Network(is_server=False, port=6900, connect_addr="10.0.0.2")
             print("network started")
 
             id = t_watch.add_thread()
             snd_data_to_rov = threading.Thread(target=run, args=(network, t_watch, id, queue_for_rov, gui_parent_pipe), daemon=True)
-            # snd_data_to_rov = threading.Thread(target=send_data_to_rov, args=(None, t_watch, id, parent_conn_controller), daemon=True)
             snd_data_to_rov.start()
 
-            recieve_data_from_rov = threading.Thread(target=recieve_data_from_rov, args=(network, t_watch, id), daemon=True)
-            recieve_data_from_rov.start()
+            # recieve_data_from_rov = threading.Thread(target=recieve_data_from_rov, args=(network, t_watch, id), daemon=True)
+            # recieve_data_from_rov.start()
 
         elif run_get_controllerdata:
             print("starting send to rov")
