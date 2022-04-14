@@ -119,7 +119,7 @@ class Rov_state:
         self.light_intensity_forward = 100
         self.ligth_forward_is_on = True
         self.regulering_state = {"rull": True, "stamp": True, "hiv": True}
-        self.thruster_struping = 50
+        self.thruster_struping = 0
 
         self.light_intensity_down = 100
         self.ligth_down_is_on = True
@@ -259,7 +259,7 @@ class Rov_state:
             commands[packet[0]](*packet[1:]) # * unpacks list
 
     def set_thruster_struping(self, sensordata):
-        self.thruster_struping = sensordata[0]
+        self.thruster_struping = sensordata
 
     def set_depth_zeroing(self, sensordata=None):
         self.packets_to_send.append([129, []])

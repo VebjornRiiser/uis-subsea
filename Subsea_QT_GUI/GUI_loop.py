@@ -314,7 +314,7 @@ void main() {
         self.slider_lys_down.valueChanged.connect(self.send_current_ligth_intensity)
         self.slider_lys_forward.valueChanged.connect(self.send_current_ligth_intensity)
         
-        # self.slider_thruster_struping.valueChanged.connect(self.send_thruster_struping)
+        self.slider_struping_thrustere.valueChanged.connect(self.send_thruster_struping)
 
         self.slider_lys_down.setValue(100)
         self.slider_lys_forward.setValue(100)
@@ -408,7 +408,7 @@ void main() {
         # ///////////////////////////////////////////////////////////////
 
     def send_thruster_struping(self):
-        self.send_command_to_rov(["thruster_struping", self.slider_thruster_struping.value()])
+        self.send_command_to_rov(["thruster_struping", self.slider_struping_thrustere.value()])
 
     def toggle_regulator(self, nr: int, btn: QPushButton):
         self.send_command_to_rov(["toggle_regulator", nr, not btn.isChecked()])
