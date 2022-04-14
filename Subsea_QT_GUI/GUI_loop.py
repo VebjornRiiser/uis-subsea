@@ -368,7 +368,7 @@ void main() {
         self.closeAppBtn.clicked.connect(self.shutdown)
         # ///////////////////////////////////////////////////////////////
         
-        self.connect_test_values()
+        self.connect_sliders_to_gui()
 
         #hest
         self.camera_windows_opened = False
@@ -402,6 +402,9 @@ void main() {
         self.toggle_havbunnslys.setChecked(True)
         self.send_current_ligth_intensity()
         self.set_bildebehandlingsmodus(-1, -1, "Manuell kjøring")
+        self.setTestValue(self.slider_lys_forward, self.label_percentage_lys_forward, self.frame_lys_forward, "rgba(85, 170, 255, 255)")
+        self.setTestValue(self.slider_lys_down, self.label_percentage_lys_down, self.frame_lys_down, "rgba(85, 170, 255, 255)")
+        self.setTestValue(self.slider_struping_thrustere, self.label_percentage_struping, self.frame_struping, "rgba(85, 170, 255, 255)")
         self.maximize_restore()
 
         # ///////////////////////////////////////////////////////////////
@@ -944,9 +947,10 @@ void main() {
         # APPLY STYLESHEET WITH NEW VALUES
         widget.setStyleSheet(newStylesheet)
 
-    def connect_test_values(self):
+    def connect_sliders_to_gui(self):
         self.slider_lys_forward.valueChanged.connect(lambda: self.setTestValue(self.slider_lys_forward, self.label_percentage_lys_forward, self.frame_lys_forward, "rgba(85, 170, 255, 255)"))
         self.slider_lys_down.valueChanged.connect(lambda: self.setTestValue(self.slider_lys_down, self.label_percentage_lys_down, self.frame_lys_down, "rgba(85, 170, 255, 255)"))
+        self.slider_struping_thrustere.valueChanged.connect(lambda: self.setTestValue(self.slider_struping_thrustere, self.label_percentage_struping, self.frame_struping, "rgba(85, 170, 255, 255)"))
 
 
 
