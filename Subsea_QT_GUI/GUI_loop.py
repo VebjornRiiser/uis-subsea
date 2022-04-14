@@ -260,7 +260,6 @@ void main() {
         self.toggle_frontlys.stateChanged.connect(self.send_current_ligth_intensity)
         self.toggle_havbunnslys.stateChanged.connect(self.send_current_ligth_intensity)
 
-
         self.toggle_layout.addWidget(self.toggle_mani, alignment=QtCore.Qt.AlignRight)
         self.toggle_layout.addWidget(self.toggle_dybde, alignment=QtCore.Qt.AlignRight)
         self.toggle_layout.addWidget(self.toggle_helning, alignment=QtCore.Qt.AlignRight)
