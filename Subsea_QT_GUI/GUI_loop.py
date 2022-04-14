@@ -719,7 +719,7 @@ void main() {
         tid -= minutes*60
         seconds = tid
 
-        tid_string = f"{str(hours) + ' time' if hours>0 else ''} {str(minutes) + ' minutter' if minutes>0 else ''} {seconds} sekunder"
+        tid_string = f"{'0'+str(hours) if len(str(hours)) == 1 else str(hours)}:{'0'+str(minutes) if len(str(minutes)) == 1 else str(minutes)}:{'0'+str(seconds) if len(str(seconds)) == 1 else str(seconds)}"
 
         self.label_tid.setText(tid_string)
 

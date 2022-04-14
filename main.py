@@ -16,6 +16,7 @@ import random
 import time
 import json
 import sys
+import os
 
 
 # takes a python object and prepares it for sending over network
@@ -455,7 +456,7 @@ class Rov_state:
         if manual_input_rotation:
             self.send_sensordata_to_gui({"time": [time_since_start], "manipulator": [grip_percent, in_out, rotation, self.manipulator_active]})
         else:
-            self.send_sensordata_to_gui({"time": [65+time_since_start], "manipulator": [grip_percent, in_out, rotation, self.manipulator_active]})
+            self.send_sensordata_to_gui({"time": [time_since_start], "manipulator": [grip_percent, in_out, rotation, self.manipulator_active]})
 
 
     def recieve_data_from_rov(self, network: Network, t_watch: Threadwatcher, id: int):
@@ -601,6 +602,7 @@ def get_args():
 
 
 if __name__ == "__main__":
+    os.system("pyuic5 -x .\Subsea_QT_GUI\SUBSEAGUI.ui -o .\Subsea_QT_GUI\SUBSEAGUI.py")
     # get_args()
     # exit(0)
     try:
