@@ -371,6 +371,7 @@ void main() {
         
         self.connect_test_values()
 
+        #hest
         self.camera_windows_opened = False
         if self.camera_windows_opened:
             self.start_camera_windows()
@@ -755,7 +756,7 @@ void main() {
         temp3 = round(sensordata[5])
         average_temp =  round(sum((temp1, temp2, temp3))/3)
         self.label_temp_ROV_1.setText(str(temp1))
-        self.labe_temp_ROV_2.setText(str(temp2))
+        self.label_temp_ROV_2.setText(str(temp2))
         self.label_temp_ROV_3.setText(str(temp3))
         self.label_gjsnitt_temp_ROV.setText(str(average_temp))
 
@@ -765,7 +766,7 @@ void main() {
                 # self.update_round_percent_visualizer(sensordata[0], self.label_percentage_HHB, self.frame_HHB)
 
     def lekkasje_varsel(self, sensor_nr):
-        self.label_lekkasje_varsel.setStyleSheet("rgba(255, 255, 255, 200); background-color: rgba(179, 32, 36, 100);")
+        self.label_lekkasje_varsel.setStyleSheet("QLabel { color: rgba(255, 255, 255, 0); background-color: rgba(179, 32, 36, 0); }")
         command_string = r"""ffplay -ss 26.35 -t 2 -i .\uis_subsea_promo.mp4 -vf "drawtext=:text='Når du skal forklare hvorfor lekkasjesensor """ + str(sensor_nr) + ''' sier at det lekker':fontcolor=white:fontsize=36:box=1:boxcolor=black@1.0:boxborderw=5:x=(w-text_w)/2:y=h-th-10"'''
         # os.system(command_string)
 
@@ -799,20 +800,21 @@ void main() {
         # Removes the previous rotation. We do not have yaw rotation
         # so it is not necesarry to reset or rotate it
         # print(f"{sensordata = }")
-        # stamp, rull, hiv
-        self.meshitem.rotate(self.rov_3d_coordinates[1], 0, 1, 0, local=True)
-        self.meshitem.rotate(self.rov_3d_coordinates[0], 1, 0, 0, local=True)
+        # hiv, rull, stamp
+        print(f"gyro update inside gui = {sensordata = }")
+        self.meshitem.rotate(-self.rov_3d_coordinates[1], 0, 1, 0, local=True)
+        self.meshitem.rotate(-self.rov_3d_coordinates[2], 1, 0, 0, local=True)
 
-        self.meshitem.rotate(-sensordata[0], 1, 0, 0, local=True)
-        self.meshitem.rotate(-sensordata[1], 0, 1, 0, local=True)
+        self.meshitem.rotate(sensordata[2], 1, 0, 0, local=True)
+        self.meshitem.rotate(sensordata[1], 0, 1, 0, local=True)
 
         # height translation
-        height_diff = sensordata[2]-self.rov_3d_coordinates[2]
+        height_diff = sensordata[0]-self.rov_3d_coordinates[0]
         self.meshitem.translate(0,0, height_diff)
 
         self.rov_3d_coordinates = sensordata
 
-        self.label_dybde.setText(str(round(self.rov_3d_coordinates[2]))+ " cm")
+        self.label_dybde.setText(str(round(self.rov_3d_coordinates[0]))+ " cm")
 
     def set_start_point_depth_sensor(self):
         self.send_command_to_rov(["reset_depth", []])
