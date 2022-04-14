@@ -40,12 +40,6 @@ os.environ["QT_FONT_DPI"] = "96" # FIX Problem for High DPI and Scale above 100%
 GLOBAL_STATE = False
 GLOBAL_TITLE_BAR = True
 
-class Fakeslider:
-    def __init__(self, value) -> None:
-        self.slider_value = value
-    def value(self):
-        return self.slider_value
-
 class AnotherWindow(QWidget):
     """
     This "window" is a QWidget. If it has no parent, it
@@ -82,6 +76,8 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     def __init__(self, pipe_conn_only_rcv, queue: multiprocessing.Queue, t_watch: Threadwatcher, id: int, parent=None):
         super().__init__(parent)
         
+        self.lekkasje_varsel_is_running = False
+
         self.setWindowIcon(QtGui.QIcon('Subsea_QT_GUI/images/logo.png'))
         self.queue = queue
         self.pipe_conn_only_rcv = pipe_conn_only_rcv
@@ -283,7 +279,7 @@ void main() {
         #self.show_image
         
         # Menu button clicked
-        self.btn_toggle.clicked.connect(lambda: self.change_current_widget(0))
+        # self.btn_toggle.clicked.connect(lambda: self.change_current_widget(0))
         self.btn_kontroller.clicked.connect(lambda: self.change_current_widget(2))
         self.btn_informasjon.clicked.connect(lambda: self.change_current_widget(1))
         self.btn_manuell.clicked.connect(lambda: self.set_bildebehandlingsmodus(0, -1, "Manuell kjøring"))
@@ -405,6 +401,7 @@ void main() {
         self.setTestValue(self.slider_lys_forward, self.label_percentage_lys_forward, self.frame_lys_forward, "rgba(85, 170, 255, 255)")
         self.setTestValue(self.slider_lys_down, self.label_percentage_lys_down, self.frame_lys_down, "rgba(85, 170, 255, 255)")
         self.setTestValue(self.slider_struping_thrustere, self.label_percentage_struping, self.frame_struping, "rgba(85, 170, 255, 255)")
+        self.change_current_widget(1)
         self.maximize_restore()
 
         # ///////////////////////////////////////////////////////////////
@@ -614,6 +611,7 @@ void main() {
 
     def shutdown(self):
         print("shutdown ran")
+        self.send_command_to_rov(["STOP"])
         self.t_watch.stop_all_threads()
         if self.camera_windows_opened:
             for window in self.child_window:
@@ -670,7 +668,7 @@ void main() {
                 time.sleep(0.15)
     
         print("recieved close thread. trying to close")
-        self.shutdown()
+        # self.shutdown()
         exit(0)
         
     def decide_gui_update(self, sensordata):
@@ -719,7 +717,7 @@ void main() {
         tid -= minutes*60
         seconds = tid
 
-        tid_string = f"{str(hours) + ' time' if hours>0 else ''} {str(minutes) + ' minutter' if minutes>0 else ''} {seconds} sekunder"
+        tid_string = f"{'0'+str(hours) if len(str(hours)) == 1 else str(hours)}:{'0'+str(minutes) if len(str(minutes)) == 1 else str(minutes)}:{'0'+str(seconds) if len(str(seconds)) == 1 else str(seconds)}"
 
         self.label_tid.setText(tid_string)
 
@@ -760,17 +758,29 @@ void main() {
         self.label_temp_ROV_1.setText(str(temp1))
         self.label_temp_ROV_2.setText(str(temp2))
         self.label_temp_ROV_3.setText(str(temp3))
-        self.label_gjsnitt_temp_ROV.setText(str(average_temp))
-
+        self.label_gjsnitt_temp_ROV.setText(str(average_temp)) 
+        # lekkasje_liste.count(True)
+        id_with_lekkasje = []
         for lekkasje_nr, is_lekkasje in enumerate(lekkasje_liste):
             if is_lekkasje:
-                self.lekkasje_varsel(lekkasje_nr+1)
+                id_with_lekkasje.append(lekkasje_nr+1)
+        if not self.lekkasje_varsel_is_running:
+            self.lekkasje_varsel_is_running = True
+            threading.Thread(target=lambda: self.lekkasje_varsel(id_with_lekkasje)).start()
+                
                 # self.update_round_percent_visualizer(sensordata[0], self.label_percentage_HHB, self.frame_HHB)
 
-    def lekkasje_varsel(self, sensor_nr):
-        self.label_lekkasje_varsel.setStyleSheet("QLabel { color: rgba(255, 255, 255, 0); background-color: rgba(179, 32, 36, 0); }")
-        command_string = r"""ffplay -ss 26.35 -t 2 -i .\uis_subsea_promo.mp4 -vf "drawtext=:text='Når du skal forklare hvorfor lekkasjesensor """ + str(sensor_nr) + ''' sier at det lekker':fontcolor=white:fontsize=36:box=1:boxcolor=black@1.0:boxborderw=5:x=(w-text_w)/2:y=h-th-10"'''
-        # os.system(command_string)
+    def lekkasje_varsel(self, sensor_nr_liste):
+        pass
+        # text = f"Advarsel vannlekkasje oppdaget på sensor: {str(', '.join(sensor_nr_liste))}"
+        # self.label_lekkasje_varsel.setText(text)
+
+        # for i in range(5):
+        #     self.label_lekkasje_varsel.setStyleSheet("QLabel { color: rgba(255, 255, 255, 200); background-color: rgba(179, 32, 36, 200); font-size: 24pt;}")
+        #     self.label_lekkasje_varsel: QLabel
+        #     time.sleep(1.5)
+        # self.lekkasje_varsel_is_running = False
+
 
 
     def update_round_percent_visualizer(self, value, text_label, round_frame):
