@@ -10,8 +10,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1696</width>
-    <height>923</height>
+    <width>1730</width>
+    <height>970</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -37,7 +37,9 @@
    </property>
    <property name="font">
     <font>
+     <family>Segoe UI</family>
      <pointsize>10</pointsize>
+     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -1010,7 +1012,9 @@ Button */
                   </property>
                   <property name="font">
                    <font>
+                    <family>Segoe UI</family>
                     <pointsize>10</pointsize>
+                    <weight>50</weight>
                     <italic>false</italic>
                     <bold>false</bold>
                    </font>
@@ -1045,7 +1049,9 @@ Button */
                   </property>
                   <property name="font">
                    <font>
+                    <family>Segoe UI</family>
                     <pointsize>10</pointsize>
+                    <weight>50</weight>
                     <italic>false</italic>
                     <bold>false</bold>
                    </font>
@@ -1080,7 +1086,9 @@ Button */
                   </property>
                   <property name="font">
                    <font>
+                    <family>Segoe UI</family>
                     <pointsize>10</pointsize>
+                    <weight>50</weight>
                     <italic>false</italic>
                     <bold>false</bold>
                    </font>
@@ -1130,7 +1138,7 @@ Button */
                   </property>
                   <property name="html">
                    <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#ff79c6;&quot;&gt;PyDracula&lt;/span&gt;&lt;/p&gt;
@@ -1275,7 +1283,9 @@ p, li { white-space: pre-wrap; }
                   </property>
                   <property name="font">
                    <font>
+                    <family>Segoe UI</family>
                     <pointsize>10</pointsize>
+                    <weight>50</weight>
                     <italic>false</italic>
                     <bold>false</bold>
                    </font>
@@ -1375,7 +1385,9 @@ p, li { white-space: pre-wrap; }
                   </property>
                   <property name="font">
                    <font>
+                    <family>Segoe UI</family>
                     <pointsize>10</pointsize>
+                    <weight>50</weight>
                     <italic>false</italic>
                     <bold>false</bold>
                    </font>
@@ -1520,7 +1532,7 @@ p, li { white-space: pre-wrap; }
                       <string notr="true">background-color: transparent;</string>
                      </property>
                      <property name="currentIndex">
-                      <number>2</number>
+                      <number>1</number>
                      </property>
                      <widget class="QWidget" name="home">
                       <property name="autoFillBackground">
@@ -1606,17 +1618,17 @@ p, li { white-space: pre-wrap; }
                               <rect>
                                <x>0</x>
                                <y>0</y>
-                               <width>1610</width>
-                               <height>832</height>
+                               <width>1644</width>
+                               <height>879</height>
                               </rect>
                              </property>
                              <widget class="QFrame" name="column1">
                               <property name="geometry">
                                <rect>
-                                <x>10</x>
+                                <x>30</x>
                                 <y>0</y>
-                                <width>581</width>
-                                <height>791</height>
+                                <width>601</width>
+                                <height>871</height>
                                </rect>
                               </property>
                               <property name="maximumSize">
@@ -1890,7 +1902,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </property>
                                      <property name="font">
                                       <font>
+                                       <family>Segoe UI</family>
                                        <pointsize>10</pointsize>
+                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -1942,7 +1956,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </property>
                                      <property name="font">
                                       <font>
+                                       <family>Segoe UI</family>
                                        <pointsize>10</pointsize>
+                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -2849,7 +2865,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </property>
                                      <property name="font">
                                       <font>
+                                       <family>Segoe UI</family>
                                        <pointsize>10</pointsize>
+                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -2892,7 +2910,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </property>
                                      <property name="font">
                                       <font>
+                                       <family>Segoe UI</family>
                                        <pointsize>10</pointsize>
+                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -3311,10 +3331,10 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                              <widget class="QFrame" name="column2">
                               <property name="geometry">
                                <rect>
-                                <x>610</x>
+                                <x>680</x>
                                 <y>10</y>
-                                <width>411</width>
-                                <height>761</height>
+                                <width>461</width>
+                                <height>861</height>
                                </rect>
                               </property>
                               <layout class="QVBoxLayout" name="column2Layout">
@@ -3401,7 +3421,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </property>
                                      <property name="font">
                                       <font>
+                                       <family>Segoe UI</family>
                                        <pointsize>10</pointsize>
+                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -3490,7 +3512,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </property>
                                      <property name="font">
                                       <font>
+                                       <family>Segoe UI</family>
                                        <pointsize>10</pointsize>
+                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -3613,7 +3637,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </property>
                                      <property name="font">
                                       <font>
+                                       <family>Segoe UI</family>
                                        <pointsize>10</pointsize>
+                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -3683,7 +3709,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </property>
                                      <property name="font">
                                       <font>
+                                       <family>Segoe UI</family>
                                        <pointsize>10</pointsize>
+                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -3897,7 +3925,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </property>
                                      <property name="font">
                                       <font>
+                                       <family>Segoe UI</family>
                                        <pointsize>10</pointsize>
+                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -4051,7 +4081,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                    </property>
                                    <property name="font">
                                     <font>
+                                     <family>Segoe UI</family>
                                      <pointsize>10</pointsize>
+                                     <weight>50</weight>
                                      <italic>false</italic>
                                      <bold>false</bold>
                                     </font>
@@ -4801,10 +4833,10 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                              <widget class="QFrame" name="column3">
                               <property name="geometry">
                                <rect>
-                                <x>1040</x>
-                                <y>0</y>
-                                <width>411</width>
-                                <height>801</height>
+                                <x>1160</x>
+                                <y>10</y>
+                                <width>481</width>
+                                <height>871</height>
                                </rect>
                               </property>
                               <property name="minimumSize">
@@ -4904,7 +4936,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                  <property name="maximumSize">
                                   <size>
                                    <width>16777215</width>
-                                   <height>200</height>
+                                   <height>190</height>
                                   </size>
                                  </property>
                                  <layout class="QGridLayout" name="kameraGrid">
@@ -5354,7 +5386,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                  </property>
                                  <property name="maximumSize">
                                   <size>
-                                   <width>300</width>
+                                   <width>450</width>
                                    <height>200</height>
                                   </size>
                                  </property>
@@ -5563,7 +5595,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                             </property>
                                             <property name="font">
                                              <font>
+                                              <family>Segoe UI</family>
                                               <pointsize>10</pointsize>
+                                              <weight>50</weight>
                                               <italic>false</italic>
                                               <bold>false</bold>
                                              </font>
@@ -5650,7 +5684,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                             </property>
                                             <property name="font">
                                              <font>
+                                              <family>Segoe UI</family>
                                               <pointsize>10</pointsize>
+                                              <weight>50</weight>
                                               <italic>false</italic>
                                               <bold>false</bold>
                                              </font>
@@ -5685,7 +5721,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                             </property>
                                             <property name="font">
                                              <font>
+                                              <family>Segoe UI</family>
                                               <pointsize>10</pointsize>
+                                              <weight>50</weight>
                                               <italic>false</italic>
                                               <bold>false</bold>
                                              </font>
@@ -5745,7 +5783,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                           </property>
                                           <property name="font">
                                            <font>
+                                            <family>Segoe UI</family>
                                             <pointsize>10</pointsize>
+                                            <weight>50</weight>
                                             <italic>false</italic>
                                             <bold>false</bold>
                                            </font>
@@ -5781,7 +5821,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                           </property>
                                           <property name="font">
                                            <font>
+                                            <family>Segoe UI</family>
                                             <pointsize>10</pointsize>
+                                            <weight>50</weight>
                                             <italic>false</italic>
                                             <bold>false</bold>
                                            </font>
@@ -5815,7 +5857,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <property name="font">
                                        <font>
+                                        <family>Segoe UI</family>
                                         <pointsize>10</pointsize>
+                                        <weight>50</weight>
                                         <italic>false</italic>
                                         <bold>false</bold>
                                        </font>
@@ -5856,7 +5900,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -5890,7 +5936,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -5921,7 +5969,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -5952,7 +6002,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -5983,7 +6035,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6014,7 +6068,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6045,7 +6101,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6076,7 +6134,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6102,7 +6162,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6133,7 +6195,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6159,7 +6223,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6185,7 +6251,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6214,7 +6282,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6245,7 +6315,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6271,7 +6343,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6302,7 +6376,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6333,7 +6409,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6364,7 +6442,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6404,7 +6484,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6561,7 +6643,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                            </property>
                            <property name="font">
                             <font>
+                             <family>Segoe UI</family>
                              <pointsize>10</pointsize>
+                             <weight>50</weight>
                              <italic>false</italic>
                              <bold>false</bold>
                             </font>
@@ -6596,7 +6680,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                            </property>
                            <property name="font">
                             <font>
+                             <family>Segoe UI</family>
                              <pointsize>10</pointsize>
+                             <weight>50</weight>
                              <italic>false</italic>
                              <bold>false</bold>
                             </font>
@@ -6631,7 +6717,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                            </property>
                            <property name="font">
                             <font>
+                             <family>Segoe UI</family>
                              <pointsize>10</pointsize>
+                             <weight>50</weight>
                              <italic>false</italic>
                              <bold>false</bold>
                             </font>
