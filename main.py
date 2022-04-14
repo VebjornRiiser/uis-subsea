@@ -71,7 +71,8 @@ BUTTON_GRAB = 4
 BUTTON_RELEASE = 5
 
 class Rov_state:
-    def __init__(self, queue, network_handler, gui_pipe) -> None:
+    def __init__(self, queue, network_handler, gui_pipe, t_watch: Threadwatcher) -> None:
+        self.t_watch: Threadwatcher = t_watch
         self.logger = Logger()
         self.data:dict = {}
         self.virtual_buttons: list[int] = []
@@ -252,12 +253,18 @@ class Rov_state:
             commands = {"update_light_value": self.update_light_value,"reset_depth": self.set_depth_zeroing,
             "update_bildebehandling": self.update_bildebehandlingsmodus, "take_pic": self.take_pic,
             "manipulator_toggle": self.toggle_manipulator_enabled, "reset_sikring": self.reset_fuse_on_power_supply,
-            "toggle_regulator": self.switch_power_supply_regulator, "thruster_struping": self.set_thruster_struping}
+            "toggle_regulator": self.switch_power_supply_regulator, "thruster_struping": self.set_thruster_struping,
+            "STOP": self.shutdown}
 
             if packet[0] not in commands:
                 print(f"Got unrecognized command from gui {packet}")
                 return
             commands[packet[0]](*packet[1:]) # * unpacks list
+
+    def shutdown(self):
+        print("recieved shutdown from gui")
+        self.t_watch.stop_all_threads()
+        exit(0)
 
     def set_thruster_struping(self, sensordata):
         self.thruster_struping = sensordata
@@ -293,14 +300,13 @@ class Rov_state:
 
         # print(self.packets_to_send)
         for packet in self.packets_to_send:
-            # if packet[0] != 70:
-            print(f"{packet = }")
+            if packet[0] != 70:
+                print(f"{packet = }")
                 # pass
         self.logger.sensor_logger.info(self.packets_to_send)
         if self.network_handler is None:
             self.packets_to_send = []
             return
-
         self.network_handler.send(network_format(self.packets_to_send))
         self.packets_to_send = []
 
@@ -501,7 +507,7 @@ class Rov_state:
 
 def run(network_handler: Network, t_watch: Threadwatcher, id: int, queue_for_rov: multiprocessing.Queue, gui_pipe):
     print(f"{network_handler = }")
-    rov_state = Rov_state(queue_for_rov, network_handler, gui_pipe)
+    rov_state = Rov_state(queue_for_rov, network_handler, gui_pipe, t_watch)
     if network_handler != None:
         id = t_watch.add_thread()
         threading.Thread(target=rov_state.recieve_data_from_rov, args=(network_handler, t_watch, id), daemon=True).start()
@@ -615,7 +621,7 @@ if __name__ == "__main__":
         run_gui = True
         run_get_controllerdata = True
         run_network = False
-        run_send_fake_sensordata = False
+        run_send_fake_sensordata = True
         manual_input_rotation = False
         
         queue_for_rov = multiprocessing.Queue()
@@ -625,7 +631,7 @@ if __name__ == "__main__":
         gui_parent_pipe, gui_child_pipe = Pipe() # starts the gui program. gui_parent_pipe should get the sensor data
         if run_gui:
             id = t_watch.add_thread()
-            gui_loop = Process(target=GUI_loop.run, args=(gui_child_pipe, queue_for_rov, t_watch, id)) # and should recieve commands from the gui
+            gui_loop = Process(target=GUI_loop.run, args=(gui_child_pipe, queue_for_rov, t_watch, id), daemon=True) # and should recieve commands from the gui
             gui_loop.start()
 
 
@@ -650,6 +656,7 @@ if __name__ == "__main__":
 
         elif run_get_controllerdata:
             print("starting send to rov")
+            id = t_watch.add_thread()
             snd_data_to_rov = threading.Thread(target=run, args=(None, t_watch, id, queue_for_rov, gui_parent_pipe), daemon=True)
             snd_data_to_rov.start()
 
@@ -658,9 +665,9 @@ if __name__ == "__main__":
             power_list = [num for num in range(0, 101)]
             count = -1
             sensordata = {}
-            # sensordata["lekk_temp"] = [False,  True, False, (25+count)%99, (37+count)%99, (61+count)%99]
+            sensordata["lekk_temp"] = [False,  True, False, (25+count)%99, (37+count)%99, (61+count)%99]
             gui_parent_pipe.send(sensordata)
-            while True:
+            while t_watch.should_run(0):
                 count += 1
                 sensordata["lekk_temp"] = [False, False, False, (25+count)%99, (37+count)%99, (61+count)%99]
                 sensordata["thrust"] = [thrust_list[(0+count)%201], thrust_list[(13+count)%201], thrust_list[(25+count)%201], thrust_list[(38+count)%201], thrust_list[(37+count)%201], thrust_list[(50+count)%201], thrust_list[(63+count)%201], thrust_list[(75+count)%201], thrust_list[(88+count)%201], thrust_list[(107+count)%201]]

@@ -82,6 +82,8 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     def __init__(self, pipe_conn_only_rcv, queue: multiprocessing.Queue, t_watch: Threadwatcher, id: int, parent=None):
         super().__init__(parent)
         
+        self.lekkasje_varsel_has_run = [False, False, False]
+
         self.setWindowIcon(QtGui.QIcon('Subsea_QT_GUI/images/logo.png'))
         self.queue = queue
         self.pipe_conn_only_rcv = pipe_conn_only_rcv
@@ -615,6 +617,7 @@ void main() {
 
     def shutdown(self):
         print("shutdown ran")
+        self.send_command_to_rov(["STOP"])
         self.t_watch.stop_all_threads()
         if self.camera_windows_opened:
             for window in self.child_window:
@@ -671,7 +674,7 @@ void main() {
                 time.sleep(0.15)
     
         print("recieved close thread. trying to close")
-        self.shutdown()
+        # self.shutdown()
         exit(0)
         
     def decide_gui_update(self, sensordata):
@@ -761,17 +764,17 @@ void main() {
         self.label_temp_ROV_1.setText(str(temp1))
         self.label_temp_ROV_2.setText(str(temp2))
         self.label_temp_ROV_3.setText(str(temp3))
-        self.label_gjsnitt_temp_ROV.setText(str(average_temp))
-
+        self.label_gjsnitt_temp_ROV.setText(str(average_temp)) 
         for lekkasje_nr, is_lekkasje in enumerate(lekkasje_liste):
             if is_lekkasje:
-                self.lekkasje_varsel(lekkasje_nr+1)
+                if not self.lekkasje_varsel_has_run[lekkasje_nr]:
+                    threading.Thread(target=lambda: self.lekkasje_varsel(lekkasje_nr+1)).start()
+                
                 # self.update_round_percent_visualizer(sensordata[0], self.label_percentage_HHB, self.frame_HHB)
 
     def lekkasje_varsel(self, sensor_nr):
-        self.label_lekkasje_varsel.setStyleSheet("QLabel { color: rgba(255, 255, 255, 0); background-color: rgba(179, 32, 36, 0); }")
-        command_string = r"""ffplay -ss 26.35 -t 2 -i .\uis_subsea_promo.mp4 -vf "drawtext=:text='Når du skal forklare hvorfor lekkasjesensor """ + str(sensor_nr) + ''' sier at det lekker':fontcolor=white:fontsize=36:box=1:boxcolor=black@1.0:boxborderw=5:x=(w-text_w)/2:y=h-th-10"'''
-        # os.system(command_string)
+        self.label_lekkasje_varsel.setText(f"Advarsel Vannlekkasje oppdaget på sensor {sensor_nr}")
+        self.label_lekkasje_varsel.setStyleSheet("QLabel { color: rgba(255, 255, 255, 200); background-color: rgba(179, 32, 36, 200); }")
 
 
     def update_round_percent_visualizer(self, value, text_label, round_frame):
