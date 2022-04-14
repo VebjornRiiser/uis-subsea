@@ -5442,7 +5442,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                </size>
                               </property>
                               <property name="styleSheet">
-                               <string notr="true">QLabel { color: rgb(255, 255, 255, 0); background-color: rgb(179, 32, 36, 0); }</string>
+                               <string notr="true">QLabel { color: rgba(255, 255, 255, 0); background-color: rgba(179, 32, 36, 0); }</string>
                               </property>
                               <property name="text">
                                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:24pt;&quot;&gt;ADVARSEL:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:24pt;&quot;&gt;VANNLEKKASJE I ROV&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>

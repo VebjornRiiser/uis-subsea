@@ -40,12 +40,6 @@ os.environ["QT_FONT_DPI"] = "96" # FIX Problem for High DPI and Scale above 100%
 GLOBAL_STATE = False
 GLOBAL_TITLE_BAR = True
 
-class Fakeslider:
-    def __init__(self, value) -> None:
-        self.slider_value = value
-    def value(self):
-        return self.slider_value
-
 class AnotherWindow(QWidget):
     """
     This "window" is a QWidget. If it has no parent, it
@@ -82,7 +76,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     def __init__(self, pipe_conn_only_rcv, queue: multiprocessing.Queue, t_watch: Threadwatcher, id: int, parent=None):
         super().__init__(parent)
         
-        self.lekkasje_varsel_has_run = [False, False, False]
+        self.lekkasje_varsel_is_running = False
 
         self.setWindowIcon(QtGui.QIcon('Subsea_QT_GUI/images/logo.png'))
         self.queue = queue
@@ -765,16 +759,28 @@ void main() {
         self.label_temp_ROV_2.setText(str(temp2))
         self.label_temp_ROV_3.setText(str(temp3))
         self.label_gjsnitt_temp_ROV.setText(str(average_temp)) 
+        # lekkasje_liste.count(True)
+        id_with_lekkasje = []
         for lekkasje_nr, is_lekkasje in enumerate(lekkasje_liste):
             if is_lekkasje:
-                if not self.lekkasje_varsel_has_run[lekkasje_nr]:
-                    threading.Thread(target=lambda: self.lekkasje_varsel(lekkasje_nr+1)).start()
+                id_with_lekkasje.append(lekkasje_nr+1)
+        if not self.lekkasje_varsel_is_running:
+            self.lekkasje_varsel_is_running = True
+            threading.Thread(target=lambda: self.lekkasje_varsel(id_with_lekkasje)).start()
                 
                 # self.update_round_percent_visualizer(sensordata[0], self.label_percentage_HHB, self.frame_HHB)
 
-    def lekkasje_varsel(self, sensor_nr):
-        self.label_lekkasje_varsel.setText(f"Advarsel Vannlekkasje oppdaget på sensor {sensor_nr}")
-        self.label_lekkasje_varsel.setStyleSheet("QLabel { color: rgba(255, 255, 255, 200); background-color: rgba(179, 32, 36, 200); }")
+    def lekkasje_varsel(self, sensor_nr_liste):
+        pass
+        # text = f"Advarsel vannlekkasje oppdaget på sensor: {str(', '.join(sensor_nr_liste))}"
+        # self.label_lekkasje_varsel.setText(text)
+
+        # for i in range(5):
+        #     self.label_lekkasje_varsel.setStyleSheet("QLabel { color: rgba(255, 255, 255, 200); background-color: rgba(179, 32, 36, 200); font-size: 24pt;}")
+        #     self.label_lekkasje_varsel: QLabel
+        #     time.sleep(1.5)
+        # self.lekkasje_varsel_is_running = False
+
 
 
     def update_round_percent_visualizer(self, value, text_label, round_frame):

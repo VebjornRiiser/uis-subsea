@@ -665,7 +665,7 @@ if __name__ == "__main__":
             power_list = [num for num in range(0, 101)]
             count = -1
             sensordata = {}
-            sensordata["lekk_temp"] = [False,  True, False, (25+count)%99, (37+count)%99, (61+count)%99]
+            sensordata["lekk_temp"] = [True,  False, True, (25+count)%99, (37+count)%99, (61+count)%99]
             gui_parent_pipe.send(sensordata)
             while t_watch.should_run(0):
                 count += 1
