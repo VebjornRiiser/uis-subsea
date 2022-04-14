@@ -283,7 +283,7 @@ void main() {
         #self.show_image
         
         # Menu button clicked
-        self.btn_toggle.clicked.connect(lambda: self.change_current_widget(0))
+        # self.btn_toggle.clicked.connect(lambda: self.change_current_widget(0))
         self.btn_kontroller.clicked.connect(lambda: self.change_current_widget(2))
         self.btn_informasjon.clicked.connect(lambda: self.change_current_widget(1))
         self.btn_manuell.clicked.connect(lambda: self.set_bildebehandlingsmodus(0, -1, "Manuell kjøring"))
@@ -405,6 +405,7 @@ void main() {
         self.setTestValue(self.slider_lys_forward, self.label_percentage_lys_forward, self.frame_lys_forward, "rgba(85, 170, 255, 255)")
         self.setTestValue(self.slider_lys_down, self.label_percentage_lys_down, self.frame_lys_down, "rgba(85, 170, 255, 255)")
         self.setTestValue(self.slider_struping_thrustere, self.label_percentage_struping, self.frame_struping, "rgba(85, 170, 255, 255)")
+        self.change_current_widget(1)
         self.maximize_restore()
 
         # ///////////////////////////////////////////////////////////////
