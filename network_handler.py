@@ -149,10 +149,10 @@ if __name__ == "__main__":
         # print(os.system("ssh rov touch test")) # python3 ~/socket_testing/network_handler.py"))                
         client_conn = Network(is_server=True, bind_addr="0.0.0.0", connect_addr="10.0.0.3")
         while True:
-            client_conn.send(bytes('{"can": [(0, 99)]}', "utf-8"))
+            # client_conn.send(bytes('{"can": [(0, 99)]}', "utf-8"))
         # send_thread = threading.Thread(target=lambda: send_forever(client_conn))
         # send_thread.start()
         # send_thread.join()
         # while True:
-        #     time.sleep(1)
+            time.sleep(1)
     

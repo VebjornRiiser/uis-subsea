@@ -262,8 +262,8 @@ class Rov_state:
         self.thruster_struping = sensordata[0]
 
     def set_depth_zeroing(self, sensordata=None):
-        # self.packets_to_send.append([129, []])
-        self.packets_to_send.append([96,  []])
+        self.packets_to_send.append([129, []])
+        # self.packets_to_send.append([96,  []])
 
 
     def get_rotation_input(self):
@@ -283,7 +283,7 @@ class Rov_state:
             rotation = [0, 0]
         sensordata = {"gyro": [rotation[0], rotation[1], 0]}
 
-        self.send_sensordata_to_gui(sensordata)
+        # self.send_sensordata_to_gui(sensordata)
 
     def send_packets(self):
         """Sends the created network packets and clears it"""
@@ -293,8 +293,8 @@ class Rov_state:
         # print(self.packets_to_send)
         for packet in self.packets_to_send:
             # if packet[0] != 70:
-            #     print(f"{packet = }")
-                pass
+            print(f"{packet = }")
+                # pass
         self.logger.sensor_logger.info(self.packets_to_send)
         if self.network_handler is None:
             self.packets_to_send = []
@@ -455,7 +455,7 @@ class Rov_state:
         if manual_input_rotation:
             self.send_sensordata_to_gui({"time": [time_since_start], "manipulator": [grip_percent, in_out, rotation, self.manipulator_active]})
         else:
-            self.send_sensordata_to_gui({"time": [65+time_since_start], "manipulator": [grip_percent, in_out, rotation, self.manipulator_active], "gyro": self.position})
+            self.send_sensordata_to_gui({"time": [65+time_since_start], "manipulator": [grip_percent, in_out, rotation, self.manipulator_active]})
 
 
     def recieve_data_from_rov(self, network: Network, t_watch: Threadwatcher, id: int):
@@ -484,13 +484,16 @@ class Rov_state:
     def handle_data_from_rov(self, message: dict):
         self.logger.sensor_logger.info(message)
         message_name = list(message.keys())[0]
-        if list(message.keys())[0] in self.valid_gui_commands:
+        if message_name in self.valid_gui_commands:
+            # if message_name == "gyro":
+            print(f"linje 489: {message}")
             self.send_sensordata_to_gui(message)
         else:
             print(f"\n\nMESSAGE NOT RECOGNISED AS VALID GUI COMMAND\n{message}\n")
 
 
     def handle_gyro(self, sensordata):
+        print(f"gyro {sensordata = }")
         self.position = sensordata
         self.send_sensordata_to_gui({"gyro": self.position})
 
@@ -609,7 +612,7 @@ if __name__ == "__main__":
         start_time_sec = time.time()
         run_gui = True
         run_get_controllerdata = True
-        run_network = True
+        run_network = False
         run_send_fake_sensordata = False
         manual_input_rotation = False
         
