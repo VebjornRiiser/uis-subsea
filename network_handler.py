@@ -64,7 +64,7 @@ class Network:
                     print("Connection timeout. Trying again")
                     self.new_conn()
                     return
-                    
+
                 else: # only do this if we do not get an error
                     self.waiting_for_conn = False
                     break
@@ -72,6 +72,7 @@ class Network:
             print(f"connection from client has been established. conn: {self.conn}")
             # print(self.socket.gettimeout())
             self.socket.settimeout(0.4)
+
 
     def wait_for_conn(self) -> None:
         while True:
@@ -81,6 +82,7 @@ class Network:
             self.waiting_for_conn = False
             break
         print(f"New connection from {addr}. conn: {self.conn}, addr")
+
 
     def send(self, bytes_to_send: bytes) -> None:
         if self.conn is None and not self.waiting_for_conn:
@@ -103,6 +105,7 @@ class Network:
             print(f"conn = {self.conn}, waiting for conn: {self.waiting_for_conn}")
             if not self.waiting_for_conn:
                 self.new_conn()
+
 
     def receive(self) -> bytes:
         # print(self.conn)

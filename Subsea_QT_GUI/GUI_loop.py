@@ -2,6 +2,7 @@ import math
 from ast import arguments
 import multiprocessing
 from typing import Type
+import vlc
 #from tkinter import Widget
 from PyQt5 import QtCore, QtGui, QtWidgets, Qt
 from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QCheckBox, QLabel, QFileDialog, QApplication, QWidget, QVBoxLayout, QSizeGrip, QFrame, QMessageBox, QStyleFactory, QSizeGrip, QGraphicsDropShadowEffect, QPushButton, QComboBox, QDesktopWidget
@@ -45,28 +46,40 @@ class AnotherWindow(QWidget):
     This "window" is a QWidget. If it has no parent, it
     will appear as a free-floating window as we want.
     """
-    def __init__(self, port, threadwatcher: Threadwatcher, id):
+    def __init__(self, port, threadwatcher: Threadwatcher, id, ):
         super().__init__()
         self.threadwatcher = threadwatcher
         self.id = id
         self.label = QLabel("Another Window")
+        # self.conn = conn
 
         self.setWindowTitle(f"{'havbunnskamera' if port-6888 == 0 else 'frontkamera'}")
         self.setWindowIcon(QtGui.QIcon('Subsea_QT_GUI/images/camera.png'))
 
         self.url = f"http://10.0.0.2:{port}/cam.html"
-        self.stream1 = QWebEngineView(self)
+        self.url = f"https://nrk.no"
+        self.stream1:QWebEngineView = QWebEngineView(self)
         self.stream1.setFixedWidth(1920)
         self.stream1.setFixedHeight(1080)
         self.stream1.load(QtCore.QUrl(self.url))
 
-        if len(QtWidgets.QApplication.screens())>2:
-            monitor = QDesktopWidget().screenGeometry(int(f"{port-6887}"))
-            self.move(monitor.left(), monitor.top())
-            self.showFullScreen()
-        else:
-            self.showMaximized()
-            self.showFullScreen()
+        def __init__(self, aleft: int, atop: int, awidth: int, aheight: int) -> None: ...
+        
+        label_tilt = QLabel(text="test--sa-ds-ad-sad-ad-asd-sa")
+        self.stream1.layout().addWidget(label_tilt)
+        label_tilt.setGeometry(-100,-100,100,20)
+        # label_tilt.raise_()
+        label_tilt.setStyleSheet("QLabel { color: rgba(255, 255, 255, 200); background-color: rgba(179, 32, 36, 200); font-size: 24pt;}")
+        # self.layout.addWidget(QLabel(text="test--sa-ds-ad-sad-ad-asd-sa"), alignment=QtCore.Qt.AlignRight)
+
+
+        # if len(QtWidgets.QApplication.screens())>2:
+        #     monitor = QDesktopWidget().screenGeometry(int(f"{port-6887}"))
+        #     self.move(monitor.left(), monitor.top())
+        #     self.showFullScreen()
+        # else:
+        #     self.showMaximized()
+        #     self.showFullScreen()
 
 PROFILE_UPDATE_ID = 2
 COMMAND_TO_ROV_ID = 3
@@ -237,28 +250,31 @@ void main() {
         
         # Toggle button: https://www.youtube.com/watch?v=NnJFi285s3M&ab_channel=Wanderson
         self.toggle_mani = PyToggle()
-        self.toggle_dybde = PyToggle()
-        self.toggle_helning = PyToggle()
+        self.toggle_hiv_regulering = PyToggle()
+        self.toggle_stamp_regulering = PyToggle()
+        self.toggle_rull_regulering = PyToggle()
         self.toggle_frontlys = PyToggle()
         self.toggle_havbunnslys = PyToggle()
 
         self.toggle_mani.setText("Manipulator")
-        self.toggle_dybde.setText("Dybde")
-        self.toggle_helning.setText("Helning")
+        self.toggle_hiv_regulering.setText("Hiv-regulering")
+        self.toggle_stamp_regulering.setText("Helning")
         self.toggle_frontlys.setText("Frontlys")
         self.toggle_havbunnslys.setText("Havbunnslys")
 
         self.toggle_mani.stateChanged.connect(self.toggle_manipulator_enable)
         self.toggle_mani.setChecked(True)
 
-        self.toggle_dybde.stateChanged.connect(lambda:self.check_btn_state(self.toggle_dybde))
-        self.toggle_helning.stateChanged.connect(lambda:self.check_btn_state(self.toggle_helning))
+        self.toggle_hiv_regulering.stateChanged.connect(lambda:self.check_btn_state(self.toggle_hiv_regulering))
+        self.toggle_stamp_regulering.stateChanged.connect(lambda:self.check_btn_state(self.toggle_stamp_regulering))
+        self.toggle_rull_regulering.stateChanged.connect(lambda:self.check_btn_state(self.toggle_stamp_regulering))
         self.toggle_frontlys.stateChanged.connect(self.send_current_ligth_intensity)
         self.toggle_havbunnslys.stateChanged.connect(self.send_current_ligth_intensity)
 
         self.toggle_layout.addWidget(self.toggle_mani, alignment=QtCore.Qt.AlignRight)
-        self.toggle_layout.addWidget(self.toggle_dybde, alignment=QtCore.Qt.AlignRight)
-        self.toggle_layout.addWidget(self.toggle_helning, alignment=QtCore.Qt.AlignRight)
+        self.toggle_layout.addWidget(self.toggle_hiv_regulering, alignment=QtCore.Qt.AlignRight)
+        self.toggle_layout.addWidget(self.toggle_stamp_regulering, alignment=QtCore.Qt.AlignRight)
+        self.toggle_layout.addWidget(self.toggle_rull_regulering, alignment=QtCore.Qt.AlignRight)
         self.toggle_layout.addWidget(self.toggle_frontlys, alignment=QtCore.Qt.AlignRight)
         self.toggle_layout.addWidget(self.toggle_havbunnslys, alignment=QtCore.Qt.AlignRight)
     
@@ -294,9 +310,8 @@ void main() {
 
         self.btn_reset_nullpunkt.clicked.connect(self.set_start_point_depth_sensor)
 
-        #todo
-        # self.btn_start_video_frontkamera.clicked.connect()
-        # self.btn_start_video_havbunn.clicked.connect()
+        self.btn_start_video_frontkamera.clicked.connect(lambda: self.video_toggle(self.btn_start_video_frontkamera, 0))
+        self.btn_start_video_frontkamera.clicked.connect(lambda: self.video_toggle(self.btn_start_video_havbunn, 1))
 
         self.btn_regulator_elektronikk.clicked.connect(lambda: self.toggle_regulator(0, self.btn_regulator_elektronikk))
         self.btn_regulator_manipulator.clicked.connect(lambda: self.toggle_regulator(1, self.btn_regulator_manipulator))
@@ -305,14 +320,14 @@ void main() {
         self.btn_ta_bilde_frontkamera.clicked.connect(lambda: self.ta_bilde(0))
         self.btn_ta_bilde_havbunn.clicked.connect(lambda: self.ta_bilde(1))
         
+        self.slider_lys_down.setValue(100)
+        self.slider_lys_forward.setValue(100)
 
         self.slider_lys_down.valueChanged.connect(self.send_current_ligth_intensity)
         self.slider_lys_forward.valueChanged.connect(self.send_current_ligth_intensity)
         
         self.slider_struping_thrustere.valueChanged.connect(self.send_thruster_struping)
 
-        self.slider_lys_down.setValue(100)
-        self.slider_lys_forward.setValue(100)
         self.send_current_ligth_intensity()
         # ///////////////////////////////////////////////////////////////
 
@@ -398,13 +413,16 @@ void main() {
         self.toggle_havbunnslys.setChecked(True)
         self.send_current_ligth_intensity()
         self.set_bildebehandlingsmodus(-1, -1, "Manuell kjøring")
-        self.setTestValue(self.slider_lys_forward, self.label_percentage_lys_forward, self.frame_lys_forward, "rgba(85, 170, 255, 255)")
-        self.setTestValue(self.slider_lys_down, self.label_percentage_lys_down, self.frame_lys_down, "rgba(85, 170, 255, 255)")
-        self.setTestValue(self.slider_struping_thrustere, self.label_percentage_struping, self.frame_struping, "rgba(85, 170, 255, 255)")
+        # self.setTestValue(self.slider_lys_forward, self.label_percentage_lys_forward, self.frame_lys_forward, "rgba(85, 170, 255, 255)")
+        # self.setTestValue(self.slider_lys_down, self.label_percentage_lys_down, self.frame_lys_down, "rgba(85, 170, 255, 255)")
+        # self.setTestValue(self.slider_struping_thrustere, self.label_percentage_struping, self.frame_struping, "rgba(85, 170, 255, 255)")
         self.change_current_widget(1)
         self.maximize_restore()
 
         # ///////////////////////////////////////////////////////////////
+
+    def video_toggle(self, btn, id: int):
+        self.send_command_to_rov(["video_toggle", btn.isChecked(), id])
 
     def send_thruster_struping(self):
         self.send_command_to_rov(["thruster_struping", self.slider_struping_thrustere.value()])

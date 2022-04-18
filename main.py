@@ -10,7 +10,7 @@ from multiprocessing import Pipe, Process, Queue
 from Subsea_QT_GUI import *
 from Threadwatch import Threadwatcher
 from network_handler import Network
-import controller
+import Controller_handler as controller
 import threading
 import random
 import time
@@ -227,7 +227,7 @@ class Rov_state:
         for item in self.regulator_active :
             fuse_reset_signal.append(item)
 
-        self.packets_to_send.append(fuse_reset_signal)
+        self.packets_to_send.append([139, fuse_reset_signal])
 
     def switch_power_supply_regulator(self, regulator_number: int, switch_on: bool):
         """switch_power_supply_regulator creates and adds packets
@@ -238,7 +238,7 @@ class Rov_state:
         for item in self.regulator_active:
             fuse_reset_signal.append(item)
 
-        self.packets_to_send.append(fuse_reset_signal)
+        self.packets_to_send.append([139, fuse_reset_signal])
 
     def get_from_queue(self):
         """Takes data from the queue and sends it to the correct handler"""
@@ -254,13 +254,16 @@ class Rov_state:
             "update_bildebehandling": self.update_bildebehandlingsmodus, "take_pic": self.take_pic,
             "manipulator_toggle": self.toggle_manipulator_enabled, "reset_sikring": self.reset_fuse_on_power_supply,
             "toggle_regulator": self.switch_power_supply_regulator, "thruster_struping": self.set_thruster_struping,
-            "STOP": self.shutdown}
+            "STOP": self.shutdown, "video_toggle": self.video_toggle}
 
             if packet[0] not in commands:
                 print(f"Got unrecognized command from gui {packet}")
                 return
             commands[packet[0]](*packet[1:]) # * unpacks list
 
+    def video_toggle(self, data):
+        self.packets_to_send.append([])
+    
     def shutdown(self):
         print("recieved shutdown from gui")
         self.t_watch.stop_all_threads()
@@ -300,8 +303,8 @@ class Rov_state:
 
         # print(self.packets_to_send)
         for packet in self.packets_to_send:
-            if packet[0] != 70:
-                print(f"{packet = }")
+            # if packet[0] != 70:
+            print(f"{packet = }")
                 # pass
         self.logger.sensor_logger.info(self.packets_to_send)
         if self.network_handler is None:

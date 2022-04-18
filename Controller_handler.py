@@ -40,8 +40,8 @@ class Controller:
         self.button_names = {0: "A", 1: "B", 2: "X", 3: "Y", 4: "Left button back", 5: "Right button back", 6: "Back", 7: "Start", 8: "Thumb button left", 9: "Thumb button right"}
         self.duration = -1
         pygame.init()
-        self.clock = pygame.time.Clock()
         self.wait_for_controller()
+        self.clock = pygame.time.Clock()
 
     def pack_controller_values(self):
         values = {"joysticks": self.joysticks, "camera_movement": self.joysticks[3],  "buttons": self.buttons, "dpad": self.dpad, "camera_to_control": self.camera_motor, "time_between_updates": self.duration}
@@ -53,6 +53,7 @@ class Controller:
 
     # wait_for_controller will attempt to connect to the controller until it can find it
     def wait_for_controller(self):
+        """wait_for_controller will attempt to connect until it finds a controller."""
         while self.t_watch.should_run(self.id):    
             try:
                 if not self.first_run:
@@ -68,7 +69,7 @@ class Controller:
                 print(f"Connected to {joystick.get_name()}")
                 break
             except:
-                self.first_run = False # move up after connectiong ?
+                self.first_run = False # move up after connecting ?
                 for sec in range(5,0,-1):
                         sys.stdout.write("\r" + f"Could not find controller. if it is already connected, try reconnecting it! retrying in {sec} seconds")
                         time.sleep(1)
