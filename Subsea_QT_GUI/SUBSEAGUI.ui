@@ -2039,7 +2039,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        <string>Av/På</string>
                                       </property>
                                       <property name="checkable">
-                                       <bool>false</bool>
+                                       <bool>true</bool>
                                       </property>
                                       <property name="checked">
                                        <bool>false</bool>
@@ -2127,7 +2127,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        <string>Av/På</string>
                                       </property>
                                       <property name="checkable">
-                                       <bool>false</bool>
+                                       <bool>true</bool>
                                       </property>
                                       <property name="checked">
                                        <bool>false</bool>
@@ -2172,7 +2172,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        <string>Av/På</string>
                                       </property>
                                       <property name="checkable">
-                                       <bool>false</bool>
+                                       <bool>true</bool>
                                       </property>
                                       <property name="checked">
                                        <bool>false</bool>
