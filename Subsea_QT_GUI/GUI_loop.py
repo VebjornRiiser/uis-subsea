@@ -265,9 +265,6 @@ void main() {
         self.toggle_mani.stateChanged.connect(self.toggle_manipulator_enable)
         self.toggle_mani.setChecked(True)
 
-        self.toggle_hiv_regulering.stateChanged.connect(lambda:self.check_btn_state(self.toggle_hiv_regulering))
-        self.toggle_stamp_regulering.stateChanged.connect(lambda:self.check_btn_state(self.toggle_stamp_regulering))
-        self.toggle_rull_regulering.stateChanged.connect(lambda:self.check_btn_state(self.toggle_stamp_regulering))
         self.toggle_frontlys.stateChanged.connect(self.send_current_ligth_intensity)
         self.toggle_havbunnslys.stateChanged.connect(self.send_current_ligth_intensity)
 
@@ -666,7 +663,7 @@ void main() {
             self.dybde.setText(str(round(data["dybde"],4)))
             self.tid.setText(str(data["tid"]))
             self.spenning.setText(str(round(data["spenning"],4)))
-            self.label_temp_ROV_1.setText(str(round(data["temp_rov"],4)))
+            self.label_temp_ROV_hovedkort.setText(str(round(data["temp_rov"],4)))
 
 
 
@@ -773,9 +770,9 @@ void main() {
         temp2 = round(sensordata[4])
         temp3 = round(sensordata[5])
         average_temp =  round(sum((temp1, temp2, temp3))/3)
-        self.label_temp_ROV_1.setText(str(temp1))
-        self.label_temp_ROV_2.setText(str(temp2))
-        self.label_temp_ROV_3.setText(str(temp3))
+        self.label_temp_ROV_hovedkort.setText(str(temp1))
+        self.label_temp_ROV_kraftkort.setText(str(temp2))
+        self.label_temp_ROV_sensorkort.setText(str(temp3))
         self.label_gjsnitt_temp_ROV.setText(str(average_temp)) 
         # lekkasje_liste.count(True)
         id_with_lekkasje = []
