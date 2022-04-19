@@ -615,8 +615,8 @@ def get_args():
 
 
 
-if __name__ == "__main__":
-    os.system("pyuic5 -x .\Subsea_QT_GUI\SUBSEAGUI.ui -o .\Subsea_QT_GUI\SUBSEAGUI.py")
+if __name__ == "__main__":        
+    os.system("pyuic5 -x ./Subsea_QT_GUI/SUBSEAGUI.ui -o ./Subsea_QT_GUI/SUBSEAGUI.py")
     # get_args()
     # exit(0)
     try:
