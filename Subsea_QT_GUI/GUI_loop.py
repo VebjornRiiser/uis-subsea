@@ -198,6 +198,7 @@ void main() {
         shape = self.stl_mesh.points.shape
         points = self.stl_mesh.points.reshape(-1, 3)
         faces = np.arange(points.shape[0]).reshape(-1, 3)
+        # self.synker = vlc.MediaPlayer("file:///synker.mp3")
 
         self.meshdata = gl.MeshData(vertexes=points, faces=faces)
         self.meshitem = gl.GLMeshItem(meshdata=self.meshdata, smooth=False, drawFaces=True, shader='viewNormalColor', glOptions='opaque', color=(0,0,0,0), drawEdges=False, edgeColor=(0,0,0,0))
@@ -255,6 +256,13 @@ void main() {
         self.toggle_rull_regulering = PyToggle()
         self.toggle_frontlys = PyToggle()
         self.toggle_havbunnslys = PyToggle()
+        
+        self.toggle_hiv_regulering.stateChanged.connect(lambda: self.update_regulering(3))
+        self.toggle_rull_regulering.stateChanged.connect(lambda: self.update_regulering(4))
+        self.toggle_stamp_regulering.stateChanged.connect(lambda: self.update_regulering(5))
+        self.toggle_hiv_regulering.setChecked(True)
+        self.toggle_rull_regulering.setChecked(True)
+        self.toggle_stamp_regulering.setChecked(True)
 
         self.toggle_mani.setText("Manipulator")
         self.toggle_hiv_regulering.setText("Hiv-regulering")
@@ -274,6 +282,7 @@ void main() {
         self.toggle_layout.addWidget(self.toggle_rull_regulering, alignment=QtCore.Qt.AlignRight)
         self.toggle_layout.addWidget(self.toggle_frontlys, alignment=QtCore.Qt.AlignRight)
         self.toggle_layout.addWidget(self.toggle_havbunnslys, alignment=QtCore.Qt.AlignRight)
+
     
         # BILDEBEHANDLING
         #self.beregn_strl_btn(self.beregn_strl)
@@ -417,6 +426,8 @@ void main() {
         self.maximize_restore()
 
         # ///////////////////////////////////////////////////////////////
+    def update_regulering(self, id: int):
+        self.send_command_to_rov(["regulering", [id]])
 
     def video_toggle(self, btn, id: int):
         self.send_command_to_rov(["video_toggle", btn.isChecked(), id])
@@ -786,15 +797,20 @@ void main() {
                 # self.update_round_percent_visualizer(sensordata[0], self.label_percentage_HHB, self.frame_HHB)
 
     def lekkasje_varsel(self, sensor_nr_liste):
-        pass
-        # text = f"Advarsel vannlekkasje oppdaget på sensor: {str(', '.join(sensor_nr_liste))}"
-        # self.label_lekkasje_varsel.setText(text)
-
-        # for i in range(5):
-        #     self.label_lekkasje_varsel.setStyleSheet("QLabel { color: rgba(255, 255, 255, 200); background-color: rgba(179, 32, 36, 200); font-size: 24pt;}")
-        #     self.label_lekkasje_varsel: QLabel
-        #     time.sleep(1.5)
-        # self.lekkasje_varsel_is_running = False
+        self.label_lekkasje_varsel.raise_()
+        sensor_nr_liste = [str(item) for item in sensor_nr_liste]
+        text = f"Advarsel vannlekkasje oppdaget på sensor: {str(', '.join(sensor_nr_liste))}"
+        self.label_lekkasje_varsel.setText(text)
+        self.label_lekkasje_varsel.setStyleSheet("QLabel { color: rgba(255, 255, 255, 200); background-color: rgba(179, 32, 36, 200); font-size: 24pt;}")
+        self.audio = vlc.MediaPlayer("file:///ække normalt.mp3")
+        self.audio.play()            
+        time.sleep(2)
+        self.label_lekkasje_varsel.setStyleSheet("QLabel { color: rgba(255, 255, 255, 0); background-color: rgba(179, 32, 36, 0); font-size: 24pt;}")
+        self.label_lekkasje_varsel.lower()
+        self.audio = vlc.MediaPlayer("file:///synker.mp3")
+        self.audio.play()
+        time.sleep(1)
+        self.lekkasje_varsel_is_running = False
 
 
 
