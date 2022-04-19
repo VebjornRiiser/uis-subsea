@@ -5146,10 +5146,10 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                              <widget class="QLabel" name="label_lekkasje_varsel">
                               <property name="geometry">
                                <rect>
-                                <x>390</x>
-                                <y>160</y>
-                                <width>841</width>
-                                <height>551</height>
+                                <x>510</x>
+                                <y>-20</y>
+                                <width>751</width>
+                                <height>411</height>
                                </rect>
                               </property>
                               <property name="minimumSize">
@@ -6536,7 +6536,6 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
  </widget>
  <resources>
   <include location="resources.qrc"/>
-  <include location="../../.designer/backup/resources.qrc"/>
  </resources>
  <connections/>
 </ui>
