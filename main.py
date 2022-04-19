@@ -254,12 +254,17 @@ class Rov_state:
             "update_bildebehandling": self.update_bildebehandlingsmodus, "take_pic": self.take_pic,
             "manipulator_toggle": self.toggle_manipulator_enabled, "reset_sikring": self.reset_fuse_on_power_supply,
             "toggle_regulator": self.switch_power_supply_regulator, "thruster_struping": self.set_thruster_struping,
-            "STOP": self.shutdown, "video_toggle": self.video_toggle}
+            "STOP": self.shutdown, "video_toggle": self.video_toggle,
+            "regulering": self.toggle_regulering}
 
             if packet[0] not in commands:
                 print(f"Got unrecognized command from gui {packet}")
                 return
             commands[packet[0]](*packet[1:]) # * unpacks list
+            
+
+    def toggle_regulering(self, sensordata):
+        self.packets_to_send.append([71, sensordata])
 
     def video_toggle(self, data):
         self.packets_to_send.append([])
@@ -303,8 +308,8 @@ class Rov_state:
 
         # print(self.packets_to_send)
         for packet in self.packets_to_send:
-            # if packet[0] != 70:
-            print(f"{packet = }")
+            if packet[0] != 70:
+                print(f"{packet = }")
                 # pass
         self.logger.sensor_logger.info(self.packets_to_send)
         if self.network_handler is None:
@@ -368,7 +373,7 @@ class Rov_state:
             styredata.append(0)
         styredata.append(self.build_manipulator_byte())
         styredata.append(0)
-        styredata.append(self.build_regulering_byte())
+        styredata.append(0)
         styredata.append(self.thruster_struping)
         self.packets_to_send.append([70, styredata])
 
@@ -672,7 +677,7 @@ if __name__ == "__main__":
             gui_parent_pipe.send(sensordata)
             while t_watch.should_run(0):
                 count += 1
-                sensordata["lekk_temp"] = [False, False, False, (25+count)%99, (37+count)%99, (61+count)%99]
+                sensordata["lekk_temp"] = [True, False, False, (25+count)%99, (37+count)%99, (61+count)%99]
                 sensordata["thrust"] = [thrust_list[(0+count)%201], thrust_list[(13+count)%201], thrust_list[(25+count)%201], thrust_list[(38+count)%201], thrust_list[(37+count)%201], thrust_list[(50+count)%201], thrust_list[(63+count)%201], thrust_list[(75+count)%201], thrust_list[(88+count)%201], thrust_list[(107+count)%201]]
                 sensordata["power_consumption"] = [power_list[count%101]*13, power_list[count%101]*2.4, power_list[count%101]*0.65]
                 gui_parent_pipe.send(sensordata)

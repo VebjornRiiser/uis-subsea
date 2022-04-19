@@ -51,7 +51,7 @@ class Controller:
     def reset_button(self, event) -> None:
         self.buttons[event.button] = 0 
 
-    # wait_for_controller will attempt to connect to the controller until it can find it
+
     def wait_for_controller(self):
         """wait_for_controller will attempt to connect until it finds a controller."""
         while self.t_watch.should_run(self.id):    
@@ -69,7 +69,7 @@ class Controller:
                 print(f"Connected to {joystick.get_name()}")
                 break
             except:
-                self.first_run = False # move up after connecting ?
+                self.first_run = False
                 for sec in range(5,0,-1):
                         sys.stdout.write("\r" + f"Could not find controller. if it is already connected, try reconnecting it! retrying in {sec} seconds")
                         time.sleep(1)
