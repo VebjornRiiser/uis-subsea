@@ -37,7 +37,9 @@
    </property>
    <property name="font">
     <font>
+     <family>Segoe UI</family>
      <pointsize>10</pointsize>
+     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -640,27 +642,27 @@ Button */
            <rect>
             <x>10</x>
             <y>5</y>
-            <width>35</width>
-            <height>35</height>
+            <width>50</width>
+            <height>50</height>
            </rect>
           </property>
           <property name="minimumSize">
            <size>
-            <width>35</width>
-            <height>35</height>
+            <width>50</width>
+            <height>50</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>35</width>
-            <height>35</height>
+            <width>40</width>
+            <height>40</height>
            </size>
           </property>
           <property name="text">
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="resources.qrc">:/images/images/logo.png</pixmap>
+           <pixmap>../../Desktop/logo.png</pixmap>
           </property>
           <property name="scaledContents">
            <bool>true</bool>
@@ -713,7 +715,9 @@ Button */
              </property>
              <property name="font">
               <font>
+               <family>Segoe UI</family>
                <pointsize>10</pointsize>
+               <weight>50</weight>
                <italic>false</italic>
                <bold>false</bold>
               </font>
@@ -751,7 +755,9 @@ Button */
              </property>
              <property name="font">
               <font>
+               <family>Segoe UI</family>
                <pointsize>10</pointsize>
+               <weight>50</weight>
                <italic>false</italic>
                <bold>false</bold>
               </font>
@@ -1006,7 +1012,9 @@ Button */
                   </property>
                   <property name="font">
                    <font>
+                    <family>Segoe UI</family>
                     <pointsize>10</pointsize>
+                    <weight>50</weight>
                     <italic>false</italic>
                     <bold>false</bold>
                    </font>
@@ -1041,7 +1049,9 @@ Button */
                   </property>
                   <property name="font">
                    <font>
+                    <family>Segoe UI</family>
                     <pointsize>10</pointsize>
+                    <weight>50</weight>
                     <italic>false</italic>
                     <bold>false</bold>
                    </font>
@@ -1076,7 +1086,9 @@ Button */
                   </property>
                   <property name="font">
                    <font>
+                    <family>Segoe UI</family>
                     <pointsize>10</pointsize>
+                    <weight>50</weight>
                     <italic>false</italic>
                     <bold>false</bold>
                    </font>
@@ -1126,7 +1138,7 @@ Button */
                   </property>
                   <property name="html">
                    <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#ff79c6;&quot;&gt;PyDracula&lt;/span&gt;&lt;/p&gt;
@@ -1271,7 +1283,9 @@ p, li { white-space: pre-wrap; }
                   </property>
                   <property name="font">
                    <font>
+                    <family>Segoe UI</family>
                     <pointsize>10</pointsize>
+                    <weight>50</weight>
                     <italic>false</italic>
                     <bold>false</bold>
                    </font>
@@ -1371,7 +1385,9 @@ p, li { white-space: pre-wrap; }
                   </property>
                   <property name="font">
                    <font>
+                    <family>Segoe UI</family>
                     <pointsize>10</pointsize>
+                    <weight>50</weight>
                     <italic>false</italic>
                     <bold>false</bold>
                    </font>
@@ -1602,8 +1618,8 @@ p, li { white-space: pre-wrap; }
                               <rect>
                                <x>0</x>
                                <y>0</y>
-                               <width>100</width>
-                               <height>30</height>
+                               <width>1588</width>
+                               <height>868</height>
                               </rect>
                              </property>
                              <widget class="QFrame" name="column1">
@@ -1656,7 +1672,9 @@ p, li { white-space: pre-wrap; }
                                     </property>
                                     <property name="font">
                                      <font>
+                                      <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -1707,7 +1725,9 @@ p, li { white-space: pre-wrap; }
                                     </property>
                                     <property name="font">
                                      <font>
+                                      <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -1744,7 +1764,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                     </property>
                                     <property name="font">
                                      <font>
+                                      <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -1770,7 +1792,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                     </property>
                                     <property name="font">
                                      <font>
+                                      <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -1796,7 +1820,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                     </property>
                                     <property name="font">
                                      <font>
+                                      <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -1822,7 +1848,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                     </property>
                                     <property name="font">
                                      <font>
+                                      <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -1856,7 +1884,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <property name="font">
                                        <font>
+                                        <family>Segoe UI</family>
                                         <pointsize>10</pointsize>
+                                        <weight>50</weight>
                                         <italic>false</italic>
                                         <bold>false</bold>
                                        </font>
@@ -1885,7 +1915,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <property name="font">
                                        <font>
+                                        <family>Segoe UI</family>
                                         <pointsize>10</pointsize>
+                                        <weight>50</weight>
                                         <italic>false</italic>
                                         <bold>false</bold>
                                        </font>
@@ -1986,7 +2018,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <property name="font">
                                        <font>
+                                        <family>Segoe UI</family>
                                         <pointsize>10</pointsize>
+                                        <weight>50</weight>
                                         <italic>false</italic>
                                         <bold>false</bold>
                                        </font>
@@ -2029,7 +2063,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <property name="font">
                                        <font>
+                                        <family>Segoe UI</family>
                                         <pointsize>10</pointsize>
+                                        <weight>50</weight>
                                         <italic>false</italic>
                                         <bold>false</bold>
                                        </font>
@@ -2070,7 +2106,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <property name="font">
                                        <font>
+                                        <family>Segoe UI</family>
                                         <pointsize>10</pointsize>
+                                        <weight>50</weight>
                                         <italic>false</italic>
                                         <bold>false</bold>
                                        </font>
@@ -2113,7 +2151,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <property name="font">
                                        <font>
+                                        <family>Segoe UI</family>
                                         <pointsize>10</pointsize>
+                                        <weight>50</weight>
                                         <italic>false</italic>
                                         <bold>false</bold>
                                        </font>
@@ -2150,7 +2190,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <property name="font">
                                        <font>
+                                        <family>Segoe UI</family>
                                         <pointsize>10</pointsize>
+                                        <weight>50</weight>
                                         <italic>false</italic>
                                         <bold>false</bold>
                                        </font>
@@ -2179,7 +2221,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <property name="font">
                                        <font>
+                                        <family>Segoe UI</family>
                                         <pointsize>10</pointsize>
+                                        <weight>50</weight>
                                         <italic>false</italic>
                                         <bold>false</bold>
                                        </font>
@@ -2216,7 +2260,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <property name="font">
                                        <font>
+                                        <family>Segoe UI</family>
                                         <pointsize>10</pointsize>
+                                        <weight>50</weight>
                                         <italic>false</italic>
                                         <bold>false</bold>
                                        </font>
@@ -2239,7 +2285,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <property name="font">
                                        <font>
+                                        <family>Segoe UI</family>
                                         <pointsize>10</pointsize>
+                                        <weight>50</weight>
                                         <italic>false</italic>
                                         <bold>false</bold>
                                        </font>
@@ -2271,7 +2319,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <property name="font">
                                        <font>
+                                        <family>Segoe UI</family>
                                         <pointsize>10</pointsize>
+                                        <weight>50</weight>
                                         <italic>false</italic>
                                         <bold>false</bold>
                                        </font>
@@ -2312,7 +2362,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <property name="font">
                                        <font>
+                                        <family>Segoe UI</family>
                                         <pointsize>10</pointsize>
+                                        <weight>50</weight>
                                         <italic>false</italic>
                                         <bold>false</bold>
                                        </font>
@@ -2347,7 +2399,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <property name="font">
                                        <font>
+                                        <family>Segoe UI</family>
                                         <pointsize>10</pointsize>
+                                        <weight>50</weight>
                                         <italic>false</italic>
                                         <bold>false</bold>
                                        </font>
@@ -2388,7 +2442,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <property name="font">
                                        <font>
+                                        <family>Segoe UI</family>
                                         <pointsize>10</pointsize>
+                                        <weight>50</weight>
                                         <italic>false</italic>
                                         <bold>false</bold>
                                        </font>
@@ -2431,7 +2487,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <property name="font">
                                        <font>
+                                        <family>Segoe UI</family>
                                         <pointsize>10</pointsize>
+                                        <weight>50</weight>
                                         <italic>false</italic>
                                         <bold>false</bold>
                                        </font>
@@ -2472,7 +2530,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <property name="font">
                                        <font>
+                                        <family>Segoe UI</family>
                                         <pointsize>10</pointsize>
+                                        <weight>50</weight>
                                         <italic>false</italic>
                                         <bold>false</bold>
                                        </font>
@@ -2515,7 +2575,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <property name="font">
                                        <font>
+                                        <family>Segoe UI</family>
                                         <pointsize>10</pointsize>
+                                        <weight>50</weight>
                                         <italic>false</italic>
                                         <bold>false</bold>
                                        </font>
@@ -2538,7 +2600,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <property name="font">
                                        <font>
+                                        <family>Segoe UI</family>
                                         <pointsize>10</pointsize>
+                                        <weight>50</weight>
                                         <italic>false</italic>
                                         <bold>false</bold>
                                        </font>
@@ -2570,7 +2634,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <property name="font">
                                        <font>
+                                        <family>Segoe UI</family>
                                         <pointsize>10</pointsize>
+                                        <weight>50</weight>
                                         <italic>false</italic>
                                         <bold>false</bold>
                                        </font>
@@ -2611,7 +2677,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <property name="font">
                                        <font>
+                                        <family>Segoe UI</family>
                                         <pointsize>10</pointsize>
+                                        <weight>50</weight>
                                         <italic>false</italic>
                                         <bold>false</bold>
                                        </font>
@@ -2654,7 +2722,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <property name="font">
                                        <font>
+                                        <family>Segoe UI</family>
                                         <pointsize>10</pointsize>
+                                        <weight>50</weight>
                                         <italic>false</italic>
                                         <bold>false</bold>
                                        </font>
@@ -2689,7 +2759,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <property name="font">
                                        <font>
+                                        <family>Segoe UI</family>
                                         <pointsize>10</pointsize>
+                                        <weight>50</weight>
                                         <italic>false</italic>
                                         <bold>false</bold>
                                        </font>
@@ -2741,7 +2813,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <property name="font">
                                        <font>
+                                        <family>Segoe UI</family>
                                         <pointsize>10</pointsize>
+                                        <weight>50</weight>
                                         <italic>false</italic>
                                         <bold>false</bold>
                                        </font>
@@ -2770,7 +2844,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <property name="font">
                                        <font>
+                                        <family>Segoe UI</family>
                                         <pointsize>10</pointsize>
+                                        <weight>50</weight>
                                         <italic>false</italic>
                                         <bold>false</bold>
                                        </font>
@@ -2805,7 +2881,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <property name="font">
                                        <font>
+                                        <family>Segoe UI</family>
                                         <pointsize>10</pointsize>
+                                        <weight>50</weight>
                                         <italic>false</italic>
                                         <bold>false</bold>
                                        </font>
@@ -2837,7 +2915,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <property name="font">
                                        <font>
+                                        <family>Segoe UI</family>
                                         <pointsize>10</pointsize>
+                                        <weight>50</weight>
                                         <italic>false</italic>
                                         <bold>false</bold>
                                        </font>
@@ -2878,7 +2958,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <property name="font">
                                        <font>
+                                        <family>Segoe UI</family>
                                         <pointsize>10</pointsize>
+                                        <weight>50</weight>
                                         <italic>false</italic>
                                         <bold>false</bold>
                                        </font>
@@ -2997,7 +3079,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         <widget class="QLabel" name="text_mani">
                                          <property name="font">
                                           <font>
+                                           <family>Segoe UI</family>
                                            <pointsize>10</pointsize>
+                                           <weight>50</weight>
                                            <italic>false</italic>
                                            <bold>false</bold>
                                           </font>
@@ -3020,7 +3104,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          </property>
                                          <property name="font">
                                           <font>
+                                           <family>Segoe UI</family>
                                            <pointsize>10</pointsize>
+                                           <weight>50</weight>
                                            <italic>false</italic>
                                            <bold>false</bold>
                                           </font>
@@ -3043,7 +3129,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          </property>
                                          <property name="font">
                                           <font>
+                                           <family>Segoe UI</family>
                                            <pointsize>10</pointsize>
+                                           <weight>50</weight>
                                            <italic>false</italic>
                                            <bold>false</bold>
                                           </font>
@@ -3066,7 +3154,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                          </property>
                                          <property name="font">
                                           <font>
+                                           <family>Segoe UI</family>
                                            <pointsize>10</pointsize>
+                                           <weight>50</weight>
                                            <italic>false</italic>
                                            <bold>false</bold>
                                           </font>
@@ -3083,7 +3173,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         <widget class="QLabel" name="text_frontlys">
                                          <property name="font">
                                           <font>
+                                           <family>Segoe UI</family>
                                            <pointsize>10</pointsize>
+                                           <weight>50</weight>
                                            <italic>false</italic>
                                            <bold>false</bold>
                                           </font>
@@ -3100,7 +3192,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         <widget class="QLabel" name="text_havbunnslys">
                                          <property name="font">
                                           <font>
+                                           <family>Segoe UI</family>
                                            <pointsize>10</pointsize>
+                                           <weight>50</weight>
                                            <italic>false</italic>
                                            <bold>false</bold>
                                           </font>
@@ -3143,7 +3237,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                 <widget class="QLabel" name="title_motor">
                                  <property name="font">
                                   <font>
+                                   <family>Segoe UI</family>
                                    <pointsize>10</pointsize>
+                                   <weight>50</weight>
                                    <italic>false</italic>
                                    <bold>false</bold>
                                   </font>
@@ -3185,57 +3281,6 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                    <property name="frameShadow">
                                     <enum>QFrame::Raised</enum>
                                    </property>
-                                   <widget class="QFrame" name="frame_VHF_2">
-                                    <property name="geometry">
-                                     <rect>
-                                      <x>19</x>
-                                      <y>12</y>
-                                      <width>50</width>
-                                      <height>50</height>
-                                     </rect>
-                                    </property>
-                                    <property name="styleSheet">
-                                     <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
-                                    </property>
-                                    <property name="frameShape">
-                                     <enum>QFrame::NoFrame</enum>
-                                    </property>
-                                    <property name="frameShadow">
-                                     <enum>QFrame::Raised</enum>
-                                    </property>
-                                    <widget class="QLabel" name="label_percentage_VHF">
-                                     <property name="geometry">
-                                      <rect>
-                                       <x>6</x>
-                                       <y>13</y>
-                                       <width>37</width>
-                                       <height>21</height>
-                                      </rect>
-                                     </property>
-                                     <property name="font">
-                                      <font>
-                                       <pointsize>10</pointsize>
-                                       <italic>false</italic>
-                                       <bold>false</bold>
-                                      </font>
-                                     </property>
-                                     <property name="autoFillBackground">
-                                      <bool>false</bool>
-                                     </property>
-                                     <property name="text">
-                                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:super;&quot;&gt;%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                                     </property>
-                                     <property name="scaledContents">
-                                      <bool>false</bool>
-                                     </property>
-                                     <property name="alignment">
-                                      <set>Qt::AlignCenter</set>
-                                     </property>
-                                     <property name="wordWrap">
-                                      <bool>false</bool>
-                                     </property>
-                                    </widget>
-                                   </widget>
                                    <widget class="QFrame" name="frame_VHF">
                                     <property name="geometry">
                                      <rect>
@@ -3246,7 +3291,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </rect>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
+                                     <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 20); }</string>
                                     </property>
                                     <property name="frameShape">
                                      <enum>QFrame::NoFrame</enum>
@@ -3254,6 +3299,81 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                     <property name="frameShadow">
                                      <enum>QFrame::Raised</enum>
                                     </property>
+                                    <widget class="QFrame" name="frame_VHF_3">
+                                     <property name="geometry">
+                                      <rect>
+                                       <x>0</x>
+                                       <y>0</y>
+                                       <width>60</width>
+                                       <height>60</height>
+                                      </rect>
+                                     </property>
+                                     <property name="styleSheet">
+                                      <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
+                                     </property>
+                                     <property name="frameShape">
+                                      <enum>QFrame::NoFrame</enum>
+                                     </property>
+                                     <property name="frameShadow">
+                                      <enum>QFrame::Raised</enum>
+                                     </property>
+                                     <widget class="QFrame" name="frame_VHF_2">
+                                      <property name="geometry">
+                                       <rect>
+                                        <x>5</x>
+                                        <y>5</y>
+                                        <width>50</width>
+                                        <height>50</height>
+                                       </rect>
+                                      </property>
+                                      <property name="styleSheet">
+                                       <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
+                                      </property>
+                                      <property name="frameShape">
+                                       <enum>QFrame::NoFrame</enum>
+                                      </property>
+                                      <property name="frameShadow">
+                                       <enum>QFrame::Raised</enum>
+                                      </property>
+                                      <widget class="QLabel" name="label_percentage_VHF">
+                                       <property name="geometry">
+                                        <rect>
+                                         <x>6</x>
+                                         <y>13</y>
+                                         <width>37</width>
+                                         <height>21</height>
+                                        </rect>
+                                       </property>
+                                       <property name="font">
+                                        <font>
+                                         <family>Segoe UI</family>
+                                         <pointsize>10</pointsize>
+                                         <weight>50</weight>
+                                         <italic>false</italic>
+                                         <bold>false</bold>
+                                        </font>
+                                       </property>
+                                       <property name="autoFillBackground">
+                                        <bool>false</bool>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true">background: transparent;</string>
+                                       </property>
+                                       <property name="text">
+                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:super;&quot;&gt;%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                       </property>
+                                       <property name="scaledContents">
+                                        <bool>false</bool>
+                                       </property>
+                                       <property name="alignment">
+                                        <set>Qt::AlignCenter</set>
+                                       </property>
+                                       <property name="wordWrap">
+                                        <bool>false</bool>
+                                       </property>
+                                      </widget>
+                                     </widget>
+                                    </widget>
                                    </widget>
                                    <widget class="QFrame" name="frame_VVF">
                                     <property name="geometry">
@@ -3265,7 +3385,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </rect>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
+                                     <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 20); }</string>
                                     </property>
                                     <property name="frameShape">
                                      <enum>QFrame::NoFrame</enum>
@@ -3273,107 +3393,80 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                     <property name="frameShadow">
                                      <enum>QFrame::Raised</enum>
                                     </property>
-                                   </widget>
-                                   <widget class="QFrame" name="frame_VVF_2">
-                                    <property name="geometry">
-                                     <rect>
-                                      <x>80</x>
-                                      <y>30</y>
-                                      <width>50</width>
-                                      <height>50</height>
-                                     </rect>
-                                    </property>
-                                    <property name="styleSheet">
-                                     <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
-                                    </property>
-                                    <property name="frameShape">
-                                     <enum>QFrame::NoFrame</enum>
-                                    </property>
-                                    <property name="frameShadow">
-                                     <enum>QFrame::Raised</enum>
-                                    </property>
-                                    <widget class="QLabel" name="label_percentage_VVF">
+                                    <widget class="QFrame" name="frame_VVF_3">
                                      <property name="geometry">
                                       <rect>
-                                       <x>6</x>
-                                       <y>13</y>
-                                       <width>37</width>
-                                       <height>21</height>
+                                       <x>0</x>
+                                       <y>0</y>
+                                       <width>60</width>
+                                       <height>60</height>
                                       </rect>
                                      </property>
-                                     <property name="font">
-                                      <font>
-                                       <pointsize>10</pointsize>
-                                       <italic>false</italic>
-                                       <bold>false</bold>
-                                      </font>
+                                     <property name="styleSheet">
+                                      <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
                                      </property>
-                                     <property name="autoFillBackground">
-                                      <bool>false</bool>
+                                     <property name="frameShape">
+                                      <enum>QFrame::NoFrame</enum>
                                      </property>
-                                     <property name="text">
-                                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:super;&quot;&gt;%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                     <property name="frameShadow">
+                                      <enum>QFrame::Raised</enum>
                                      </property>
-                                     <property name="scaledContents">
-                                      <bool>false</bool>
-                                     </property>
-                                     <property name="alignment">
-                                      <set>Qt::AlignCenter</set>
-                                     </property>
-                                     <property name="wordWrap">
-                                      <bool>false</bool>
-                                     </property>
-                                    </widget>
-                                   </widget>
-                                   <widget class="QFrame" name="frame_HHF_2">
-                                    <property name="geometry">
-                                     <rect>
-                                      <x>270</x>
-                                      <y>10</y>
-                                      <width>50</width>
-                                      <height>50</height>
-                                     </rect>
-                                    </property>
-                                    <property name="styleSheet">
-                                     <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
-                                    </property>
-                                    <property name="frameShape">
-                                     <enum>QFrame::StyledPanel</enum>
-                                    </property>
-                                    <property name="frameShadow">
-                                     <enum>QFrame::Raised</enum>
-                                    </property>
-                                    <widget class="QLabel" name="label_percentage_HHF">
-                                     <property name="geometry">
-                                      <rect>
-                                       <x>6</x>
-                                       <y>13</y>
-                                       <width>37</width>
-                                       <height>21</height>
-                                      </rect>
-                                     </property>
-                                     <property name="font">
-                                      <font>
-                                       <pointsize>10</pointsize>
-                                       <italic>false</italic>
-                                       <bold>false</bold>
-                                      </font>
-                                     </property>
-                                     <property name="autoFillBackground">
-                                      <bool>false</bool>
-                                     </property>
-                                     <property name="text">
-                                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:super;&quot;&gt;%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                                     </property>
-                                     <property name="scaledContents">
-                                      <bool>false</bool>
-                                     </property>
-                                     <property name="alignment">
-                                      <set>Qt::AlignCenter</set>
-                                     </property>
-                                     <property name="wordWrap">
-                                      <bool>false</bool>
-                                     </property>
+                                     <widget class="QFrame" name="frame_VVF_2">
+                                      <property name="geometry">
+                                       <rect>
+                                        <x>5</x>
+                                        <y>5</y>
+                                        <width>50</width>
+                                        <height>50</height>
+                                       </rect>
+                                      </property>
+                                      <property name="styleSheet">
+                                       <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
+                                      </property>
+                                      <property name="frameShape">
+                                       <enum>QFrame::NoFrame</enum>
+                                      </property>
+                                      <property name="frameShadow">
+                                       <enum>QFrame::Raised</enum>
+                                      </property>
+                                      <widget class="QLabel" name="label_percentage_VVF">
+                                       <property name="geometry">
+                                        <rect>
+                                         <x>6</x>
+                                         <y>13</y>
+                                         <width>37</width>
+                                         <height>21</height>
+                                        </rect>
+                                       </property>
+                                       <property name="font">
+                                        <font>
+                                         <family>Segoe UI</family>
+                                         <pointsize>10</pointsize>
+                                         <weight>50</weight>
+                                         <italic>false</italic>
+                                         <bold>false</bold>
+                                        </font>
+                                       </property>
+                                       <property name="autoFillBackground">
+                                        <bool>false</bool>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true">background: transparent;</string>
+                                       </property>
+                                       <property name="text">
+                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:super;&quot;&gt;%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                       </property>
+                                       <property name="scaledContents">
+                                        <bool>false</bool>
+                                       </property>
+                                       <property name="alignment">
+                                        <set>Qt::AlignCenter</set>
+                                       </property>
+                                       <property name="wordWrap">
+                                        <bool>false</bool>
+                                       </property>
+                                      </widget>
+                                     </widget>
                                     </widget>
                                    </widget>
                                    <widget class="QFrame" name="frame_HHF">
@@ -3386,7 +3479,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </rect>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
+                                     <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 20); }</string>
                                     </property>
                                     <property name="frameShape">
                                      <enum>QFrame::NoFrame</enum>
@@ -3394,56 +3487,80 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                     <property name="frameShadow">
                                      <enum>QFrame::Raised</enum>
                                     </property>
-                                   </widget>
-                                   <widget class="QFrame" name="frame_HVF_2">
-                                    <property name="geometry">
-                                     <rect>
-                                      <x>210</x>
-                                      <y>30</y>
-                                      <width>50</width>
-                                      <height>50</height>
-                                     </rect>
-                                    </property>
-                                    <property name="styleSheet">
-                                     <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
-                                    </property>
-                                    <property name="frameShape">
-                                     <enum>QFrame::StyledPanel</enum>
-                                    </property>
-                                    <property name="frameShadow">
-                                     <enum>QFrame::Raised</enum>
-                                    </property>
-                                    <widget class="QLabel" name="label_percentage_HVF">
+                                    <widget class="QFrame" name="frame_HHF_3">
                                      <property name="geometry">
                                       <rect>
-                                       <x>6</x>
-                                       <y>13</y>
-                                       <width>37</width>
-                                       <height>21</height>
+                                       <x>0</x>
+                                       <y>0</y>
+                                       <width>60</width>
+                                       <height>60</height>
                                       </rect>
                                      </property>
-                                     <property name="font">
-                                      <font>
-                                       <pointsize>10</pointsize>
-                                       <italic>false</italic>
-                                       <bold>false</bold>
-                                      </font>
+                                     <property name="styleSheet">
+                                      <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
                                      </property>
-                                     <property name="autoFillBackground">
-                                      <bool>false</bool>
+                                     <property name="frameShape">
+                                      <enum>QFrame::NoFrame</enum>
                                      </property>
-                                     <property name="text">
-                                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:super;&quot;&gt;%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                     <property name="frameShadow">
+                                      <enum>QFrame::Raised</enum>
                                      </property>
-                                     <property name="scaledContents">
-                                      <bool>false</bool>
-                                     </property>
-                                     <property name="alignment">
-                                      <set>Qt::AlignCenter</set>
-                                     </property>
-                                     <property name="wordWrap">
-                                      <bool>false</bool>
-                                     </property>
+                                     <widget class="QFrame" name="frame_HHF_2">
+                                      <property name="geometry">
+                                       <rect>
+                                        <x>5</x>
+                                        <y>5</y>
+                                        <width>50</width>
+                                        <height>50</height>
+                                       </rect>
+                                      </property>
+                                      <property name="styleSheet">
+                                       <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
+                                      </property>
+                                      <property name="frameShape">
+                                       <enum>QFrame::StyledPanel</enum>
+                                      </property>
+                                      <property name="frameShadow">
+                                       <enum>QFrame::Raised</enum>
+                                      </property>
+                                      <widget class="QLabel" name="label_percentage_HHF">
+                                       <property name="geometry">
+                                        <rect>
+                                         <x>6</x>
+                                         <y>13</y>
+                                         <width>37</width>
+                                         <height>21</height>
+                                        </rect>
+                                       </property>
+                                       <property name="font">
+                                        <font>
+                                         <family>Segoe UI</family>
+                                         <pointsize>10</pointsize>
+                                         <weight>50</weight>
+                                         <italic>false</italic>
+                                         <bold>false</bold>
+                                        </font>
+                                       </property>
+                                       <property name="autoFillBackground">
+                                        <bool>false</bool>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true">background: transparent;</string>
+                                       </property>
+                                       <property name="text">
+                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:super;&quot;&gt;%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                       </property>
+                                       <property name="scaledContents">
+                                        <bool>false</bool>
+                                       </property>
+                                       <property name="alignment">
+                                        <set>Qt::AlignCenter</set>
+                                       </property>
+                                       <property name="wordWrap">
+                                        <bool>false</bool>
+                                       </property>
+                                      </widget>
+                                     </widget>
                                     </widget>
                                    </widget>
                                    <widget class="QFrame" name="frame_HVF">
@@ -3456,7 +3573,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </rect>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
+                                     <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 20); }</string>
                                     </property>
                                     <property name="frameShape">
                                      <enum>QFrame::NoFrame</enum>
@@ -3464,56 +3581,80 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                     <property name="frameShadow">
                                      <enum>QFrame::Raised</enum>
                                     </property>
-                                   </widget>
-                                   <widget class="QFrame" name="frame_HVB_2">
-                                    <property name="geometry">
-                                     <rect>
-                                      <x>215</x>
-                                      <y>165</y>
-                                      <width>50</width>
-                                      <height>50</height>
-                                     </rect>
-                                    </property>
-                                    <property name="styleSheet">
-                                     <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
-                                    </property>
-                                    <property name="frameShape">
-                                     <enum>QFrame::StyledPanel</enum>
-                                    </property>
-                                    <property name="frameShadow">
-                                     <enum>QFrame::Raised</enum>
-                                    </property>
-                                    <widget class="QLabel" name="label_percentage_HVB">
+                                    <widget class="QFrame" name="frame_HVF_3">
                                      <property name="geometry">
                                       <rect>
-                                       <x>6</x>
-                                       <y>13</y>
-                                       <width>37</width>
-                                       <height>21</height>
+                                       <x>0</x>
+                                       <y>0</y>
+                                       <width>60</width>
+                                       <height>60</height>
                                       </rect>
                                      </property>
-                                     <property name="font">
-                                      <font>
-                                       <pointsize>10</pointsize>
-                                       <italic>false</italic>
-                                       <bold>false</bold>
-                                      </font>
+                                     <property name="styleSheet">
+                                      <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
                                      </property>
-                                     <property name="autoFillBackground">
-                                      <bool>false</bool>
+                                     <property name="frameShape">
+                                      <enum>QFrame::NoFrame</enum>
                                      </property>
-                                     <property name="text">
-                                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:super;&quot;&gt;%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                     <property name="frameShadow">
+                                      <enum>QFrame::Raised</enum>
                                      </property>
-                                     <property name="scaledContents">
-                                      <bool>false</bool>
-                                     </property>
-                                     <property name="alignment">
-                                      <set>Qt::AlignCenter</set>
-                                     </property>
-                                     <property name="wordWrap">
-                                      <bool>false</bool>
-                                     </property>
+                                     <widget class="QFrame" name="frame_HVF_2">
+                                      <property name="geometry">
+                                       <rect>
+                                        <x>5</x>
+                                        <y>5</y>
+                                        <width>50</width>
+                                        <height>50</height>
+                                       </rect>
+                                      </property>
+                                      <property name="styleSheet">
+                                       <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
+                                      </property>
+                                      <property name="frameShape">
+                                       <enum>QFrame::StyledPanel</enum>
+                                      </property>
+                                      <property name="frameShadow">
+                                       <enum>QFrame::Raised</enum>
+                                      </property>
+                                      <widget class="QLabel" name="label_percentage_HVF">
+                                       <property name="geometry">
+                                        <rect>
+                                         <x>6</x>
+                                         <y>13</y>
+                                         <width>37</width>
+                                         <height>21</height>
+                                        </rect>
+                                       </property>
+                                       <property name="font">
+                                        <font>
+                                         <family>Segoe UI</family>
+                                         <pointsize>10</pointsize>
+                                         <weight>50</weight>
+                                         <italic>false</italic>
+                                         <bold>false</bold>
+                                        </font>
+                                       </property>
+                                       <property name="autoFillBackground">
+                                        <bool>false</bool>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true">background: transparent;</string>
+                                       </property>
+                                       <property name="text">
+                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:super;&quot;&gt;%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                       </property>
+                                       <property name="scaledContents">
+                                        <bool>false</bool>
+                                       </property>
+                                       <property name="alignment">
+                                        <set>Qt::AlignCenter</set>
+                                       </property>
+                                       <property name="wordWrap">
+                                        <bool>false</bool>
+                                       </property>
+                                      </widget>
+                                     </widget>
                                     </widget>
                                    </widget>
                                    <widget class="QFrame" name="frame_HVB">
@@ -3526,7 +3667,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </rect>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
+                                     <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 20); }</string>
                                     </property>
                                     <property name="frameShape">
                                      <enum>QFrame::NoFrame</enum>
@@ -3534,56 +3675,80 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                     <property name="frameShadow">
                                      <enum>QFrame::Raised</enum>
                                     </property>
-                                   </widget>
-                                   <widget class="QFrame" name="frame_HHB_2">
-                                    <property name="geometry">
-                                     <rect>
-                                      <x>275</x>
-                                      <y>195</y>
-                                      <width>50</width>
-                                      <height>50</height>
-                                     </rect>
-                                    </property>
-                                    <property name="styleSheet">
-                                     <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
-                                    </property>
-                                    <property name="frameShape">
-                                     <enum>QFrame::StyledPanel</enum>
-                                    </property>
-                                    <property name="frameShadow">
-                                     <enum>QFrame::Raised</enum>
-                                    </property>
-                                    <widget class="QLabel" name="label_percentage_HHB">
+                                    <widget class="QFrame" name="frame_HVB_3">
                                      <property name="geometry">
                                       <rect>
-                                       <x>6</x>
-                                       <y>13</y>
-                                       <width>37</width>
-                                       <height>21</height>
+                                       <x>0</x>
+                                       <y>0</y>
+                                       <width>60</width>
+                                       <height>60</height>
                                       </rect>
                                      </property>
-                                     <property name="font">
-                                      <font>
-                                       <pointsize>10</pointsize>
-                                       <italic>false</italic>
-                                       <bold>false</bold>
-                                      </font>
+                                     <property name="styleSheet">
+                                      <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
                                      </property>
-                                     <property name="autoFillBackground">
-                                      <bool>false</bool>
+                                     <property name="frameShape">
+                                      <enum>QFrame::NoFrame</enum>
                                      </property>
-                                     <property name="text">
-                                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:super;&quot;&gt;%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                     <property name="frameShadow">
+                                      <enum>QFrame::Raised</enum>
                                      </property>
-                                     <property name="scaledContents">
-                                      <bool>false</bool>
-                                     </property>
-                                     <property name="alignment">
-                                      <set>Qt::AlignCenter</set>
-                                     </property>
-                                     <property name="wordWrap">
-                                      <bool>false</bool>
-                                     </property>
+                                     <widget class="QFrame" name="frame_HVB_2">
+                                      <property name="geometry">
+                                       <rect>
+                                        <x>5</x>
+                                        <y>5</y>
+                                        <width>50</width>
+                                        <height>50</height>
+                                       </rect>
+                                      </property>
+                                      <property name="styleSheet">
+                                       <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
+                                      </property>
+                                      <property name="frameShape">
+                                       <enum>QFrame::StyledPanel</enum>
+                                      </property>
+                                      <property name="frameShadow">
+                                       <enum>QFrame::Raised</enum>
+                                      </property>
+                                      <widget class="QLabel" name="label_percentage_HVB">
+                                       <property name="geometry">
+                                        <rect>
+                                         <x>6</x>
+                                         <y>13</y>
+                                         <width>37</width>
+                                         <height>21</height>
+                                        </rect>
+                                       </property>
+                                       <property name="font">
+                                        <font>
+                                         <family>Segoe UI</family>
+                                         <pointsize>10</pointsize>
+                                         <weight>50</weight>
+                                         <italic>false</italic>
+                                         <bold>false</bold>
+                                        </font>
+                                       </property>
+                                       <property name="autoFillBackground">
+                                        <bool>false</bool>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true">background: transparent;</string>
+                                       </property>
+                                       <property name="text">
+                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:super;&quot;&gt;%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                       </property>
+                                       <property name="scaledContents">
+                                        <bool>false</bool>
+                                       </property>
+                                       <property name="alignment">
+                                        <set>Qt::AlignCenter</set>
+                                       </property>
+                                       <property name="wordWrap">
+                                        <bool>false</bool>
+                                       </property>
+                                      </widget>
+                                     </widget>
                                     </widget>
                                    </widget>
                                    <widget class="QFrame" name="frame_HHB">
@@ -3596,7 +3761,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </rect>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
+                                     <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 20); }</string>
                                     </property>
                                     <property name="frameShape">
                                      <enum>QFrame::NoFrame</enum>
@@ -3604,6 +3769,81 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                     <property name="frameShadow">
                                      <enum>QFrame::Raised</enum>
                                     </property>
+                                    <widget class="QFrame" name="frame_HHB_3">
+                                     <property name="geometry">
+                                      <rect>
+                                       <x>0</x>
+                                       <y>0</y>
+                                       <width>60</width>
+                                       <height>60</height>
+                                      </rect>
+                                     </property>
+                                     <property name="styleSheet">
+                                      <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
+                                     </property>
+                                     <property name="frameShape">
+                                      <enum>QFrame::NoFrame</enum>
+                                     </property>
+                                     <property name="frameShadow">
+                                      <enum>QFrame::Raised</enum>
+                                     </property>
+                                     <widget class="QFrame" name="frame_HHB_2">
+                                      <property name="geometry">
+                                       <rect>
+                                        <x>5</x>
+                                        <y>5</y>
+                                        <width>50</width>
+                                        <height>50</height>
+                                       </rect>
+                                      </property>
+                                      <property name="styleSheet">
+                                       <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
+                                      </property>
+                                      <property name="frameShape">
+                                       <enum>QFrame::StyledPanel</enum>
+                                      </property>
+                                      <property name="frameShadow">
+                                       <enum>QFrame::Raised</enum>
+                                      </property>
+                                      <widget class="QLabel" name="label_percentage_HHB">
+                                       <property name="geometry">
+                                        <rect>
+                                         <x>6</x>
+                                         <y>13</y>
+                                         <width>37</width>
+                                         <height>21</height>
+                                        </rect>
+                                       </property>
+                                       <property name="font">
+                                        <font>
+                                         <family>Segoe UI</family>
+                                         <pointsize>10</pointsize>
+                                         <weight>50</weight>
+                                         <italic>false</italic>
+                                         <bold>false</bold>
+                                        </font>
+                                       </property>
+                                       <property name="autoFillBackground">
+                                        <bool>false</bool>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true">background: transparent;</string>
+                                       </property>
+                                       <property name="text">
+                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:super;&quot;&gt;%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                       </property>
+                                       <property name="scaledContents">
+                                        <bool>false</bool>
+                                       </property>
+                                       <property name="alignment">
+                                        <set>Qt::AlignCenter</set>
+                                       </property>
+                                       <property name="wordWrap">
+                                        <bool>false</bool>
+                                       </property>
+                                      </widget>
+                                     </widget>
+                                    </widget>
                                    </widget>
                                    <widget class="QFrame" name="frame_VVB">
                                     <property name="geometry">
@@ -3615,7 +3855,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </rect>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
+                                     <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 20); }</string>
                                     </property>
                                     <property name="frameShape">
                                      <enum>QFrame::NoFrame</enum>
@@ -3623,107 +3863,80 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                     <property name="frameShadow">
                                      <enum>QFrame::Raised</enum>
                                     </property>
-                                   </widget>
-                                   <widget class="QFrame" name="frame_VVB_2">
-                                    <property name="geometry">
-                                     <rect>
-                                      <x>75</x>
-                                      <y>165</y>
-                                      <width>50</width>
-                                      <height>50</height>
-                                     </rect>
-                                    </property>
-                                    <property name="styleSheet">
-                                     <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
-                                    </property>
-                                    <property name="frameShape">
-                                     <enum>QFrame::StyledPanel</enum>
-                                    </property>
-                                    <property name="frameShadow">
-                                     <enum>QFrame::Raised</enum>
-                                    </property>
-                                    <widget class="QLabel" name="label_percentage_VVB">
+                                    <widget class="QFrame" name="frame_VVB_3">
                                      <property name="geometry">
                                       <rect>
-                                       <x>6</x>
-                                       <y>13</y>
-                                       <width>37</width>
-                                       <height>21</height>
+                                       <x>0</x>
+                                       <y>0</y>
+                                       <width>60</width>
+                                       <height>60</height>
                                       </rect>
                                      </property>
-                                     <property name="font">
-                                      <font>
-                                       <pointsize>10</pointsize>
-                                       <italic>false</italic>
-                                       <bold>false</bold>
-                                      </font>
+                                     <property name="styleSheet">
+                                      <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
                                      </property>
-                                     <property name="autoFillBackground">
-                                      <bool>false</bool>
+                                     <property name="frameShape">
+                                      <enum>QFrame::NoFrame</enum>
                                      </property>
-                                     <property name="text">
-                                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:super;&quot;&gt;%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                     <property name="frameShadow">
+                                      <enum>QFrame::Raised</enum>
                                      </property>
-                                     <property name="scaledContents">
-                                      <bool>false</bool>
-                                     </property>
-                                     <property name="alignment">
-                                      <set>Qt::AlignCenter</set>
-                                     </property>
-                                     <property name="wordWrap">
-                                      <bool>false</bool>
-                                     </property>
-                                    </widget>
-                                   </widget>
-                                   <widget class="QFrame" name="frame_VHB_2">
-                                    <property name="geometry">
-                                     <rect>
-                                      <x>10</x>
-                                      <y>190</y>
-                                      <width>50</width>
-                                      <height>50</height>
-                                     </rect>
-                                    </property>
-                                    <property name="styleSheet">
-                                     <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
-                                    </property>
-                                    <property name="frameShape">
-                                     <enum>QFrame::StyledPanel</enum>
-                                    </property>
-                                    <property name="frameShadow">
-                                     <enum>QFrame::Raised</enum>
-                                    </property>
-                                    <widget class="QLabel" name="label_percentage_VHB">
-                                     <property name="geometry">
-                                      <rect>
-                                       <x>6</x>
-                                       <y>13</y>
-                                       <width>37</width>
-                                       <height>21</height>
-                                      </rect>
-                                     </property>
-                                     <property name="font">
-                                      <font>
-                                       <pointsize>10</pointsize>
-                                       <italic>false</italic>
-                                       <bold>false</bold>
-                                      </font>
-                                     </property>
-                                     <property name="autoFillBackground">
-                                      <bool>false</bool>
-                                     </property>
-                                     <property name="text">
-                                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:super;&quot;&gt;%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                                     </property>
-                                     <property name="scaledContents">
-                                      <bool>false</bool>
-                                     </property>
-                                     <property name="alignment">
-                                      <set>Qt::AlignCenter</set>
-                                     </property>
-                                     <property name="wordWrap">
-                                      <bool>false</bool>
-                                     </property>
+                                     <widget class="QFrame" name="frame_VVB_2">
+                                      <property name="geometry">
+                                       <rect>
+                                        <x>5</x>
+                                        <y>5</y>
+                                        <width>50</width>
+                                        <height>50</height>
+                                       </rect>
+                                      </property>
+                                      <property name="styleSheet">
+                                       <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
+                                      </property>
+                                      <property name="frameShape">
+                                       <enum>QFrame::StyledPanel</enum>
+                                      </property>
+                                      <property name="frameShadow">
+                                       <enum>QFrame::Raised</enum>
+                                      </property>
+                                      <widget class="QLabel" name="label_percentage_VVB">
+                                       <property name="geometry">
+                                        <rect>
+                                         <x>6</x>
+                                         <y>13</y>
+                                         <width>37</width>
+                                         <height>21</height>
+                                        </rect>
+                                       </property>
+                                       <property name="font">
+                                        <font>
+                                         <family>Segoe UI</family>
+                                         <pointsize>10</pointsize>
+                                         <weight>50</weight>
+                                         <italic>false</italic>
+                                         <bold>false</bold>
+                                        </font>
+                                       </property>
+                                       <property name="autoFillBackground">
+                                        <bool>false</bool>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true">background: transparent;</string>
+                                       </property>
+                                       <property name="text">
+                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:super;&quot;&gt;%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                       </property>
+                                       <property name="scaledContents">
+                                        <bool>false</bool>
+                                       </property>
+                                       <property name="alignment">
+                                        <set>Qt::AlignCenter</set>
+                                       </property>
+                                       <property name="wordWrap">
+                                        <bool>false</bool>
+                                       </property>
+                                      </widget>
+                                     </widget>
                                     </widget>
                                    </widget>
                                    <widget class="QFrame" name="frame_VHB">
@@ -3736,7 +3949,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </rect>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
+                                     <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 20); }</string>
                                     </property>
                                     <property name="frameShape">
                                      <enum>QFrame::NoFrame</enum>
@@ -3744,6 +3957,81 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                     <property name="frameShadow">
                                      <enum>QFrame::Raised</enum>
                                     </property>
+                                    <widget class="QFrame" name="frame_VHB_3">
+                                     <property name="geometry">
+                                      <rect>
+                                       <x>0</x>
+                                       <y>0</y>
+                                       <width>60</width>
+                                       <height>60</height>
+                                      </rect>
+                                     </property>
+                                     <property name="styleSheet">
+                                      <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
+                                     </property>
+                                     <property name="frameShape">
+                                      <enum>QFrame::NoFrame</enum>
+                                     </property>
+                                     <property name="frameShadow">
+                                      <enum>QFrame::Raised</enum>
+                                     </property>
+                                     <widget class="QFrame" name="frame_VHB_2">
+                                      <property name="geometry">
+                                       <rect>
+                                        <x>5</x>
+                                        <y>5</y>
+                                        <width>50</width>
+                                        <height>50</height>
+                                       </rect>
+                                      </property>
+                                      <property name="styleSheet">
+                                       <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
+                                      </property>
+                                      <property name="frameShape">
+                                       <enum>QFrame::StyledPanel</enum>
+                                      </property>
+                                      <property name="frameShadow">
+                                       <enum>QFrame::Raised</enum>
+                                      </property>
+                                      <widget class="QLabel" name="label_percentage_VHB">
+                                       <property name="geometry">
+                                        <rect>
+                                         <x>6</x>
+                                         <y>13</y>
+                                         <width>37</width>
+                                         <height>21</height>
+                                        </rect>
+                                       </property>
+                                       <property name="font">
+                                        <font>
+                                         <family>Segoe UI</family>
+                                         <pointsize>10</pointsize>
+                                         <weight>50</weight>
+                                         <italic>false</italic>
+                                         <bold>false</bold>
+                                        </font>
+                                       </property>
+                                       <property name="autoFillBackground">
+                                        <bool>false</bool>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true">background: transparent;</string>
+                                       </property>
+                                       <property name="text">
+                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:super;&quot;&gt;%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                       </property>
+                                       <property name="scaledContents">
+                                        <bool>false</bool>
+                                       </property>
+                                       <property name="alignment">
+                                        <set>Qt::AlignCenter</set>
+                                       </property>
+                                       <property name="wordWrap">
+                                        <bool>false</bool>
+                                       </property>
+                                      </widget>
+                                     </widget>
+                                    </widget>
                                    </widget>
                                    <widget class="QLabel" name="img_manipulator_2">
                                     <property name="geometry">
@@ -3792,16 +4080,8 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                    <zorder>frame_HHF</zorder>
                                    <zorder>frame_HVF</zorder>
                                    <zorder>frame_VHF</zorder>
-                                   <zorder>frame_VHF_2</zorder>
                                    <zorder>frame_VVF</zorder>
-                                   <zorder>frame_VVF_2</zorder>
-                                   <zorder>frame_HHF_2</zorder>
-                                   <zorder>frame_HVF_2</zorder>
-                                   <zorder>frame_HVB_2</zorder>
-                                   <zorder>frame_HHB_2</zorder>
                                    <zorder>frame_VVB</zorder>
-                                   <zorder>frame_VVB_2</zorder>
-                                   <zorder>frame_VHB_2</zorder>
                                   </widget>
                                  </item>
                                 </layout>
@@ -3824,7 +4104,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                    </property>
                                    <property name="font">
                                     <font>
+                                     <family>Segoe UI</family>
                                      <pointsize>10</pointsize>
+                                     <weight>50</weight>
                                      <italic>false</italic>
                                      <bold>false</bold>
                                     </font>
@@ -3856,7 +4138,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                    </property>
                                    <property name="font">
                                     <font>
+                                     <family>Segoe UI</family>
                                      <pointsize>10</pointsize>
+                                     <weight>50</weight>
                                      <italic>false</italic>
                                      <bold>false</bold>
                                     </font>
@@ -3883,57 +4167,6 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                  </item>
                                  <item row="0" column="2">
                                   <widget class="QWidget" name="strupingWidget" native="true">
-                                   <widget class="QFrame" name="strupingContainer">
-                                    <property name="geometry">
-                                     <rect>
-                                      <x>9</x>
-                                      <y>5</y>
-                                      <width>50</width>
-                                      <height>50</height>
-                                     </rect>
-                                    </property>
-                                    <property name="styleSheet">
-                                     <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
-                                    </property>
-                                    <property name="frameShape">
-                                     <enum>QFrame::StyledPanel</enum>
-                                    </property>
-                                    <property name="frameShadow">
-                                     <enum>QFrame::Raised</enum>
-                                    </property>
-                                    <widget class="QLabel" name="label_percentage_struping">
-                                     <property name="geometry">
-                                      <rect>
-                                       <x>6</x>
-                                       <y>13</y>
-                                       <width>37</width>
-                                       <height>21</height>
-                                      </rect>
-                                     </property>
-                                     <property name="font">
-                                      <font>
-                                       <pointsize>10</pointsize>
-                                       <italic>false</italic>
-                                       <bold>false</bold>
-                                      </font>
-                                     </property>
-                                     <property name="autoFillBackground">
-                                      <bool>false</bool>
-                                     </property>
-                                     <property name="text">
-                                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:super;&quot;&gt;%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                                     </property>
-                                     <property name="scaledContents">
-                                      <bool>false</bool>
-                                     </property>
-                                     <property name="alignment">
-                                      <set>Qt::AlignCenter</set>
-                                     </property>
-                                     <property name="wordWrap">
-                                      <bool>false</bool>
-                                     </property>
-                                    </widget>
-                                   </widget>
                                    <widget class="QFrame" name="frame_struping">
                                     <property name="geometry">
                                      <rect>
@@ -3952,9 +4185,82 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                     <property name="frameShadow">
                                      <enum>QFrame::Raised</enum>
                                     </property>
+                                    <widget class="QFrame" name="frame_struping_2">
+                                     <property name="geometry">
+                                      <rect>
+                                       <x>0</x>
+                                       <y>0</y>
+                                       <width>60</width>
+                                       <height>60</height>
+                                      </rect>
+                                     </property>
+                                     <property name="styleSheet">
+                                      <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
+                                     </property>
+                                     <property name="frameShape">
+                                      <enum>QFrame::NoFrame</enum>
+                                     </property>
+                                     <property name="frameShadow">
+                                      <enum>QFrame::Raised</enum>
+                                     </property>
+                                     <widget class="QFrame" name="strupingContainer">
+                                      <property name="geometry">
+                                       <rect>
+                                        <x>5</x>
+                                        <y>5</y>
+                                        <width>50</width>
+                                        <height>50</height>
+                                       </rect>
+                                      </property>
+                                      <property name="styleSheet">
+                                       <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
+                                      </property>
+                                      <property name="frameShape">
+                                       <enum>QFrame::StyledPanel</enum>
+                                      </property>
+                                      <property name="frameShadow">
+                                       <enum>QFrame::Raised</enum>
+                                      </property>
+                                      <widget class="QLabel" name="label_percentage_struping">
+                                       <property name="geometry">
+                                        <rect>
+                                         <x>6</x>
+                                         <y>13</y>
+                                         <width>37</width>
+                                         <height>21</height>
+                                        </rect>
+                                       </property>
+                                       <property name="font">
+                                        <font>
+                                         <family>Segoe UI</family>
+                                         <pointsize>10</pointsize>
+                                         <weight>50</weight>
+                                         <italic>false</italic>
+                                         <bold>false</bold>
+                                        </font>
+                                       </property>
+                                       <property name="autoFillBackground">
+                                        <bool>false</bool>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true">background: transparent;</string>
+                                       </property>
+                                       <property name="text">
+                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:super;&quot;&gt;%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                       </property>
+                                       <property name="scaledContents">
+                                        <bool>false</bool>
+                                       </property>
+                                       <property name="alignment">
+                                        <set>Qt::AlignCenter</set>
+                                       </property>
+                                       <property name="wordWrap">
+                                        <bool>false</bool>
+                                       </property>
+                                      </widget>
+                                     </widget>
+                                    </widget>
                                    </widget>
-                                   <zorder>frame_struping</zorder>
-                                   <zorder>strupingContainer</zorder>
                                   </widget>
                                  </item>
                                 </layout>
@@ -4028,57 +4334,6 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      <bool>true</bool>
                                     </property>
                                    </widget>
-                                   <widget class="QFrame" name="maniCircle2">
-                                    <property name="geometry">
-                                     <rect>
-                                      <x>165</x>
-                                      <y>105</y>
-                                      <width>50</width>
-                                      <height>50</height>
-                                     </rect>
-                                    </property>
-                                    <property name="styleSheet">
-                                     <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
-                                    </property>
-                                    <property name="frameShape">
-                                     <enum>QFrame::StyledPanel</enum>
-                                    </property>
-                                    <property name="frameShadow">
-                                     <enum>QFrame::Raised</enum>
-                                    </property>
-                                    <widget class="QLabel" name="label_percentage_mani_2">
-                                     <property name="geometry">
-                                      <rect>
-                                       <x>6</x>
-                                       <y>13</y>
-                                       <width>37</width>
-                                       <height>21</height>
-                                      </rect>
-                                     </property>
-                                     <property name="font">
-                                      <font>
-                                       <pointsize>10</pointsize>
-                                       <italic>false</italic>
-                                       <bold>false</bold>
-                                      </font>
-                                     </property>
-                                     <property name="autoFillBackground">
-                                      <bool>false</bool>
-                                     </property>
-                                     <property name="text">
-                                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:super;&quot;&gt;%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                                     </property>
-                                     <property name="scaledContents">
-                                      <bool>false</bool>
-                                     </property>
-                                     <property name="alignment">
-                                      <set>Qt::AlignCenter</set>
-                                     </property>
-                                     <property name="wordWrap">
-                                      <bool>false</bool>
-                                     </property>
-                                    </widget>
-                                   </widget>
                                    <widget class="QFrame" name="frame_mani_2">
                                     <property name="geometry">
                                      <rect>
@@ -4089,7 +4344,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </rect>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
+                                     <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 20); }</string>
                                     </property>
                                     <property name="frameShape">
                                      <enum>QFrame::NoFrame</enum>
@@ -4097,6 +4352,81 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                     <property name="frameShadow">
                                      <enum>QFrame::Raised</enum>
                                     </property>
+                                    <widget class="QFrame" name="frame_mani_5">
+                                     <property name="geometry">
+                                      <rect>
+                                       <x>0</x>
+                                       <y>0</y>
+                                       <width>60</width>
+                                       <height>60</height>
+                                      </rect>
+                                     </property>
+                                     <property name="styleSheet">
+                                      <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
+                                     </property>
+                                     <property name="frameShape">
+                                      <enum>QFrame::NoFrame</enum>
+                                     </property>
+                                     <property name="frameShadow">
+                                      <enum>QFrame::Raised</enum>
+                                     </property>
+                                     <widget class="QFrame" name="maniCircle2">
+                                      <property name="geometry">
+                                       <rect>
+                                        <x>5</x>
+                                        <y>5</y>
+                                        <width>50</width>
+                                        <height>50</height>
+                                       </rect>
+                                      </property>
+                                      <property name="styleSheet">
+                                       <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
+                                      </property>
+                                      <property name="frameShape">
+                                       <enum>QFrame::StyledPanel</enum>
+                                      </property>
+                                      <property name="frameShadow">
+                                       <enum>QFrame::Raised</enum>
+                                      </property>
+                                      <widget class="QLabel" name="label_percentage_mani_2">
+                                       <property name="geometry">
+                                        <rect>
+                                         <x>6</x>
+                                         <y>13</y>
+                                         <width>37</width>
+                                         <height>21</height>
+                                        </rect>
+                                       </property>
+                                       <property name="font">
+                                        <font>
+                                         <family>Segoe UI</family>
+                                         <pointsize>10</pointsize>
+                                         <weight>50</weight>
+                                         <italic>false</italic>
+                                         <bold>false</bold>
+                                        </font>
+                                       </property>
+                                       <property name="autoFillBackground">
+                                        <bool>false</bool>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true">background: transparent;</string>
+                                       </property>
+                                       <property name="text">
+                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:super;&quot;&gt;%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                       </property>
+                                       <property name="scaledContents">
+                                        <bool>false</bool>
+                                       </property>
+                                       <property name="alignment">
+                                        <set>Qt::AlignCenter</set>
+                                       </property>
+                                       <property name="wordWrap">
+                                        <bool>false</bool>
+                                       </property>
+                                      </widget>
+                                     </widget>
+                                    </widget>
                                    </widget>
                                    <widget class="QFrame" name="frame_mani_1">
                                     <property name="geometry">
@@ -4108,7 +4438,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </rect>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
+                                     <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 20); }</string>
                                     </property>
                                     <property name="frameShape">
                                      <enum>QFrame::NoFrame</enum>
@@ -4116,56 +4446,80 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                     <property name="frameShadow">
                                      <enum>QFrame::Raised</enum>
                                     </property>
-                                   </widget>
-                                   <widget class="QFrame" name="maniCircle">
-                                    <property name="geometry">
-                                     <rect>
-                                      <x>25</x>
-                                      <y>55</y>
-                                      <width>50</width>
-                                      <height>50</height>
-                                     </rect>
-                                    </property>
-                                    <property name="styleSheet">
-                                     <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
-                                    </property>
-                                    <property name="frameShape">
-                                     <enum>QFrame::StyledPanel</enum>
-                                    </property>
-                                    <property name="frameShadow">
-                                     <enum>QFrame::Raised</enum>
-                                    </property>
-                                    <widget class="QLabel" name="label_percentage_mani_1">
+                                    <widget class="QFrame" name="frame_mani_6">
                                      <property name="geometry">
                                       <rect>
-                                       <x>6</x>
-                                       <y>13</y>
-                                       <width>37</width>
-                                       <height>21</height>
+                                       <x>0</x>
+                                       <y>0</y>
+                                       <width>60</width>
+                                       <height>60</height>
                                       </rect>
                                      </property>
-                                     <property name="font">
-                                      <font>
-                                       <pointsize>10</pointsize>
-                                       <italic>false</italic>
-                                       <bold>false</bold>
-                                      </font>
+                                     <property name="styleSheet">
+                                      <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
                                      </property>
-                                     <property name="autoFillBackground">
-                                      <bool>false</bool>
+                                     <property name="frameShape">
+                                      <enum>QFrame::NoFrame</enum>
                                      </property>
-                                     <property name="text">
-                                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:super;&quot;&gt;%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                     <property name="frameShadow">
+                                      <enum>QFrame::Raised</enum>
                                      </property>
-                                     <property name="scaledContents">
-                                      <bool>false</bool>
-                                     </property>
-                                     <property name="alignment">
-                                      <set>Qt::AlignCenter</set>
-                                     </property>
-                                     <property name="wordWrap">
-                                      <bool>false</bool>
-                                     </property>
+                                     <widget class="QFrame" name="maniCircle">
+                                      <property name="geometry">
+                                       <rect>
+                                        <x>5</x>
+                                        <y>5</y>
+                                        <width>50</width>
+                                        <height>50</height>
+                                       </rect>
+                                      </property>
+                                      <property name="styleSheet">
+                                       <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
+                                      </property>
+                                      <property name="frameShape">
+                                       <enum>QFrame::StyledPanel</enum>
+                                      </property>
+                                      <property name="frameShadow">
+                                       <enum>QFrame::Raised</enum>
+                                      </property>
+                                      <widget class="QLabel" name="label_percentage_mani_1">
+                                       <property name="geometry">
+                                        <rect>
+                                         <x>6</x>
+                                         <y>13</y>
+                                         <width>37</width>
+                                         <height>21</height>
+                                        </rect>
+                                       </property>
+                                       <property name="font">
+                                        <font>
+                                         <family>Segoe UI</family>
+                                         <pointsize>10</pointsize>
+                                         <weight>50</weight>
+                                         <italic>false</italic>
+                                         <bold>false</bold>
+                                        </font>
+                                       </property>
+                                       <property name="autoFillBackground">
+                                        <bool>false</bool>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true">background: transparent;</string>
+                                       </property>
+                                       <property name="text">
+                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:super;&quot;&gt;%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                       </property>
+                                       <property name="scaledContents">
+                                        <bool>false</bool>
+                                       </property>
+                                       <property name="alignment">
+                                        <set>Qt::AlignCenter</set>
+                                       </property>
+                                       <property name="wordWrap">
+                                        <bool>false</bool>
+                                       </property>
+                                      </widget>
+                                     </widget>
                                     </widget>
                                    </widget>
                                    <widget class="QFrame" name="frame_mani_3">
@@ -4178,7 +4532,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </rect>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
+                                     <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 20); }</string>
                                     </property>
                                     <property name="frameShape">
                                      <enum>QFrame::NoFrame</enum>
@@ -4186,65 +4540,82 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                     <property name="frameShadow">
                                      <enum>QFrame::Raised</enum>
                                     </property>
-                                   </widget>
-                                   <widget class="QFrame" name="maniCircle3">
-                                    <property name="geometry">
-                                     <rect>
-                                      <x>275</x>
-                                      <y>65</y>
-                                      <width>50</width>
-                                      <height>50</height>
-                                     </rect>
-                                    </property>
-                                    <property name="styleSheet">
-                                     <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
-                                    </property>
-                                    <property name="frameShape">
-                                     <enum>QFrame::StyledPanel</enum>
-                                    </property>
-                                    <property name="frameShadow">
-                                     <enum>QFrame::Raised</enum>
-                                    </property>
-                                    <widget class="QLabel" name="label_percentage_mani_3">
+                                    <widget class="QFrame" name="frame_mani_4">
                                      <property name="geometry">
                                       <rect>
-                                       <x>6</x>
-                                       <y>13</y>
-                                       <width>37</width>
-                                       <height>21</height>
+                                       <x>0</x>
+                                       <y>0</y>
+                                       <width>60</width>
+                                       <height>60</height>
                                       </rect>
                                      </property>
-                                     <property name="font">
-                                      <font>
-                                       <pointsize>10</pointsize>
-                                       <italic>false</italic>
-                                       <bold>false</bold>
-                                      </font>
+                                     <property name="styleSheet">
+                                      <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
                                      </property>
-                                     <property name="autoFillBackground">
-                                      <bool>false</bool>
+                                     <property name="frameShape">
+                                      <enum>QFrame::NoFrame</enum>
                                      </property>
-                                     <property name="text">
-                                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:super;&quot;&gt;%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                     <property name="frameShadow">
+                                      <enum>QFrame::Raised</enum>
                                      </property>
-                                     <property name="scaledContents">
-                                      <bool>false</bool>
-                                     </property>
-                                     <property name="alignment">
-                                      <set>Qt::AlignCenter</set>
-                                     </property>
-                                     <property name="wordWrap">
-                                      <bool>false</bool>
-                                     </property>
+                                     <widget class="QFrame" name="maniCircle3">
+                                      <property name="geometry">
+                                       <rect>
+                                        <x>5</x>
+                                        <y>5</y>
+                                        <width>50</width>
+                                        <height>50</height>
+                                       </rect>
+                                      </property>
+                                      <property name="styleSheet">
+                                       <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
+                                      </property>
+                                      <property name="frameShape">
+                                       <enum>QFrame::StyledPanel</enum>
+                                      </property>
+                                      <property name="frameShadow">
+                                       <enum>QFrame::Raised</enum>
+                                      </property>
+                                      <widget class="QLabel" name="label_percentage_mani_3">
+                                       <property name="geometry">
+                                        <rect>
+                                         <x>6</x>
+                                         <y>13</y>
+                                         <width>37</width>
+                                         <height>21</height>
+                                        </rect>
+                                       </property>
+                                       <property name="font">
+                                        <font>
+                                         <family>Segoe UI</family>
+                                         <pointsize>10</pointsize>
+                                         <weight>50</weight>
+                                         <italic>false</italic>
+                                         <bold>false</bold>
+                                        </font>
+                                       </property>
+                                       <property name="autoFillBackground">
+                                        <bool>false</bool>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true">background: transparent;</string>
+                                       </property>
+                                       <property name="text">
+                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:super;&quot;&gt;%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                       </property>
+                                       <property name="scaledContents">
+                                        <bool>false</bool>
+                                       </property>
+                                       <property name="alignment">
+                                        <set>Qt::AlignCenter</set>
+                                       </property>
+                                       <property name="wordWrap">
+                                        <bool>false</bool>
+                                       </property>
+                                      </widget>
+                                     </widget>
                                     </widget>
                                    </widget>
-                                   <zorder>img_manipulator</zorder>
-                                   <zorder>frame_mani_2</zorder>
-                                   <zorder>maniCircle2</zorder>
-                                   <zorder>frame_mani_1</zorder>
-                                   <zorder>maniCircle</zorder>
-                                   <zorder>frame_mani_3</zorder>
-                                   <zorder>maniCircle3</zorder>
                                   </widget>
                                  </item>
                                 </layout>
@@ -4263,7 +4634,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </rect>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
+                                     <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 20); }</string>
                                     </property>
                                     <property name="frameShape">
                                      <enum>QFrame::NoFrame</enum>
@@ -4271,56 +4642,80 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                     <property name="frameShadow">
                                      <enum>QFrame::Raised</enum>
                                     </property>
-                                   </widget>
-                                   <widget class="QFrame" name="lysForwardContainer">
-                                    <property name="geometry">
-                                     <rect>
-                                      <x>10</x>
-                                      <y>10</y>
-                                      <width>50</width>
-                                      <height>50</height>
-                                     </rect>
-                                    </property>
-                                    <property name="styleSheet">
-                                     <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
-                                    </property>
-                                    <property name="frameShape">
-                                     <enum>QFrame::StyledPanel</enum>
-                                    </property>
-                                    <property name="frameShadow">
-                                     <enum>QFrame::Raised</enum>
-                                    </property>
-                                    <widget class="QLabel" name="label_percentage_lys_forward">
+                                    <widget class="QFrame" name="frame_lys_forward_2">
                                      <property name="geometry">
                                       <rect>
-                                       <x>6</x>
-                                       <y>13</y>
-                                       <width>37</width>
-                                       <height>21</height>
+                                       <x>0</x>
+                                       <y>0</y>
+                                       <width>60</width>
+                                       <height>60</height>
                                       </rect>
                                      </property>
-                                     <property name="font">
-                                      <font>
-                                       <pointsize>10</pointsize>
-                                       <italic>false</italic>
-                                       <bold>false</bold>
-                                      </font>
+                                     <property name="styleSheet">
+                                      <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
                                      </property>
-                                     <property name="autoFillBackground">
-                                      <bool>false</bool>
+                                     <property name="frameShape">
+                                      <enum>QFrame::NoFrame</enum>
                                      </property>
-                                     <property name="text">
-                                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:super;&quot;&gt;%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                     <property name="frameShadow">
+                                      <enum>QFrame::Raised</enum>
                                      </property>
-                                     <property name="scaledContents">
-                                      <bool>false</bool>
-                                     </property>
-                                     <property name="alignment">
-                                      <set>Qt::AlignCenter</set>
-                                     </property>
-                                     <property name="wordWrap">
-                                      <bool>false</bool>
-                                     </property>
+                                     <widget class="QFrame" name="lysForwardContainer">
+                                      <property name="geometry">
+                                       <rect>
+                                        <x>5</x>
+                                        <y>5</y>
+                                        <width>50</width>
+                                        <height>50</height>
+                                       </rect>
+                                      </property>
+                                      <property name="styleSheet">
+                                       <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
+                                      </property>
+                                      <property name="frameShape">
+                                       <enum>QFrame::StyledPanel</enum>
+                                      </property>
+                                      <property name="frameShadow">
+                                       <enum>QFrame::Raised</enum>
+                                      </property>
+                                      <widget class="QLabel" name="label_percentage_lys_forward">
+                                       <property name="geometry">
+                                        <rect>
+                                         <x>6</x>
+                                         <y>13</y>
+                                         <width>37</width>
+                                         <height>21</height>
+                                        </rect>
+                                       </property>
+                                       <property name="font">
+                                        <font>
+                                         <family>Segoe UI</family>
+                                         <pointsize>10</pointsize>
+                                         <weight>50</weight>
+                                         <italic>false</italic>
+                                         <bold>false</bold>
+                                        </font>
+                                       </property>
+                                       <property name="autoFillBackground">
+                                        <bool>false</bool>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true">background: transparent;</string>
+                                       </property>
+                                       <property name="text">
+                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:super;&quot;&gt;%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                       </property>
+                                       <property name="scaledContents">
+                                        <bool>false</bool>
+                                       </property>
+                                       <property name="alignment">
+                                        <set>Qt::AlignCenter</set>
+                                       </property>
+                                       <property name="wordWrap">
+                                        <bool>false</bool>
+                                       </property>
+                                      </widget>
+                                     </widget>
                                     </widget>
                                    </widget>
                                   </widget>
@@ -4337,7 +4732,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                      </rect>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
+                                     <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 20); }</string>
                                     </property>
                                     <property name="frameShape">
                                      <enum>QFrame::NoFrame</enum>
@@ -4345,56 +4740,80 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                     <property name="frameShadow">
                                      <enum>QFrame::Raised</enum>
                                     </property>
-                                   </widget>
-                                   <widget class="QFrame" name="lysDownContainer">
-                                    <property name="geometry">
-                                     <rect>
-                                      <x>9</x>
-                                      <y>5</y>
-                                      <width>50</width>
-                                      <height>50</height>
-                                     </rect>
-                                    </property>
-                                    <property name="styleSheet">
-                                     <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
-                                    </property>
-                                    <property name="frameShape">
-                                     <enum>QFrame::StyledPanel</enum>
-                                    </property>
-                                    <property name="frameShadow">
-                                     <enum>QFrame::Raised</enum>
-                                    </property>
-                                    <widget class="QLabel" name="label_percentage_lys_down">
+                                    <widget class="QFrame" name="frame_lys_down_2">
                                      <property name="geometry">
                                       <rect>
-                                       <x>6</x>
-                                       <y>13</y>
-                                       <width>37</width>
-                                       <height>21</height>
+                                       <x>0</x>
+                                       <y>0</y>
+                                       <width>60</width>
+                                       <height>60</height>
                                       </rect>
                                      </property>
-                                     <property name="font">
-                                      <font>
-                                       <pointsize>10</pointsize>
-                                       <italic>false</italic>
-                                       <bold>false</bold>
-                                      </font>
+                                     <property name="styleSheet">
+                                      <string notr="true">QFrame { border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
                                      </property>
-                                     <property name="autoFillBackground">
-                                      <bool>false</bool>
+                                     <property name="frameShape">
+                                      <enum>QFrame::NoFrame</enum>
                                      </property>
-                                     <property name="text">
-                                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:super;&quot;&gt;%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                     <property name="frameShadow">
+                                      <enum>QFrame::Raised</enum>
                                      </property>
-                                     <property name="scaledContents">
-                                      <bool>false</bool>
-                                     </property>
-                                     <property name="alignment">
-                                      <set>Qt::AlignCenter</set>
-                                     </property>
-                                     <property name="wordWrap">
-                                      <bool>false</bool>
-                                     </property>
+                                     <widget class="QFrame" name="lysDownContainer">
+                                      <property name="geometry">
+                                       <rect>
+                                        <x>5</x>
+                                        <y>5</y>
+                                        <width>50</width>
+                                        <height>50</height>
+                                       </rect>
+                                      </property>
+                                      <property name="styleSheet">
+                                       <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
+                                      </property>
+                                      <property name="frameShape">
+                                       <enum>QFrame::StyledPanel</enum>
+                                      </property>
+                                      <property name="frameShadow">
+                                       <enum>QFrame::Raised</enum>
+                                      </property>
+                                      <widget class="QLabel" name="label_percentage_lys_down">
+                                       <property name="geometry">
+                                        <rect>
+                                         <x>6</x>
+                                         <y>13</y>
+                                         <width>37</width>
+                                         <height>21</height>
+                                        </rect>
+                                       </property>
+                                       <property name="font">
+                                        <font>
+                                         <family>Segoe UI</family>
+                                         <pointsize>10</pointsize>
+                                         <weight>50</weight>
+                                         <italic>false</italic>
+                                         <bold>false</bold>
+                                        </font>
+                                       </property>
+                                       <property name="autoFillBackground">
+                                        <bool>false</bool>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true">background: transparent;</string>
+                                       </property>
+                                       <property name="text">
+                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:super;&quot;&gt;%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                       </property>
+                                       <property name="scaledContents">
+                                        <bool>false</bool>
+                                       </property>
+                                       <property name="alignment">
+                                        <set>Qt::AlignCenter</set>
+                                       </property>
+                                       <property name="wordWrap">
+                                        <bool>false</bool>
+                                       </property>
+                                      </widget>
+                                     </widget>
                                     </widget>
                                    </widget>
                                   </widget>
@@ -4415,7 +4834,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                    </property>
                                    <property name="font">
                                     <font>
+                                     <family>Segoe UI</family>
                                      <pointsize>10</pointsize>
+                                     <weight>50</weight>
                                      <italic>false</italic>
                                      <bold>false</bold>
                                     </font>
@@ -4444,7 +4865,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                    </property>
                                    <property name="font">
                                     <font>
+                                     <family>Segoe UI</family>
                                      <pointsize>10</pointsize>
+                                     <weight>50</weight>
                                      <italic>false</italic>
                                      <bold>false</bold>
                                     </font>
@@ -4485,7 +4908,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                    </property>
                                    <property name="font">
                                     <font>
+                                     <family>Segoe UI</family>
                                      <pointsize>10</pointsize>
+                                     <weight>50</weight>
                                      <italic>false</italic>
                                      <bold>false</bold>
                                     </font>
@@ -4517,7 +4942,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                    </property>
                                    <property name="font">
                                     <font>
+                                     <family>Segoe UI</family>
                                      <pointsize>10</pointsize>
+                                     <weight>50</weight>
                                      <italic>false</italic>
                                      <bold>false</bold>
                                     </font>
@@ -4561,7 +4988,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                    </property>
                                    <property name="font">
                                     <font>
+                                     <family>Segoe UI</family>
                                      <pointsize>10</pointsize>
+                                     <weight>50</weight>
                                      <italic>false</italic>
                                      <bold>false</bold>
                                     </font>
@@ -4661,7 +5090,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                  </property>
                                  <property name="font">
                                   <font>
+                                   <family>Segoe UI</family>
                                    <pointsize>10</pointsize>
+                                   <weight>50</weight>
                                    <italic>false</italic>
                                    <bold>false</bold>
                                   </font>
@@ -4705,7 +5136,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                     </property>
                                     <property name="font">
                                      <font>
+                                      <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4740,7 +5173,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                     </property>
                                     <property name="font">
                                      <font>
+                                      <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4775,7 +5210,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                     </property>
                                     <property name="font">
                                      <font>
+                                      <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4810,7 +5247,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                     </property>
                                     <property name="font">
                                      <font>
+                                      <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4845,7 +5284,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                     </property>
                                     <property name="font">
                                      <font>
+                                      <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4868,7 +5309,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                     </property>
                                     <property name="font">
                                      <font>
+                                      <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4891,7 +5334,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                     </property>
                                     <property name="font">
                                      <font>
+                                      <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4959,7 +5404,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                     </property>
                                     <property name="font">
                                      <font>
+                                      <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4991,7 +5438,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                     </property>
                                     <property name="font">
                                      <font>
+                                      <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -5020,7 +5469,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                     </property>
                                     <property name="font">
                                      <font>
+                                      <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -5058,7 +5509,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                     </property>
                                     <property name="font">
                                      <font>
+                                      <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -5326,7 +5779,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                             </property>
                                             <property name="font">
                                              <font>
+                                              <family>Segoe UI</family>
                                               <pointsize>10</pointsize>
+                                              <weight>50</weight>
                                               <italic>false</italic>
                                               <bold>false</bold>
                                              </font>
@@ -5413,7 +5868,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                             </property>
                                             <property name="font">
                                              <font>
+                                              <family>Segoe UI</family>
                                               <pointsize>10</pointsize>
+                                              <weight>50</weight>
                                               <italic>false</italic>
                                               <bold>false</bold>
                                              </font>
@@ -5448,7 +5905,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                             </property>
                                             <property name="font">
                                              <font>
+                                              <family>Segoe UI</family>
                                               <pointsize>10</pointsize>
+                                              <weight>50</weight>
                                               <italic>false</italic>
                                               <bold>false</bold>
                                              </font>
@@ -5508,7 +5967,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                           </property>
                                           <property name="font">
                                            <font>
+                                            <family>Segoe UI</family>
                                             <pointsize>10</pointsize>
+                                            <weight>50</weight>
                                             <italic>false</italic>
                                             <bold>false</bold>
                                            </font>
@@ -5544,7 +6005,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                           </property>
                                           <property name="font">
                                            <font>
+                                            <family>Segoe UI</family>
                                             <pointsize>10</pointsize>
+                                            <weight>50</weight>
                                             <italic>false</italic>
                                             <bold>false</bold>
                                            </font>
@@ -5578,7 +6041,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <property name="font">
                                        <font>
+                                        <family>Segoe UI</family>
                                         <pointsize>10</pointsize>
+                                        <weight>50</weight>
                                         <italic>false</italic>
                                         <bold>false</bold>
                                        </font>
@@ -5619,7 +6084,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -5653,7 +6120,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -5684,7 +6153,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -5715,7 +6186,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -5746,7 +6219,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -5777,7 +6252,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -5808,7 +6285,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -5839,7 +6318,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -5865,7 +6346,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -5896,7 +6379,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -5922,7 +6407,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -5948,7 +6435,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -5977,7 +6466,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6008,7 +6499,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6034,7 +6527,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6065,7 +6560,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6096,7 +6593,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6127,7 +6626,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6167,7 +6668,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <property name="font">
                                         <font>
+                                         <family>Segoe UI</family>
                                          <pointsize>10</pointsize>
+                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6324,7 +6827,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                            </property>
                            <property name="font">
                             <font>
+                             <family>Segoe UI</family>
                              <pointsize>10</pointsize>
+                             <weight>50</weight>
                              <italic>false</italic>
                              <bold>false</bold>
                             </font>
@@ -6359,7 +6864,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                            </property>
                            <property name="font">
                             <font>
+                             <family>Segoe UI</family>
                              <pointsize>10</pointsize>
+                             <weight>50</weight>
                              <italic>false</italic>
                              <bold>false</bold>
                             </font>
@@ -6394,7 +6901,9 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                            </property>
                            <property name="font">
                             <font>
+                             <family>Segoe UI</family>
                              <pointsize>10</pointsize>
+                             <weight>50</weight>
                              <italic>false</italic>
                              <bold>false</bold>
                             </font>
