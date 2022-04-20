@@ -654,8 +654,8 @@ if __name__ == "__main__":
             print("network started")
 
             id = t_watch.add_thread()
-            snd_data_to_rov = threading.Thread(target=run, args=(network, t_watch, id, queue_for_rov, gui_parent_pipe), daemon=True)
-            snd_data_to_rov.start()
+            main_driver_loop = threading.Thread(target=run, args=(network, t_watch, id, queue_for_rov, gui_parent_pipe), daemon=True)
+            main_driver_loop.start()
 
             # recieve_data_from_rov = threading.Thread(target=recieve_data_from_rov, args=(network, t_watch, id), daemon=True)
             # recieve_data_from_rov.start()
@@ -663,8 +663,8 @@ if __name__ == "__main__":
         elif run_get_controllerdata:
             print("starting send to rov")
             id = t_watch.add_thread()
-            snd_data_to_rov = threading.Thread(target=run, args=(None, t_watch, id, queue_for_rov, gui_parent_pipe), daemon=True)
-            snd_data_to_rov.start()
+            main_driver_loop = threading.Thread(target=run, args=(None, t_watch, id, queue_for_rov, gui_parent_pipe), daemon=True)
+            main_driver_loop.start()
 
         if run_send_fake_sensordata:
             thrust_list = [num for num in range(-100,101)]
