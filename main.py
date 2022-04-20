@@ -343,7 +343,6 @@ class Rov_state:
                 return
             if abs(camera_movement) > 0:
                 old_tilt = self.camera_tilt[self.active_camera]
-                # print(f"{self.data.get('camera_movement')}")
                 tilt_time_sec = 2  # time in seconds for the camera to move from one side to the other
                 total_degrees = 80
                 tilt_per_ms = total_degrees/(tilt_time_sec*1000)
