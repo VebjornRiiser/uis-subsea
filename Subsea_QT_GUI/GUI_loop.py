@@ -397,7 +397,7 @@ void main() {
         
         # print(f"type of self.widget: {type(self.widget)}")
         # these need to match up with the indexes of the buttons on the controller
-        self.btn_combobox_list:list[QComboBox] = [self.comboBox_A_btn, self.comboBox_B_btn, self.comboBox_X_btn, self.comboBox_Y_btn, self.comboBox_LB_btn, self.comboBox_RB_btn, self.comboBox_view_btn, self.comboBox_menu_btn, self.comboBox_left_stick_btn, self.comboBox_right_stick_btn]
+        self.btn_combobox_list:list[QComboBox] = [self.comboBox_A_btn, self.comboBox_B_btn, self.comboBox_X_btn, self.comboBox_Y_btn, self.comboBox_RB_btn, self.comboBox_LB_btn, self.comboBox_view_btn, self.comboBox_menu_btn, self.comboBox_left_stick_btn, self.comboBox_right_stick_btn]
         btn_command_list:list[str] = []
         with open("button_config.txt", 'r', encoding="utf-8") as btn_config:
             btn_command_list = [line.strip() for line in btn_config.readlines()]
@@ -774,23 +774,25 @@ void main() {
         # self.check_data_types(sensordata["lekk_temp"], (int, float, float, float))
         # print(f"ran gui_lekk_temp_update {sensordata = }")
         # print(f"{sensordata =}")
+        temp_label_list:list[QLabel] = [self.label_temp_ROV_hovedkort, self.label_temp_ROV_kraftkort,
+         self.label_temp_ROV_sensorkort, self.label_gjsnitt_temp_ROV]
         lekkasje_liste: list[bool] = [sensordata[0], sensordata[1], sensordata[2]]
         if not isinstance(lekkasje_liste[0], bool):
             raise TypeError(f"Lekkasje sensor 1 has wrong type. {type(lekkasje_liste[0]) = }, {lekkasje_liste[0]} ")
-        temp1 = round(sensordata[3])
-        temp2 = round(sensordata[4])
-        temp3 = round(sensordata[5])
-        average_temp =  round(sum((temp1, temp2, temp3))/3)
-        self.label_temp_ROV_hovedkort.setText(str(temp1))
-        self.label_temp_ROV_kraftkort.setText(str(temp2))
-        self.label_temp_ROV_sensorkort.setText(str(temp3))
-        self.label_gjsnitt_temp_ROV.setText(str(average_temp)) 
-        # lekkasje_liste.count(True)
+        average_temp =  round(sum((sensordata[3:6]))/3)
+        sensordata.append(average_temp)
+        for i in range(4):
+            temp_label_list[i].setText(str(sensordata[i+3]))
+            if sensordata[i+3] > 65:
+                temp_label_list[i].setStyleSheet("background-color: #ff0000; border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
+            else:
+                temp_label_list[i].setStyleSheet("background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
+
         id_with_lekkasje = []
         for lekkasje_nr, is_lekkasje in enumerate(lekkasje_liste):
             if is_lekkasje:
                 id_with_lekkasje.append(lekkasje_nr+1)
-        if not self.lekkasje_varsel_is_running:
+        if not self.lekkasje_varsel_is_running and len(id_with_lekkasje)>0:
             self.lekkasje_varsel_is_running = True
             threading.Thread(target=lambda: self.lekkasje_varsel(id_with_lekkasje)).start()
                 
