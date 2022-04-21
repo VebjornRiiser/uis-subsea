@@ -8,7 +8,7 @@ class Threadwatcher:
         self.threads[self.id] = True
         return self.id
 
-    def should_run(self, id):
+    def should_run(self, id)-> bool:
         if id in self.threads:
             return self.threads[id]
         return True
@@ -21,3 +21,4 @@ class Threadwatcher:
         for i in range(len(self.threads)):
             self.stop_thread(i)
         print(self.threads)
+

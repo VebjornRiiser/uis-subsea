@@ -1,7 +1,6 @@
 from concurrent.futures import thread
 from getopt import getopt
 import multiprocessing
-from pickle import FALSE
 # import multiprocessing
 from logger import Logger
 from os import pipe
@@ -67,8 +66,8 @@ def create_test_sensordata(delta, old_sensordata=None):
 
 MANIPULATOR_IN_OUT = 1
 MANIPULATOR_ROTATE = 0
-BUTTON_GRAB = 4
-BUTTON_RELEASE = 5
+BUTTON_RELEASE = 4
+BUTTON_GRAB = 5
 
 class Rov_state:
     def __init__(self, queue, network_handler, gui_pipe, t_watch: Threadwatcher) -> None:
@@ -100,7 +99,7 @@ class Rov_state:
         # self.cam_is_enabled = [True, True]
         # list of functions that can be triggered by buttons. # need a function to tell it to grip and release and not do it by button like we do in build manipulator byte
         # theese functions need to line up their indexes with the line in button_config.txt
-        self.button_function_list = [self.skip, self.toggle_active_camera, self.toggle_between_rotation_and_camera_tilt, self.toggle_manipulator_enabled, self.manipulator_grip, self.manipulator_release, self.update_bildebehandlingsmodus_controller, self.skip]
+        self.button_function_list = [self.skip, self.toggle_active_camera, self.toggle_between_rotation_and_camera_tilt, self.toggle_manipulator_enabled, self.manipulator_release, self.manipulator_grip, self.update_bildebehandlingsmodus_controller, self.skip]
         #maps a button to a index in button_function_list Can be changed from gui
         self.button_to_function_map = [0, 6, 0, 1, 4, 5, 0, 0, 3, 2]
         self.camera_is_on = [True, True]
@@ -308,7 +307,7 @@ class Rov_state:
 
         # print(self.packets_to_send)
         for packet in self.packets_to_send:
-            if packet[0] != 70:
+            if packet[0] != 71:
                 print(f"{packet = }")
                 # pass
         self.logger.sensor_logger.info(self.packets_to_send)
@@ -344,7 +343,6 @@ class Rov_state:
                 return
             if abs(camera_movement) > 0:
                 old_tilt = self.camera_tilt[self.active_camera]
-                # print(f"{self.data.get('camera_movement')}")
                 tilt_time_sec = 2  # time in seconds for the camera to move from one side to the other
                 total_degrees = 80
                 tilt_per_ms = total_degrees/(tilt_time_sec*1000)
@@ -629,7 +627,7 @@ if __name__ == "__main__":
         run_gui = True
         run_get_controllerdata = True
         run_network = False
-        run_send_fake_sensordata = True
+        run_send_fake_sensordata = False
         manual_input_rotation = False
         
         queue_for_rov = multiprocessing.Queue()
@@ -656,8 +654,8 @@ if __name__ == "__main__":
             print("network started")
 
             id = t_watch.add_thread()
-            snd_data_to_rov = threading.Thread(target=run, args=(network, t_watch, id, queue_for_rov, gui_parent_pipe), daemon=True)
-            snd_data_to_rov.start()
+            main_driver_loop = threading.Thread(target=run, args=(network, t_watch, id, queue_for_rov, gui_parent_pipe), daemon=True)
+            main_driver_loop.start()
 
             # recieve_data_from_rov = threading.Thread(target=recieve_data_from_rov, args=(network, t_watch, id), daemon=True)
             # recieve_data_from_rov.start()
@@ -665,8 +663,8 @@ if __name__ == "__main__":
         elif run_get_controllerdata:
             print("starting send to rov")
             id = t_watch.add_thread()
-            snd_data_to_rov = threading.Thread(target=run, args=(None, t_watch, id, queue_for_rov, gui_parent_pipe), daemon=True)
-            snd_data_to_rov.start()
+            main_driver_loop = threading.Thread(target=run, args=(None, t_watch, id, queue_for_rov, gui_parent_pipe), daemon=True)
+            main_driver_loop.start()
 
         if run_send_fake_sensordata:
             thrust_list = [num for num in range(-100,101)]
@@ -677,7 +675,7 @@ if __name__ == "__main__":
             gui_parent_pipe.send(sensordata)
             while t_watch.should_run(0):
                 count += 1
-                sensordata["lekk_temp"] = [True, False, False, (25+count)%99, (37+count)%99, (61+count)%99]
+                sensordata["lekk_temp"] = [False, False, False, (25+count)%99, (37+count)%99, (61+count)%99]
                 sensordata["thrust"] = [thrust_list[(0+count)%201], thrust_list[(13+count)%201], thrust_list[(25+count)%201], thrust_list[(38+count)%201], thrust_list[(37+count)%201], thrust_list[(50+count)%201], thrust_list[(63+count)%201], thrust_list[(75+count)%201], thrust_list[(88+count)%201], thrust_list[(107+count)%201]]
                 sensordata["power_consumption"] = [power_list[count%101]*13, power_list[count%101]*2.4, power_list[count%101]*0.65]
                 gui_parent_pipe.send(sensordata)

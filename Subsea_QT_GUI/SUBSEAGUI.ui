@@ -1520,7 +1520,7 @@ p, li { white-space: pre-wrap; }
                       <string notr="true">background-color: transparent;</string>
                      </property>
                      <property name="currentIndex">
-                      <number>1</number>
+                      <number>2</number>
                      </property>
                      <widget class="QWidget" name="home">
                       <property name="autoFillBackground">
@@ -1971,9 +1971,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <property name="font">
                                        <font>
-                                        <family>Segoe UI</family>
                                         <pointsize>10</pointsize>
-                                        <weight>50</weight>
                                         <italic>false</italic>
                                         <bold>false</bold>
                                        </font>
@@ -2777,9 +2775,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                       </property>
                                       <property name="font">
                                        <font>
-                                        <family>Segoe UI</family>
                                         <pointsize>10</pointsize>
-                                        <weight>50</weight>
                                         <italic>false</italic>
                                         <bold>false</bold>
                                        </font>
@@ -6167,7 +6163,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </property>
                                        </item>
                                       </widget>
-                                      <widget class="QComboBox" name="comboBox_RB_btn">
+                                      <widget class="QComboBox" name="comboBox_RT_btn">
                                        <property name="geometry">
                                         <rect>
                                          <x>800</x>
@@ -6196,7 +6192,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <item>
                                         <property name="text">
-                                         <string>Gripe manipulator</string>
+                                         <string>ROV opp/hiv</string>
                                         </property>
                                        </item>
                                       </widget>
@@ -6233,7 +6229,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </property>
                                        </item>
                                       </widget>
-                                      <widget class="QComboBox" name="comboBox_RT_btn">
+                                      <widget class="QComboBox" name="comboBox_RB_btn">
                                        <property name="geometry">
                                         <rect>
                                          <x>800</x>
@@ -6262,7 +6258,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <item>
                                         <property name="text">
-                                         <string>ROV opp/hiv</string>
+                                         <string>Gripe manipulator</string>
                                         </property>
                                        </item>
                                       </widget>
@@ -6541,7 +6537,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </property>
                                        </item>
                                       </widget>
-                                      <widget class="QComboBox" name="comboBox_LB_btn">
+                                      <widget class="QComboBox" name="comboBox_LT_btn">
                                        <property name="geometry">
                                         <rect>
                                          <x>70</x>
@@ -6570,7 +6566,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <item>
                                         <property name="text">
-                                         <string>Slippe manipulator</string>
+                                         <string>ROV ned/hiv</string>
                                         </property>
                                        </item>
                                       </widget>
@@ -6607,7 +6603,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                         </property>
                                        </item>
                                       </widget>
-                                      <widget class="QComboBox" name="comboBox_LT_btn">
+                                      <widget class="QComboBox" name="comboBox_LB_btn">
                                        <property name="geometry">
                                         <rect>
                                          <x>100</x>
@@ -6636,7 +6632,7 @@ QPushButton:checked { background-color: rgb(35, 41, 54); border: 1px solid rgb(2
                                        </property>
                                        <item>
                                         <property name="text">
-                                         <string>ROV ned/hiv</string>
+                                         <string>Slippe manipulator</string>
                                         </property>
                                        </item>
                                       </widget>
