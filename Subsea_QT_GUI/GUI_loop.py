@@ -57,7 +57,7 @@ class AnotherWindow(QWidget):
         self.setWindowIcon(QtGui.QIcon('Subsea_QT_GUI/images/camera.png'))
 
         self.url = f"http://10.0.0.2:{port}/cam.html"
-        self.url = f"https://nrk.no"
+        # self.url = f"https://nrk.no"
         self.stream1:QWebEngineView = QWebEngineView(self)
         self.stream1.setFixedWidth(1920)
         self.stream1.setFixedHeight(1080)
@@ -65,21 +65,22 @@ class AnotherWindow(QWidget):
 
         def __init__(self, aleft: int, atop: int, awidth: int, aheight: int) -> None: ...
         
-        label_tilt = QLabel(text="test--sa-ds-ad-sad-ad-asd-sa")
-        self.stream1.layout().addWidget(label_tilt)
-        label_tilt.setGeometry(-100,-100,100,20)
-        # label_tilt.raise_()
-        label_tilt.setStyleSheet("QLabel { color: rgba(255, 255, 255, 200); background-color: rgba(179, 32, 36, 200); font-size: 24pt;}")
+        # label_tilt = QLabel(text="test--sa-ds-ad-sad-ad-asd-sa")
+        # self.stream1.layout().addWidget(label_tilt)
+        # label_tilt.setGeometry(-100,-100,100,20)
+        # # label_tilt.raise_()
+        # label_tilt.setStyleSheet("QLabel { color: rgba(255, 255, 255, 200); background-color: rgba(179, 32, 36, 200); font-size: 24pt;}")
         # self.layout.addWidget(QLabel(text="test--sa-ds-ad-sad-ad-asd-sa"), alignment=QtCore.Qt.AlignRight)
 
 
-        # if len(QtWidgets.QApplication.screens())>2:
-        #     monitor = QDesktopWidget().screenGeometry(int(f"{port-6887}"))
-        #     self.move(monitor.left(), monitor.top())
-        #     self.showFullScreen()
-        # else:
-        #     self.showMaximized()
-        #     self.showFullScreen()
+        if len(QtWidgets.QApplication.screens())>2:
+            monitor = QDesktopWidget().screenGeometry(int(f"{port-6887}"))
+            self.move(monitor.left(), monitor.top())
+            self.showMaximized()
+            # self.showFullScreen()
+        else:
+            self.showMaximized()
+            # self.showFullScreen()
 
 PROFILE_UPDATE_ID = 2
 COMMAND_TO_ROV_ID = 3
@@ -326,8 +327,8 @@ void main() {
         self.btn_ta_bilde_frontkamera.clicked.connect(lambda: self.ta_bilde(0))
         self.btn_ta_bilde_havbunn.clicked.connect(lambda: self.ta_bilde(1))
         
-        self.slider_lys_down.setValue(100)
-        self.slider_lys_forward.setValue(100)
+        # self.slider_lys_down.setValue(100)
+        # self.slider_lys_forward.setValue(100)
 
         self.slider_lys_down.valueChanged.connect(self.send_current_ligth_intensity)
         self.slider_lys_forward.valueChanged.connect(self.send_current_ligth_intensity)
@@ -388,7 +389,7 @@ void main() {
         self.connect_sliders_to_gui()
 
         #hest
-        self.camera_windows_opened = False
+        self.camera_windows_opened = True
         if self.camera_windows_opened:
             self.start_camera_windows()
 
@@ -454,7 +455,7 @@ void main() {
             self.send_command_to_rov(["update_bildebehandling", 0, modus_kamera_1])
         if modus_kamera_2 != -1:
             self.send_command_to_rov(["update_bildebehandling", 1, modus_kamera_2])
-        self.label_bildebehandlingsmodus.setText(navn)
+        self.label_bildebehandlingsmodus.setText(str(navn))
 
 
     # HOME PAGE FUNCTIONS
@@ -606,7 +607,7 @@ void main() {
             print(fname)
             with open(fname[0], 'r', encoding="utf-8") as profile:
                 profile.readlines()
-            self.filename.setText(fname) # for å vise fram filepath
+            self.filename.setText(str(fname)) # for å vise fram filepath
         self.save_profile()
     
     

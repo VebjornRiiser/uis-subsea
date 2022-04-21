@@ -307,7 +307,7 @@ class Rov_state:
 
         # print(self.packets_to_send)
         for packet in self.packets_to_send:
-            if packet[0] != 70:
+            if packet[0] != 71:
                 print(f"{packet = }")
                 # pass
         self.logger.sensor_logger.info(self.packets_to_send)
@@ -627,7 +627,7 @@ if __name__ == "__main__":
         run_gui = True
         run_get_controllerdata = True
         run_network = False
-        run_send_fake_sensordata = True
+        run_send_fake_sensordata = False
         manual_input_rotation = False
         
         queue_for_rov = multiprocessing.Queue()

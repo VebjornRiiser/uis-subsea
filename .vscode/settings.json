@@ -2,5 +2,6 @@
     "python.pythonPath": "venv\\Scripts\\python.exe",
     "python.linting.flake8Enabled": true,
     "python.linting.enabled": false,
-    "python.linting.pylintEnabled": false
+    "python.linting.pylintEnabled": false,
+    "editor.bracketPairColorization.independentColorPoolPerBracketType": true
 }
