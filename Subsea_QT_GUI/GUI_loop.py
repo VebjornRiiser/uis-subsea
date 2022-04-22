@@ -113,6 +113,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         # STL VIEWER /////////////////////////////////////////////////
         self.viewer = gl.GLViewWidget()
         self.viewer.opts['distance'] = 250
+        self.viewer.opts['elevation'] = 60
         self.traces = dict()
 
 
@@ -318,7 +319,7 @@ void main() {
         self.btn_reset_nullpunkt.clicked.connect(self.set_start_point_depth_sensor)
 
         self.btn_start_video_frontkamera.clicked.connect(lambda: self.video_toggle(self.btn_start_video_frontkamera, 0))
-        self.btn_start_video_frontkamera.clicked.connect(lambda: self.video_toggle(self.btn_start_video_havbunn, 1))
+        self.btn_start_video_havbunn.clicked.connect(lambda: self.video_toggle(self.btn_start_video_havbunn, 1))
 
         self.btn_regulator_elektronikk.clicked.connect(lambda: self.toggle_regulator(0, self.btn_regulator_elektronikk))
         self.btn_regulator_manipulator.clicked.connect(lambda: self.toggle_regulator(1, self.btn_regulator_manipulator))
@@ -330,8 +331,6 @@ void main() {
         # self.slider_lys_down.setValue(100)
         # self.slider_lys_forward.setValue(100)
 
-        self.slider_lys_down.valueChanged.connect(self.send_current_ligth_intensity)
-        self.slider_lys_forward.valueChanged.connect(self.send_current_ligth_intensity)
         
         self.slider_struping_thrustere.valueChanged.connect(self.send_thruster_struping)
 
@@ -389,7 +388,7 @@ void main() {
         self.connect_sliders_to_gui()
 
         #hest
-        self.camera_windows_opened = True
+        self.camera_windows_opened = False
         if self.camera_windows_opened:
             self.start_camera_windows()
 
@@ -425,15 +424,18 @@ void main() {
         # self.setTestValue(self.slider_struping_thrustere, self.label_percentage_struping, self.frame_struping, "rgba(85, 170, 255, 255)")
         self.change_current_widget(1)
         self.maximize_restore()
+        self.slider_lys_down.valueChanged.connect(self.send_current_ligth_intensity)
+        self.slider_lys_forward.valueChanged.connect(self.send_current_ligth_intensity)
 
         # ///////////////////////////////////////////////////////////////
     def update_regulering(self, id: int):
         self.send_command_to_rov(["regulering", [id]])
 
     def video_toggle(self, btn, id: int):
-        self.send_command_to_rov(["video_toggle", btn.isChecked(), id])
+        self.send_command_to_rov(["video_toggle", [btn.isChecked(), id]])
 
     def send_thruster_struping(self):
+        # print(self.viewer.opts)
         self.send_command_to_rov(["thruster_struping", self.slider_struping_thrustere.value()])
 
     def toggle_regulator(self, nr: int, btn: QPushButton):
@@ -791,7 +793,7 @@ void main() {
 
         id_with_lekkasje = []
         for lekkasje_nr, is_lekkasje in enumerate(lekkasje_liste):
-            if is_lekkasje:
+            if not is_lekkasje:
                 id_with_lekkasje.append(lekkasje_nr+1)
         if not self.lekkasje_varsel_is_running and len(id_with_lekkasje)>0:
             self.lekkasje_varsel_is_running = True
@@ -847,12 +849,12 @@ void main() {
         # so it is not necesarry to reset or rotate it
         # print(f"{sensordata = }")
         # hiv, rull, stamp
-        print(f"gyro update inside gui = {sensordata = }")
-        self.meshitem.rotate(-self.rov_3d_coordinates[1], 0, 1, 0, local=True)
-        self.meshitem.rotate(-self.rov_3d_coordinates[2], 1, 0, 0, local=True)
+        # print(f"gyro update inside gui = {sensordata = }")
+        self.meshitem.rotate(self.rov_3d_coordinates[1], 1, 0, 0, local=True)
+        self.meshitem.rotate(self.rov_3d_coordinates[2], 0, 1, 0, local=True)
 
-        self.meshitem.rotate(sensordata[2], 1, 0, 0, local=True)
-        self.meshitem.rotate(sensordata[1], 0, 1, 0, local=True)
+        self.meshitem.rotate(-sensordata[2], 0, 1, 0, local=True)
+        self.meshitem.rotate(-sensordata[1], 1, 0, 0, local=True)
 
         # height translation
         height_diff = sensordata[0]-self.rov_3d_coordinates[0]

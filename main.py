@@ -132,7 +132,7 @@ class Rov_state:
         self.packets_to_send.append([201, {"tilt": self.camera_tilt[1]}])
         self.packets_to_send.append([64,  []])
         self.packets_to_send.append([96,  []])
-        self.packets_to_send.append([128, []])
+        # self.packets_to_send.append([128, []])
         
         self.set_depth_zeroing()
 
@@ -154,9 +154,9 @@ class Rov_state:
     def toggle_manipulator_enabled(self, button_index = None, state = None):
         
         if state is not None and button_index is None:
-            print(f"{state=}, {button_index=}")
+            # print(f"{state=}, {button_index=}")
             self.manipulator_active = state
-            print(f"{self.manipulator_active = }")
+            # print(f"{self.manipulator_active = }")
             return
 
         if self.manipulator_toggle_wait_counter == 0:    
@@ -266,7 +266,8 @@ class Rov_state:
         self.packets_to_send.append([71, sensordata])
 
     def video_toggle(self, data):
-        self.packets_to_send.append([])
+        # print(f"{data=}")
+        self.packets_to_send.append([200+data[1], {"video_recording": data[0]}])
     
     def shutdown(self):
         print("recieved shutdown from gui")
@@ -300,6 +301,30 @@ class Rov_state:
 
         # self.send_sensordata_to_gui(sensordata)
 
+
+
+
+    def craft_packet(self, t_watch: Threadwatcher, id):
+        while t_watch.should_run(id):
+            userinput = input("Packet: [parameter_id of type int, value of type float or int]: ")
+            var = []
+            try:
+                var = json.loads(userinput)
+                if not isinstance(var[0], int):
+                    print("Error: parameter id was not an int! try again.")
+                    continue
+                if not isinstance(var[1], int) or isinstance(var[1], float):
+                    print("Error: parameter id was not an int or float! try again.")
+                    continue
+                if len(var) != 2:
+                    print("Error: list was not length 2")
+                    continue
+            except Exception as e:
+                print(f"Error when parsing input\n {e}")
+                continue
+
+            self.packets_to_send.append([71, var])
+
     def send_packets(self):
         """Sends the created network packets and clears it"""
         # self.network_handler.send(network_format([[96,[]]]))
@@ -307,7 +332,7 @@ class Rov_state:
 
         # print(self.packets_to_send)
         for packet in self.packets_to_send:
-            if packet[0] != 71:
+            if packet[0] != 70:
                 print(f"{packet = }")
                 # pass
         self.logger.sensor_logger.info(self.packets_to_send)
@@ -316,6 +341,7 @@ class Rov_state:
             return
         self.network_handler.send(network_format(self.packets_to_send))
         self.packets_to_send = []
+        
 
     def toggle_between_rotation_and_camera_tilt(self, button_index):
         if self.right_joystick_toggle_wait_counter == 0:
@@ -496,13 +522,22 @@ class Rov_state:
 
     def handle_data_from_rov(self, message: dict):
         self.logger.sensor_logger.info(message)
-        message_name = list(message.keys())[0]
+        # print(message)
+        if "ERROR" in message:
+            # print(message)
+            return
+        try:
+            message_name = list(message.keys())[0]
+        except Exception as e:
+            print(e)
         if message_name in self.valid_gui_commands:
-            # if message_name == "gyro":
-            print(f"linje 489: {message}")
+            # if message_name == "thrust":
+                # print(f"motatt data i main: {message}")
+                # print(f"hhf, hhb, hvb, hvf, vhf, vhb, vvb, vvf")
             self.send_sensordata_to_gui(message)
         else:
-            print(f"\n\nMESSAGE NOT RECOGNISED AS VALID GUI COMMAND\n{message}\n")
+            pass
+            # print(f"\n\nMESSAGE NOT RECOGNISED AS VALID GUI COMMAND\n{message}\n")
 
 
     def handle_gyro(self, sensordata):
@@ -518,6 +553,9 @@ def run(network_handler: Network, t_watch: Threadwatcher, id: int, queue_for_rov
         id = t_watch.add_thread()
         threading.Thread(target=rov_state.recieve_data_from_rov, args=(network_handler, t_watch, id), daemon=True).start()
 
+    # id = t_watch.add_thread()
+    # threading.Thread(target=rov_state.craft_packet, args=(t_watch, id), daemon=True).start()
+
     while t_watch.should_run(id):
         rov_state.tick()
 
@@ -526,10 +564,12 @@ def run(network_handler: Network, t_watch: Threadwatcher, id: int, queue_for_rov
 
         rov_state.get_from_queue()
         if rov_state.data == {}:
+
             continue
         rov_state.check_controls()
         rov_state.send_local_sensordata()
         rov_state.send_packets()
+        rov_state.data = {}
 
 ID = 0
 
@@ -623,10 +663,12 @@ if __name__ == "__main__":
         global run_gui
         global manual_input_rotation
         global run_network
+        global run_craft_packet
         start_time_sec = time.time()
         run_gui = True
         run_get_controllerdata = True
-        run_network = False
+        run_network = True
+        run_craft_packet = False
         run_send_fake_sensordata = False
         manual_input_rotation = False
         
@@ -671,18 +713,18 @@ if __name__ == "__main__":
             power_list = [num for num in range(0, 101)]
             count = -1
             sensordata = {}
-            sensordata["lekk_temp"] = [True,  False, True, (25+count)%99, (37+count)%99, (61+count)%99]
+            sensordata["lekk_temp"] = [True,  True, True, (25+count)%99, (37+count)%99, (61+count)%99]
             gui_parent_pipe.send(sensordata)
             while t_watch.should_run(0):
                 count += 1
-                sensordata["lekk_temp"] = [False, False, False, (25+count)%99, (37+count)%99, (61+count)%99]
+                sensordata["lekk_temp"] = [True, True, True, (25+count)%99, (37+count)%99, (61+count)%99]
                 sensordata["thrust"] = [thrust_list[(0+count)%201], thrust_list[(13+count)%201], thrust_list[(25+count)%201], thrust_list[(38+count)%201], thrust_list[(37+count)%201], thrust_list[(50+count)%201], thrust_list[(63+count)%201], thrust_list[(75+count)%201], thrust_list[(88+count)%201], thrust_list[(107+count)%201]]
                 sensordata["power_consumption"] = [power_list[count%101]*13, power_list[count%101]*2.4, power_list[count%101]*0.65]
                 gui_parent_pipe.send(sensordata)
-                time.sleep(0.03333)
+                time.sleep(1)
 
         while True:
-            time.sleep(1)
+            time.sleep(5)
     except KeyboardInterrupt:
         gui_loop.kill()
         t_watch.stop_all_threads()
