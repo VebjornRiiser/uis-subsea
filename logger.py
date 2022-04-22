@@ -5,9 +5,9 @@ import os
 class Logger:
     def __init__(self):
         self.logfolder = "logs/"
-        if not os.path.exists("/logs"): # Need to create logs folder
+        if not os.path.exists(self.logfolder): # Need to create logs folder
             os.mkdir(self.logfolder)
-        
+
         formated_date = datetime.datetime.now().strftime("%Y-%m-%d %H.%M.%S")
 
         # logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s')

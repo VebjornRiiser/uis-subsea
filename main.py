@@ -327,14 +327,11 @@ class Rov_state:
 
     def send_packets(self):
         """Sends the created network packets and clears it"""
-        # self.network_handler.send(network_format([[96,[]]]))
-        # return
 
-        # print(self.packets_to_send)
         for packet in self.packets_to_send:
             if packet[0] != 70:
                 print(f"{packet = }")
-                # pass
+                pass
         self.logger.sensor_logger.info(self.packets_to_send)
         if self.network_handler is None:
             self.packets_to_send = []
@@ -387,6 +384,8 @@ class Rov_state:
 
     def build_styredata(self):
         #  X, Y, Z, rotasjon, (m.teleskop, m.vri, m.klype, enable), fri, regulering_av_på,  throttle  ##########
+        if self.data == {}:
+            return
         styredata = []
         styredata.append(self.data["joysticks"][X_axis])
         styredata.append(self.data["joysticks"][Y_axis])
@@ -477,13 +476,15 @@ class Rov_state:
             self.image_processing_mode_wait_counter = 7
 
     def send_local_sensordata(self):
+        buttons = self.data.get("buttons", [0]*10)
+        dpad = self.data.get("dpad", (0, 0))
         time_since_start = time.time()-self.start_time
-        rotation = self.data["dpad"][0] * 100
-        in_out = self.data["dpad"][1] * 100
+        rotation = dpad[0] * 100
+        in_out = dpad[1] * 100
         grip_percent = 0
-        if self.data["buttons"][BUTTON_GRAB] == 1:
+        if buttons[BUTTON_GRAB] == 1:
             grip_percent = 100
-        elif self.data["buttons"][BUTTON_RELEASE] == 1:
+        elif buttons[BUTTON_RELEASE] == 1:
             grip_percent = -100
         if run_send_fake_sensordata:
             self.position[0] += self.data["joysticks"][Y_axis]*(3/100)
@@ -552,9 +553,9 @@ def run(network_handler: Network, t_watch: Threadwatcher, id: int, queue_for_rov
     if network_handler != None:
         id = t_watch.add_thread()
         threading.Thread(target=rov_state.recieve_data_from_rov, args=(network_handler, t_watch, id), daemon=True).start()
-
-    # id = t_watch.add_thread()
-    # threading.Thread(target=rov_state.craft_packet, args=(t_watch, id), daemon=True).start()
+    if run_craft_packet:
+        id = t_watch.add_thread()
+        threading.Thread(target=rov_state.craft_packet, args=(t_watch, id), daemon=True).start()
 
     while t_watch.should_run(id):
         rov_state.tick()
@@ -563,11 +564,9 @@ def run(network_handler: Network, t_watch: Threadwatcher, id: int, queue_for_rov
             rov_state.get_rotation_input()
 
         rov_state.get_from_queue()
-        if rov_state.data == {}:
-
-            continue
-        rov_state.check_controls()
         rov_state.send_local_sensordata()
+        if run_get_controllerdata and rov_state.data != {}:
+            rov_state.check_controls()
         rov_state.send_packets()
         rov_state.data = {}
 
@@ -658,7 +657,6 @@ if __name__ == "__main__":
     # get_args()
     # exit(0)
     try:
-
         global start_time_sec
         global run_gui
         global manual_input_rotation
@@ -666,7 +664,7 @@ if __name__ == "__main__":
         global run_craft_packet
         start_time_sec = time.time()
         run_gui = True
-        run_get_controllerdata = True
+        run_get_controllerdata = False
         run_network = False
         run_craft_packet = False
         run_send_fake_sensordata = False
@@ -695,18 +693,10 @@ if __name__ == "__main__":
             network = Network(is_server=False, port=6900, connect_addr="10.0.0.2")
             print("network started")
 
-            id = t_watch.add_thread()
-            main_driver_loop = threading.Thread(target=run, args=(network, t_watch, id, queue_for_rov, gui_parent_pipe), daemon=True)
-            main_driver_loop.start()
-
-            # recieve_data_from_rov = threading.Thread(target=recieve_data_from_rov, args=(network, t_watch, id), daemon=True)
-            # recieve_data_from_rov.start()
-
-        elif run_get_controllerdata:
-            print("starting send to rov")
-            id = t_watch.add_thread()
-            main_driver_loop = threading.Thread(target=run, args=(None, t_watch, id, queue_for_rov, gui_parent_pipe), daemon=True)
-            main_driver_loop.start()
+        print("starting send to rov")
+        id = t_watch.add_thread()
+        main_driver_loop = threading.Thread(target=run, args=(network, t_watch, id, queue_for_rov, gui_parent_pipe), daemon=True)
+        main_driver_loop.start()
 
         if run_send_fake_sensordata:
             thrust_list = [num for num in range(-100,101)]
