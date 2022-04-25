@@ -1,7 +1,0 @@
----
-Kamera-toggle-active
-Kamera-tilt-toggle
-Manipulator av/på
-Gripe manipulator
-Slippe manipulator
-Bytt bildebehandlingsmodus
