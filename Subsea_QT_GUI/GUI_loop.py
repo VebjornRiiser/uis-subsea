@@ -281,9 +281,6 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.maximize_restore()
         self.slider_lys_down.valueChanged.connect(self.send_current_ligth_intensity)
         self.slider_lys_forward.valueChanged.connect(self.send_current_ligth_intensity)
-        self.img_manipulator_2:QLabel
-        
-
 
     def make_toggle_btns(self):
         self.toggle_mani = PyToggle()
@@ -840,7 +837,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         htmlText = f"""<p align="center"><span style=" font-size:9pt;">{value}
         </span><span style=" font-size:9pt; vertical-align:super;">%</span></p>"""
         text_label.setText(htmlText)
-        styleSheet = """QFrame{ border-radius: 30px; background-color: qconicalgradient(cx:0.5, cy:0.5, angle:90, stop:{STOP_1} rgba(255, 0, 127, 0), stop:{STOP_2} {COLOR}); }"""
+        styleSheet = """QFrame{ border-radius: 30px; background-color: qconicalgradient(cx:0.5, cy:0.5, angle:90, stop:{STOP_1} rgba(77, 77, 127, 100), stop:{STOP_2} {COLOR}); }"""
         styleSheet = styleSheet.replace("{STOP_1}", str(stop_1)).replace("{STOP_2}", str(stop_2)).replace("{COLOR}", color)
         round_frame.setStyleSheet(styleSheet)
 
