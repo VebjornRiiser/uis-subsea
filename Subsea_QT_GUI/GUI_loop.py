@@ -278,6 +278,8 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.maximize_restore()
         self.slider_lys_down.valueChanged.connect(self.send_current_ligth_intensity)
         self.slider_lys_forward.valueChanged.connect(self.send_current_ligth_intensity)
+        self.img_manipulator_2:QLabel
+        QTransform() self.img_manipulator_2.
 
 
 
