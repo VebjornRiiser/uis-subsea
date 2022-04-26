@@ -132,6 +132,8 @@ class Rov_state:
         self.packets_to_send.append([201, {"tilt": self.camera_tilt[1]}])
         self.packets_to_send.append([64,  []])
         self.packets_to_send.append([96,  []])
+        self.packets_to_send.append([71,  [11, 0.7]])
+
         # self.packets_to_send.append([128, []])
         
         self.set_depth_zeroing()
@@ -263,6 +265,7 @@ class Rov_state:
             
 
     def toggle_regulering(self, sensordata):
+        sensordata.append(1)
         self.packets_to_send.append([71, sensordata])
 
     def video_toggle(self, data):
@@ -313,9 +316,9 @@ class Rov_state:
                 if not isinstance(var[0], int):
                     print("Error: parameter id was not an int! try again.")
                     continue
-                if not isinstance(var[1], int) or isinstance(var[1], float):
-                    print("Error: parameter id was not an int or float! try again.")
-                    continue
+                # if not isinstance(var[1], int) or not isinstance(var[1], float):
+                #     print("Error: parameter id was not an int or float! try again.")
+                #     continue
                 if len(var) != 2:
                     print("Error: list was not length 2")
                     continue
@@ -330,8 +333,8 @@ class Rov_state:
 
         for packet in self.packets_to_send:
             if packet[0] != 70:
-                print(f"{packet = }")
                 pass
+                print(f"{packet = }")
         self.logger.sensor_logger.info(self.packets_to_send)
         if self.network_handler is None:
             self.packets_to_send = []

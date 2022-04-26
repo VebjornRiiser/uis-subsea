@@ -764,6 +764,10 @@ void main() {
 
     def gui_thrust_update(self, sensordata):
         # print(f"ran gui_thrust_update {sensordata = }")
+        for i in range(len(sensordata)):
+            if sensordata[i] > 100:
+                sensordata[i] = 100
+                
         self.update_round_percent_visualizer(sensordata[0], self.label_percentage_HHF, self.frame_HHF)
         self.update_round_percent_visualizer(sensordata[1], self.label_percentage_HHB, self.frame_HHB)
         self.update_round_percent_visualizer(sensordata[2], self.label_percentage_HVB, self.frame_HVB)
