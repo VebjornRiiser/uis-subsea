@@ -670,7 +670,7 @@ if __name__ == "__main__":
         run_get_controllerdata = False
         run_network = False
         run_craft_packet = False
-        run_send_fake_sensordata = False
+        run_send_fake_sensordata = True
         manual_input_rotation = False
         
         queue_for_rov = multiprocessing.Queue()
