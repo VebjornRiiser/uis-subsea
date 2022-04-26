@@ -36,8 +36,9 @@ QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)  # use highdpi i
 os.environ["QT_FONT_DPI"] = "96" # FIX Problem for High DPI and Scale above 100%
 
 
-# GLOBALS
+# GLOBALS:
 # ///////////////////////////////////////////////////////////////
+
 GLOBAL_STATE = False
 GLOBAL_TITLE_BAR = True
 
@@ -89,7 +90,7 @@ COMMAND_TO_ROV_ID = 3
 class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     def __init__(self, pipe_conn_only_rcv, queue: multiprocessing.Queue, t_watch: Threadwatcher, id: int, parent=None):
         super().__init__(parent)
-        
+
         self.lekkasje_varsel_is_running = False
 
         self.setWindowIcon(QtGui.QIcon('Subsea_QT_GUI/images/logo.png'))
@@ -100,21 +101,224 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.rov_3d_coordinates = [0, 0, 0]
         self.rotation_counter = 0
         self.last_rotation = [0, 0]
+
         # Remove frame around window
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-        
+
         self.setup_gui_with_folder_change()
 
         # Set the stylesheet of the application
         #self.set_style(self, self.auto_btn)
         #self.styleSheet.setStyleSheet(s)
-        
 
-        # STL VIEWER /////////////////////////////////////////////////
+
+        # STL viewer for ROV 3D model
+        self.view_STL()
+       
+        button = QtGui.QPushButton()
+        button.setText('Rotate')
+        xyz = [0, 360, 0]
+        button.clicked.connect(lambda: self.update(xyz))
+        #self.layout.addWidget(button)
+
+        '''
+        def set_plotdata(self, name, points, color, width):
+                self.traces[name].setData(pos=points, color=color, width=width)
+        '''
+
+        # GUI buttons clicked
+        
+        # KJØREMODUS
+
+        # Toggle buttons 
+        # https://www.youtube.com/watch?v=NnJFi285s3M&ab_channel=Wanderson
+        self.make_toggle_btns()
+
+        # BILDEBEHANDLING
+        #self.beregn_strl_btn(self.beregn_strl)
+        #self.fotomoasaikk_btn(self.fotomoasaikk)
+
+        # VIDEO
+        #self.start_video_btn(self.start_video)
+        #self.stopp_video_btn(self.stop_video)
+
+        # KAMERA
+        #self.ta_bilde_frontkamera_btn(self.ta_bilde_frontkamera)
+        #self.ta_bilde_havbunn_btn(self.ta_bilde_havbunnskamera)
+        #self.slett_bilde_btn(self.slett_siste_bilde)
+
+        # Vis siste bildet:
+        #self.show_image
+        
+        # Menu button clicked
+        # self.btn_toggle.clicked.connect(lambda: self.change_current_widget(0))
+        self.btn_kontroller.clicked.connect(lambda: self.change_current_widget(2))
+        self.btn_informasjon.clicked.connect(lambda: self.change_current_widget(1))
+
+        # Kjøremodus
+        self.btn_manuell.clicked.connect(lambda: self.set_bildebehandlingsmodus(0, -1, "Manuell kjøring"))
+        self.btn_finn_fisk.clicked.connect(lambda: self.set_bildebehandlingsmodus(1, 0, "Finn fisk"))
+        self.btn_autonom_merd.clicked.connect(lambda: self.set_bildebehandlingsmodus(2, 0, "Autonom merd"))
+        self.btn_bildemoasaikk.clicked.connect(lambda: self.set_bildebehandlingsmodus(0, 3, "Bildemosaikk"))
+        self.btn_autonom_parkering.clicked.connect(lambda: self.set_bildebehandlingsmodus(4, 0, "Autonom parkering"))
+
+        # Reset sikring
+        self.btn_reset_sikring_elektronikk.clicked.connect(lambda: self.reset_sikring(0))
+        self.btn_reset_sikring_manipulator.clicked.connect(lambda: self.reset_sikring(1))
+        self.btn_reset_sikring_thrustere.clicked.connect(lambda: self.reset_sikring(2))
+
+        # Reset nullpunkt
+        self.btn_reset_nullpunkt.clicked.connect(self.set_start_point_depth_sensor)
+
+        # Start video
+        self.btn_start_video_frontkamera.clicked.connect(lambda: self.video_toggle(self.btn_start_video_frontkamera, 0))
+        self.btn_start_video_frontkamera.clicked.connect(lambda: self.video_toggle(self.btn_start_video_havbunn, 1))
+
+        # Av/På-effektforbruk
+        self.btn_regulator_elektronikk.clicked.connect(lambda: self.toggle_regulator(0, self.btn_regulator_elektronikk))
+        self.btn_regulator_manipulator.clicked.connect(lambda: self.toggle_regulator(1, self.btn_regulator_manipulator))
+        self.btn_regulator_thrustere.clicked.connect(lambda: self.toggle_regulator(2, self.btn_regulator_thrustere))
+
+        # Ta bilde
+        self.btn_ta_bilde_frontkamera.clicked.connect(lambda: self.ta_bilde(0))
+        self.btn_ta_bilde_havbunn.clicked.connect(lambda: self.ta_bilde(1))
+        
+        # Lys-slidere
+        self.slider_lys_down.valueChanged.connect(self.send_current_ligth_intensity)
+        self.slider_lys_forward.valueChanged.connect(self.send_current_ligth_intensity)
+        
+        # Struping-slider
+        self.slider_struping_thrustere.valueChanged.connect(self.send_thruster_struping)
+
+        self.send_current_ligth_intensity()
+
+
+        # CONTROLLER PAGE:
+        # "Lag ny profil"-button clicked
+        self.btn_make_new_profile.clicked.connect(self.make_new_profile)
+        #self.make_new_profile_btn.clicked.connect(self.make_new_profile)
+
+        # "Reset"-button clicked
+        self.btn_reset.clicked.connect(self.reset_profile)
+
+        # "Lagre"-button clicked
+        self.btn_save_profile.clicked.connect(lambda: self.save_profile())
+        self.btn_save_profile.setEnabled(False)
+
+        # -----------------------------------
+        # LEGGES INN I EN ANNEN FIL:
+        #self.init_drop_shadow()
+
+        self.titleRightInfo.mouseDoubleClickEvent = self.dobleClickMaximizeRestore
+        self.maximizeRestoreAppBtn.mouseDoubleClickEvent = self.dobleClickMaximizeRestore
+
+        self.titleRightInfo.mouseMoveEvent = self.moveWindow
+
+        # STANDARD TITLE BAR
+        self.setWindowFlags(Qt.FramelessWindowHint)
+        #self.setAttribute(Qt.WA_TranslucentBackground)
+
+        # CUSTOM GRIPS
+        self.left_grip = CustomGrip(self, Qt.LeftEdge, True)
+        self.right_grip = CustomGrip(self, Qt.RightEdge, True)
+        self.top_grip = CustomGrip(self, Qt.TopEdge, True)
+        self.bottom_grip = CustomGrip(self, Qt.BottomEdge, True)
+
+        # RESIZE WINDOW
+        self.sizegrip = QSizeGrip(self.frame_size_grip)
+        self.sizegrip.setStyleSheet("width: 20px; height: 20px; margin 0px; padding: 0px;")
+
+        # MINIMIZE
+        self.minimizeAppBtn.clicked.connect(self.minimize)
+        
+        # MAXIMIZE/RESTORE
+        self.maximizeRestoreAppBtn.clicked.connect(self.maximize_restore)
+
+        # CLOSE APPLICATION
+        self.closeAppBtn.clicked.connect(self.shutdown)
+        
+        self.connect_sliders_to_gui()
+
+        # test
+        self.camera_windows_opened = True
+        if self.camera_windows_opened:
+            self.start_camera_windows()
+
+        self.recieve = threading.Thread(target=self.recieve_sensordata, daemon=True, args=(self.pipe_conn_only_rcv,))
+        self.recieve.start()
+        
+        # print(f"type of self.widget: {type(self.widget)}")
+        # these need to match up with the indexes of the buttons on the controller
+        self.btn_combobox_list:list[QComboBox] = [self.comboBox_A_btn, self.comboBox_B_btn, self.comboBox_X_btn, self.comboBox_Y_btn, self.comboBox_RB_btn, self.comboBox_LB_btn, self.comboBox_view_btn, self.comboBox_menu_btn, self.comboBox_left_stick_btn, self.comboBox_right_stick_btn]
+        btn_command_list:list[str] = []
+        with open("button_config.txt", 'r', encoding="utf-8") as btn_config:
+            btn_command_list = [line.strip() for line in btn_config.readlines()]
+        for btn in self.btn_combobox_list:
+            btn:QComboBox
+            btn.clear()  # removes the options already in the combobox
+            btn.addItems(btn_command_list) # adds the possible commands
+            btn.currentIndexChanged.connect(self.updated_profile_settings)
+
+
+        self.set_default_profile()
+        self.send_profile_to_main()
+
+        self.combobox_styling()
+        self.setStyle(QStyleFactory.create('Windows'))
+        self.comboBox_Y_btn.setStyle(QStyleFactory.create('Windows'))
+        self.comboBox_velg_profil.currentIndexChanged.connect(self.load_selected_profile)
+        self.toggle_frontlys.setChecked(True)
+        self.toggle_havbunnslys.setChecked(True)
+        self.send_current_ligth_intensity()
+        self.set_bildebehandlingsmodus(-1, -1, "Manuell kjøring")
+        # self.setTestValue(self.slider_lys_forward, self.label_percentage_lys_forward, self.frame_lys_forward, "rgba(85, 170, 255, 255)")
+        # self.setTestValue(self.slider_lys_down, self.label_percentage_lys_down, self.frame_lys_down, "rgba(85, 170, 255, 255)")
+        # self.setTestValue(self.slider_struping_thrustere, self.label_percentage_struping, self.frame_struping, "rgba(85, 170, 255, 255)")
+        self.change_current_widget(1)
+        self.maximize_restore()
+
+
+
+    def make_toggle_btns(self):
+        self.toggle_mani = PyToggle()
+        self.toggle_hiv_regulering = PyToggle()
+        self.toggle_stamp_regulering = PyToggle()
+        self.toggle_rull_regulering = PyToggle()
+        self.toggle_frontlys = PyToggle()
+        self.toggle_havbunnslys = PyToggle()
+        
+        self.toggle_hiv_regulering.stateChanged.connect(lambda: self.update_regulering(3))
+        self.toggle_rull_regulering.stateChanged.connect(lambda: self.update_regulering(4))
+        self.toggle_stamp_regulering.stateChanged.connect(lambda: self.update_regulering(5))
+        self.toggle_hiv_regulering.setChecked(True)
+        self.toggle_rull_regulering.setChecked(True)
+        self.toggle_stamp_regulering.setChecked(True)
+
+        self.toggle_mani.setText("Manipulator")
+        self.toggle_hiv_regulering.setText("Hiv-regulering")
+        self.toggle_stamp_regulering.setText("Helning")
+        self.toggle_frontlys.setText("Frontlys")
+        self.toggle_havbunnslys.setText("Havbunnslys")
+
+        self.toggle_mani.stateChanged.connect(self.toggle_manipulator_enable)
+        self.toggle_mani.setChecked(True)
+
+        self.toggle_frontlys.stateChanged.connect(self.send_current_ligth_intensity)
+        self.toggle_havbunnslys.stateChanged.connect(self.send_current_ligth_intensity)
+
+        self.toggle_layout.addWidget(self.toggle_mani, alignment=QtCore.Qt.AlignRight)
+        self.toggle_layout.addWidget(self.toggle_hiv_regulering, alignment=QtCore.Qt.AlignRight)
+        self.toggle_layout.addWidget(self.toggle_stamp_regulering, alignment=QtCore.Qt.AlignRight)
+        self.toggle_layout.addWidget(self.toggle_rull_regulering, alignment=QtCore.Qt.AlignRight)
+        self.toggle_layout.addWidget(self.toggle_frontlys, alignment=QtCore.Qt.AlignRight)
+        self.toggle_layout.addWidget(self.toggle_havbunnslys, alignment=QtCore.Qt.AlignRight)
+
+
+    # --------------------------------------------------------------------------------------
+    def view_STL(self):
         self.viewer = gl.GLViewWidget()
         self.viewer.opts['distance'] = 250
         self.traces = dict()
-
 
         # SHADER
         # gl.shaders.Shaders.append(gl.shaders.ShaderProgram('myShader', [
@@ -153,49 +357,49 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             """),
         gl.shaders.FragmentShader("""
                 #ifdef GL_ES
-precision mediump float;
-#endif
-/* Color palette */
-#define BLACK           vec3(0.0, 0.0, 0.0)
-#define WHITE           vec3(1.0, 1.0, 1.0)
-#define RED             vec3(1.0, 0.0, 0.0)
-#define GREEN           vec3(0.0, 1.0, 0.0)
-#define BLUE            vec3(0.0, 0.0, 1.0)
-#define YELLOW          vec3(1.0, 1.0, 0.0)
-#define CYAN            vec3(0.0, 1.0, 1.0)
-#define MAGENTA         vec3(1.0, 0.0, 1.0)
-#define ORANGE          vec3(1.0, 0.5, 0.0)
-#define PURPLE          vec3(1.0, 0.0, 0.5)
-#define LIME            vec3(0.5, 1.0, 0.0)
-#define ACQUA           vec3(0.0, 1.0, 0.5)
-#define VIOLET          vec3(0.5, 0.0, 1.0)
-#define AZUR            vec3(0.0, 0.5, 1.0)
-#define PI 3.14159
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
+                precision mediump float;
+                #endif
+                /* Color palette */
+                #define BLACK           vec3(0.0, 0.0, 0.0)
+                #define WHITE           vec3(1.0, 1.0, 1.0)
+                #define RED             vec3(1.0, 0.0, 0.0)
+                #define GREEN           vec3(0.0, 1.0, 0.0)
+                #define BLUE            vec3(0.0, 0.0, 1.0)
+                #define YELLOW          vec3(1.0, 1.0, 0.0)
+                #define CYAN            vec3(0.0, 1.0, 1.0)
+                #define MAGENTA         vec3(1.0, 0.0, 1.0)
+                #define ORANGE          vec3(1.0, 0.5, 0.0)
+                #define PURPLE          vec3(1.0, 0.0, 0.5)
+                #define LIME            vec3(0.5, 1.0, 0.0)
+                #define ACQUA           vec3(0.0, 1.0, 0.5)
+                #define VIOLET          vec3(0.5, 0.0, 1.0)
+                #define AZUR            vec3(0.0, 0.5, 1.0)
+                #define PI 3.14159
+                uniform vec2 u_resolution;
+                uniform vec2 u_mouse;
 
-float ylargerthanxsquared(vec2 normalpos) {
-    //should be 1 when y is larger than x^2  
-    return step(pow(normalpos.x, 2.) ,normalpos.y) - 1.*step(2.,pow(normalpos.x,2.));
-    
-}
+                float ylargerthanxsquared(vec2 normalpos) {
+                    //should be 1 when y is larger than x^2  
+                    return step(pow(normalpos.x, 2.) ,normalpos.y) - 1.*step(2.,pow(normalpos.x,2.));
+                    
+                }
 
-void main() {
-    vec2 normal_pixel = ((gl_FragCoord.xy/u_resolution)-0.5);
-    // step(normal_pixel.x,0.)*step(normal_pixel.y,0.);
-    
+                void main() {
+                    vec2 normal_pixel = ((gl_FragCoord.xy/u_resolution)-0.5);
+                    // step(normal_pixel.x,0.)*step(normal_pixel.y,0.);
+                    
 
-    // float stepresult = pow((normal_pixel[0]),2.0);
+                    // float stepresult = pow((normal_pixel[0]),2.0);
 
-    // gl_FragColor = vec4(stepresult),0.0,0.0,1.0);
-    // gl_FragColor = vec4(ylargerthanxsquared(normal_pixel),0.0,0.0,1.0);
-    gl_FragColor = vec4(abs(ylargerthanxsquared(normal_pixel*10.)*step(0.,normal_pixel.y)),0.0,0.0,1.0);
-    }
+                    // gl_FragColor = vec4(stepresult),0.0,0.0,1.0);
+                    // gl_FragColor = vec4(ylargerthanxsquared(normal_pixel),0.0,0.0,1.0);
+                    gl_FragColor = vec4(abs(ylargerthanxsquared(normal_pixel*10.)*step(0.,normal_pixel.y)),0.0,0.0,1.0);
+                    }
             """)
         ]))
 
-        cwd = os.getcwd()
-        self.stl_mesh = mesh.Mesh.from_file(f'{cwd}/ROV.STL') # Imported stl file
+        cwd = os.getcwd() # Current working directory
+        self.stl_mesh = mesh.Mesh.from_file(f'{cwd}/ROV.STL') # Imported STL file
         shape = self.stl_mesh.points.shape
         points = self.stl_mesh.points.reshape(-1, 3)
         faces = np.arange(points.shape[0]).reshape(-1, 3)
@@ -223,210 +427,9 @@ void main() {
 
         self.rotation = [0, 0, 0]
 
-        self.viewer.show()
+        self.viewer.show()  
         
-        button = QtGui.QPushButton()
-        button.setText('Rotate')
-        xyz = [0, 360, 0]
-        button.clicked.connect(lambda: self.update(xyz))
-        #self.layout.addWidget(button)
 
-
-
-
-    # //////////////////////////////////////////////
-
-        '''
-        def set_plotdata(self, name, points, color, width):
-                self.traces[name].setData(pos=points, color=color, width=width)
-        '''
-
-
-
-        # //////////////////////////////////////////////////////////////
-        # GUI buttons clicked
-        
-        # KJØREMODUS
-
-        # Toggle buttons 
-        
-        # Toggle button: https://www.youtube.com/watch?v=NnJFi285s3M&ab_channel=Wanderson
-        self.toggle_mani = PyToggle()
-        self.toggle_hiv_regulering = PyToggle()
-        self.toggle_stamp_regulering = PyToggle()
-        self.toggle_rull_regulering = PyToggle()
-        self.toggle_frontlys = PyToggle()
-        self.toggle_havbunnslys = PyToggle()
-        
-        self.toggle_hiv_regulering.stateChanged.connect(lambda: self.update_regulering(3))
-        self.toggle_rull_regulering.stateChanged.connect(lambda: self.update_regulering(4))
-        self.toggle_stamp_regulering.stateChanged.connect(lambda: self.update_regulering(5))
-        self.toggle_hiv_regulering.setChecked(True)
-        self.toggle_rull_regulering.setChecked(True)
-        self.toggle_stamp_regulering.setChecked(True)
-
-        self.toggle_mani.setText("Manipulator")
-        self.toggle_hiv_regulering.setText("Hiv-regulering")
-        self.toggle_stamp_regulering.setText("Helning")
-        self.toggle_frontlys.setText("Frontlys")
-        self.toggle_havbunnslys.setText("Havbunnslys")
-
-        self.toggle_mani.stateChanged.connect(self.toggle_manipulator_enable)
-        self.toggle_mani.setChecked(True)
-
-        self.toggle_frontlys.stateChanged.connect(self.send_current_ligth_intensity)
-        self.toggle_havbunnslys.stateChanged.connect(self.send_current_ligth_intensity)
-
-        self.toggle_layout.addWidget(self.toggle_mani, alignment=QtCore.Qt.AlignRight)
-        self.toggle_layout.addWidget(self.toggle_hiv_regulering, alignment=QtCore.Qt.AlignRight)
-        self.toggle_layout.addWidget(self.toggle_stamp_regulering, alignment=QtCore.Qt.AlignRight)
-        self.toggle_layout.addWidget(self.toggle_rull_regulering, alignment=QtCore.Qt.AlignRight)
-        self.toggle_layout.addWidget(self.toggle_frontlys, alignment=QtCore.Qt.AlignRight)
-        self.toggle_layout.addWidget(self.toggle_havbunnslys, alignment=QtCore.Qt.AlignRight)
-
-    
-        # BILDEBEHANDLING
-        #self.beregn_strl_btn(self.beregn_strl)
-        #self.fotomoasaikk_btn(self.fotomoasaikk)
-
-        # VIDEO
-        #self.start_video_btn(self.start_video)
-        #self.stopp_video_btn(self.stop_video)
-
-        # KAMERA
-        #self.ta_bilde_frontkamera_btn(self.ta_bilde_frontkamera)
-        #self.ta_bilde_havbunn_btn(self.ta_bilde_havbunnskamera)
-        #self.slett_bilde_btn(self.slett_siste_bilde)
-
-        # Vis siste bildet:
-        #self.show_image
-        
-        # Menu button clicked
-        # self.btn_toggle.clicked.connect(lambda: self.change_current_widget(0))
-        self.btn_kontroller.clicked.connect(lambda: self.change_current_widget(2))
-        self.btn_informasjon.clicked.connect(lambda: self.change_current_widget(1))
-        self.btn_manuell.clicked.connect(lambda: self.set_bildebehandlingsmodus(0, -1, "Manuell kjøring"))
-        self.btn_finn_fisk.clicked.connect(lambda: self.set_bildebehandlingsmodus(1, 0, "Finn fisk"))
-        self.btn_autonom_merd.clicked.connect(lambda: self.set_bildebehandlingsmodus(2, 0, "Autonom merd"))
-        self.btn_bildemoasaikk.clicked.connect(lambda: self.set_bildebehandlingsmodus(0, 3, "Bildemosaikk"))
-        self.btn_autonom_parkering.clicked.connect(lambda: self.set_bildebehandlingsmodus(4, 0, "Autonom parkering"))
-
-        self.btn_reset_sikring_elektronikk.clicked.connect(lambda: self.reset_sikring(0))
-        self.btn_reset_sikring_manipulator.clicked.connect(lambda: self.reset_sikring(1))
-        self.btn_reset_sikring_thrustere.clicked.connect(lambda: self.reset_sikring(2))
-
-        self.btn_reset_nullpunkt.clicked.connect(self.set_start_point_depth_sensor)
-
-        self.btn_start_video_frontkamera.clicked.connect(lambda: self.video_toggle(self.btn_start_video_frontkamera, 0))
-        self.btn_start_video_frontkamera.clicked.connect(lambda: self.video_toggle(self.btn_start_video_havbunn, 1))
-
-        self.btn_regulator_elektronikk.clicked.connect(lambda: self.toggle_regulator(0, self.btn_regulator_elektronikk))
-        self.btn_regulator_manipulator.clicked.connect(lambda: self.toggle_regulator(1, self.btn_regulator_manipulator))
-        self.btn_regulator_thrustere.clicked.connect(lambda: self.toggle_regulator(2, self.btn_regulator_thrustere))
-
-        self.btn_ta_bilde_frontkamera.clicked.connect(lambda: self.ta_bilde(0))
-        self.btn_ta_bilde_havbunn.clicked.connect(lambda: self.ta_bilde(1))
-        
-        # self.slider_lys_down.setValue(100)
-        # self.slider_lys_forward.setValue(100)
-
-        self.slider_lys_down.valueChanged.connect(self.send_current_ligth_intensity)
-        self.slider_lys_forward.valueChanged.connect(self.send_current_ligth_intensity)
-        
-        self.slider_struping_thrustere.valueChanged.connect(self.send_thruster_struping)
-
-        self.send_current_ligth_intensity()
-        # ///////////////////////////////////////////////////////////////
-
-        # CONTROLLER PAGE:
-        # "Lag ny profil"-button clicked
-        self.btn_make_new_profile.clicked.connect(self.make_new_profile)
-        #self.make_new_profile_btn.clicked.connect(self.make_new_profile)
-
-        # "Reset"-button clicked
-        self.btn_reset.clicked.connect(self.reset_profile)
-
-        # "Lagre"-button clicked
-        self.btn_save_profile.clicked.connect(lambda: self.save_profile())
-        self.btn_save_profile.setEnabled(False)
-
-        # ///////////////////////////////////////////////////////////////
-
-        # LEGGES INN I EN ANNEN FIL:
-
-        #self.init_drop_shadow()
-
-        self.titleRightInfo.mouseDoubleClickEvent = self.dobleClickMaximizeRestore
-        self.maximizeRestoreAppBtn.mouseDoubleClickEvent = self.dobleClickMaximizeRestore
-
-        self.titleRightInfo.mouseMoveEvent = self.moveWindow
-
-        # STANDARD TITLE BAR
-        self.setWindowFlags(Qt.FramelessWindowHint)
-        #self.setAttribute(Qt.WA_TranslucentBackground)
-
-
-        # CUSTOM GRIPS
-        self.left_grip = CustomGrip(self, Qt.LeftEdge, True)
-        self.right_grip = CustomGrip(self, Qt.RightEdge, True)
-        self.top_grip = CustomGrip(self, Qt.TopEdge, True)
-        self.bottom_grip = CustomGrip(self, Qt.BottomEdge, True)
-
-        # RESIZE WINDOW
-        self.sizegrip = QSizeGrip(self.frame_size_grip)
-        self.sizegrip.setStyleSheet("width: 20px; height: 20px; margin 0px; padding: 0px;")
-
-        # MINIMIZE
-        self.minimizeAppBtn.clicked.connect(self.minimize)
-        
-        # MAXIMIZE/RESTORE
-        self.maximizeRestoreAppBtn.clicked.connect(self.maximize_restore)
-
-        # CLOSE APPLICATION
-        self.closeAppBtn.clicked.connect(self.shutdown)
-        # ///////////////////////////////////////////////////////////////
-        
-        self.connect_sliders_to_gui()
-
-        #hest
-        self.camera_windows_opened = True
-        if self.camera_windows_opened:
-            self.start_camera_windows()
-
-        self.recieve = threading.Thread(target=self.recieve_sensordata, daemon=True, args=(self.pipe_conn_only_rcv,))
-        self.recieve.start()
-        
-        # print(f"type of self.widget: {type(self.widget)}")
-        # these need to match up with the indexes of the buttons on the controller
-        self.btn_combobox_list:list[QComboBox] = [self.comboBox_A_btn, self.comboBox_B_btn, self.comboBox_X_btn, self.comboBox_Y_btn, self.comboBox_RB_btn, self.comboBox_LB_btn, self.comboBox_view_btn, self.comboBox_menu_btn, self.comboBox_left_stick_btn, self.comboBox_right_stick_btn]
-        btn_command_list:list[str] = []
-        with open("button_config.txt", 'r', encoding="utf-8") as btn_config:
-            btn_command_list = [line.strip() for line in btn_config.readlines()]
-        for btn in self.btn_combobox_list:
-            btn:QComboBox
-            btn.clear()  # removes the options already in the combobox
-            btn.addItems(btn_command_list) # adds the possible commands
-            btn.currentIndexChanged.connect(self.updated_profile_settings)
-
-
-        self.set_default_profile()
-        self.send_profile_to_main()
-
-        self.combobox_styling()
-        self.setStyle(QStyleFactory.create('Windows'))
-        self.comboBox_Y_btn.setStyle(QStyleFactory.create('Windows'))
-        self.comboBox_velg_profil.currentIndexChanged.connect(self.load_selected_profile)
-        self.toggle_frontlys.setChecked(True)
-        self.toggle_havbunnslys.setChecked(True)
-        self.send_current_ligth_intensity()
-        self.set_bildebehandlingsmodus(-1, -1, "Manuell kjøring")
-        # self.setTestValue(self.slider_lys_forward, self.label_percentage_lys_forward, self.frame_lys_forward, "rgba(85, 170, 255, 255)")
-        # self.setTestValue(self.slider_lys_down, self.label_percentage_lys_down, self.frame_lys_down, "rgba(85, 170, 255, 255)")
-        # self.setTestValue(self.slider_struping_thrustere, self.label_percentage_struping, self.frame_struping, "rgba(85, 170, 255, 255)")
-        self.change_current_widget(1)
-        self.maximize_restore()
-
-        # ///////////////////////////////////////////////////////////////
     def update_regulering(self, id: int):
         self.send_command_to_rov(["regulering", [id]])
 
@@ -447,7 +450,7 @@ void main() {
             self.send_command_to_rov(["manipulator_toggle", None, True])
         else:
             self.send_command_to_rov(["manipulator_toggle", None, False])
-            
+
 
     def set_bildebehandlingsmodus(self, modus_kamera_1: int, modus_kamera_2: int, navn: str):
         # print(modus_kamera_1, modus_kamera_2)
@@ -488,7 +491,7 @@ void main() {
     def ta_bilde(self, kamera_id):
         self.send_command_to_rov(["take_pic", kamera_id])
 
-    # KJØRE MODUS
+    # KJØREMODUS
     def manuell_btn_clicked(self):
         print("manuell btn clicked")
         if self.btn_auto.isChecked():
@@ -500,11 +503,10 @@ void main() {
         self.send_command_to_rov(["update_bildebehandling", [-1, ]])
 
 
-    # ///////////////////////////////////////////////////////////////
 
     # CONTROLLER PAGE FUNCTIONS:
-        
-        
+
+
     def set_default_profile(self):
         """Sets the current profile back to the default one"""
         # profiledata = ""
@@ -677,23 +679,18 @@ void main() {
             self.spenning.setText(str(round(data["spenning"],4)))
             self.label_temp_ROV_hovedkort.setText(str(round(data["temp_rov"],4)))
 
-
-
     def recieve_sensordata(self, conn):
         self.communicate = Communicate()
         self.communicate.data_signal.connect(self.decide_gui_update)
         while self.t_watch.should_run(self.id):
             # print("waiting for sensordata")
-
             data_is_ready = conn.poll()
             # print(self.viewer.cameraPosition())
             if data_is_ready:
                 sensordata: dict = conn.recv()
                 self.communicate.data_signal.emit(sensordata)
-
             else:
                 time.sleep(0.15)
-    
         print("recieved close thread. trying to close")
         # self.shutdown()
         exit(0)
@@ -729,12 +726,9 @@ void main() {
             label.setText(str(round(sensordata[index])) + " W")
             label.setStyleSheet(f"background-color: {color_list[index]}; border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
 
-
         # self.label_effekt_manipulator_2.setText(str(round(sensordata[1])) + " W")
         # self.label_effekt_elektronikk_2.setText(str(round(sensordata[2])) +" W")
         
-
-
     def gui_time_update(self, sensordata):
         tid = round(sensordata[0])
         hours = tid//3600
@@ -832,7 +826,8 @@ void main() {
         if value == 100:
             stop_1 = "1.000"
             stop_2 = "1.000"
-        htmlText = f"""<p align="center"><span style=" font-size:9pt;">{value}</span><span style=" font-size:9pt; vertical-align:super;">%</span></p>"""
+        htmlText = f"""<p align="center"><span style=" font-size:9pt;">{value}
+        </span><span style=" font-size:9pt; vertical-align:super;">%</span></p>"""
         text_label.setText(htmlText)
         styleSheet = """QFrame{ border-radius: 30px; background-color: qconicalgradient(cx:0.5, cy:0.5, angle:90, stop:{STOP_1} rgba(255, 0, 127, 0), stop:{STOP_2} {COLOR}); }"""
         styleSheet = styleSheet.replace("{STOP_1}", str(stop_1)).replace("{STOP_2}", str(stop_2)).replace("{COLOR}", color)
@@ -933,62 +928,47 @@ void main() {
         self.shadow.setYOffset(0)
         self.shadow.setColor(QColor(0, 0, 0, 150))
         self.bgApp.setGraphicsEffect(self.shadow)
-
         self.setWindowFlags(Qt.FramelessWindowHint|Qt.WindowMinimizeButtonHint|Qt.WindowCloseButtonHint)
-
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.appMargins.setContentsMargins(10, 10, 10, 10)
 
-    ## SET VALUES TO DEF progressBarValue
+    # Set test values (procent) to progressbar
     def setTestValue(self, slider, labelPercentage, progressBarName, color):
-        # GET SLIDER VALUE
         value = slider.value()
-        # CONVERT VALUE TO INT
         sliderValue = int(value)
-        # HTML TEXT PERCENTAGE
         htmlText = """<p align="center"><span style=" font-size:9pt;">{VALUE}</span><span style=" font-size:9pt; vertical-align:super;">%</span></p>"""
         labelPercentage.setText(htmlText.replace("{VALUE}", str(sliderValue)))
-        # CALL DEF progressBarValue
         self.progressBarValue(sliderValue, progressBarName, color)
 
-    ## SET VALUES TO DEF progressBarValue
+    # Set widget percent
     def set_widget_percent(self, labelPercentage, value, progressBarName, color):
-
-        # CONVERT VALUE TO INT
         sliderValue = int(value)
-        # HTML TEXT PERCENTAGE
         htmlText = """<p align="center"><span style=" font-size:9pt;">{VALUE}</span><span style=" font-size:9pt; vertical-align:super;">%</span></p>"""
         labelPercentage.setText(htmlText.replace("{VALUE}", str(sliderValue)))
-        # CALL DEF progressBarValue
         self.progressBarValue(sliderValue, progressBarName, color)
 
-    ## DEF PROGRESS BAR VALUE
+    # ProgressBarValue
     def progressBarValue(self, value, widget, color):
-        # GET PROGRESS BAR VALUE, CONVERT TO FLOAT AND INVERT VALUES
+        # Get progress bar value, convert to float and invert values
         # stop works of 1.000 to 0.000
         progress = (100 - value) / 100.0
         if value >= 0:
-            # PROGRESSBAR STYLESHEET BASE
-            styleSheet = """ QFrame{ border-radius: 30px;background-color: qconicalgradient(cx:0.5, cy:0.5, angle:90, stop:{STOP_1} rgba(255, 0, 127, 0), stop:{STOP_2} {COLOR}); }"""
-            # GET NEW VALUES
+            styleSheet = """QFrame{ border-radius: 30px; background-color:qconicalgradient(cx:0.5, cy:0.5, angle:90, stop:{STOP_1} rgba(77, 77, 127, 100), stop:{STOP_2} {COLOR}); }"""
+            # Get new values for gradient stop (0 to 100 %)
             stop_1 = str(progress - 0.001)
             stop_2 = str(progress)
         else:
-            # PROGRESSBAR STYLESHEET BASE
             styleSheet = """QFrame{ border-radius: 30px; background-color: qconicalgradient(cx:0.5, cy:0.5, angle:90, stop:{STOP_1} rgba(255, 0, 127, 0), stop:{STOP_2} rgb(226, 47, 53)); }"""
-            # GET NEW VALUES
+            # Get new values for gradient stop (0 to -100 %)
             stop_1 = str(progress - 1)
             stop_2 = str(progress - 0.001 -1)
-
-        # FIX MAX VALUE
+        # Fix max values
         if value == 100:
             stop_1 = "1.000"
             stop_2 = "1.000"
-
-        # SET VALUES TO NEW STYLESHEET
+        # Set values to new stylesheet
         newStylesheet = styleSheet.replace("{STOP_1}", stop_1).replace("{STOP_2}", stop_2).replace("{COLOR}", color)
-
-        # APPLY STYLESHEET WITH NEW VALUES
+        # Apply stylesheet with new values
         widget.setStyleSheet(newStylesheet)
 
     def connect_sliders_to_gui(self):
@@ -998,8 +978,7 @@ void main() {
 
 
 
-
-    # ////////////////////////////////////////
+    # ------------------------------
     # HA I EGEN FIL:
 
     # MOUSE CLICK EVENTS
@@ -1081,49 +1060,7 @@ void main() {
         global GLOBAL_STATE
         GLOBAL_STATE = status
 
-    # ///////////////////////////////////////////////////////////////
-    # 3D MODEL:
 
-    '''def set_plotdata(self, name, points, color, width):
-                self.traces[name].setData(pos=points, color=color, width=width)'''
-
-    def update_rotation(self):
-        self.meshitem.rotate(90, 0, 0, 90)
-
-    # Changes rotation on object
-    def update(self, xyz):
-        x = xyz[0]
-        y = xyz[1]
-        z = xyz[2]
-
-        ye = y - self.rotation[0]
-        xe = x - self.rotation[1]
-
-        print("1: ye:", ye, ", xe:", xe)
-        print("self.rotation:", self.rotation[0], self.rotation[1], self.rotation[2])
-
-        if ye > 10:
-            ye = 10
-        elif ye < -10:
-            ye = -10
-
-        if xe > 10:
-            xe = 10
-        elif xe < -10:
-            xe = -10
-
-        if ye > 0.5 or ye < -0.5:
-            self.rotation[0] += ye
-            self.meshitem.rotate(abs(ye), 0, -ye, 0)
-
-        if xe > 0.5 or xe < -0.5:
-            self.rotation[1] += xe
-            self.meshitem.rotate(abs(xe), xe, 0, 0)
-
-        if self.rotation[2] != z:
-            self.rotation[2] += z/10
-
-        print("2: ye:", ye, ", xe:", xe)
 
 
 def suppress_qt_warnings():
