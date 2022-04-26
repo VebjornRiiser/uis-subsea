@@ -251,8 +251,8 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         # these need to match up with the indexes of the buttons on the controller
         self.btn_combobox_list:list[QComboBox] = [self.comboBox_A_btn, self.comboBox_B_btn, self.comboBox_X_btn, self.comboBox_Y_btn, self.comboBox_RB_btn, self.comboBox_LB_btn, self.comboBox_view_btn, self.comboBox_menu_btn, self.comboBox_left_stick_btn, self.comboBox_right_stick_btn]
         btn_command_list:list[str] = []
-        #with open("button_config.txt", 'r', encoding="utf-8") as btn_config:
-        #    btn_command_list = [line.strip() for line in btn_config.readlines()]
+        with open("button_config.txt", 'r', encoding="utf-8") as btn_config:
+            btn_command_list = [line.strip() for line in btn_config.readlines()]
         for btn in self.btn_combobox_list:
             btn:QComboBox
             btn.clear()  # removes the options already in the combobox
@@ -278,10 +278,6 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.maximize_restore()
         self.slider_lys_down.valueChanged.connect(self.send_current_ligth_intensity)
         self.slider_lys_forward.valueChanged.connect(self.send_current_ligth_intensity)
-        self.img_manipulator_2:QLabel
-        QTransform() self.img_manipulator_2.
-
-
 
     def make_toggle_btns(self):
         self.toggle_mani = PyToggle()
@@ -839,7 +835,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         htmlText = f"""<p align="center"><span style=" font-size:9pt;">{value}
         </span><span style=" font-size:9pt; vertical-align:super;">%</span></p>"""
         text_label.setText(htmlText)
-        styleSheet = """QFrame{ border-radius: 30px; background-color: qconicalgradient(cx:0.5, cy:0.5, angle:90, stop:{STOP_1} rgba(255, 0, 127, 0), stop:{STOP_2} {COLOR}); }"""
+        styleSheet = """QFrame{ border-radius: 30px; background-color: qconicalgradient(cx:0.5, cy:0.5, angle:90, stop:{STOP_1} rgba(77, 77, 127, 100), stop:{STOP_2} {COLOR}); }"""
         styleSheet = styleSheet.replace("{STOP_1}", str(stop_1)).replace("{STOP_2}", str(stop_2)).replace("{COLOR}", color)
         round_frame.setStyleSheet(styleSheet)
 
