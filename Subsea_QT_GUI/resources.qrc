@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="images">
+    <file>images/rovmotorpaadrag2.png</file>
     <file>images/nylogo.png</file>
     <file>images/underwater.png</file>
     <file>images/back.png</file>
