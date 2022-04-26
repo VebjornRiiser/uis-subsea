@@ -4,7 +4,7 @@ import multiprocessing
 from typing import Type
 # import vlc
 #from tkinter import Widget
-from PyQt5 import QtCore, QtGui, QtWidgets, Qt
+from PyQt5 import QtCore, QtGui, QtWidgets, Qt, QtMultimedia
 from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QCheckBox, QLabel, QFileDialog, QApplication, QWidget, QVBoxLayout, QSizeGrip, QFrame, QMessageBox, QStyleFactory, QSizeGrip, QGraphicsDropShadowEffect, QPushButton, QComboBox, QDesktopWidget
 from PyQt5.QtWebEngineWidgets import * 
 from PyQt5.Qt import *
@@ -258,6 +258,9 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             btn.clear()  # removes the options already in the combobox
             btn.addItems(btn_command_list) # adds the possible commands
             btn.currentIndexChanged.connect(self.updated_profile_settings)
+        sound = QtMultimedia.QSound("synker.mp3")
+        sound.play()
+
 
 
         self.set_default_profile()
@@ -279,8 +282,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.slider_lys_down.valueChanged.connect(self.send_current_ligth_intensity)
         self.slider_lys_forward.valueChanged.connect(self.send_current_ligth_intensity)
         self.img_manipulator_2:QLabel
-        QTransform() self.img_manipulator_2.
-
+        
 
 
     def make_toggle_btns(self):
@@ -765,7 +767,6 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         for i in range(len(sensordata)):
             if sensordata[i] > 100:
                 sensordata[i] = 100
-                
         self.update_round_percent_visualizer(sensordata[0], self.label_percentage_HHF, self.frame_HHF)
         self.update_round_percent_visualizer(sensordata[1], self.label_percentage_HHB, self.frame_HHB)
         self.update_round_percent_visualizer(sensordata[2], self.label_percentage_HVB, self.frame_HVB)

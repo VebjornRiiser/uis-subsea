@@ -490,9 +490,9 @@ class Rov_state:
         elif buttons[BUTTON_RELEASE] == 1:
             grip_percent = -100
         if run_send_fake_sensordata:
-            self.position[0] += self.data["joysticks"][Y_axis]*(3/100)
-            self.position[1] += self.data["joysticks"][X_axis]*(3/100)
-            self.position[2] += self.data["joysticks"][Z_axis]*(3/100)
+            self.position[0] += self.data.get("joysticks", [0]*8)[Y_axis]*(3/100)
+            self.position[1] += self.data.get("joysticks", [0]*8)[X_axis]*(3/100)
+            self.position[2] += self.data.get("joysticks", [0]*8)[Z_axis]*(3/100)
         
 
         if manual_input_rotation:
