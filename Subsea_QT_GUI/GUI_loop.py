@@ -2,7 +2,7 @@ import math
 from ast import arguments
 import multiprocessing
 from typing import Type
-import vlc
+# import vlc
 #from tkinter import Widget
 from PyQt5 import QtCore, QtGui, QtWidgets, Qt
 from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QCheckBox, QLabel, QFileDialog, QApplication, QWidget, QVBoxLayout, QSizeGrip, QFrame, QMessageBox, QStyleFactory, QSizeGrip, QGraphicsDropShadowEffect, QPushButton, QComboBox, QDesktopWidget
@@ -172,7 +172,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         # Start video
         self.btn_start_video_frontkamera.clicked.connect(lambda: self.video_toggle(self.btn_start_video_frontkamera, 0))
-        self.btn_start_video_frontkamera.clicked.connect(lambda: self.video_toggle(self.btn_start_video_havbunn, 1))
+        self.btn_start_video_havbunn.clicked.connect(lambda: self.video_toggle(self.btn_start_video_havbunn, 1))
 
         # Av/På-effektforbruk
         self.btn_regulator_elektronikk.clicked.connect(lambda: self.toggle_regulator(0, self.btn_regulator_elektronikk))
@@ -183,9 +183,9 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.btn_ta_bilde_frontkamera.clicked.connect(lambda: self.ta_bilde(0))
         self.btn_ta_bilde_havbunn.clicked.connect(lambda: self.ta_bilde(1))
         
-        # Lys-slidere
-        self.slider_lys_down.valueChanged.connect(self.send_current_ligth_intensity)
-        self.slider_lys_forward.valueChanged.connect(self.send_current_ligth_intensity)
+        # self.slider_lys_down.setValue(100)
+        # self.slider_lys_forward.setValue(100)
+
         
         # Struping-slider
         self.slider_struping_thrustere.valueChanged.connect(self.send_thruster_struping)
@@ -239,8 +239,8 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         
         self.connect_sliders_to_gui()
 
-        # test
-        self.camera_windows_opened = True
+        #hest
+        self.camera_windows_opened = False
         if self.camera_windows_opened:
             self.start_camera_windows()
 
@@ -276,6 +276,8 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         # self.setTestValue(self.slider_struping_thrustere, self.label_percentage_struping, self.frame_struping, "rgba(85, 170, 255, 255)")
         self.change_current_widget(1)
         self.maximize_restore()
+        self.slider_lys_down.valueChanged.connect(self.send_current_ligth_intensity)
+        self.slider_lys_forward.valueChanged.connect(self.send_current_ligth_intensity)
 
 
 
@@ -318,6 +320,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     def view_STL(self):
         self.viewer = gl.GLViewWidget()
         self.viewer.opts['distance'] = 250
+        self.viewer.opts['elevation'] = 60
         self.traces = dict()
 
         # SHADER
@@ -434,9 +437,10 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.send_command_to_rov(["regulering", [id]])
 
     def video_toggle(self, btn, id: int):
-        self.send_command_to_rov(["video_toggle", btn.isChecked(), id])
+        self.send_command_to_rov(["video_toggle", [btn.isChecked(), id]])
 
     def send_thruster_struping(self):
+        # print(self.viewer.opts)
         self.send_command_to_rov(["thruster_struping", self.slider_struping_thrustere.value()])
 
     def toggle_regulator(self, nr: int, btn: QPushButton):
@@ -756,6 +760,10 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
     def gui_thrust_update(self, sensordata):
         # print(f"ran gui_thrust_update {sensordata = }")
+        for i in range(len(sensordata)):
+            if sensordata[i] > 100:
+                sensordata[i] = 100
+                
         self.update_round_percent_visualizer(sensordata[0], self.label_percentage_HHF, self.frame_HHF)
         self.update_round_percent_visualizer(sensordata[1], self.label_percentage_HHB, self.frame_HHB)
         self.update_round_percent_visualizer(sensordata[2], self.label_percentage_HVB, self.frame_HVB)
@@ -785,7 +793,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         id_with_lekkasje = []
         for lekkasje_nr, is_lekkasje in enumerate(lekkasje_liste):
-            if is_lekkasje:
+            if not is_lekkasje:
                 id_with_lekkasje.append(lekkasje_nr+1)
         if not self.lekkasje_varsel_is_running and len(id_with_lekkasje)>0:
             self.lekkasje_varsel_is_running = True
@@ -842,12 +850,12 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         # so it is not necesarry to reset or rotate it
         # print(f"{sensordata = }")
         # hiv, rull, stamp
-        print(f"gyro update inside gui = {sensordata = }")
-        self.meshitem.rotate(-self.rov_3d_coordinates[1], 0, 1, 0, local=True)
-        self.meshitem.rotate(-self.rov_3d_coordinates[2], 1, 0, 0, local=True)
+        # print(f"gyro update inside gui = {sensordata = }")
+        self.meshitem.rotate(self.rov_3d_coordinates[1], 1, 0, 0, local=True)
+        self.meshitem.rotate(self.rov_3d_coordinates[2], 0, 1, 0, local=True)
 
-        self.meshitem.rotate(sensordata[2], 1, 0, 0, local=True)
-        self.meshitem.rotate(sensordata[1], 0, 1, 0, local=True)
+        self.meshitem.rotate(-sensordata[2], 0, 1, 0, local=True)
+        self.meshitem.rotate(-sensordata[1], 1, 0, 0, local=True)
 
         # height translation
         height_diff = sensordata[0]-self.rov_3d_coordinates[0]
