@@ -2,9 +2,9 @@ import math
 from ast import arguments
 import multiprocessing
 from typing import Type
-# import vlc
+import vlc
 #from tkinter import Widget
-from PyQt5 import QtCore, QtGui, QtWidgets, Qt
+from PyQt5 import QtCore, QtGui, QtWidgets, Qt, QtMultimedia
 from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QCheckBox, QLabel, QFileDialog, QApplication, QWidget, QVBoxLayout, QSizeGrip, QFrame, QMessageBox, QStyleFactory, QSizeGrip, QGraphicsDropShadowEffect, QPushButton, QComboBox, QDesktopWidget
 from PyQt5.QtWebEngineWidgets import * 
 from PyQt5.Qt import *
@@ -90,7 +90,6 @@ COMMAND_TO_ROV_ID = 3
 class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     def __init__(self, pipe_conn_only_rcv, queue: multiprocessing.Queue, t_watch: Threadwatcher, id: int, parent=None):
         super().__init__(parent)
-
         self.lekkasje_varsel_is_running = False
 
         self.setWindowIcon(QtGui.QIcon('Subsea_QT_GUI/images/logo.png'))
@@ -266,6 +265,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             btn.clear()  # removes the options already in the combobox
             btn.addItems(btn_command_list) # adds the possible commands
             btn.currentIndexChanged.connect(self.updated_profile_settings)
+        self.btn_slett_bilde.clicked.connect(self.make_viewer_opts)
 
 
         self.set_default_profile()
@@ -322,6 +322,8 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
 
 
+    def make_viewer_opts(self):
+        print(self.viewer.opts)
 
     def make_toggle_btns(self):
         self.toggle_mani = PyToggle()
@@ -366,107 +368,27 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     # --------------------------------------------------------------------------------------
     def view_STL(self):
         self.viewer = gl.GLViewWidget()
-        self.viewer.opts['distance'] = 250
-        self.viewer.opts['elevation'] = 60
+        self.viewer.opts['distance'] = 579
+        self.viewer.opts['elevation'] = 47
+        self.viewer.opts['azimuth'] = 22
         self.traces = dict()
-
-        # SHADER
-        # gl.shaders.Shaders.append(gl.shaders.ShaderProgram('myShader', [
-        # gl.shaders.VertexShader("""
-        #         varying vec3 normal;
-        #         void main() {
-        #             // compute here for use in fragment shader
-        #             normal = normalize(gl_NormalMatrix * gl_Normal);
-        #             gl_FrontColor = gl_Color;
-        #             gl_BackColor = gl_Color;
-        #             gl_Position = ftransform();
-        #         }
-        #     """),
-        # gl.shaders.FragmentShader("""
-        #         varying vec3 normal;
-        #         void main() {
-        #             vec4 color = gl_Color;
-        #             color.x = 4.5;
-        #             color.y = (normal.y + 1.0) * 0.5;
-        #             color.z = 0.0;
-        #             gl_FragColor = color;
-        #         }
-        #     """)
-        # ]))
-
-        gl.shaders.Shaders.append(gl.shaders.ShaderProgram('myShader', [
-        gl.shaders.VertexShader("""
-                varying vec3 normal;
-                void main() {
-                    // compute here for use in fragment shader
-                    normal = normalize(gl_NormalMatrix * gl_Normal);
-                    gl_FrontColor = gl_Color;
-                    gl_BackColor = gl_Color;
-                    gl_Position = ftransform();
-                }
-            """),
-        gl.shaders.FragmentShader("""
-                #ifdef GL_ES
-                precision mediump float;
-                #endif
-                /* Color palette */
-                #define BLACK           vec3(0.0, 0.0, 0.0)
-                #define WHITE           vec3(1.0, 1.0, 1.0)
-                #define RED             vec3(1.0, 0.0, 0.0)
-                #define GREEN           vec3(0.0, 1.0, 0.0)
-                #define BLUE            vec3(0.0, 0.0, 1.0)
-                #define YELLOW          vec3(1.0, 1.0, 0.0)
-                #define CYAN            vec3(0.0, 1.0, 1.0)
-                #define MAGENTA         vec3(1.0, 0.0, 1.0)
-                #define ORANGE          vec3(1.0, 0.5, 0.0)
-                #define PURPLE          vec3(1.0, 0.0, 0.5)
-                #define LIME            vec3(0.5, 1.0, 0.0)
-                #define ACQUA           vec3(0.0, 1.0, 0.5)
-                #define VIOLET          vec3(0.5, 0.0, 1.0)
-                #define AZUR            vec3(0.0, 0.5, 1.0)
-                #define PI 3.14159
-                uniform vec2 u_resolution;
-                uniform vec2 u_mouse;
-
-                float ylargerthanxsquared(vec2 normalpos) {
-                    //should be 1 when y is larger than x^2  
-                    return step(pow(normalpos.x, 2.) ,normalpos.y) - 1.*step(2.,pow(normalpos.x,2.));
-                    
-                }
-
-                void main() {
-                    vec2 normal_pixel = ((gl_FragCoord.xy/u_resolution)-0.5);
-                    // step(normal_pixel.x,0.)*step(normal_pixel.y,0.);
-                    
-
-                    // float stepresult = pow((normal_pixel[0]),2.0);
-
-                    // gl_FragColor = vec4(stepresult),0.0,0.0,1.0);
-                    // gl_FragColor = vec4(ylargerthanxsquared(normal_pixel),0.0,0.0,1.0);
-                    gl_FragColor = vec4(abs(ylargerthanxsquared(normal_pixel*10.)*step(0.,normal_pixel.y)),0.0,0.0,1.0);
-                    }
-            """)
-        ]))
 
         cwd = os.getcwd() # Current working directory
         self.stl_mesh = mesh.Mesh.from_file(f'{cwd}/ROV.STL') # Imported STL file
         shape = self.stl_mesh.points.shape
         points = self.stl_mesh.points.reshape(-1, 3)
         faces = np.arange(points.shape[0]).reshape(-1, 3)
-        # self.synker = vlc.MediaPlayer("file:///synker.mp3")
 
         self.meshdata = gl.MeshData(vertexes=points, faces=faces)
         self.meshitem = gl.GLMeshItem(meshdata=self.meshdata, smooth=False, drawFaces=True, shader='viewNormalColor', glOptions='opaque', color=(0,0,0,0), drawEdges=False, edgeColor=(0,0,0,0))
-        # self.meshitem = gl.GLMeshItem(meshdata=self.meshdata, smooth=False, drawFaces=True, shader='myShader', glOptions='opaque', color=(0,0,0,0), drawEdges=False, edgeColor=(0,0,0,0))
         self.viewer.addItem(self.meshitem)
 
         self.meshitem.rotate(0, 0, 0, 0)
-        # self.meshitem.translate(0, 100, 100)
         self.layout = self.QVBoxLayout
         self.layout.addWidget(self.viewer, 1)
         self.viewer.setCameraPosition(distance=350)
         self.meshitem.translate(0,0, 60)
-        # self.viewer.setCameraPosition(rotation=90)
+
 
         g = gl.GLGridItem()
         g.setSize(1000, 1000)
@@ -810,7 +732,6 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         for i in range(len(sensordata)):
             if sensordata[i] > 100:
                 sensordata[i] = 100
-                
         self.update_round_percent_visualizer(sensordata[0], self.label_percentage_HHF, self.frame_HHF)
         self.update_round_percent_visualizer(sensordata[1], self.label_percentage_HHB, self.frame_HHB)
         self.update_round_percent_visualizer(sensordata[2], self.label_percentage_HVB, self.frame_HVB)

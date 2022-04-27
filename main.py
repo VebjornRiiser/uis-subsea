@@ -392,7 +392,7 @@ class Rov_state:
         styredata = []
         styredata.append(self.data["joysticks"][X_axis])
         styredata.append(self.data["joysticks"][Y_axis])
-        styredata.append(self.data["joysticks"][Z_axis])
+        styredata.append(-self.data["joysticks"][Z_axis]) # positive direction is downwards
         if not self.camera_tilt_control_active:
             styredata.append(self.data["joysticks"][ROTATION_axis])
         else:
@@ -490,9 +490,9 @@ class Rov_state:
         elif buttons[BUTTON_RELEASE] == 1:
             grip_percent = -100
         if run_send_fake_sensordata:
-            self.position[0] += self.data["joysticks"][Y_axis]*(3/100)
-            self.position[1] += self.data["joysticks"][X_axis]*(3/100)
-            self.position[2] += self.data["joysticks"][Z_axis]*(3/100)
+            self.position[0] += self.data.get("joysticks", [0]*8)[Y_axis]*(3/100)
+            self.position[1] += self.data.get("joysticks", [0]*8)[X_axis]*(3/100)
+            self.position[2] += self.data.get("joysticks", [0]*8)[Z_axis]*(3/100)
         
 
         if manual_input_rotation:
@@ -522,6 +522,7 @@ class Rov_state:
 
             except json.JSONDecodeError as e:
                 print(f"{data = }, {e = }")
+                pass
 
 
     def handle_data_from_rov(self, message: dict):
@@ -660,6 +661,7 @@ if __name__ == "__main__":
     # get_args()
     # exit(0)
     try:
+        global time_since_start
         global start_time_sec
         global run_gui
         global manual_input_rotation
@@ -667,10 +669,10 @@ if __name__ == "__main__":
         global run_craft_packet
         start_time_sec = time.time()
         run_gui = True
-        run_get_controllerdata = False
-        run_network = False
+        run_get_controllerdata = True
+        run_network = True
         run_craft_packet = False
-        run_send_fake_sensordata = True
+        run_send_fake_sensordata = False
         manual_input_rotation = False
         
         queue_for_rov = multiprocessing.Queue()
@@ -701,18 +703,24 @@ if __name__ == "__main__":
         main_driver_loop = threading.Thread(target=run, args=(network, t_watch, id, queue_for_rov, gui_parent_pipe), daemon=True)
         main_driver_loop.start()
 
+
+        sensordata = {"lekk_temp": [False,  False, False, -1, -1, -1]}
+        gui_parent_pipe.send(sensordata)
+
+
         if run_send_fake_sensordata:
             thrust_list = [num for num in range(-100,101)]
             power_list = [num for num in range(0, 101)]
             count = -1
             sensordata = {}
-            sensordata["lekk_temp"] = [True,  True, True, (25+count)%99, (37+count)%99, (61+count)%99]
-            gui_parent_pipe.send(sensordata)
             while t_watch.should_run(0):
+                time_since_start = round(time.time()-start_time_sec)
                 count += 1
                 sensordata["lekk_temp"] = [True, True, True, (25+count)%99, (37+count)%99, (61+count)%99]
                 sensordata["thrust"] = [thrust_list[(0+count)%201], thrust_list[(13+count)%201], thrust_list[(25+count)%201], thrust_list[(38+count)%201], thrust_list[(37+count)%201], thrust_list[(50+count)%201], thrust_list[(63+count)%201], thrust_list[(75+count)%201], thrust_list[(88+count)%201], thrust_list[(107+count)%201]]
                 sensordata["power_consumption"] = [power_list[count%101]*13, power_list[count%101]*2.4, power_list[count%101]*0.65]
+                sensordata["gyro"] = [(time_since_start*2)%60, time_since_start%90, time_since_start%90]
+                sensordata["time"] = [time_since_start]
                 gui_parent_pipe.send(sensordata)
                 time.sleep(1)
 
