@@ -2,7 +2,7 @@ import math
 from ast import arguments
 import multiprocessing
 from typing import Type
-# import vlc
+import vlc
 #from tkinter import Widget
 from PyQt5 import QtCore, QtGui, QtWidgets, Qt, QtMultimedia
 from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QCheckBox, QLabel, QFileDialog, QApplication, QWidget, QVBoxLayout, QSizeGrip, QFrame, QMessageBox, QStyleFactory, QSizeGrip, QGraphicsDropShadowEffect, QPushButton, QComboBox, QDesktopWidget
@@ -90,7 +90,6 @@ COMMAND_TO_ROV_ID = 3
 class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     def __init__(self, pipe_conn_only_rcv, queue: multiprocessing.Queue, t_watch: Threadwatcher, id: int, parent=None):
         super().__init__(parent)
-
         self.lekkasje_varsel_is_running = False
 
         self.setWindowIcon(QtGui.QIcon('Subsea_QT_GUI/images/logo.png'))
@@ -258,9 +257,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             btn.clear()  # removes the options already in the combobox
             btn.addItems(btn_command_list) # adds the possible commands
             btn.currentIndexChanged.connect(self.updated_profile_settings)
-        sound = QtMultimedia.QSound("synker.mp3")
-        sound.play()
-
+        self.btn_slett_bilde.clicked.connect(self.make_viewer_opts)
 
 
         self.set_default_profile()
@@ -281,6 +278,9 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.maximize_restore()
         self.slider_lys_down.valueChanged.connect(self.send_current_ligth_intensity)
         self.slider_lys_forward.valueChanged.connect(self.send_current_ligth_intensity)
+
+    def make_viewer_opts(self):
+        print(self.viewer.opts)
 
     def make_toggle_btns(self):
         self.toggle_mani = PyToggle()
@@ -320,33 +320,11 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     # --------------------------------------------------------------------------------------
     def view_STL(self):
         self.viewer = gl.GLViewWidget()
-        self.viewer.opts['distance'] = 250
-        self.viewer.opts['elevation'] = 60
+        self.viewer.opts['distance'] = 579
+        self.viewer.opts['elevation'] = 47
+        self.viewer.opts['azimuth'] = 22
         self.traces = dict()
 
-        # SHADER
-        # gl.shaders.Shaders.append(gl.shaders.ShaderProgram('myShader', [
-        # gl.shaders.VertexShader("""
-        #         varying vec3 normal;
-        #         void main() {
-        #             // compute here for use in fragment shader
-        #             normal = normalize(gl_NormalMatrix * gl_Normal);
-        #             gl_FrontColor = gl_Color;
-        #             gl_BackColor = gl_Color;
-        #             gl_Position = ftransform();
-        #         }
-        #     """),
-        # gl.shaders.FragmentShader("""
-        #         varying vec3 normal;
-        #         void main() {
-        #             vec4 color = gl_Color;
-        #             color.x = 4.5;
-        #             color.y = (normal.y + 1.0) * 0.5;
-        #             color.z = 0.0;
-        #             gl_FragColor = color;
-        #         }
-        #     """)
-        # ]))
 
         gl.shaders.Shaders.append(gl.shaders.ShaderProgram('myShader', [
         gl.shaders.VertexShader("""
@@ -407,7 +385,6 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         shape = self.stl_mesh.points.shape
         points = self.stl_mesh.points.reshape(-1, 3)
         faces = np.arange(points.shape[0]).reshape(-1, 3)
-        # self.synker = vlc.MediaPlayer("file:///synker.mp3")
 
         self.meshdata = gl.MeshData(vertexes=points, faces=faces)
         self.meshitem = gl.GLMeshItem(meshdata=self.meshdata, smooth=False, drawFaces=True, shader='viewNormalColor', glOptions='opaque', color=(0,0,0,0), drawEdges=False, edgeColor=(0,0,0,0))
