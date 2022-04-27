@@ -4,8 +4,8 @@ import multiprocessing
 from typing import Type
 import vlc
 #from tkinter import Widget
-from PyQt5 import QtCore, QtGui, QtWidgets, Qt, QtMultimedia
-from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QCheckBox, QLabel, QFileDialog, QApplication, QWidget, QVBoxLayout, QSizeGrip, QFrame, QMessageBox, QStyleFactory, QSizeGrip, QGraphicsDropShadowEffect, QPushButton, QComboBox, QDesktopWidget
+from PyQt5 import QtCore, QtGui, QtWidgets, Qt
+from PyQt5.QtWidgets import QMainWindow, QWidget, QCheckBox, QLabel, QFileDialog, QApplication, QWidget, QVBoxLayout, QSizeGrip, QFrame, QMessageBox, QStyleFactory, QSizeGrip, QGraphicsDropShadowEffect, QPushButton, QComboBox, QDesktopWidget
 from PyQt5.QtWebEngineWidgets import * 
 from PyQt5.Qt import *
 from PyQt5.QtGui import QColor, QIcon, QCursor, QFont
