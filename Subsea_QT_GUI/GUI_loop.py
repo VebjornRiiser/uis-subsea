@@ -8,7 +8,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets, Qt
 from PyQt5.QtWidgets import QMainWindow, QWidget, QCheckBox, QLabel, QFileDialog, QApplication, QWidget, QVBoxLayout, QSizeGrip, QFrame, QMessageBox, QStyleFactory, QSizeGrip, QGraphicsDropShadowEffect, QPushButton, QComboBox, QDesktopWidget
 from PyQt5.QtWebEngineWidgets import * 
 from PyQt5.Qt import *
-from PyQt5.QtGui import QColor, QIcon, QCursor, QFont
+from PyQt5.QtGui import QColor, QIcon, QCursor, QFont, QPixmap
 from PyQt5.QtCore import Qt, QtMsgType, QTimer, QEvent
 from multiprocessing import Pipe, Value
 from Threadwatch import Threadwatcher
@@ -29,7 +29,7 @@ import time
 from Subsea_QT_GUI.py_toggle import PyToggle
 
 # QApplication.setAttribute(Qt.AA_UseDesktopOpenGL)
-QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)  # enable highdpi scaling
+QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)  # enable highdpi scaling 
 QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)  # use highdpi icons
 #QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
 #QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True) #use highdpi icons
@@ -235,6 +235,14 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         # CLOSE APPLICATION
         self.closeAppBtn.clicked.connect(self.shutdown)
+
+        self.font_size = 8
+        self.btn_zoom_in.clicked.connect(self.zoom_in)
+        self.btn_zoom_out.clicked.connect(self.zoom_out)
+        self.btn_change_theme.clicked.connect(self.change_theme)
+        #test
+        self.load_theme()
+        
         
         self.connect_sliders_to_gui()
 
@@ -242,7 +250,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.camera_windows_opened = False
         if self.camera_windows_opened:
             self.start_camera_windows()
-
+        
         self.recieve = threading.Thread(target=self.recieve_sensordata, daemon=True, args=(self.pipe_conn_only_rcv,))
         self.recieve.start()
         
@@ -278,6 +286,41 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.maximize_restore()
         self.slider_lys_down.valueChanged.connect(self.send_current_ligth_intensity)
         self.slider_lys_forward.valueChanged.connect(self.send_current_ligth_intensity)
+
+    
+    def zoom_out(self):
+        if self.font_size > 5:
+            self.bgApp.setStyleSheet(f"font-size: {self.font_size}pt; width: 200%;")
+            print("zoomed out")
+            self.font_size -= 1
+    
+    def zoom_in(self):
+        if self.font_size < 14:
+            self.bgApp.setStyleSheet(f"font-size: {self.font_size}pt; width: 50%;")
+            print("zoomed out")
+            self.font_size += 1
+
+    def load_theme(self):
+        print("theme loaded")
+        sshFile="dark_theme.qss"
+        with open("dark_theme.qss" ,"r") as qssfile:
+            self.styleSheet.setStyleSheet(qssfile.read())
+
+    
+    def change_theme(self):
+        if self.btn_change_theme.isChecked():
+            print("changed to light mode theme")
+            sshFile="light_theme.qss"
+            with open(sshFile,"r") as qssfile:
+                self.styleSheet.setStyleSheet(qssfile.read())
+        else:
+            print("changed to dark mode theme")
+            sshFile="dark_theme.qss"
+            with open(sshFile,"r") as qssfile:
+                self.styleSheet.setStyleSheet(qssfile.read())
+
+
+
 
     def make_viewer_opts(self):
         print(self.viewer.opts)
@@ -316,6 +359,11 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.toggle_layout.addWidget(self.toggle_frontlys, alignment=QtCore.Qt.AlignRight)
         self.toggle_layout.addWidget(self.toggle_havbunnslys, alignment=QtCore.Qt.AlignRight)
 
+
+        # Set recent image:
+        #pixmap = QPixmap(":/images/logo.png");
+        image = QPixmap("Subsea_QT_GUI/images/underwater.png")
+        self.img_recent.setPixmap(image)
 
     # --------------------------------------------------------------------------------------
     def view_STL(self):
@@ -935,7 +983,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             elif sys.platform == "win32":
                 self.showMaximized()
             GLOBAL_STATE = True
-            self.appMargins.setContentsMargins(0, 0, 0, 0)
+            #self.appMargins.setContentsMargins(0, 0, 0, 0)
             self.maximizeRestoreAppBtn.setToolTip("Restore")
             self.maximizeRestoreAppBtn.setIcon(QIcon(u":/icons/images/icons/icon_restore.png"))
             self.frame_size_grip.hide()
@@ -947,7 +995,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             GLOBAL_STATE = False
             self.showNormal()
             self.resize(self.width()+1, self.height()+1)
-            self.appMargins.setContentsMargins(0, 0, 0, 0)
+            #self.appMargins.setContentsMargins(0, 0, 0, 0)
             self.maximizeRestoreAppBtn.setToolTip("Maximize")
             self.maximizeRestoreAppBtn.setIcon(QIcon(u":/icons/images/icons/icon_maximize.png"))
             self.frame_size_grip.show()
