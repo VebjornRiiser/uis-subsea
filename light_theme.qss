@@ -1,0 +1,268 @@
+/* ///////////////////////////////////////////////
+
+STYLE SHEET - LIGHT THEME
+
+/////////////////////////////////////////////// */
+
+QWidget{
+	color: #333333;
+}
+
+QFrame#column1, #column2, #column3 {
+	width: 100%;
+}
+
+QPushButton {
+	padding: 10px;
+	margin: 1px;
+}
+
+QLabel {
+	padding: 1px;
+}
+
+/* ///////////////////////////////////////////////
+Tooltip */
+QToolTip {
+	color: #ffffff;
+	background-color: rgb(33, 37, 43);
+	border: 1px solid rgb(44, 49, 58);
+	padding-left: 8px;
+}
+
+/* ///////////////////////////////////////////////
+Bg App */
+#bgApp {	
+	background-color: rgb(215, 220, 228);
+	border: 1px solid rgb(44, 49, 58);
+}
+
+/* ///////////////////////////////////////////////
+Left Menu */
+#leftMenuBg {	
+	background-color: rgb(192, 201, 213);
+}
+
+/* ///////////////////////////////////////////////
+/* MENUS */
+#topMenu .QPushButton {	
+	background-position: left center;
+    background-repeat: no-repeat;
+	border: none;
+	border-left: 22px solid transparent;
+	background-color: transparent;
+	text-align: left;
+	padding-left: 44px;
+}
+
+#topMenu .QPushButton:hover {
+	background-color: rgb(40, 44, 52);
+}
+
+#topMenu .QPushButton:pressed {	
+	background-color: rgb(74, 82, 91);
+	color: rgb(255, 255, 255);
+}
+
+/* ///////////////////////////////////////////////
+Content App */
+#contentTopBg{	
+	background-color: rgb(204, 212, 224);
+}
+
+#contentBottom{
+	border-top: 3px solid rgb(154, 158, 164);
+}
+/* ///////////////////////////////////////////////
+
+/* Top Buttons */
+#rightButtons .QPushButton { background-color: rgba(255, 255, 255, 0); border: none;  border-radius: 5px; }
+#rightButtons .QPushButton:hover { background-color: rgb(44, 49, 57); border-style: solid; border-radius: 4px; }
+#rightButtons .QPushButton:pressed { background-color: rgb(23, 26, 30); border-style: solid; border-radius: 4px; }
+
+/* Bottom Bar */
+#bottomBar { background-color: rgb(44, 49, 58); }
+#bottomBar QLabel { font-size: 11px; color: rgb(113, 126, 149); padding-left: 10px; padding-right: 10px; padding-bottom: 2px; }
+
+/* ///////////////////////////////////////////////
+ScrollBars */
+QScrollBar:horizontal {
+    border: none;
+    background: rgb(52, 59, 72);
+    height: 8px;
+    margin: 0px 21px 0 21px;
+	border-radius: 0px;
+}
+QScrollBar::handle:horizontal {
+    background: rgb(74, 82, 91);
+    min-width: 25px;
+	border-radius: 4px
+}
+QScrollBar::add-line:horizontal {
+    border: none;
+    background: rgb(55, 63, 77);
+    width: 20px;
+	border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+QScrollBar::sub-line:horizontal {
+    border: none;
+    background: rgb(55, 63, 77);
+    width: 20px;
+	border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+QScrollBar::up-arrow:horizontal, QScrollBar::down-arrow:horizontal {
+     background: none;
+}
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+     background: none;
+}
+ QScrollBar:vertical {
+	border: none;
+    background: rgb(52, 59, 72);
+    width: 8px;
+    margin: 21px 0 21px 0;
+	border-radius: 0px;
+ }
+ QScrollBar::handle:vertical {	
+	background: rgb(74, 82, 91);
+    min-height: 25px;
+	border-radius: 4px
+ }
+ QScrollBar::add-line:vertical {
+    border: none;
+    background: rgb(55, 63, 77);
+    height: 20px;
+	border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+ }
+ QScrollBar::sub-line:vertical {
+	border: none;
+    background: rgb(55, 63, 77);
+    height: 20px;
+	border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+ }
+ QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+     background: none;
+ }
+ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+     background: none;
+ }
+
+
+/* ///////////////////////////////////////////////
+ComboBox */
+QComboBox{
+	background-color: rgb(27, 29, 35);
+	border-radius: 5px;
+	border: 2px solid rgb(33, 37, 43);
+	padding: 5px;
+	padding-left: 10px;
+}
+QComboBox:hover{
+	border: 2px solid rgb(64, 71, 88);
+}
+QComboBox::drop-down {
+	width: 25px; 
+	border-left-width: 3px;
+	border-left-color: rgba(39, 44, 54, 150);
+	border-left-style: solid;
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;	
+	background-image: url(:/icons/images/icons/cil-arrow-bottom.png);
+	background-position: center;
+	background-repeat: no-reperat;
+ }
+QComboBox QAbstractItemView {
+	color: rgb(74, 82, 91);	
+	background-color: rgb(33, 37, 43);
+	padding: 10px;
+}
+
+/* ///////////////////////////////////////////////
+Sliders */
+QSlider::groove:horizontal {
+    border-radius: 8px;
+    height: 16px;
+	margin: 0px;
+	background-color: rgb(52, 59, 72);
+}
+QSlider::groove:horizontal:hover {
+	background-color: rgb(80, 85, 97);
+}
+QSlider::handle:horizontal {
+    background-color: rgb(206, 203, 230);
+    border: none;
+    height: 16px;
+    width: 16px;
+    margin: 0px;
+	border-radius: 8px;
+}
+QSlider::handle:horizontal:hover {
+    background-color: rgb(255, 255, 255);
+}
+QSlider::handle:horizontal:pressed {
+    background-color: rgb(143, 141, 160);
+}
+
+QSlider::groove:vertical {
+    border-radius: 8px;
+    width: 16px;
+    margin: 0px;
+	background-color: rgb(52, 59, 72);
+}
+QSlider::groove:vertical:hover {
+	background-color: rgb(80, 85, 97);
+}
+QSlider::handle:vertical {
+    background-color: rgb(206, 203, 230);
+	border: none;
+    height: 16px;
+    width: 16px;
+    margin: 0px;
+	border-radius: 8px;
+}
+QSlider::handle:vertical:hover {
+    background-color: rgb(255, 255, 255);
+}
+QSlider::handle:vertical:pressed {
+    background-color: rgb(143, 141, 160);
+}
+
+.QSlider {
+    min-height: 68px;
+    max-height: 68px;
+}
+/*
+.QSlider::groove:horizontal {
+    border: 1px solid #262626;
+    height: 5px;
+    background: #393939;
+    margin: 0 12px;
+}
+
+.QSlider::handle:horizontal {
+    background: #22B14C;
+    border: 5px solid #B5E61D;
+    width: 23px;
+    height: 100px;
+    margin: -24px -12px;
+}*/
+
+/* /////////////////////////////////////////////////////////////////////////////////////////////////
+Button */
+#pagesContainer QPushButton {
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
+}
+#pagesContainer QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+#pagesContainer QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
