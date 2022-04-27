@@ -5454,6 +5454,36 @@ QSlider::handle:vertical:pressed {
                                       <number>0</number>
                                      </property>
                                     </widget>
+                                <widget class="QLabel" name="label_lekkasje_varsel">
+                                <property name="geometry">
+                                <rect>
+                                    <x>510</x>
+                                    <y>-20</y>
+                                    <width>751</width>
+                                    <height>411</height>
+                                </rect>
+                                </property>
+                                <property name="minimumSize">
+                                <size>
+                                    <width>300</width>
+                                    <height>300</height>
+                                </size>
+                                </property>
+                                <property name="styleSheet">
+                                <string notr="true">QLabel { color: rgba(255, 255, 255, 0); background-color: rgba(179, 32, 36, 0); }</string>
+                                </property>
+                                <property name="text">
+                                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:24pt;&quot;&gt;ADVARSEL:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:24pt;&quot;&gt;VANNLEKKASJE I ROV&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                </property>
+                                <property name="alignment">
+                                <set>Qt::AlignCenter</set>
+                                </property>
+                                </widget>
+                                <zorder>label_lekkasje_varsel</zorder>
+                                <zorder>column1</zorder>
+                                <zorder>column2</zorder>
+                                <zorder>column3</zorder>
+                                </widget>
                                    </item>
                                   </layout>
                                  </widget>
