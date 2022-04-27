@@ -392,7 +392,7 @@ class Rov_state:
         styredata = []
         styredata.append(self.data["joysticks"][X_axis])
         styredata.append(self.data["joysticks"][Y_axis])
-        styredata.append(self.data["joysticks"][Z_axis])
+        styredata.append(-self.data["joysticks"][Z_axis]) # positive direction is downwards
         if not self.camera_tilt_control_active:
             styredata.append(self.data["joysticks"][ROTATION_axis])
         else:
@@ -522,6 +522,7 @@ class Rov_state:
 
             except json.JSONDecodeError as e:
                 print(f"{data = }, {e = }")
+                pass
 
 
     def handle_data_from_rov(self, message: dict):
@@ -668,10 +669,10 @@ if __name__ == "__main__":
         global run_craft_packet
         start_time_sec = time.time()
         run_gui = True
-        run_get_controllerdata = False
-        run_network = False
+        run_get_controllerdata = True
+        run_network = True
         run_craft_packet = False
-        run_send_fake_sensordata = True
+        run_send_fake_sensordata = False
         manual_input_rotation = False
         
         queue_for_rov = multiprocessing.Queue()
