@@ -2969,8 +2969,8 @@ QSlider::handle:vertical:pressed {
                             </property>
                             <property name="minimumSize">
                              <size>
-                              <width>500</width>
-                              <height>400</height>
+                              <width>0</width>
+                              <height>0</height>
                              </size>
                             </property>
                             <property name="maximumSize">
@@ -3169,7 +3169,7 @@ QSlider::handle:vertical:pressed {
                                     <number>40</number>
                                    </property>
                                   </widget>
-                                  <widget class="QFrame" name="frame_VHF">
+                                  <widget class="QFrame" name="frame_VHB">
                                    <property name="geometry">
                                     <rect>
                                      <x>260</x>
@@ -3187,7 +3187,7 @@ QSlider::handle:vertical:pressed {
                                    <property name="frameShadow">
                                     <enum>QFrame::Raised</enum>
                                    </property>
-                                   <widget class="QFrame" name="frame_VHF_circle_2">
+                                   <widget class="QFrame" name="frame_VHB_circle">
                                     <property name="geometry">
                                      <rect>
                                       <x>5</x>
@@ -3205,7 +3205,7 @@ QSlider::handle:vertical:pressed {
                                     <property name="frameShadow">
                                      <enum>QFrame::Raised</enum>
                                     </property>
-                                    <widget class="QLabel" name="label_percentage_VHF">
+                                    <widget class="QLabel" name="label_percentage_VHB">
                                      <property name="geometry">
                                       <rect>
                                        <x>0</x>
@@ -3311,7 +3311,7 @@ QSlider::handle:vertical:pressed {
                                     </widget>
                                    </widget>
                                   </widget>
-                                  <widget class="QFrame" name="frame_VHB">
+                                  <widget class="QFrame" name="frame_VVB">
                                    <property name="geometry">
                                     <rect>
                                      <x>20</x>
@@ -3329,7 +3329,7 @@ QSlider::handle:vertical:pressed {
                                    <property name="frameShadow">
                                     <enum>QFrame::Raised</enum>
                                    </property>
-                                   <widget class="QFrame" name="frame_VHB_circle">
+                                   <widget class="QFrame" name="frame_VVB_circle">
                                     <property name="geometry">
                                      <rect>
                                       <x>5</x>
@@ -3347,7 +3347,7 @@ QSlider::handle:vertical:pressed {
                                     <property name="frameShadow">
                                      <enum>QFrame::Raised</enum>
                                     </property>
-                                    <widget class="QLabel" name="label_percentage_VHB">
+                                    <widget class="QLabel" name="label_percentage_VVB">
                                      <property name="geometry">
                                       <rect>
                                        <x>0</x>
@@ -3382,7 +3382,7 @@ QSlider::handle:vertical:pressed {
                                     </widget>
                                    </widget>
                                   </widget>
-                                  <widget class="QFrame" name="frame_HHF">
+                                  <widget class="QFrame" name="frame_VHF">
                                    <property name="geometry">
                                     <rect>
                                      <x>260</x>
@@ -3400,7 +3400,7 @@ QSlider::handle:vertical:pressed {
                                    <property name="frameShadow">
                                     <enum>QFrame::Raised</enum>
                                    </property>
-                                   <widget class="QFrame" name="frame_HHF_circle">
+                                   <widget class="QFrame" name="frame_VHF_circle">
                                     <property name="geometry">
                                      <rect>
                                       <x>5</x>
@@ -3418,7 +3418,7 @@ QSlider::handle:vertical:pressed {
                                     <property name="frameShadow">
                                      <enum>QFrame::Raised</enum>
                                     </property>
-                                    <widget class="QLabel" name="label_percentage_HHF">
+                                    <widget class="QLabel" name="label_percentage_VHF">
                                      <property name="geometry">
                                       <rect>
                                        <x>0</x>
@@ -3524,7 +3524,7 @@ QSlider::handle:vertical:pressed {
                                     </widget>
                                    </widget>
                                   </widget>
-                                  <widget class="QFrame" name="frame_VVF">
+                                  <widget class="QFrame" name="frame_HHF">
                                    <property name="geometry">
                                     <rect>
                                      <x>204</x>
@@ -3542,7 +3542,7 @@ QSlider::handle:vertical:pressed {
                                    <property name="frameShadow">
                                     <enum>QFrame::Raised</enum>
                                    </property>
-                                   <widget class="QFrame" name="frame_VVF_circle">
+                                   <widget class="QFrame" name="frame_HHF_circle">
                                     <property name="geometry">
                                      <rect>
                                       <x>5</x>
@@ -3560,7 +3560,7 @@ QSlider::handle:vertical:pressed {
                                     <property name="frameShadow">
                                      <enum>QFrame::Raised</enum>
                                     </property>
-                                    <widget class="QLabel" name="label_percentage_VVF">
+                                    <widget class="QLabel" name="label_percentage_HHF">
                                      <property name="geometry">
                                       <rect>
                                        <x>0</x>
@@ -3595,7 +3595,7 @@ QSlider::handle:vertical:pressed {
                                     </widget>
                                    </widget>
                                   </widget>
-                                  <widget class="QFrame" name="frame_VVB">
+                                  <widget class="QFrame" name="frame_VVF">
                                    <property name="geometry">
                                     <rect>
                                      <x>20</x>
@@ -3613,7 +3613,7 @@ QSlider::handle:vertical:pressed {
                                    <property name="frameShadow">
                                     <enum>QFrame::Raised</enum>
                                    </property>
-                                   <widget class="QFrame" name="frame_VVB_circle">
+                                   <widget class="QFrame" name="frame_VVF_circle">
                                     <property name="geometry">
                                      <rect>
                                       <x>5</x>
@@ -3631,7 +3631,7 @@ QSlider::handle:vertical:pressed {
                                     <property name="frameShadow">
                                      <enum>QFrame::Raised</enum>
                                     </property>
-                                    <widget class="QLabel" name="label_percentage_VVB">
+                                    <widget class="QLabel" name="label_percentage_VVF">
                                      <property name="geometry">
                                       <rect>
                                        <x>0</x>
