@@ -203,6 +203,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         # "Lagre"-button clicked
         self.btn_save_profile.clicked.connect(lambda: self.save_profile())
         self.btn_save_profile.setEnabled(False)
+        self.text_ingen_endringer.setVisible(True)
 
         # -----------------------------------
         # LEGGES INN I EN ANNEN FIL:
@@ -271,9 +272,6 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.set_default_profile()
         self.send_profile_to_main()
 
-        self.combobox_styling()
-        self.setStyle(QStyleFactory.create('Windows'))
-        self.comboBox_Y_btn.setStyle(QStyleFactory.create('Windows'))
         self.comboBox_velg_profil.currentIndexChanged.connect(self.load_selected_profile)
         self.toggle_frontlys.setChecked(True)
         self.toggle_havbunnslys.setChecked(True)
@@ -289,14 +287,14 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
     
     def zoom_out(self):
-        if self.font_size > 5:
-            self.bgApp.setStyleSheet(f"font-size: {self.font_size}pt; width: 200%;")
+        if self.font_size > 6:
+            self.bgApp.setStyleSheet(f"font-size: {self.font_size}pt;")
             print("zoomed out")
             self.font_size -= 1
     
     def zoom_in(self):
-        if self.font_size < 14:
-            self.bgApp.setStyleSheet(f"font-size: {self.font_size}pt; width: 50%;")
+        if self.font_size < 19:
+            self.bgApp.setStyleSheet(f"font-size: {self.font_size}pt;")
             print("zoomed out")
             self.font_size += 1
 
@@ -363,7 +361,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         # Set recent image:
         #pixmap = QPixmap(":/images/logo.png");
         image = QPixmap("Subsea_QT_GUI/images/underwater.png")
-        self.img_recent.setPixmap(image)
+        #self.img_recent.setPixmap(image)
 
     # --------------------------------------------------------------------------------------
     def view_STL(self):
@@ -495,6 +493,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         for index, combobox in enumerate(self.btn_combobox_list):
             combobox.setCurrentIndex(options[index])
         self.btn_save_profile.setEnabled(False)
+        self.text_ingen_endringer.setVisible(True)
         self.set_active_profile_in_combobox("Standard profil")
 
     def load_selected_profile(self) -> None:
@@ -505,6 +504,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         for index, combobox in enumerate(self.btn_combobox_list):
             combobox.setCurrentIndex(options[index])
         self.btn_save_profile.setEnabled(False)
+        self.text_ingen_endringer.setVisible(True)
         self.set_active_profile_in_combobox(name)
 
 
@@ -528,6 +528,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
     def updated_profile_settings(self):
         self.btn_save_profile.setEnabled(True)
+        self.text_ingen_endringer.setVisible(False)
         self.send_profile_to_main()
 
     def send_profile_to_main(self):
@@ -544,6 +545,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             self.update_current_profiles()
             self.set_active_profile_in_combobox(fname[0].split('/')[-1])
             self.btn_save_profile.setEnabled(False) # we have now saved so there is no need to save again before changes
+            self.text_ingen_endringer.setVisible(True)
 
         else:
             print(f"Fname[0] is empty: {fname[0]}")
@@ -571,6 +573,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             with open(name+".userprofile", 'w', encoding="utf-8") as profile:
                 profile.write(json.dumps([btn.currentIndex() for btn in self.btn_combobox_list]))
         self.btn_save_profile.setEnabled(False)
+        self.text_ingen_endringer.setVisible(True)
 
 
 
@@ -770,13 +773,15 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
                 # self.update_round_percent_visualizer(sensordata[0], self.label_percentage_HHB, self.frame_HHB)
 
     def lekkasje_varsel(self, sensor_nr_liste):
+        self.label_lekkasje_varsel.setMaximumSize(500,500)
+        self.label_lekkasje_varsel.setMinimumSize(500,400)
         self.label_lekkasje_varsel.raise_()
         sensor_nr_liste = [str(item) for item in sensor_nr_liste]
         text = f"Advarsel vannlekkasje oppdaget på sensor: {str(', '.join(sensor_nr_liste))}"
         self.label_lekkasje_varsel.setText(text)
         self.label_lekkasje_varsel.setStyleSheet("QLabel { color: rgba(255, 255, 255, 200); background-color: rgba(179, 32, 36, 200); font-size: 24pt;}")
         self.audio = vlc.MediaPlayer("file:///ække normalt.mp3")
-        self.audio.play()            
+        self.audio.play()          
         time.sleep(2)
         self.label_lekkasje_varsel.setStyleSheet("QLabel { color: rgba(255, 255, 255, 0); background-color: rgba(179, 32, 36, 0); font-size: 24pt;}")
         self.label_lekkasje_varsel.lower()
@@ -784,6 +789,9 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.audio.play()
         time.sleep(1)
         self.lekkasje_varsel_is_running = False
+        self.label_lekkasje_varsel.setMaximumSize(0,0)
+        self.label_lekkasje_varsel.setMinimumSize(0,0)
+
 
 
 
@@ -878,23 +886,6 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         with open('styles.qss', 'r') as f:
             style = f.read()
             self.widget.setStyleSheet(style)'''
-
-    def combobox_styling(self):
-        self.setStyle(QStyleFactory.create('Windows'))
-        self.comboBox_Y_btn.setStyle(QStyleFactory.create('Windows'))
-        self.comboBox_X_btn.setStyle(QStyleFactory.create('Windows'))
-        self.comboBox_A_btn.setStyle(QStyleFactory.create('Windows'))
-        self.comboBox_B_btn.setStyle(QStyleFactory.create('Windows'))
-        self.comboBox_directional_pad_leftright.setStyle(QStyleFactory.create('Windows'))
-        self.comboBox_directional_pad_updown.setStyle(QStyleFactory.create('Windows'))
-        self.comboBox_LB_btn.setStyle(QStyleFactory.create('Windows'))
-        self.comboBox_left_stick_btn.setStyle(QStyleFactory.create('Windows'))
-        self.comboBox_left_stick_x.setStyle(QStyleFactory.create('Windows'))
-        self.comboBox_left_stick_y.setStyle(QStyleFactory.create('Windows'))
-        self.comboBox_LT_btn.setStyle(QStyleFactory.create('Windows'))
-        self.comboBox_menu_btn.setStyle(QStyleFactory.create('Windows'))
-        self.comboBox_RB_btn.setStyle(QStyleFactory.create('Windows'))
-        self.comboBox_right_stick_btn.setStyle(QStyleFactory.create('Windows'))
         
     def init_drop_shadow(self):
         # DROP SHADOW
