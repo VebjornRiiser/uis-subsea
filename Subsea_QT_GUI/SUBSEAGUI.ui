@@ -10,7 +10,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1308</width>
+    <width>1363</width>
     <height>930</height>
    </rect>
   </property>
@@ -90,6 +90,11 @@ QPushButton {
 	padding: 10px;
 	margin: 1px;
 }
+QPushButton:disabled {
+	background-color:  rgba(45, 51, 63, 255);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;
+}
 
 #pagesContainer QPushButton {
 	background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));
@@ -113,10 +118,10 @@ QPushButton {
 
 /* Tooltip */
 QToolTip {
+	padding: 5px;
 	color: #ffffff;
-	background-color: rgb(33, 37, 43);
+	background-color: rgba(33, 37, 43, 240);
 	border: 1px solid rgb(44, 49, 58);
-	padding-left: 8px;
 }
 
 /* Bg App */
@@ -234,14 +239,16 @@ QComboBox{
 	background-color: rgb(27, 29, 35);
 	border-radius: 5px;
 	border: 2px solid rgb(33, 37, 43);
-	padding: 5px;
 	padding-left: 10px;
+	width: 5px;
 }
 QComboBox:hover{
 	border: 2px solid rgb(64, 71, 88);
 }
 QComboBox::drop-down {
-	width: 25px; 
+	subcontrol-origin: padding;
+	subcontrol-position: top right;
+	width: 25px;
 	border-left-width: 3px;
 	border-left-color: rgba(39, 44, 54, 150);
 	border-left-style: solid;
@@ -249,12 +256,13 @@ QComboBox::drop-down {
 	border-bottom-right-radius: 3px;	
 	background-image: url(:/icons/images/icons/cil-arrow-bottom.png);
 	background-position: center;
-	background-repeat: no-reperat;
- }
+	background-repeat: no-repeat;
+}
 QComboBox QAbstractItemView {
 	color: rgb(74, 82, 91);	
-	background-color: rgb(33, 37, 43);
+	background-color: rgb(50, 50, 50);
 	padding: 10px;
+	selection-background-color: rgb(39, 44, 54);
 }
 
 /* Sliders */
@@ -449,7 +457,10 @@ QSlider::handle:vertical:pressed {
            <enum>QFrame::NoFrame</enum>
           </property>
           <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
+           <enum>QFrame::Plain</enum>
+          </property>
+          <property name="lineWidth">
+           <number>0</number>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_8">
            <property name="spacing">
@@ -462,7 +473,7 @@ QSlider::handle:vertical:pressed {
             <number>0</number>
            </property>
            <property name="rightMargin">
-            <number>0</number>
+            <number>7</number>
            </property>
            <property name="bottomMargin">
             <number>0</number>
@@ -589,7 +600,7 @@ QSlider::handle:vertical:pressed {
               <bool>false</bool>
              </property>
              <property name="flat">
-              <bool>true</bool>
+              <bool>false</bool>
              </property>
             </widget>
            </item>
@@ -1073,6 +1084,12 @@ QSlider::handle:vertical:pressed {
                 </property>
                 <item>
                  <widget class="QFrame" name="pagesContainer">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="styleSheet">
                    <string notr="true"/>
                   </property>
@@ -1082,16 +1099,7 @@ QSlider::handle:vertical:pressed {
                   <property name="frameShadow">
                    <enum>QFrame::Raised</enum>
                   </property>
-                  <layout class="QHBoxLayout" name="horizontalLayout_16">
-                   <property name="leftMargin">
-                    <number>30</number>
-                   </property>
-                   <property name="topMargin">
-                    <number>20</number>
-                   </property>
-                   <property name="rightMargin">
-                    <number>30</number>
-                   </property>
+                  <layout class="QVBoxLayout" name="verticalLayout_5">
                    <item>
                     <widget class="QStackedWidget" name="stackedWidget">
                      <property name="minimumSize">
@@ -1108,6 +1116,9 @@ QSlider::handle:vertical:pressed {
                      </property>
                      <property name="autoFillBackground">
                       <bool>false</bool>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true"/>
                      </property>
                      <property name="currentIndex">
                       <number>1</number>
@@ -1138,7 +1149,7 @@ QSlider::handle:vertical:pressed {
                        <property name="bottomMargin">
                         <number>0</number>
                        </property>
-                       <item>
+                       <item alignment="Qt::AlignVCenter">
                         <widget class="QFrame" name="row">
                          <property name="minimumSize">
                           <size>
@@ -1490,7 +1501,7 @@ QSlider::handle:vertical:pressed {
                                  </widget>
                                 </item>
                                 <item>
-                                 <widget class="QFrame" name="">
+                                 <widget class="QFrame" name="frame">
                                   <layout class="QHBoxLayout" name="bildebehandlingLayout">
                                    <item>
                                     <widget class="QLabel" name="text_bildebehandlingsmodus">
@@ -1546,7 +1557,7 @@ QSlider::handle:vertical:pressed {
                                       </font>
                                      </property>
                                      <property name="styleSheet">
-                                      <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);</string>
+                                      <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30); padding: 10px;</string>
                                      </property>
                                      <property name="frameShape">
                                       <enum>QFrame::NoFrame</enum>
@@ -1562,6 +1573,9 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="alignment">
                                       <set>Qt::AlignCenter</set>
+                                     </property>
+                                     <property name="margin">
+                                      <number>0</number>
                                      </property>
                                     </widget>
                                    </item>
@@ -1639,7 +1653,7 @@ QSlider::handle:vertical:pressed {
                                       </font>
                                      </property>
                                      <property name="styleSheet">
-                                      <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);</string>
+                                      <string notr="true">QLabel { background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30); padding: 10px; }</string>
                                      </property>
                                      <property name="frameShape">
                                       <enum>QFrame::NoFrame</enum>
@@ -1657,7 +1671,7 @@ QSlider::handle:vertical:pressed {
                                       <set>Qt::AlignCenter</set>
                                      </property>
                                      <property name="margin">
-                                      <number>10</number>
+                                      <number>0</number>
                                      </property>
                                     </widget>
                                    </item>
@@ -1962,7 +1976,7 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="maximumSize">
                                       <size>
-                                       <width>100</width>
+                                       <width>16777215</width>
                                        <height>16777215</height>
                                       </size>
                                      </property>
@@ -2006,7 +2020,7 @@ QSlider::handle:vertical:pressed {
                                       </font>
                                      </property>
                                      <property name="styleSheet">
-                                      <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);</string>
+                                      <string notr="true">QLabel { background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30); padding: 10px; }</string>
                                      </property>
                                      <property name="frameShape">
                                       <enum>QFrame::NoFrame</enum>
@@ -2024,7 +2038,7 @@ QSlider::handle:vertical:pressed {
                                       <set>Qt::AlignCenter</set>
                                      </property>
                                      <property name="margin">
-                                      <number>10</number>
+                                      <number>0</number>
                                      </property>
                                     </widget>
                                    </item>
@@ -2038,7 +2052,7 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="maximumSize">
                                       <size>
-                                       <width>100</width>
+                                       <width>16777215</width>
                                        <height>16777215</height>
                                       </size>
                                      </property>
@@ -2251,7 +2265,7 @@ QSlider::handle:vertical:pressed {
                                       </font>
                                      </property>
                                      <property name="styleSheet">
-                                      <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);</string>
+                                      <string notr="true">QLabel { background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30); padding: 10px; }</string>
                                      </property>
                                      <property name="frameShape">
                                       <enum>QFrame::NoFrame</enum>
@@ -2269,7 +2283,7 @@ QSlider::handle:vertical:pressed {
                                       <set>Qt::AlignCenter</set>
                                      </property>
                                      <property name="margin">
-                                      <number>10</number>
+                                      <number>0</number>
                                      </property>
                                     </widget>
                                    </item>
@@ -2296,7 +2310,7 @@ QSlider::handle:vertical:pressed {
                                       </font>
                                      </property>
                                      <property name="styleSheet">
-                                      <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);</string>
+                                      <string notr="true">QLabel { background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30); padding: 10px; }</string>
                                      </property>
                                      <property name="frameShape">
                                       <enum>QFrame::NoFrame</enum>
@@ -2314,7 +2328,7 @@ QSlider::handle:vertical:pressed {
                                       <set>Qt::AlignCenter</set>
                                      </property>
                                      <property name="margin">
-                                      <number>10</number>
+                                      <number>0</number>
                                      </property>
                                     </widget>
                                    </item>
@@ -2341,7 +2355,7 @@ QSlider::handle:vertical:pressed {
                                       </font>
                                      </property>
                                      <property name="styleSheet">
-                                      <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);</string>
+                                      <string notr="true">QLabel { background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30); padding: 10px; }</string>
                                      </property>
                                      <property name="frameShape">
                                       <enum>QFrame::NoFrame</enum>
@@ -2359,7 +2373,7 @@ QSlider::handle:vertical:pressed {
                                       <set>Qt::AlignCenter</set>
                                      </property>
                                      <property name="margin">
-                                      <number>10</number>
+                                      <number>0</number>
                                      </property>
                                     </widget>
                                    </item>
@@ -2386,7 +2400,7 @@ QSlider::handle:vertical:pressed {
                                       </font>
                                      </property>
                                      <property name="styleSheet">
-                                      <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);</string>
+                                      <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30); padding: 10px;</string>
                                      </property>
                                      <property name="frameShape">
                                       <enum>QFrame::NoFrame</enum>
@@ -2404,7 +2418,7 @@ QSlider::handle:vertical:pressed {
                                       <set>Qt::AlignCenter</set>
                                      </property>
                                      <property name="margin">
-                                      <number>10</number>
+                                      <number>0</number>
                                      </property>
                                     </widget>
                                    </item>
@@ -2431,7 +2445,7 @@ QSlider::handle:vertical:pressed {
                                       </font>
                                      </property>
                                      <property name="styleSheet">
-                                      <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);</string>
+                                      <string notr="true">QLabel { background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30); padding: 10px; }</string>
                                      </property>
                                      <property name="frameShape">
                                       <enum>QFrame::NoFrame</enum>
@@ -2449,7 +2463,7 @@ QSlider::handle:vertical:pressed {
                                       <set>Qt::AlignCenter</set>
                                      </property>
                                      <property name="margin">
-                                      <number>10</number>
+                                      <number>0</number>
                                      </property>
                                     </widget>
                                    </item>
@@ -2494,7 +2508,7 @@ QSlider::handle:vertical:pressed {
                                     <widget class="QLabel" name="title_temp_ROV">
                                      <property name="maximumSize">
                                       <size>
-                                       <width>100</width>
+                                       <width>16777215</width>
                                        <height>16777215</height>
                                       </size>
                                      </property>
@@ -2600,7 +2614,7 @@ QSlider::handle:vertical:pressed {
                                       </font>
                                      </property>
                                      <property name="styleSheet">
-                                      <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);</string>
+                                      <string notr="true">QLabel { background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30); padding: 10px; }</string>
                                      </property>
                                      <property name="frameShape">
                                       <enum>QFrame::NoFrame</enum>
@@ -2618,7 +2632,7 @@ QSlider::handle:vertical:pressed {
                                       <set>Qt::AlignCenter</set>
                                      </property>
                                      <property name="margin">
-                                      <number>10</number>
+                                      <number>0</number>
                                      </property>
                                     </widget>
                                    </item>
@@ -2676,7 +2690,7 @@ QSlider::handle:vertical:pressed {
                                       <string>Tid fra ROV-en starter.</string>
                                      </property>
                                      <property name="styleSheet">
-                                      <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30); QToolTip { color: #ffffff; background-color: rgb(33, 37, 43); border: 1px solid rgb(44, 49, 58); padding-left: 8px;}</string>
+                                      <string notr="true">QLabel { background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30); padding: 10px;}</string>
                                      </property>
                                      <property name="frameShape">
                                       <enum>QFrame::NoFrame</enum>
@@ -2694,7 +2708,7 @@ QSlider::handle:vertical:pressed {
                                       <set>Qt::AlignCenter</set>
                                      </property>
                                      <property name="margin">
-                                      <number>10</number>
+                                      <number>0</number>
                                      </property>
                                     </widget>
                                    </item>
@@ -2811,7 +2825,7 @@ QSlider::handle:vertical:pressed {
                                       <cursorShape>PointingHandCursor</cursorShape>
                                      </property>
                                      <property name="toolTip">
-                                      <string>Nullstill dybden, fra der ROV-en settes ut i vann.</string>
+                                      <string extracomment="Reset tidtakeren."/>
                                      </property>
                                      <property name="text">
                                       <string>Reset</string>
@@ -2866,7 +2880,7 @@ QSlider::handle:vertical:pressed {
                                       <cursorShape>PointingHandCursor</cursorShape>
                                      </property>
                                      <property name="toolTip">
-                                      <string>Nullstill dybden, fra der ROV-en settes ut i vann.</string>
+                                      <string extracomment="Start eller stopp tidtakeren."/>
                                      </property>
                                      <property name="text">
                                       <string>Start / Stopp</string>
@@ -2911,10 +2925,10 @@ QSlider::handle:vertical:pressed {
                                       </font>
                                      </property>
                                      <property name="toolTip">
-                                      <string>Tid fra ROV-en starter.</string>
+                                      <string>Tiden til tidtakeren.</string>
                                      </property>
                                      <property name="styleSheet">
-                                      <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30); QToolTip { color: #ffffff; background-color: rgb(33, 37, 43); border: 1px solid rgb(44, 49, 58); padding-left: 8px;}</string>
+                                      <string notr="true">QLabel { background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30); padding: 10px; }</string>
                                      </property>
                                      <property name="frameShape">
                                       <enum>QFrame::NoFrame</enum>
@@ -2932,7 +2946,7 @@ QSlider::handle:vertical:pressed {
                                       <set>Qt::AlignCenter</set>
                                      </property>
                                      <property name="margin">
-                                      <number>10</number>
+                                      <number>0</number>
                                      </property>
                                     </widget>
                                    </item>
@@ -2943,6 +2957,45 @@ QSlider::handle:vertical:pressed {
                               </widget>
                              </item>
                             </layout>
+                           </widget>
+                          </item>
+                          <item alignment="Qt::AlignVCenter">
+                           <widget class="QLabel" name="label_lekkasje_varsel">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimumSize">
+                             <size>
+                              <width>500</width>
+                              <height>400</height>
+                             </size>
+                            </property>
+                            <property name="maximumSize">
+                             <size>
+                              <width>0</width>
+                              <height>0</height>
+                             </size>
+                            </property>
+                            <property name="styleSheet">
+                             <string notr="true">QLabel { color: rgba(255, 255, 255, 0); background-color: rgba(179, 32, 36, 0); }
+
+</string>
+                            </property>
+                            <property name="text">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:24pt;&quot;&gt;ADVARSEL:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:24pt;&quot;&gt;VANNLEKKASJE I ROV&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignCenter</set>
+                            </property>
+                            <property name="wordWrap">
+                             <bool>true</bool>
+                            </property>
+                            <property name="margin">
+                             <number>0</number>
+                            </property>
                            </widget>
                           </item>
                           <item>
@@ -3069,6 +3122,12 @@ QSlider::handle:vertical:pressed {
                                      <width>500</width>
                                      <height>501</height>
                                     </rect>
+                                   </property>
+                                   <property name="sizePolicy">
+                                    <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+                                     <horstretch>0</horstretch>
+                                     <verstretch>0</verstretch>
+                                    </sizepolicy>
                                    </property>
                                    <property name="minimumSize">
                                     <size>
@@ -5350,6 +5409,12 @@ QSlider::handle:vertical:pressed {
                                 </item>
                                 <item>
                                  <widget class="QFrame" name="frame_3">
+                                  <property name="minimumSize">
+                                   <size>
+                                    <width>0</width>
+                                    <height>0</height>
+                                   </size>
+                                  </property>
                                   <property name="frameShape">
                                    <enum>QFrame::NoFrame</enum>
                                   </property>
@@ -5401,13 +5466,7 @@ QSlider::handle:vertical:pressed {
                                     </widget>
                                    </item>
                                    <item>
-                                    <widget class="QLabel" name="img_recent">
-                                     <property name="sizePolicy">
-                                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                                       <horstretch>0</horstretch>
-                                       <verstretch>0</verstretch>
-                                      </sizepolicy>
-                                     </property>
+                                    <widget class="QLabel" name="recent_img">
                                      <property name="minimumSize">
                                       <size>
                                        <width>0</width>
@@ -5420,20 +5479,11 @@ QSlider::handle:vertical:pressed {
                                        <height>200</height>
                                       </size>
                                      </property>
-                                     <property name="baseSize">
-                                      <size>
-                                       <width>0</width>
-                                       <height>0</height>
-                                      </size>
-                                     </property>
                                      <property name="styleSheet">
-                                      <string notr="true">border: 1px solid rgb(23, 25, 30); padding: 0px;</string>
+                                      <string notr="true">border: 1px solid rgb(23, 25, 30);</string>
                                      </property>
                                      <property name="text">
                                       <string/>
-                                     </property>
-                                     <property name="textFormat">
-                                      <enum>Qt::AutoText</enum>
                                      </property>
                                      <property name="pixmap">
                                       <pixmap resource="resources.qrc">:/images/images/underwater.png</pixmap>
@@ -5441,44 +5491,7 @@ QSlider::handle:vertical:pressed {
                                      <property name="scaledContents">
                                       <bool>true</bool>
                                      </property>
-                                     <property name="alignment">
-                                      <set>Qt::AlignCenter</set>
-                                     </property>
-                                     <property name="wordWrap">
-                                      <bool>false</bool>
-                                     </property>
-                                     <property name="margin">
-                                      <number>0</number>
-                                     </property>
-                                     <property name="indent">
-                                      <number>0</number>
-                                     </property>
                                     </widget>
-                                <widget class="QLabel" name="label_lekkasje_varsel">
-                                <property name="geometry">
-                                <rect>
-                                    <x>510</x>
-                                    <y>-20</y>
-                                    <width>751</width>
-                                    <height>411</height>
-                                </rect>
-                                </property>
-                                <property name="minimumSize">
-                                <size>
-                                    <width>300</width>
-                                    <height>300</height>
-                                </size>
-                                </property>
-                                <property name="styleSheet">
-                                <string notr="true">QLabel { color: rgba(255, 255, 255, 0); background-color: rgba(179, 32, 36, 0); }</string>
-                                </property>
-                                <property name="text">
-                                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:24pt;&quot;&gt;ADVARSEL:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:24pt;&quot;&gt;VANNLEKKASJE I ROV&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                                </property>
-                                <property name="alignment">
-                                <set>Qt::AlignCenter</set>
-                                </property>
-                                </widget>
                                    </item>
                                   </layout>
                                  </widget>
@@ -5548,8 +5561,8 @@ QSlider::handle:vertical:pressed {
                               <rect>
                                <x>0</x>
                                <y>0</y>
-                               <width>1168</width>
-                               <height>840</height>
+                               <width>1259</width>
+                               <height>811</height>
                               </rect>
                              </property>
                              <layout class="QVBoxLayout" name="verticalLayout_18">
@@ -5590,9 +5603,12 @@ QSlider::handle:vertical:pressed {
                                   <widget class="QFrame" name="kontrollerRows">
                                    <property name="maximumSize">
                                     <size>
-                                     <width>1400</width>
+                                     <width>16777215</width>
                                      <height>16777215</height>
                                     </size>
+                                   </property>
+                                   <property name="styleSheet">
+                                    <string notr="true"/>
                                    </property>
                                    <property name="frameShape">
                                     <enum>QFrame::NoFrame</enum>
@@ -5601,6 +5617,9 @@ QSlider::handle:vertical:pressed {
                                     <enum>QFrame::Raised</enum>
                                    </property>
                                    <layout class="QVBoxLayout" name="verticalLayout_19">
+                                    <property name="spacing">
+                                     <number>0</number>
+                                    </property>
                                     <property name="leftMargin">
                                      <number>0</number>
                                     </property>
@@ -5617,8 +5636,8 @@ QSlider::handle:vertical:pressed {
                                      <widget class="QFrame" name="btn_kontroller_container">
                                       <property name="maximumSize">
                                        <size>
-                                        <width>16777215</width>
-                                        <height>200</height>
+                                        <width>16777214</width>
+                                        <height>16777215</height>
                                        </size>
                                       </property>
                                       <property name="styleSheet">
@@ -5706,8 +5725,8 @@ QSlider::handle:vertical:pressed {
                                          </property>
                                          <property name="maximumSize">
                                           <size>
-                                           <width>350</width>
-                                           <height>200</height>
+                                           <width>16777215</width>
+                                           <height>16777215</height>
                                           </size>
                                          </property>
                                          <property name="frameShape">
@@ -5727,7 +5746,7 @@ QSlider::handle:vertical:pressed {
                                            <number>0</number>
                                           </property>
                                           <property name="bottomMargin">
-                                           <number>30</number>
+                                           <number>0</number>
                                           </property>
                                           <item>
                                            <widget class="QLabel" name="text_velg_profil">
@@ -5756,28 +5775,28 @@ QSlider::handle:vertical:pressed {
                                              <string notr="true">color: #dddddd;</string>
                                             </property>
                                             <property name="text">
-                                             <string>Velg profil:</string>
+                                             <string>Valgt profil:</string>
                                             </property>
                                            </widget>
                                           </item>
                                           <item>
                                            <widget class="QComboBox" name="comboBox_velg_profil">
                                             <property name="sizePolicy">
-                                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                                             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                                               <horstretch>0</horstretch>
                                               <verstretch>0</verstretch>
                                              </sizepolicy>
                                             </property>
                                             <property name="minimumSize">
                                              <size>
-                                              <width>220</width>
-                                              <height>0</height>
+                                              <width>0</width>
+                                              <height>30</height>
                                              </size>
                                             </property>
                                             <property name="maximumSize">
                                              <size>
                                               <width>16777215</width>
-                                              <height>30</height>
+                                              <height>16777215</height>
                                              </size>
                                             </property>
                                             <property name="font">
@@ -5907,7 +5926,7 @@ QSlider::handle:vertical:pressed {
                                       <property name="minimumSize">
                                        <size>
                                         <width>0</width>
-                                        <height>680</height>
+                                        <height>600</height>
                                        </size>
                                       </property>
                                       <property name="font">
@@ -5931,7 +5950,7 @@ QSlider::handle:vertical:pressed {
                                        <property name="geometry">
                                         <rect>
                                          <x>140</x>
-                                         <y>-20</y>
+                                         <y>-40</y>
                                          <width>801</width>
                                          <height>771</height>
                                         </rect>
@@ -5950,10 +5969,28 @@ QSlider::handle:vertical:pressed {
                                        <property name="geometry">
                                         <rect>
                                          <x>790</x>
-                                         <y>580</y>
-                                         <width>230</width>
-                                         <height>32</height>
+                                         <y>550</y>
+                                         <width>250</width>
+                                         <height>30</height>
                                         </rect>
+                                       </property>
+                                       <property name="sizePolicy">
+                                        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                                         <horstretch>0</horstretch>
+                                         <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                       </property>
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>0</width>
+                                         <height>30</height>
+                                        </size>
+                                       </property>
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>16777215</width>
+                                         <height>16777215</height>
+                                        </size>
                                        </property>
                                        <property name="font">
                                         <font>
@@ -5982,10 +6019,28 @@ QSlider::handle:vertical:pressed {
                                        <property name="geometry">
                                         <rect>
                                          <x>50</x>
-                                         <y>360</y>
-                                         <width>210</width>
-                                         <height>32</height>
+                                         <y>340</y>
+                                         <width>250</width>
+                                         <height>30</height>
                                         </rect>
+                                       </property>
+                                       <property name="sizePolicy">
+                                        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                                         <horstretch>0</horstretch>
+                                         <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                       </property>
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>0</width>
+                                         <height>30</height>
+                                        </size>
+                                       </property>
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>16777215</width>
+                                         <height>16777215</height>
+                                        </size>
                                        </property>
                                        <property name="font">
                                         <font>
@@ -6011,11 +6066,29 @@ QSlider::handle:vertical:pressed {
                                       <widget class="QComboBox" name="comboBox_right_stick_x">
                                        <property name="geometry">
                                         <rect>
-                                         <x>880</x>
-                                         <y>470</y>
-                                         <width>210</width>
-                                         <height>32</height>
+                                         <x>867</x>
+                                         <y>450</y>
+                                         <width>250</width>
+                                         <height>30</height>
                                         </rect>
+                                       </property>
+                                       <property name="sizePolicy">
+                                        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                                         <horstretch>0</horstretch>
+                                         <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                       </property>
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>0</width>
+                                         <height>30</height>
+                                        </size>
+                                       </property>
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>16777215</width>
+                                         <height>16777215</height>
+                                        </size>
                                        </property>
                                        <property name="font">
                                         <font>
@@ -6042,10 +6115,28 @@ QSlider::handle:vertical:pressed {
                                        <property name="geometry">
                                         <rect>
                                          <x>800</x>
-                                         <y>161</y>
-                                         <width>230</width>
-                                         <height>32</height>
+                                         <y>141</y>
+                                         <width>250</width>
+                                         <height>30</height>
                                         </rect>
+                                       </property>
+                                       <property name="sizePolicy">
+                                        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                                         <horstretch>0</horstretch>
+                                         <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                       </property>
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>0</width>
+                                         <height>30</height>
+                                        </size>
+                                       </property>
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>16777215</width>
+                                         <height>16777215</height>
+                                        </size>
                                        </property>
                                        <property name="font">
                                         <font>
@@ -6072,10 +6163,28 @@ QSlider::handle:vertical:pressed {
                                        <property name="geometry">
                                         <rect>
                                          <x>60</x>
-                                         <y>530</y>
-                                         <width>230</width>
-                                         <height>32</height>
+                                         <y>510</y>
+                                         <width>250</width>
+                                         <height>30</height>
                                         </rect>
+                                       </property>
+                                       <property name="sizePolicy">
+                                        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                                         <horstretch>0</horstretch>
+                                         <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                       </property>
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>0</width>
+                                         <height>30</height>
+                                        </size>
+                                       </property>
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>16777215</width>
+                                         <height>16777215</height>
+                                        </size>
                                        </property>
                                        <property name="font">
                                         <font>
@@ -6102,10 +6211,28 @@ QSlider::handle:vertical:pressed {
                                        <property name="geometry">
                                         <rect>
                                          <x>800</x>
-                                         <y>110</y>
-                                         <width>230</width>
-                                         <height>32</height>
+                                         <y>90</y>
+                                         <width>250</width>
+                                         <height>30</height>
                                         </rect>
+                                       </property>
+                                       <property name="sizePolicy">
+                                        <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                                         <horstretch>0</horstretch>
+                                         <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                       </property>
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>0</width>
+                                         <height>30</height>
+                                        </size>
+                                       </property>
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>16777215</width>
+                                         <height>16777215</height>
+                                        </size>
                                        </property>
                                        <property name="font">
                                         <font>
@@ -6132,10 +6259,28 @@ QSlider::handle:vertical:pressed {
                                        <property name="geometry">
                                         <rect>
                                          <x>20</x>
-                                         <y>280</y>
-                                         <width>241</width>
-                                         <height>32</height>
+                                         <y>260</y>
+                                         <width>250</width>
+                                         <height>30</height>
                                         </rect>
+                                       </property>
+                                       <property name="sizePolicy">
+                                        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                                         <horstretch>0</horstretch>
+                                         <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                       </property>
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>0</width>
+                                         <height>30</height>
+                                        </size>
+                                       </property>
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>16777215</width>
+                                         <height>16777215</height>
+                                        </size>
                                        </property>
                                        <property name="font">
                                         <font>
@@ -6162,10 +6307,28 @@ QSlider::handle:vertical:pressed {
                                        <property name="geometry">
                                         <rect>
                                          <x>560</x>
-                                         <y>20</y>
-                                         <width>230</width>
-                                         <height>32</height>
+                                         <y>10</y>
+                                         <width>250</width>
+                                         <height>30</height>
                                         </rect>
+                                       </property>
+                                       <property name="sizePolicy">
+                                        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                                         <horstretch>0</horstretch>
+                                         <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                       </property>
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>0</width>
+                                         <height>30</height>
+                                        </size>
+                                       </property>
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>16777215</width>
+                                         <height>16777215</height>
+                                        </size>
                                        </property>
                                        <property name="font">
                                         <font>
@@ -6187,10 +6350,28 @@ QSlider::handle:vertical:pressed {
                                        <property name="geometry">
                                         <rect>
                                          <x>530</x>
-                                         <y>530</y>
-                                         <width>251</width>
-                                         <height>32</height>
+                                         <y>510</y>
+                                         <width>250</width>
+                                         <height>30</height>
                                         </rect>
+                                       </property>
+                                       <property name="sizePolicy">
+                                        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                                         <horstretch>0</horstretch>
+                                         <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                       </property>
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>0</width>
+                                         <height>30</height>
+                                        </size>
+                                       </property>
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>16777215</width>
+                                         <height>16777215</height>
+                                        </size>
                                        </property>
                                        <property name="font">
                                         <font>
@@ -6217,10 +6398,28 @@ QSlider::handle:vertical:pressed {
                                        <property name="geometry">
                                         <rect>
                                          <x>280</x>
-                                         <y>20</y>
-                                         <width>230</width>
-                                         <height>32</height>
+                                         <y>8</y>
+                                         <width>250</width>
+                                         <height>30</height>
                                         </rect>
+                                       </property>
+                                       <property name="sizePolicy">
+                                        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                                         <horstretch>0</horstretch>
+                                         <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                       </property>
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>0</width>
+                                         <height>30</height>
+                                        </size>
+                                       </property>
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>16777215</width>
+                                         <height>16777215</height>
+                                        </size>
                                        </property>
                                        <property name="font">
                                         <font>
@@ -6242,10 +6441,28 @@ QSlider::handle:vertical:pressed {
                                        <property name="geometry">
                                         <rect>
                                          <x>810</x>
-                                         <y>280</y>
-                                         <width>230</width>
-                                         <height>32</height>
+                                         <y>260</y>
+                                         <width>250</width>
+                                         <height>30</height>
                                         </rect>
+                                       </property>
+                                       <property name="sizePolicy">
+                                        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                                         <horstretch>0</horstretch>
+                                         <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                       </property>
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>0</width>
+                                         <height>30</height>
+                                        </size>
+                                       </property>
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>16777215</width>
+                                         <height>16777215</height>
+                                        </size>
                                        </property>
                                        <property name="font">
                                         <font>
@@ -6267,10 +6484,28 @@ QSlider::handle:vertical:pressed {
                                        <property name="geometry">
                                         <rect>
                                          <x>820</x>
-                                         <y>340</y>
-                                         <width>230</width>
-                                         <height>32</height>
+                                         <y>320</y>
+                                         <width>250</width>
+                                         <height>30</height>
                                         </rect>
+                                       </property>
+                                       <property name="sizePolicy">
+                                        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                                         <horstretch>0</horstretch>
+                                         <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                       </property>
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>0</width>
+                                         <height>30</height>
+                                        </size>
+                                       </property>
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>16777215</width>
+                                         <height>16777215</height>
+                                        </size>
                                        </property>
                                        <property name="font">
                                         <font>
@@ -6295,10 +6530,28 @@ QSlider::handle:vertical:pressed {
                                        <property name="geometry">
                                         <rect>
                                          <x>310</x>
-                                         <y>560</y>
-                                         <width>210</width>
-                                         <height>32</height>
+                                         <y>540</y>
+                                         <width>250</width>
+                                         <height>30</height>
                                         </rect>
+                                       </property>
+                                       <property name="sizePolicy">
+                                        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                                         <horstretch>0</horstretch>
+                                         <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                       </property>
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>0</width>
+                                         <height>30</height>
+                                        </size>
+                                       </property>
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>16777215</width>
+                                         <height>16777215</height>
+                                        </size>
                                        </property>
                                        <property name="font">
                                         <font>
@@ -6324,11 +6577,29 @@ QSlider::handle:vertical:pressed {
                                       <widget class="QComboBox" name="comboBox_A_btn">
                                        <property name="geometry">
                                         <rect>
-                                         <x>840</x>
-                                         <y>410</y>
-                                         <width>230</width>
-                                         <height>32</height>
+                                         <x>836</x>
+                                         <y>390</y>
+                                         <width>250</width>
+                                         <height>30</height>
                                         </rect>
+                                       </property>
+                                       <property name="sizePolicy">
+                                        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                                         <horstretch>0</horstretch>
+                                         <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                       </property>
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>0</width>
+                                         <height>30</height>
+                                        </size>
+                                       </property>
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>16777215</width>
+                                         <height>16777215</height>
+                                        </size>
                                        </property>
                                        <property name="font">
                                         <font>
@@ -6350,10 +6621,28 @@ QSlider::handle:vertical:pressed {
                                        <property name="geometry">
                                         <rect>
                                          <x>0</x>
-                                         <y>219</y>
-                                         <width>210</width>
-                                         <height>32</height>
+                                         <y>199</y>
+                                         <width>250</width>
+                                         <height>30</height>
                                         </rect>
+                                       </property>
+                                       <property name="sizePolicy">
+                                        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                                         <horstretch>0</horstretch>
+                                         <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                       </property>
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>0</width>
+                                         <height>30</height>
+                                        </size>
+                                       </property>
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>16777215</width>
+                                         <height>16777215</height>
+                                        </size>
                                        </property>
                                        <property name="font">
                                         <font>
@@ -6380,10 +6669,28 @@ QSlider::handle:vertical:pressed {
                                        <property name="geometry">
                                         <rect>
                                          <x>70</x>
-                                         <y>170</y>
-                                         <width>230</width>
-                                         <height>32</height>
+                                         <y>150</y>
+                                         <width>250</width>
+                                         <height>30</height>
                                         </rect>
+                                       </property>
+                                       <property name="sizePolicy">
+                                        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                                         <horstretch>0</horstretch>
+                                         <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                       </property>
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>0</width>
+                                         <height>30</height>
+                                        </size>
+                                       </property>
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>16777215</width>
+                                         <height>16777215</height>
+                                        </size>
                                        </property>
                                        <property name="font">
                                         <font>
@@ -6410,10 +6717,28 @@ QSlider::handle:vertical:pressed {
                                        <property name="geometry">
                                         <rect>
                                          <x>818</x>
-                                         <y>220</y>
-                                         <width>230</width>
-                                         <height>32</height>
+                                         <y>200</y>
+                                         <width>250</width>
+                                         <height>30</height>
                                         </rect>
+                                       </property>
+                                       <property name="sizePolicy">
+                                        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                                         <horstretch>0</horstretch>
+                                         <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                       </property>
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>0</width>
+                                         <height>30</height>
+                                        </size>
+                                       </property>
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>16777215</width>
+                                         <height>16777215</height>
+                                        </size>
                                        </property>
                                        <property name="font">
                                         <font>
@@ -6440,10 +6765,28 @@ QSlider::handle:vertical:pressed {
                                        <property name="geometry">
                                         <rect>
                                          <x>100</x>
-                                         <y>120</y>
-                                         <width>230</width>
-                                         <height>32</height>
+                                         <y>100</y>
+                                         <width>250</width>
+                                         <height>30</height>
                                         </rect>
+                                       </property>
+                                       <property name="sizePolicy">
+                                        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                                         <horstretch>0</horstretch>
+                                         <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                       </property>
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>0</width>
+                                         <height>30</height>
+                                        </size>
+                                       </property>
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>16777215</width>
+                                         <height>16777215</height>
+                                        </size>
                                        </property>
                                        <property name="font">
                                         <font>
@@ -6466,43 +6809,118 @@ QSlider::handle:vertical:pressed {
                                         </property>
                                        </item>
                                       </widget>
-                                      <widget class="QPushButton" name="btn_save_profile">
-                                       <property name="enabled">
-                                        <bool>false</bool>
+                                     </widget>
+                                    </item>
+                                    <item>
+                                     <widget class="QFrame" name="frame_4">
+                                      <property name="frameShape">
+                                       <enum>QFrame::NoFrame</enum>
+                                      </property>
+                                      <property name="frameShadow">
+                                       <enum>QFrame::Raised</enum>
+                                      </property>
+                                      <layout class="QVBoxLayout" name="verticalLayout_9">
+                                       <property name="spacing">
+                                        <number>0</number>
                                        </property>
-                                       <property name="geometry">
-                                        <rect>
-                                         <x>1090</x>
-                                         <y>620</y>
-                                         <width>201</width>
-                                         <height>45</height>
-                                        </rect>
+                                       <property name="leftMargin">
+                                        <number>0</number>
                                        </property>
-                                       <property name="minimumSize">
-                                        <size>
-                                         <width>150</width>
-                                         <height>45</height>
-                                        </size>
+                                       <property name="topMargin">
+                                        <number>0</number>
                                        </property>
-                                       <property name="font">
-                                        <font>
-                                         <pointsize>10</pointsize>
-                                         <weight>50</weight>
-                                         <italic>false</italic>
-                                         <bold>false</bold>
-                                        </font>
+                                       <property name="rightMargin">
+                                        <number>0</number>
                                        </property>
-                                       <property name="cursor">
-                                        <cursorShape>PointingHandCursor</cursorShape>
+                                       <property name="bottomMargin">
+                                        <number>0</number>
                                        </property>
-                                       <property name="text">
-                                        <string> Lagre</string>
-                                       </property>
-                                       <property name="icon">
-                                        <iconset resource="resources.qrc">
-                                         <normaloff>:/icons/images/icons/cil-save.png</normaloff>:/icons/images/icons/cil-save.png</iconset>
-                                       </property>
-                                      </widget>
+                                       <item alignment="Qt::AlignRight|Qt::AlignTop">
+                                        <widget class="QPushButton" name="btn_save_profile">
+                                         <property name="enabled">
+                                          <bool>false</bool>
+                                         </property>
+                                         <property name="sizePolicy">
+                                          <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                                           <horstretch>0</horstretch>
+                                           <verstretch>0</verstretch>
+                                          </sizepolicy>
+                                         </property>
+                                         <property name="minimumSize">
+                                          <size>
+                                           <width>150</width>
+                                           <height>45</height>
+                                          </size>
+                                         </property>
+                                         <property name="font">
+                                          <font>
+                                           <pointsize>10</pointsize>
+                                           <weight>50</weight>
+                                           <italic>false</italic>
+                                           <bold>false</bold>
+                                          </font>
+                                         </property>
+                                         <property name="cursor">
+                                          <cursorShape>PointingHandCursor</cursorShape>
+                                         </property>
+                                         <property name="styleSheet">
+                                          <string notr="true">QPushButton:disabled {
+	background-color: rgb(52, 53, 58);
+	color: rgba(255, 255, 255, 55);
+	border: 2px solid rgba(26, 27, 33, 55);
+	border-radius: 5px;
+}</string>
+                                         </property>
+                                         <property name="text">
+                                          <string> Lagre</string>
+                                         </property>
+                                         <property name="icon">
+                                          <iconset resource="resources.qrc">
+                                           <normaloff>:/icons/images/icons/cil-save.png</normaloff>:/icons/images/icons/cil-save.png</iconset>
+                                         </property>
+                                        </widget>
+                                       </item>
+                                       <item alignment="Qt::AlignRight|Qt::AlignTop">
+                                        <widget class="QLabel" name="text_ingen_endringer">
+                                         <property name="minimumSize">
+                                          <size>
+                                           <width>0</width>
+                                           <height>10</height>
+                                          </size>
+                                         </property>
+                                         <property name="baseSize">
+                                          <size>
+                                           <width>0</width>
+                                           <height>0</height>
+                                          </size>
+                                         </property>
+                                         <property name="font">
+                                          <font>
+                                           <family>Arial</family>
+                                           <pointsize>10</pointsize>
+                                          </font>
+                                         </property>
+                                         <property name="styleSheet">
+                                          <string notr="true">color: rgb(127, 127, 130); padding: 5px;</string>
+                                         </property>
+                                         <property name="lineWidth">
+                                          <number>1</number>
+                                         </property>
+                                         <property name="text">
+                                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Du har ikke gjort noen endringer enda.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                         </property>
+                                         <property name="alignment">
+                                          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                                         </property>
+                                         <property name="wordWrap">
+                                          <bool>false</bool>
+                                         </property>
+                                         <property name="indent">
+                                          <number>0</number>
+                                         </property>
+                                        </widget>
+                                       </item>
+                                      </layout>
                                      </widget>
                                     </item>
                                    </layout>

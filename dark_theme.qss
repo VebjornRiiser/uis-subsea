@@ -26,9 +26,14 @@ QPushButton {
 	padding: 10px;
 	margin: 1px;
 }
+QPushButton:disabled {
+	background-color:  rgba(45, 51, 63, 255);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;
+}
 
 #pagesContainer QPushButton {
-	background-color: qlineargradient(spread: pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));
+	background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(71, 81, 99, 255), stop:1 rgba(52, 59, 72, 255));
 	border: 2px solid rgb(52, 59, 72);
 	border-radius: 5px;
 }
@@ -49,10 +54,10 @@ QPushButton {
 
 /* Tooltip */
 QToolTip {
+	padding: 5px;
 	color: #ffffff;
-	background-color: rgb(33, 37, 43);
+	background-color: rgba(33, 37, 43, 240);
 	border: 1px solid rgb(44, 49, 58);
-	padding-left: 8px;
 }
 
 /* Bg App */
@@ -170,14 +175,16 @@ QComboBox{
 	background-color: rgb(27, 29, 35);
 	border-radius: 5px;
 	border: 2px solid rgb(33, 37, 43);
-	padding: 5px;
 	padding-left: 10px;
+	width: 5px;
 }
 QComboBox:hover{
 	border: 2px solid rgb(64, 71, 88);
 }
 QComboBox::drop-down {
-	width: 25px; 
+	subcontrol-origin: padding;
+	subcontrol-position: top right;
+	width: 25px;
 	border-left-width: 3px;
 	border-left-color: rgba(39, 44, 54, 150);
 	border-left-style: solid;
@@ -185,12 +192,13 @@ QComboBox::drop-down {
 	border-bottom-right-radius: 3px;	
 	background-image: url(:/icons/images/icons/cil-arrow-bottom.png);
 	background-position: center;
-	background-repeat: no-reperat;
- }
+	background-repeat: no-repeat;
+}
 QComboBox QAbstractItemView {
 	color: rgb(74, 82, 91);	
-	background-color: rgb(33, 37, 43);
+	background-color: rgb(50, 50, 50);
 	padding: 10px;
+	selection-background-color: rgb(39, 44, 54);
 }
 
 /* Sliders */
