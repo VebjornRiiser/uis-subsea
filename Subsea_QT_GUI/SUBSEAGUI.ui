@@ -5479,11 +5479,6 @@ QSlider::handle:vertical:pressed {
                                 <set>Qt::AlignCenter</set>
                                 </property>
                                 </widget>
-                                <zorder>label_lekkasje_varsel</zorder>
-                                <zorder>column1</zorder>
-                                <zorder>column2</zorder>
-                                <zorder>column3</zorder>
-                                </widget>
                                    </item>
                                   </layout>
                                  </widget>
