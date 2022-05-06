@@ -10,7 +10,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1363</width>
+    <width>1250</width>
     <height>930</height>
    </rect>
   </property>
@@ -64,13 +64,6 @@
    <property name="styleSheet">
     <string notr="true">/* STYLE SHEET - DARK THEME */
 
-/* Colors 
-    use: color: var(--main-color);
-*/
-/*:root {
-    --main-color: #06c;
-}*/
-
 /* stackedWidget */
 #informasjon, #home, #kontroller { background-color: transparent; }
 
@@ -85,11 +78,37 @@ QFrame#column1, #column2, #column3 { width: 100%; }
 /* Labels */
 QLabel { padding: 1px; }
 
+QLabel[labelStyle='blackBg'] {
+	background-color: rgb(30, 33, 38);
+	border-radius: 5px;
+	border: 1px solid rgb(30, 30, 30);
+	padding: 10px;
+}
+
+QLabel[colorStyle='subTitle'] {
+	color: rgb(113, 126, 149);
+}
+
+
 /* Buttons */
 QPushButton {
 	padding: 10px;
 	margin: 1px;
 }
+
+#pagesContainer QPushButton[btnStyle='redBtn'] {
+	border-color: rgb(80, 36, 37);
+	background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.495, y2:1, stop:0.00492611 rgba(211, 94, 94, 255), stop:1 rgba(96, 14, 14, 255));
+}
+
+#pagesContainer QPushButton[btnStyle='redBtn']:hover {
+	background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.495, y2:1, stop:0.00492611 rgba(255, 113, 113, 255), stop:0.995074 rgba(120, 18, 18, 255));
+}
+
+#pagesContainer QPushButton[btnStyle='redBtn']:hover:pressed {
+	background-color: rgb(95, 9, 15); 
+}
+
 QPushButton:disabled {
 	background-color:  rgba(45, 51, 63, 255);
 	border: 2px solid rgb(52, 59, 72);
@@ -907,6 +926,9 @@ QSlider::handle:vertical:pressed {
                      <property name="checkable">
                       <bool>true</bool>
                      </property>
+                     <property name="checked">
+                      <bool>false</bool>
+                     </property>
                     </widget>
                    </item>
                   </layout>
@@ -1121,7 +1143,7 @@ QSlider::handle:vertical:pressed {
                       <string notr="true"/>
                      </property>
                      <property name="currentIndex">
-                      <number>1</number>
+                      <number>2</number>
                      </property>
                      <widget class="QWidget" name="home">
                       <property name="autoFillBackground">
@@ -1327,6 +1349,9 @@ QSlider::handle:vertical:pressed {
                                   </property>
                                   <property name="alignment">
                                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                                  </property>
+                                  <property name="colorStyle" stdset="0">
+                                   <string>subTitle</string>
                                   </property>
                                  </widget>
                                 </item>
@@ -1556,9 +1581,6 @@ QSlider::handle:vertical:pressed {
                                        <bold>false</bold>
                                       </font>
                                      </property>
-                                     <property name="styleSheet">
-                                      <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30); padding: 10px;</string>
-                                     </property>
                                      <property name="frameShape">
                                       <enum>QFrame::NoFrame</enum>
                                      </property>
@@ -1576,6 +1598,15 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="margin">
                                       <number>0</number>
+                                     </property>
+                                     <property name="labelStyle" stdset="0">
+                                      <string>blackBg</string>
+                                     </property>
+                                     <property name="whiteBg" stdset="0">
+                                      <string/>
+                                     </property>
+                                     <property name="labelStyle2" stdset="0">
+                                      <string>whiteBg</string>
                                      </property>
                                     </widget>
                                    </item>
@@ -1652,9 +1683,6 @@ QSlider::handle:vertical:pressed {
                                        <bold>false</bold>
                                       </font>
                                      </property>
-                                     <property name="styleSheet">
-                                      <string notr="true">QLabel { background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30); padding: 10px; }</string>
-                                     </property>
                                      <property name="frameShape">
                                       <enum>QFrame::NoFrame</enum>
                                      </property>
@@ -1672,6 +1700,12 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="margin">
                                       <number>0</number>
+                                     </property>
+                                     <property name="labelStyle" stdset="0">
+                                      <string>blackBg</string>
+                                     </property>
+                                     <property name="labelStyle2" stdset="0">
+                                      <string>whiteBg</string>
                                      </property>
                                     </widget>
                                    </item>
@@ -1698,9 +1732,6 @@ QSlider::handle:vertical:pressed {
                                        <bold>false</bold>
                                       </font>
                                      </property>
-                                     <property name="styleSheet">
-                                      <string notr="true">color: rgb(113, 126, 149);</string>
-                                     </property>
                                      <property name="text">
                                       <string>Gj.snitt:</string>
                                      </property>
@@ -1709,6 +1740,9 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="alignment">
                                       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                                     </property>
+                                     <property name="colorStyle" stdset="0">
+                                      <string>subTitle</string>
                                      </property>
                                     </widget>
                                    </item>
@@ -1900,14 +1934,14 @@ QSlider::handle:vertical:pressed {
                                        <bold>false</bold>
                                       </font>
                                      </property>
-                                     <property name="styleSheet">
-                                      <string notr="true">color: rgb(113, 126, 149);</string>
-                                     </property>
                                      <property name="text">
                                       <string>Thrustere:</string>
                                      </property>
                                      <property name="textFormat">
                                       <enum>Qt::PlainText</enum>
+                                     </property>
+                                     <property name="colorStyle" stdset="0">
+                                      <string>subTitle</string>
                                      </property>
                                     </widget>
                                    </item>
@@ -2019,9 +2053,6 @@ QSlider::handle:vertical:pressed {
                                        <bold>false</bold>
                                       </font>
                                      </property>
-                                     <property name="styleSheet">
-                                      <string notr="true">QLabel { background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30); padding: 10px; }</string>
-                                     </property>
                                      <property name="frameShape">
                                       <enum>QFrame::NoFrame</enum>
                                      </property>
@@ -2039,6 +2070,12 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="margin">
                                       <number>0</number>
+                                     </property>
+                                     <property name="labelStyle" stdset="0">
+                                      <string>blackBg</string>
+                                     </property>
+                                     <property name="labelStyle2" stdset="0">
+                                      <string>whiteBg</string>
                                      </property>
                                     </widget>
                                    </item>
@@ -2071,6 +2108,9 @@ QSlider::handle:vertical:pressed {
                                      <property name="textFormat">
                                       <enum>Qt::RichText</enum>
                                      </property>
+                                     <property name="colorStyle" stdset="0">
+                                      <string>subTitle</string>
+                                     </property>
                                     </widget>
                                    </item>
                                    <item row="6" column="0">
@@ -2096,14 +2136,14 @@ QSlider::handle:vertical:pressed {
                                        <bold>false</bold>
                                       </font>
                                      </property>
-                                     <property name="styleSheet">
-                                      <string notr="true">color: rgb(113, 126, 149);</string>
-                                     </property>
                                      <property name="text">
                                       <string>Manipulator:</string>
                                      </property>
                                      <property name="textFormat">
                                       <enum>Qt::RichText</enum>
+                                     </property>
+                                     <property name="colorStyle" stdset="0">
+                                      <string>subTitle</string>
                                      </property>
                                     </widget>
                                    </item>
@@ -2240,6 +2280,9 @@ QSlider::handle:vertical:pressed {
                                      <property name="textFormat">
                                       <enum>Qt::RichText</enum>
                                      </property>
+                                     <property name="colorStyle" stdset="0">
+                                      <string>subTitle</string>
+                                     </property>
                                     </widget>
                                    </item>
                                    <item row="9" column="2">
@@ -2264,9 +2307,6 @@ QSlider::handle:vertical:pressed {
                                        <bold>false</bold>
                                       </font>
                                      </property>
-                                     <property name="styleSheet">
-                                      <string notr="true">QLabel { background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30); padding: 10px; }</string>
-                                     </property>
                                      <property name="frameShape">
                                       <enum>QFrame::NoFrame</enum>
                                      </property>
@@ -2284,6 +2324,12 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="margin">
                                       <number>0</number>
+                                     </property>
+                                     <property name="labelStyle" stdset="0">
+                                      <string>blackBg</string>
+                                     </property>
+                                     <property name="labelStyle2" stdset="0">
+                                      <string>whiteBg</string>
                                      </property>
                                     </widget>
                                    </item>
@@ -2309,9 +2355,6 @@ QSlider::handle:vertical:pressed {
                                        <bold>false</bold>
                                       </font>
                                      </property>
-                                     <property name="styleSheet">
-                                      <string notr="true">QLabel { background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30); padding: 10px; }</string>
-                                     </property>
                                      <property name="frameShape">
                                       <enum>QFrame::NoFrame</enum>
                                      </property>
@@ -2329,6 +2372,12 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="margin">
                                       <number>0</number>
+                                     </property>
+                                     <property name="labelStyle" stdset="0">
+                                      <string>blackBg</string>
+                                     </property>
+                                     <property name="labelStyle2" stdset="0">
+                                      <string>whiteBg</string>
                                      </property>
                                     </widget>
                                    </item>
@@ -2354,9 +2403,6 @@ QSlider::handle:vertical:pressed {
                                        <bold>false</bold>
                                       </font>
                                      </property>
-                                     <property name="styleSheet">
-                                      <string notr="true">QLabel { background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30); padding: 10px; }</string>
-                                     </property>
                                      <property name="frameShape">
                                       <enum>QFrame::NoFrame</enum>
                                      </property>
@@ -2374,6 +2420,12 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="margin">
                                       <number>0</number>
+                                     </property>
+                                     <property name="labelStyle" stdset="0">
+                                      <string>blackBg</string>
+                                     </property>
+                                     <property name="labelStyle2" stdset="0">
+                                      <string>whiteBg</string>
                                      </property>
                                     </widget>
                                    </item>
@@ -2399,9 +2451,6 @@ QSlider::handle:vertical:pressed {
                                        <bold>false</bold>
                                       </font>
                                      </property>
-                                     <property name="styleSheet">
-                                      <string notr="true">background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30); padding: 10px;</string>
-                                     </property>
                                      <property name="frameShape">
                                       <enum>QFrame::NoFrame</enum>
                                      </property>
@@ -2419,6 +2468,12 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="margin">
                                       <number>0</number>
+                                     </property>
+                                     <property name="labelStyle" stdset="0">
+                                      <string>blackBg</string>
+                                     </property>
+                                     <property name="labelStyle2" stdset="0">
+                                      <string>whiteBg</string>
                                      </property>
                                     </widget>
                                    </item>
@@ -2444,9 +2499,6 @@ QSlider::handle:vertical:pressed {
                                        <bold>false</bold>
                                       </font>
                                      </property>
-                                     <property name="styleSheet">
-                                      <string notr="true">QLabel { background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30); padding: 10px; }</string>
-                                     </property>
                                      <property name="frameShape">
                                       <enum>QFrame::NoFrame</enum>
                                      </property>
@@ -2464,6 +2516,12 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="margin">
                                       <number>0</number>
+                                     </property>
+                                     <property name="labelStyle" stdset="0">
+                                      <string>blackBg</string>
+                                     </property>
+                                     <property name="labelStyle2" stdset="0">
+                                      <string>whiteBg</string>
                                      </property>
                                     </widget>
                                    </item>
@@ -2490,9 +2548,6 @@ QSlider::handle:vertical:pressed {
                                        <bold>false</bold>
                                       </font>
                                      </property>
-                                     <property name="styleSheet">
-                                      <string notr="true">color: rgb(113, 126, 149);</string>
-                                     </property>
                                      <property name="text">
                                       <string>Hovedkort:</string>
                                      </property>
@@ -2501,6 +2556,9 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="alignment">
                                       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                                     </property>
+                                     <property name="colorStyle" stdset="0">
+                                      <string>subTitle</string>
                                      </property>
                                     </widget>
                                    </item>
@@ -2552,14 +2610,14 @@ QSlider::handle:vertical:pressed {
                                        <bold>false</bold>
                                       </font>
                                      </property>
-                                     <property name="styleSheet">
-                                      <string notr="true">color: rgb(113, 126, 149);</string>
-                                     </property>
                                      <property name="text">
                                       <string>Elektronikk:</string>
                                      </property>
                                      <property name="textFormat">
                                       <enum>Qt::RichText</enum>
+                                     </property>
+                                     <property name="colorStyle" stdset="0">
+                                      <string>subTitle</string>
                                      </property>
                                     </widget>
                                    </item>
@@ -2580,14 +2638,14 @@ QSlider::handle:vertical:pressed {
                                        <bold>false</bold>
                                       </font>
                                      </property>
-                                     <property name="styleSheet">
-                                      <string notr="true">color: rgb(113, 126, 149);</string>
-                                     </property>
                                      <property name="text">
                                       <string>Kraftkort:</string>
                                      </property>
                                      <property name="textFormat">
                                       <enum>Qt::RichText</enum>
+                                     </property>
+                                     <property name="colorStyle" stdset="0">
+                                      <string>subTitle</string>
                                      </property>
                                     </widget>
                                    </item>
@@ -2613,9 +2671,6 @@ QSlider::handle:vertical:pressed {
                                        <bold>false</bold>
                                       </font>
                                      </property>
-                                     <property name="styleSheet">
-                                      <string notr="true">QLabel { background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30); padding: 10px; }</string>
-                                     </property>
                                      <property name="frameShape">
                                       <enum>QFrame::NoFrame</enum>
                                      </property>
@@ -2633,6 +2688,12 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="margin">
                                       <number>0</number>
+                                     </property>
+                                     <property name="labelStyle" stdset="0">
+                                      <string>blackBg</string>
+                                     </property>
+                                     <property name="labelStyle2" stdset="0">
+                                      <string>whiteBg</string>
                                      </property>
                                     </widget>
                                    </item>
@@ -2653,14 +2714,14 @@ QSlider::handle:vertical:pressed {
                                        <bold>false</bold>
                                       </font>
                                      </property>
-                                     <property name="styleSheet">
-                                      <string notr="true">color: rgb(113, 126, 149);</string>
-                                     </property>
                                      <property name="text">
                                       <string>Sensorkort:</string>
                                      </property>
                                      <property name="textFormat">
                                       <enum>Qt::RichText</enum>
+                                     </property>
+                                     <property name="colorStyle" stdset="0">
+                                      <string>subTitle</string>
                                      </property>
                                     </widget>
                                    </item>
@@ -2689,9 +2750,6 @@ QSlider::handle:vertical:pressed {
                                      <property name="toolTip">
                                       <string>Tid fra ROV-en starter.</string>
                                      </property>
-                                     <property name="styleSheet">
-                                      <string notr="true">QLabel { background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30); padding: 10px;}</string>
-                                     </property>
                                      <property name="frameShape">
                                       <enum>QFrame::NoFrame</enum>
                                      </property>
@@ -2709,6 +2767,12 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="margin">
                                       <number>0</number>
+                                     </property>
+                                     <property name="labelStyle" stdset="0">
+                                      <string>blackBg</string>
+                                     </property>
+                                     <property name="labelStyle2" stdset="0">
+                                      <string>whiteBg</string>
                                      </property>
                                     </widget>
                                    </item>
@@ -2789,6 +2853,9 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="textFormat">
                                       <enum>Qt::RichText</enum>
+                                     </property>
+                                     <property name="colorStyle" stdset="0">
+                                      <string>subTitle</string>
                                      </property>
                                     </widget>
                                    </item>
@@ -2927,9 +2994,6 @@ QSlider::handle:vertical:pressed {
                                      <property name="toolTip">
                                       <string>Tiden til tidtakeren.</string>
                                      </property>
-                                     <property name="styleSheet">
-                                      <string notr="true">QLabel { background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30); padding: 10px; }</string>
-                                     </property>
                                      <property name="frameShape">
                                       <enum>QFrame::NoFrame</enum>
                                      </property>
@@ -2947,6 +3011,12 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="margin">
                                       <number>0</number>
+                                     </property>
+                                     <property name="labelStyle" stdset="0">
+                                      <string>blackBg</string>
+                                     </property>
+                                     <property name="labelStyle2" stdset="0">
+                                      <string>whiteBg</string>
                                      </property>
                                     </widget>
                                    </item>
@@ -3764,6 +3834,9 @@ QSlider::handle:vertical:pressed {
                                    <property name="alignment">
                                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                                    </property>
+                                   <property name="colorStyle" stdset="0">
+                                    <string>subTitle</string>
+                                   </property>
                                   </widget>
                                  </widget>
                                 </item>
@@ -3806,6 +3879,9 @@ QSlider::handle:vertical:pressed {
                                  </property>
                                  <property name="textFormat">
                                   <enum>Qt::RichText</enum>
+                                 </property>
+                                 <property name="colorStyle" stdset="0">
+                                  <string>subTitle</string>
                                  </property>
                                 </widget>
                                </item>
@@ -3953,6 +4029,9 @@ QSlider::handle:vertical:pressed {
                                </property>
                                <property name="alignment">
                                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                               </property>
+                               <property name="colorStyle" stdset="0">
+                                <string>subTitle</string>
                                </property>
                               </widget>
                              </item>
@@ -4512,6 +4591,9 @@ QSlider::handle:vertical:pressed {
                                  <property name="textFormat">
                                   <enum>Qt::RichText</enum>
                                  </property>
+                                 <property name="colorStyle" stdset="0">
+                                  <string>subTitle</string>
+                                 </property>
                                 </widget>
                                </item>
                                <item row="2" column="1">
@@ -4596,6 +4678,9 @@ QSlider::handle:vertical:pressed {
                                  </property>
                                  <property name="textFormat">
                                   <enum>Qt::RichText</enum>
+                                 </property>
+                                 <property name="colorStyle" stdset="0">
+                                  <string>subTitle</string>
                                  </property>
                                 </widget>
                                </item>
@@ -4738,6 +4823,9 @@ QSlider::handle:vertical:pressed {
                                <property name="text">
                                 <string>Ta bilde</string>
                                </property>
+                               <property name="colorStyle" stdset="0">
+                                <string>subTitle</string>
+                               </property>
                               </widget>
                              </item>
                              <item>
@@ -4872,15 +4960,15 @@ QSlider::handle:vertical:pressed {
                                   <property name="cursor">
                                    <cursorShape>PointingHandCursor</cursorShape>
                                   </property>
-                                  <property name="styleSheet">
-                                   <string notr="true">QPushButton { border-color: rgb(80, 36, 37); background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.495, y2:1, stop:0.00492611 rgba(211, 94, 94, 255), stop:1 rgba(96, 14, 14, 255))} QPushButton:hover { background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.495, y2:1, stop:0.00492611 rgba(255, 113, 113, 255), stop:0.995074 rgba(120, 18, 18, 255))} QPushButton:hover:pressed { background-color: rgb(95, 9, 15); }</string>
-                                  </property>
                                   <property name="text">
                                    <string> Slett det siste bildet</string>
                                   </property>
                                   <property name="icon">
                                    <iconset resource="resources.qrc">
                                     <normaloff>:/images/images/trash.png</normaloff>:/images/images/trash.png</iconset>
+                                  </property>
+                                  <property name="btnStyle" stdset="0">
+                                   <string>redBtn</string>
                                   </property>
                                  </widget>
                                 </item>
@@ -5072,6 +5160,9 @@ QSlider::handle:vertical:pressed {
                                   </property>
                                   <property name="text">
                                    <string>Start og stopp videoopptak</string>
+                                  </property>
+                                  <property name="colorStyle" stdset="0">
+                                   <string>subTitle</string>
                                   </property>
                                  </widget>
                                 </item>
@@ -5463,6 +5554,9 @@ QSlider::handle:vertical:pressed {
                                      <property name="alignment">
                                       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                                      </property>
+                                     <property name="colorStyle" stdset="0">
+                                      <string>subTitle</string>
+                                     </property>
                                     </widget>
                                    </item>
                                    <item>
@@ -5561,7 +5655,7 @@ QSlider::handle:vertical:pressed {
                               <rect>
                                <x>0</x>
                                <y>0</y>
-                               <width>1259</width>
+                               <width>1116</width>
                                <height>811</height>
                               </rect>
                              </property>
@@ -6064,6 +6158,9 @@ QSlider::handle:vertical:pressed {
                                        </item>
                                       </widget>
                                       <widget class="QComboBox" name="comboBox_right_stick_x">
+                                       <property name="enabled">
+                                        <bool>false</bool>
+                                       </property>
                                        <property name="geometry">
                                         <rect>
                                          <x>867</x>
@@ -6208,6 +6305,9 @@ QSlider::handle:vertical:pressed {
                                        </item>
                                       </widget>
                                       <widget class="QComboBox" name="comboBox_RT_btn">
+                                       <property name="enabled">
+                                        <bool>false</bool>
+                                       </property>
                                        <property name="geometry">
                                         <rect>
                                          <x>800</x>
@@ -6256,6 +6356,9 @@ QSlider::handle:vertical:pressed {
                                        </item>
                                       </widget>
                                       <widget class="QComboBox" name="comboBox_left_stick_x">
+                                       <property name="enabled">
+                                        <bool>false</bool>
+                                       </property>
                                        <property name="geometry">
                                         <rect>
                                          <x>20</x>
@@ -6347,6 +6450,9 @@ QSlider::handle:vertical:pressed {
                                        </property>
                                       </widget>
                                       <widget class="QComboBox" name="comboBox_right_stick_y">
+                                       <property name="enabled">
+                                        <bool>false</bool>
+                                       </property>
                                        <property name="geometry">
                                         <rect>
                                          <x>530</x>
@@ -6618,6 +6724,9 @@ QSlider::handle:vertical:pressed {
                                        </property>
                                       </widget>
                                       <widget class="QComboBox" name="comboBox_left_stick_y">
+                                       <property name="enabled">
+                                        <bool>false</bool>
+                                       </property>
                                        <property name="geometry">
                                         <rect>
                                          <x>0</x>
@@ -6762,6 +6871,9 @@ QSlider::handle:vertical:pressed {
                                        </item>
                                       </widget>
                                       <widget class="QComboBox" name="comboBox_LT_btn">
+                                       <property name="enabled">
+                                        <bool>false</bool>
+                                       </property>
                                        <property name="geometry">
                                         <rect>
                                          <x>100</x>

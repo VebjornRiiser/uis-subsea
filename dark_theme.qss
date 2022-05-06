@@ -1,12 +1,5 @@
 /* STYLE SHEET - DARK THEME */
 
-/* Colors 
-    use: color: var(--main-color);
-*/
-/*:root {
-    --main-color: #06c;
-}*/
-
 /* stackedWidget */
 #informasjon, #home, #kontroller { background-color: transparent; }
 
@@ -21,11 +14,37 @@ QFrame#column1, #column2, #column3 { width: 100%; }
 /* Labels */
 QLabel { padding: 1px; }
 
+QLabel[labelStyle='blackBg'] {
+	background-color: rgb(30, 33, 38);
+	border-radius: 5px;
+	border: 1px solid rgb(30, 30, 30);
+	padding: 10px;
+}
+
+QLabel[colorStyle='subTitle'] {
+	color: rgb(113, 126, 149);
+}
+
+
 /* Buttons */
 QPushButton {
 	padding: 10px;
 	margin: 1px;
 }
+
+#pagesContainer QPushButton[btnStyle='redBtn'] {
+	border-color: rgb(80, 36, 37);
+	background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.495, y2:1, stop:0.00492611 rgba(211, 94, 94, 255), stop:1 rgba(96, 14, 14, 255));
+}
+
+#pagesContainer QPushButton[btnStyle='redBtn']:hover {
+	background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.495, y2:1, stop:0.00492611 rgba(255, 113, 113, 255), stop:0.995074 rgba(120, 18, 18, 255));
+}
+
+#pagesContainer QPushButton[btnStyle='redBtn']:hover:pressed {
+	background-color: rgb(95, 9, 15); 
+}
+
 QPushButton:disabled {
 	background-color:  rgba(45, 51, 63, 255);
 	border: 2px solid rgb(52, 59, 72);

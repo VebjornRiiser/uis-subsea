@@ -528,8 +528,8 @@ class Rov_state:
     def handle_data_from_rov(self, message: dict):
         self.logger.sensor_logger.info(message)
         # print(message)
-        if "ERROR" in message:
-            # print(message)
+        if "ERROR" in message or "info" in message:
+            print(message)
             return
         try:
             message_name = list(message.keys())[0]
