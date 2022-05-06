@@ -1,133 +1,173 @@
-/* ///////////////////////////////////////////////
+/* STYLE SHEET - LIGHT THEME */
 
-STYLE SHEET - LIGHT THEME
+/* ------------------------ */
+/* white theme: */
+#pagesContainer QLabel[labelStyle2='whiteBg'] {
+	background-color: rgb(255, 255, 255);
+	border-radius: 5px;
+	border: 1px solid rgb(193, 193, 193);
+	padding: 10px;
+	color: black;
+}
+/* ------------------------ */
 
-/////////////////////////////////////////////// */
-
-QWidget{
-	color: #333333;
+#QCircle {
+	background-color: white;
 }
 
-QFrame#column1, #column2, #column3 {
-	width: 100%;
-}
+/* stackedWidget */
+#informasjon, #home, #kontroller { background-color: transparent; }
 
+/* ScrollArea */
+QScrollArea { background: transparent; }
+QScrollArea > QWidget > QWidget { background: transparent; }
+
+QWidget { color: black; }
+
+QFrame#column1, #column2, #column3 { width: 100%; }
+
+/* Labels */
+QLabel { padding: 1px; }
+
+/* Buttons */
 QPushButton {
 	padding: 10px;
 	margin: 1px;
 }
 
-QLabel {
-	padding: 1px;
+#pagesContainer QPushButton[btnStyle='redBtn'] {
+	border-color: rgb(190, 93, 95);
+	background-color: rgb(197, 134, 138); 
 }
 
-/* ///////////////////////////////////////////////
-Tooltip */
+#pagesContainer QPushButton[btnStyle='redBtn']:hover {
+	background-color: rgb(168, 124, 127); 
+}
+
+#pagesContainer QPushButton[btnStyle='redBtn']:hover:pressed {
+	background-color: rgb(181, 116, 121); 
+	color: black;
+}
+
+QPushButton:disabled {
+	background-color:  rgb(165, 165, 165);
+	border: 2px solid rgb(109, 109, 109);
+	border-radius: 5px;
+}
+
+#pagesContainer QPushButton {
+	background-color: white;
+	border: 2px solid rgb(184, 188, 194);
+	border-radius: 5px;
+}
+
+#pagesContainer QPushButton:hover {
+	background-color: rgb(196, 196, 196);
+}
+
+#pagesContainer QPushButton:hover:pressed {
+	background-color: rgb(141, 147, 160);
+	border-color: rgb(111, 116, 128);
+}
+
+#pagesContainer QPushButton:checked {
+	background-color: rgb(153, 161, 176);
+	border: 1px solid rgb(23, 27, 37);
+}
+
+/* Tooltip */
 QToolTip {
-	color: #ffffff;
-	background-color: rgb(33, 37, 43);
-	border: 1px solid rgb(44, 49, 58);
-	padding-left: 8px;
+	padding: 5px;
+	color: rgb(44, 49, 58);
+	background-color: rgb(195, 202, 211, 200);
+	border: 1px solid #ffffff;
 }
 
-/* ///////////////////////////////////////////////
-Bg App */
+/* Bg App */
 #bgApp {	
-	background-color: rgb(215, 220, 228);
-	border: 1px solid rgb(44, 49, 58);
+	background-color: rgb(210, 215, 228);
+	border: 1px solid rgb(51, 55, 63);
 }
 
-/* ///////////////////////////////////////////////
-Left Menu */
+/* Left Menu */
 #leftMenuBg {	
-	background-color: rgb(192, 201, 213);
+	background-color: rgb(86, 95, 108);
 }
 
-/* ///////////////////////////////////////////////
-/* MENUS */
+/* Top Menu */
 #topMenu .QPushButton {	
-	background-position: left center;
-    background-repeat: no-repeat;
 	border: none;
-	border-left: 22px solid transparent;
 	background-color: transparent;
-	text-align: left;
-	padding-left: 44px;
 }
 
 #topMenu .QPushButton:hover {
-	background-color: rgb(40, 44, 52);
+	background-color: rgb(255, 255, 255);
 }
 
 #topMenu .QPushButton:pressed {	
-	background-color: rgb(74, 82, 91);
-	color: rgb(255, 255, 255);
+	background-color: rgb(255, 255, 255);
+	color: rgb(74, 82, 91)
 }
 
-/* ///////////////////////////////////////////////
-Content App */
+/* Content App */
 #contentTopBg{	
-	background-color: rgb(204, 212, 224);
+	background-color: rgb(63, 78, 103);
 }
 
 #contentBottom{
-	border-top: 3px solid rgb(154, 158, 164);
+	border-top: 3px solid rgb(91, 102, 118);
 }
-/* ///////////////////////////////////////////////
-
 /* Top Buttons */
-#rightButtons .QPushButton { background-color: rgba(255, 255, 255, 0); border: none;  border-radius: 5px; }
-#rightButtons .QPushButton:hover { background-color: rgb(44, 49, 57); border-style: solid; border-radius: 4px; }
-#rightButtons .QPushButton:pressed { background-color: rgb(23, 26, 30); border-style: solid; border-radius: 4px; }
+#rightButtons .QPushButton { background-color: rgba(212, 205, 205, 0); border: none;  border-radius: 5px; }
+#rightButtons .QPushButton:hover { background-color: rgb(201, 207, 217); border-style: solid; border-radius: 4px; }
+#rightButtons .QPushButton:pressed { background-color: rgb(214, 220, 227); border-style: solid; border-radius: 4px; }
 
 /* Bottom Bar */
-#bottomBar { background-color: rgb(44, 49, 58); }
-#bottomBar QLabel { font-size: 11px; color: rgb(113, 126, 149); padding-left: 10px; padding-right: 10px; padding-bottom: 2px; }
+#bottomBar { background-color: rgb(77, 87, 105); }
 
-/* ///////////////////////////////////////////////
-ScrollBars */
+/*ScrollBars */
 QScrollBar:horizontal {
-    border: none;
-    background: rgb(52, 59, 72);
-    height: 8px;
-    margin: 0px 21px 0 21px;
+    	border: none;
+    	background: rgb(52, 59, 72);
+    	height: 8px;
+    	margin: 0px 21px 0 21px;
 	border-radius: 0px;
 }
 QScrollBar::handle:horizontal {
-    background: rgb(74, 82, 91);
-    min-width: 25px;
+	background: rgb(74, 82, 91);
+	min-width: 25px;
 	border-radius: 4px
 }
 QScrollBar::add-line:horizontal {
-    border: none;
-    background: rgb(55, 63, 77);
-    width: 20px;
+    	border: none;
+    	background: rgb(55, 63, 77);
+    	width: 20px;
 	border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
+    	border-bottom-right-radius: 4px;
 }
 QScrollBar::sub-line:horizontal {
-    border: none;
-    background: rgb(55, 63, 77);
-    width: 20px;
+    	border: none;
+    	background: rgb(55, 63, 77);
+    	width: 20px;
 	border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
+    	border-bottom-left-radius: 4px;
 }
 QScrollBar::up-arrow:horizontal, QScrollBar::down-arrow:horizontal {
-     background: none;
+	background: none;
 }
 QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
      background: none;
 }
  QScrollBar:vertical {
 	border: none;
-    background: rgb(52, 59, 72);
-    width: 8px;
-    margin: 21px 0 21px 0;
+    	background: rgb(52, 59, 72);
+    	width: 8px;
+    	margin: 21px 0 21px 0;
 	border-radius: 0px;
  }
  QScrollBar::handle:vertical {	
 	background: rgb(74, 82, 91);
-    min-height: 25px;
+	min-height: 25px;
 	border-radius: 4px
  }
  QScrollBar::add-line:vertical {
@@ -152,20 +192,21 @@ QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
  }
 
 
-/* ///////////////////////////////////////////////
-ComboBox */
+/* ComboBox */
 QComboBox{
-	background-color: rgb(27, 29, 35);
+	background-color: rgb(224, 227, 237);
 	border-radius: 5px;
-	border: 2px solid rgb(33, 37, 43);
-	padding: 5px;
+	border: 2px solid rgb(145, 151, 161);
 	padding-left: 10px;
+	width: 5px;
 }
 QComboBox:hover{
-	border: 2px solid rgb(64, 71, 88);
+	border: 2px solid rgb(128, 134, 149);
 }
 QComboBox::drop-down {
-	width: 25px; 
+	subcontrol-origin: padding;
+	subcontrol-position: top right;
+	width: 25px;
 	border-left-width: 3px;
 	border-left-color: rgba(39, 44, 54, 150);
 	border-left-style: solid;
@@ -173,19 +214,19 @@ QComboBox::drop-down {
 	border-bottom-right-radius: 3px;	
 	background-image: url(:/icons/images/icons/cil-arrow-bottom.png);
 	background-position: center;
-	background-repeat: no-reperat;
- }
+	background-repeat: no-repeat;
+}
 QComboBox QAbstractItemView {
-	color: rgb(74, 82, 91);	
-	background-color: rgb(33, 37, 43);
+	color: rgb(177, 185, 194);	
+	background-color: rgb(168, 168, 168);
 	padding: 10px;
+	selection-background-color: rgb(117, 117, 117);
 }
 
-/* ///////////////////////////////////////////////
-Sliders */
+/* Sliders */
 QSlider::groove:horizontal {
-    border-radius: 8px;
-    height: 16px;
+    	border-radius: 8px;
+    	height: 16px;
 	margin: 0px;
 	background-color: rgb(52, 59, 72);
 }
@@ -250,19 +291,3 @@ QSlider::handle:vertical:pressed {
     height: 100px;
     margin: -24px -12px;
 }*/
-
-/* /////////////////////////////////////////////////////////////////////////////////////////////////
-Button */
-#pagesContainer QPushButton {
-	border: 2px solid rgb(52, 59, 72);
-	border-radius: 5px;	
-	background-color: rgb(52, 59, 72);
-}
-#pagesContainer QPushButton:hover {
-	background-color: rgb(57, 65, 80);
-	border: 2px solid rgb(61, 70, 86);
-}
-#pagesContainer QPushButton:pressed {	
-	background-color: rgb(35, 40, 49);
-	border: 2px solid rgb(43, 50, 61);
-}
