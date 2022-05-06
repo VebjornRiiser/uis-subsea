@@ -688,8 +688,8 @@ if __name__ == "__main__":
         start_time_sec = time.time()
         run_gui = True
         run_get_controllerdata = True
-        run_network = True
-        run_craft_packet = False
+        run_network = False
+        run_craft_packet = True
         run_send_fake_sensordata = False
         manual_input_rotation = False
         
@@ -739,6 +739,8 @@ if __name__ == "__main__":
                 sensordata["power_consumption"] = [power_list[count%101]*13, power_list[count%101]*2.4, power_list[count%101]*0.65]
                 sensordata["gyro"] = [(time_since_start*2)%60, time_since_start%90, time_since_start%90]
                 sensordata["time"] = [time_since_start]
+                sensordata["thrust"] = [thrust_list[(0+count)%201], thrust_list[(13+count)%201], thrust_list[(25+count)%201], thrust_list[(38+count)%201], thrust_list[(37+count)%201], thrust_list[(50+count)%201], thrust_list[(63+count)%201], thrust_list[(75+count)%201], thrust_list[(88+count)%201], thrust_list[(107+count)%201]]
+                # sensordata["thrust"] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
                 gui_parent_pipe.send(sensordata)
                 time.sleep(1)
 
