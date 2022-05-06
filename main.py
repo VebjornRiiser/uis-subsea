@@ -505,9 +505,9 @@ class Rov_state:
         while t_watch.should_run(id):
             try:
                 data = network.receive()
+                # print(data)
                 if data is None:
                     continue
-                # print(f"got data from rov {data = }")
                 decoded = decode_packets(data)
                 if decoded == []:
                     continue
@@ -528,13 +528,14 @@ class Rov_state:
     def handle_data_from_rov(self, message: dict):
         self.logger.sensor_logger.info(message)
         # print(message)
-        if "ERROR" in message:
-            # print(message)
+        if "ERROR" in message or "info" in message:
+            print(message)
             return
         try:
             message_name = list(message.keys())[0]
         except Exception as e:
             print(e)
+            return
         if message_name in self.valid_gui_commands:
             # if message_name == "thrust":
                 # print(f"motatt data i main: {message}")
@@ -625,9 +626,19 @@ def update_camera_tilt(camera_to_update: int, move_speed: int, time_delta: int, 
 
 
 # Decodes the tcp packet/s recieved from the rov
-def decode_packets(tcp_data: bytes) -> list:
+def decode_packets(tcp_data: bytes, ) -> list:
+    start_not_complete_packet = ""
+    end_not_complete_packet = ""
     try:
         json_strings = bytes.decode(tcp_data, "utf-8")
+        if not json_strings.startswith('"*"'): # pakken er ikke hel
+            start_not_complete_packet = json_strings[:json_strings.index("*")-1]
+            json_strings = json_strings[json_strings.index("*")+2:]
+        if not json_strings.endswith('"*"'): # pakken er ikke hel
+            end_not_complete_packet = json_strings[json_strings.rfind("*")-1:]
+            json_strings = json_strings[:json_strings.rfind("*")+2] # til, men ikke med indexen
+
+
         json_list = json_strings.split(json.dumps("*"))
     except Exception as e:
         print(f"{tcp_data = } Got error {e}")
@@ -642,9 +653,16 @@ def decode_packets(tcp_data: bytes) -> list:
 
         else:
             # print(f"{item = }")
-            item = json.loads(item)
+            try:
+                item = json.loads(item)
+            except Exception as e:
+                print(f"{e = }\n {item = }, {tcp_data = }")
+                with open("errors.txt", 'ab') as f:
+                    f.write(tcp_data)
+                
+                # exit(0)
             decoded_items.append(item)
-    return decoded_items
+    return decoded_items, start_not_complete_packet, end_not_complete_packet
 
 
 
@@ -669,8 +687,8 @@ if __name__ == "__main__":
         global run_craft_packet
         start_time_sec = time.time()
         run_gui = True
-        run_get_controllerdata = False
-        run_network = False
+        run_get_controllerdata = True
+        run_network = True
         run_craft_packet = False
         run_send_fake_sensordata = False
         manual_input_rotation = False

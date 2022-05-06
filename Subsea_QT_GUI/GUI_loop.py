@@ -334,9 +334,9 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.toggle_hiv_regulering.stateChanged.connect(lambda: self.update_regulering(3))
         self.toggle_rull_regulering.stateChanged.connect(lambda: self.update_regulering(4))
         self.toggle_stamp_regulering.stateChanged.connect(lambda: self.update_regulering(5))
-        self.toggle_hiv_regulering.setChecked(True)
-        self.toggle_rull_regulering.setChecked(True)
-        self.toggle_stamp_regulering.setChecked(True)
+        #self.toggle_hiv_regulering.setChecked(True) # Is off by default
+        #self.toggle_rull_regulering.setChecked(True) # Is off by default
+        #self.toggle_stamp_regulering.setChecked(True) # Is off by default
 
         self.toggle_mani.setText("Manipulator")
         self.toggle_hiv_regulering.setText("Hiv-regulering")
