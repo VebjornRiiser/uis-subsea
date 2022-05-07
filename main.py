@@ -502,13 +502,14 @@ class Rov_state:
 
 
     def recieve_data_from_rov(self, network: Network, t_watch: Threadwatcher, id: int):
+        incomplete_packet = ""
         while t_watch.should_run(id):
             try:
                 data = network.receive()
                 # print(data)
                 if data is None:
                     continue
-                decoded = decode_packets(data)
+                decoded, incomplete_packet = decode_packets(data, incomplete_packet)
                 if decoded == []:
                     continue
 
@@ -516,8 +517,6 @@ class Rov_state:
                     # print(message)
                     self.handle_data_from_rov(message)
 
-
-                    
                     # Rov_state.send_sensordata_to_gui(Rov_state, message)
 
             except json.JSONDecodeError as e:
@@ -527,7 +526,7 @@ class Rov_state:
 
     def handle_data_from_rov(self, message: dict):
         self.logger.sensor_logger.info(message)
-        # print(message)
+        print(f"{message =}")
         if "ERROR" in message or "info" in message:
             print(message)
             return
@@ -626,18 +625,16 @@ def update_camera_tilt(camera_to_update: int, move_speed: int, time_delta: int, 
 
 
 # Decodes the tcp packet/s recieved from the rov
-def decode_packets(tcp_data: bytes, ) -> list:
-    start_not_complete_packet = ""
-    end_not_complete_packet = ""
+def decode_packets(tcp_data: bytes, end_not_complete_packet="") -> list:
     try:
-        json_strings = bytes.decode(tcp_data, "utf-8")
-        if not json_strings.startswith('"*"'): # pakken er ikke hel
-            start_not_complete_packet = json_strings[:json_strings.index("*")-1]
-            json_strings = json_strings[json_strings.index("*")+2:]
+        json_strings = end_not_complete_packet+bytes.decode(tcp_data, "utf-8")
+
+        if not json_strings.startswith('"*"'): # pakken er ikke hel. Dette skal aldri skje så pakken burde bli forkasta
+            print(f"Packet did not start with '*' something is wrong. {end_not_complete_packet}")
+            return [], ""
         if not json_strings.endswith('"*"'): # pakken er ikke hel
             end_not_complete_packet = json_strings[json_strings.rfind("*")-1:]
-            json_strings = json_strings[:json_strings.rfind("*")+2] # til, men ikke med indexen
-
+            json_strings = json_strings[:json_strings.rfind("*")-1] # fjerner den ukomplette pakken. til, men ikke med indexen
 
         json_list = json_strings.split(json.dumps("*"))
     except Exception as e:
@@ -647,7 +644,7 @@ def decode_packets(tcp_data: bytes, ) -> list:
 
     for item in json_list:
 
-        if item == '' or item == json.dumps("heartbeat"):
+        if item == '' or item == json.dumps("heartbeat") or item == ' ':
             # print(f"{item = }")
             continue
 
@@ -662,7 +659,7 @@ def decode_packets(tcp_data: bytes, ) -> list:
                 
                 # exit(0)
             decoded_items.append(item)
-    return decoded_items, start_not_complete_packet, end_not_complete_packet
+    return decoded_items, end_not_complete_packet
 
 
 
