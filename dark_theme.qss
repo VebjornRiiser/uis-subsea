@@ -120,7 +120,7 @@ QToolTip {
 
 /* Bottom Bar */
 #bottomBar { background-color: rgb(44, 49, 58); }
-#bottomBar QLabel { font-size: 11px; color: rgb(113, 126, 149); padding-left: 10px; padding-right: 10px; padding-bottom: 2px; }
+#bottomBar QLabel { color: rgb(113, 126, 149); padding-left: 10px; padding-right: 10px; padding-bottom: 2px; }
 
 /*ScrollBars */
 QScrollBar:horizontal {
@@ -197,6 +197,15 @@ QComboBox{
 	padding-left: 10px;
 	width: 5px;
 }
+QComboBox:disabled{
+	background-color: rgb(52, 53, 58);
+	color: rgba(255, 255, 255, 55);
+	border-radius: 5px;
+	border: 2px solid rgba(26, 27, 33, 55);
+	padding-left: 10px;
+	width: 5px;
+}
+
 QComboBox:hover{
 	border: 2px solid rgb(64, 71, 88);
 }
