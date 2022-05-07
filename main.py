@@ -1,5 +1,5 @@
-from concurrent.futures import thread
 from getopt import getopt
+from inspect import _empty
 import multiprocessing
 # import multiprocessing
 from logger import Logger
@@ -243,7 +243,16 @@ class Rov_state:
 
     def get_from_queue(self):
         """Takes data from the queue and sends it to the correct handler"""
-        id, packet = self.queue.get()
+        id = -1
+        packet = ""
+
+        if self.queue.qsize() > 0:
+            try:
+                id, packet = self.queue.get(block=False)
+            except Exception as e:
+                print(f"Error when trying to get from queue. \n{e}")
+                return
+
         if id == 1: # controller data update
             self.data = packet
         elif id == GUI_loop.PROFILE_UPDATE_ID:

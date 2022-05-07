@@ -56,7 +56,6 @@
    <property name="font">
     <font>
      <pointsize>10</pointsize>
-     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -371,7 +370,6 @@ QSlider::handle:vertical:pressed {
      <widget class="QFrame" name="bgApp">
       <property name="font">
        <font>
-        <family>Arial</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -582,7 +580,6 @@ QSlider::handle:vertical:pressed {
              <property name="font">
               <font>
                <pointsize>10</pointsize>
-               <weight>50</weight>
                <italic>false</italic>
                <bold>false</bold>
               </font>
@@ -739,9 +736,7 @@ QSlider::handle:vertical:pressed {
                   </property>
                   <property name="font">
                    <font>
-                    <family>Arial</family>
                     <pointsize>10</pointsize>
-                    <weight>50</weight>
                     <italic>false</italic>
                     <bold>false</bold>
                    </font>
@@ -986,7 +981,6 @@ QSlider::handle:vertical:pressed {
                   <property name="font">
                    <font>
                     <pointsize>10</pointsize>
-                    <weight>50</weight>
                     <italic>false</italic>
                     <bold>false</bold>
                    </font>
@@ -1143,7 +1137,7 @@ QSlider::handle:vertical:pressed {
                       <string notr="true"/>
                      </property>
                      <property name="currentIndex">
-                      <number>2</number>
+                      <number>1</number>
                      </property>
                      <widget class="QWidget" name="home">
                       <property name="autoFillBackground">
@@ -1303,9 +1297,7 @@ QSlider::handle:vertical:pressed {
                                   </property>
                                   <property name="font">
                                    <font>
-                                    <family>Arial</family>
                                     <pointsize>10</pointsize>
-                                    <weight>50</weight>
                                     <italic>false</italic>
                                     <bold>false</bold>
                                    </font>
@@ -1334,7 +1326,6 @@ QSlider::handle:vertical:pressed {
                                   </property>
                                   <property name="font">
                                    <font>
-                                    <family>Arial</family>
                                     <pointsize>10</pointsize>
                                    </font>
                                   </property>
@@ -1377,9 +1368,7 @@ QSlider::handle:vertical:pressed {
                                   </property>
                                   <property name="font">
                                    <font>
-                                    <family>Arial</family>
                                     <pointsize>10</pointsize>
-                                    <weight>50</weight>
                                     <italic>false</italic>
                                     <bold>false</bold>
                                    </font>
@@ -1417,9 +1406,7 @@ QSlider::handle:vertical:pressed {
                                   </property>
                                   <property name="font">
                                    <font>
-                                    <family>Arial</family>
                                     <pointsize>10</pointsize>
-                                    <weight>50</weight>
                                     <italic>false</italic>
                                     <bold>false</bold>
                                    </font>
@@ -1448,9 +1435,7 @@ QSlider::handle:vertical:pressed {
                                   </property>
                                   <property name="font">
                                    <font>
-                                    <family>Arial</family>
                                     <pointsize>10</pointsize>
-                                    <weight>50</weight>
                                     <italic>false</italic>
                                     <bold>false</bold>
                                    </font>
@@ -1479,9 +1464,7 @@ QSlider::handle:vertical:pressed {
                                   </property>
                                   <property name="font">
                                    <font>
-                                    <family>Arial</family>
                                     <pointsize>10</pointsize>
-                                    <weight>50</weight>
                                     <italic>false</italic>
                                     <bold>false</bold>
                                    </font>
@@ -1510,9 +1493,7 @@ QSlider::handle:vertical:pressed {
                                   </property>
                                   <property name="font">
                                    <font>
-                                    <family>Arial</family>
                                     <pointsize>10</pointsize>
-                                    <weight>50</weight>
                                     <italic>false</italic>
                                     <bold>false</bold>
                                    </font>
@@ -1544,9 +1525,7 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="font">
                                       <font>
-                                       <family>Arial</family>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -1576,7 +1555,6 @@ QSlider::handle:vertical:pressed {
                                      <property name="font">
                                       <font>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -1678,7 +1656,6 @@ QSlider::handle:vertical:pressed {
                                      <property name="font">
                                       <font>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -1725,9 +1702,7 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="font">
                                       <font>
-                                       <family>Arial</family>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -1768,9 +1743,7 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="font">
                                       <font>
-                                       <family>Arial</family>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -1823,9 +1796,7 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="font">
                                       <font>
-                                       <family>Arial</family>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -1878,9 +1849,7 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="font">
                                       <font>
-                                       <family>Arial</family>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -1927,9 +1896,7 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="font">
                                       <font>
-                                       <family>Arial</family>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -1967,9 +1934,7 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="font">
                                       <font>
-                                       <family>Arial</family>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -2016,9 +1981,7 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="font">
                                       <font>
-                                       <family>Arial</family>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -2048,7 +2011,6 @@ QSlider::handle:vertical:pressed {
                                      <property name="font">
                                       <font>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -2095,9 +2057,7 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="font">
                                       <font>
-                                       <family>Arial</family>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -2129,9 +2089,7 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="font">
                                       <font>
-                                       <family>Arial</family>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -2169,9 +2127,7 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="font">
                                       <font>
-                                       <family>Arial</family>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -2224,9 +2180,7 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="font">
                                       <font>
-                                       <family>Arial</family>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -2267,9 +2221,7 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="font">
                                       <font>
-                                       <family>Arial</family>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -2302,7 +2254,6 @@ QSlider::handle:vertical:pressed {
                                      <property name="font">
                                       <font>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -2350,7 +2301,6 @@ QSlider::handle:vertical:pressed {
                                      <property name="font">
                                       <font>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -2398,7 +2348,6 @@ QSlider::handle:vertical:pressed {
                                      <property name="font">
                                       <font>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -2446,7 +2395,6 @@ QSlider::handle:vertical:pressed {
                                      <property name="font">
                                       <font>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -2494,7 +2442,6 @@ QSlider::handle:vertical:pressed {
                                      <property name="font">
                                       <font>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -2541,9 +2488,7 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="font">
                                       <font>
-                                       <family>Arial</family>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -2572,9 +2517,7 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="font">
                                       <font>
-                                       <family>Arial</family>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -2603,9 +2546,7 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="font">
                                       <font>
-                                       <family>Arial</family>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -2631,9 +2572,7 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="font">
                                       <font>
-                                       <family>Arial</family>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -2666,7 +2605,6 @@ QSlider::handle:vertical:pressed {
                                      <property name="font">
                                       <font>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -2707,9 +2645,7 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="font">
                                       <font>
-                                       <family>Arial</family>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -2742,7 +2678,6 @@ QSlider::handle:vertical:pressed {
                                      <property name="font">
                                       <font>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -2798,9 +2733,7 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="font">
                                       <font>
-                                       <family>Arial</family>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -2841,9 +2774,7 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="font">
                                       <font>
-                                       <family>Arial</family>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -2881,9 +2812,7 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="font">
                                       <font>
-                                       <family>Arial</family>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -2936,9 +2865,7 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="font">
                                       <font>
-                                       <family>Arial</family>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -2986,7 +2913,6 @@ QSlider::handle:vertical:pressed {
                                      <property name="font">
                                       <font>
                                        <pointsize>10</pointsize>
-                                       <weight>50</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                       </font>
@@ -3107,9 +3033,7 @@ QSlider::handle:vertical:pressed {
                               <widget class="QLabel" name="title_motor">
                                <property name="font">
                                 <font>
-                                 <family>Arial</family>
                                  <pointsize>10</pointsize>
-                                 <weight>50</weight>
                                  <italic>false</italic>
                                  <bold>false</bold>
                                 </font>
@@ -3818,7 +3742,6 @@ QSlider::handle:vertical:pressed {
                                    </property>
                                    <property name="font">
                                     <font>
-                                     <family>Arial</family>
                                      <pointsize>10</pointsize>
                                     </font>
                                    </property>
@@ -3864,9 +3787,7 @@ QSlider::handle:vertical:pressed {
                                  </property>
                                  <property name="font">
                                   <font>
-                                   <family>Arial</family>
                                    <pointsize>10</pointsize>
-                                   <weight>50</weight>
                                    <italic>false</italic>
                                    <bold>false</bold>
                                   </font>
@@ -3908,7 +3829,6 @@ QSlider::handle:vertical:pressed {
                                  <property name="font">
                                   <font>
                                    <pointsize>10</pointsize>
-                                   <weight>50</weight>
                                    <italic>false</italic>
                                    <bold>false</bold>
                                   </font>
@@ -4014,7 +3934,6 @@ QSlider::handle:vertical:pressed {
                               <widget class="QLabel" name="text_manipulator">
                                <property name="font">
                                 <font>
-                                 <family>Arial</family>
                                  <pointsize>10</pointsize>
                                 </font>
                                </property>
@@ -4178,7 +4097,7 @@ QSlider::handle:vertical:pressed {
                                     </widget>
                                    </widget>
                                   </widget>
-                                  <widget class="QFrame" name="frame_mani_2">
+                                  <widget class="QFrame" name="frame_mani_3">
                                    <property name="geometry">
                                     <rect>
                                      <x>150</x>
@@ -4196,7 +4115,7 @@ QSlider::handle:vertical:pressed {
                                    <property name="frameShadow">
                                     <enum>QFrame::Raised</enum>
                                    </property>
-                                   <widget class="QFrame" name="mani_circle_2">
+                                   <widget class="QFrame" name="mani_circle_3">
                                     <property name="geometry">
                                      <rect>
                                       <x>5</x>
@@ -4214,7 +4133,7 @@ QSlider::handle:vertical:pressed {
                                     <property name="frameShadow">
                                      <enum>QFrame::Raised</enum>
                                     </property>
-                                    <widget class="QLabel" name="label_percentage_mani_2">
+                                    <widget class="QLabel" name="label_percentage_mani_3">
                                      <property name="geometry">
                                       <rect>
                                        <x>0</x>
@@ -4249,7 +4168,7 @@ QSlider::handle:vertical:pressed {
                                     </widget>
                                    </widget>
                                   </widget>
-                                  <widget class="QFrame" name="frame_mani_3">
+                                  <widget class="QFrame" name="frame_mani_2">
                                    <property name="geometry">
                                     <rect>
                                      <x>250</x>
@@ -4267,7 +4186,7 @@ QSlider::handle:vertical:pressed {
                                    <property name="frameShadow">
                                     <enum>QFrame::Raised</enum>
                                    </property>
-                                   <widget class="QFrame" name="mani_circle_3">
+                                   <widget class="QFrame" name="mani_circle_2">
                                     <property name="geometry">
                                      <rect>
                                       <x>5</x>
@@ -4285,7 +4204,7 @@ QSlider::handle:vertical:pressed {
                                     <property name="frameShadow">
                                      <enum>QFrame::Raised</enum>
                                     </property>
-                                    <widget class="QLabel" name="label_percentage_mani_3">
+                                    <widget class="QLabel" name="label_percentage_mani_2">
                                      <property name="geometry">
                                       <rect>
                                        <x>10</x>
@@ -4496,9 +4415,7 @@ QSlider::handle:vertical:pressed {
                                  </property>
                                  <property name="font">
                                   <font>
-                                   <family>Arial</family>
                                    <pointsize>10</pointsize>
-                                   <weight>50</weight>
                                    <italic>false</italic>
                                    <bold>false</bold>
                                   </font>
@@ -4534,7 +4451,6 @@ QSlider::handle:vertical:pressed {
                                  <property name="font">
                                   <font>
                                    <pointsize>10</pointsize>
-                                   <weight>50</weight>
                                    <italic>false</italic>
                                    <bold>false</bold>
                                   </font>
@@ -4575,9 +4491,7 @@ QSlider::handle:vertical:pressed {
                                  </property>
                                  <property name="font">
                                   <font>
-                                   <family>Arial</family>
                                    <pointsize>10</pointsize>
-                                   <weight>50</weight>
                                    <italic>false</italic>
                                    <bold>false</bold>
                                   </font>
@@ -4619,7 +4533,6 @@ QSlider::handle:vertical:pressed {
                                  <property name="font">
                                   <font>
                                    <pointsize>10</pointsize>
-                                   <weight>50</weight>
                                    <italic>false</italic>
                                    <bold>false</bold>
                                   </font>
@@ -4663,9 +4576,7 @@ QSlider::handle:vertical:pressed {
                                  </property>
                                  <property name="font">
                                   <font>
-                                   <family>Arial</family>
                                    <pointsize>10</pointsize>
-                                   <weight>50</weight>
                                    <italic>false</italic>
                                    <bold>false</bold>
                                   </font>
@@ -4716,9 +4627,7 @@ QSlider::handle:vertical:pressed {
                              </size>
                             </property>
                             <property name="font">
-                             <font>
-                              <family>Arial</family>
-                             </font>
+                             <font/>
                             </property>
                             <property name="styleSheet">
                              <string notr="true"/>
@@ -4785,9 +4694,7 @@ QSlider::handle:vertical:pressed {
                                </property>
                                <property name="font">
                                 <font>
-                                 <family>Arial</family>
                                  <pointsize>10</pointsize>
-                                 <weight>50</weight>
                                  <italic>false</italic>
                                  <bold>false</bold>
                                 </font>
@@ -4810,9 +4717,7 @@ QSlider::handle:vertical:pressed {
                                </property>
                                <property name="font">
                                 <font>
-                                 <family>Arial</family>
                                  <pointsize>10</pointsize>
-                                 <weight>50</weight>
                                  <italic>false</italic>
                                  <bold>false</bold>
                                 </font>
@@ -4880,9 +4785,7 @@ QSlider::handle:vertical:pressed {
                                   </property>
                                   <property name="font">
                                    <font>
-                                    <family>Arial</family>
                                     <pointsize>10</pointsize>
-                                    <weight>50</weight>
                                     <italic>false</italic>
                                     <bold>false</bold>
                                    </font>
@@ -4915,9 +4818,7 @@ QSlider::handle:vertical:pressed {
                                   </property>
                                   <property name="font">
                                    <font>
-                                    <family>Arial</family>
                                     <pointsize>10</pointsize>
-                                    <weight>50</weight>
                                     <italic>false</italic>
                                     <bold>false</bold>
                                    </font>
@@ -4950,9 +4851,7 @@ QSlider::handle:vertical:pressed {
                                   </property>
                                   <property name="font">
                                    <font>
-                                    <family>Arial</family>
                                     <pointsize>10</pointsize>
-                                    <weight>50</weight>
                                     <italic>false</italic>
                                     <bold>false</bold>
                                    </font>
@@ -5019,7 +4918,6 @@ QSlider::handle:vertical:pressed {
                                   <property name="font">
                                    <font>
                                     <pointsize>10</pointsize>
-                                    <weight>50</weight>
                                     <italic>false</italic>
                                     <bold>false</bold>
                                    </font>
@@ -5056,7 +4954,6 @@ QSlider::handle:vertical:pressed {
                                   <property name="font">
                                    <font>
                                     <pointsize>10</pointsize>
-                                    <weight>50</weight>
                                     <italic>false</italic>
                                     <bold>false</bold>
                                    </font>
@@ -5093,7 +4990,6 @@ QSlider::handle:vertical:pressed {
                                   <property name="font">
                                    <font>
                                     <pointsize>10</pointsize>
-                                    <weight>50</weight>
                                     <italic>false</italic>
                                     <bold>false</bold>
                                    </font>
@@ -5123,9 +5019,7 @@ QSlider::handle:vertical:pressed {
                                   </property>
                                   <property name="font">
                                    <font>
-                                    <family>Arial</family>
                                     <pointsize>10</pointsize>
-                                    <weight>50</weight>
                                     <italic>false</italic>
                                     <bold>false</bold>
                                    </font>
@@ -5148,9 +5042,7 @@ QSlider::handle:vertical:pressed {
                                   </property>
                                   <property name="font">
                                    <font>
-                                    <family>Arial</family>
                                     <pointsize>10</pointsize>
-                                    <weight>50</weight>
                                     <italic>false</italic>
                                     <bold>false</bold>
                                    </font>
@@ -5183,7 +5075,6 @@ QSlider::handle:vertical:pressed {
                                   <property name="font">
                                    <font>
                                     <pointsize>10</pointsize>
-                                    <weight>50</weight>
                                     <italic>false</italic>
                                     <bold>false</bold>
                                    </font>
@@ -5213,9 +5104,7 @@ QSlider::handle:vertical:pressed {
                                   </property>
                                   <property name="font">
                                    <font>
-                                    <family>Arial</family>
                                     <pointsize>10</pointsize>
-                                    <weight>50</weight>
                                     <italic>false</italic>
                                     <bold>false</bold>
                                    </font>
@@ -5364,9 +5253,7 @@ QSlider::handle:vertical:pressed {
                                        <widget class="QLabel" name="text_mani">
                                         <property name="font">
                                          <font>
-                                          <family>Arial</family>
                                           <pointsize>10</pointsize>
-                                          <weight>50</weight>
                                           <italic>false</italic>
                                           <bold>false</bold>
                                          </font>
@@ -5389,9 +5276,7 @@ QSlider::handle:vertical:pressed {
                                         </property>
                                         <property name="font">
                                          <font>
-                                          <family>Arial</family>
                                           <pointsize>10</pointsize>
-                                          <weight>50</weight>
                                           <italic>false</italic>
                                           <bold>false</bold>
                                          </font>
@@ -5414,9 +5299,7 @@ QSlider::handle:vertical:pressed {
                                         </property>
                                         <property name="font">
                                          <font>
-                                          <family>Arial</family>
                                           <pointsize>10</pointsize>
-                                          <weight>50</weight>
                                           <italic>false</italic>
                                           <bold>false</bold>
                                          </font>
@@ -5439,9 +5322,7 @@ QSlider::handle:vertical:pressed {
                                         </property>
                                         <property name="font">
                                          <font>
-                                          <family>Arial</family>
                                           <pointsize>10</pointsize>
-                                          <weight>50</weight>
                                           <italic>false</italic>
                                           <bold>false</bold>
                                          </font>
@@ -5458,9 +5339,7 @@ QSlider::handle:vertical:pressed {
                                        <widget class="QLabel" name="text_frontlys">
                                         <property name="font">
                                          <font>
-                                          <family>Arial</family>
                                           <pointsize>10</pointsize>
-                                          <weight>50</weight>
                                           <italic>false</italic>
                                           <bold>false</bold>
                                          </font>
@@ -5477,9 +5356,7 @@ QSlider::handle:vertical:pressed {
                                        <widget class="QLabel" name="text_havbunnslys">
                                         <property name="font">
                                          <font>
-                                          <family>Arial</family>
                                           <pointsize>10</pointsize>
-                                          <weight>50</weight>
                                           <italic>false</italic>
                                           <bold>false</bold>
                                          </font>
@@ -5538,7 +5415,6 @@ QSlider::handle:vertical:pressed {
                                      </property>
                                      <property name="font">
                                       <font>
-                                       <family>Arial</family>
                                        <pointsize>10</pointsize>
                                       </font>
                                      </property>
@@ -5655,8 +5531,8 @@ QSlider::handle:vertical:pressed {
                               <rect>
                                <x>0</x>
                                <y>0</y>
-                               <width>1116</width>
-                               <height>811</height>
+                               <width>1120</width>
+                               <height>816</height>
                               </rect>
                              </property>
                              <layout class="QVBoxLayout" name="verticalLayout_18">
@@ -5763,9 +5639,7 @@ QSlider::handle:vertical:pressed {
                                             </property>
                                             <property name="font">
                                              <font>
-                                              <family>Arial</family>
                                               <pointsize>10</pointsize>
-                                              <weight>50</weight>
                                               <italic>false</italic>
                                               <bold>false</bold>
                                              </font>
@@ -5785,7 +5659,6 @@ QSlider::handle:vertical:pressed {
                                            <widget class="QLabel" name="text_kontroller_description">
                                             <property name="font">
                                              <font>
-                                              <family>Arial</family>
                                               <pointsize>10</pointsize>
                                              </font>
                                             </property>
@@ -5858,9 +5731,7 @@ QSlider::handle:vertical:pressed {
                                             </property>
                                             <property name="font">
                                              <font>
-                                              <family>Arial</family>
                                               <pointsize>10</pointsize>
-                                              <weight>50</weight>
                                               <italic>false</italic>
                                               <bold>false</bold>
                                              </font>
@@ -5895,9 +5766,7 @@ QSlider::handle:vertical:pressed {
                                             </property>
                                             <property name="font">
                                              <font>
-                                              <family>Arial</family>
                                               <pointsize>10</pointsize>
-                                              <weight>50</weight>
                                               <italic>false</italic>
                                               <bold>false</bold>
                                              </font>
@@ -5957,9 +5826,7 @@ QSlider::handle:vertical:pressed {
                                           </property>
                                           <property name="font">
                                            <font>
-                                            <family>Arial</family>
                                             <pointsize>10</pointsize>
-                                            <weight>50</weight>
                                             <italic>false</italic>
                                             <bold>false</bold>
                                            </font>
@@ -5992,9 +5859,7 @@ QSlider::handle:vertical:pressed {
                                           </property>
                                           <property name="font">
                                            <font>
-                                            <family>Arial</family>
                                             <pointsize>10</pointsize>
-                                            <weight>50</weight>
                                             <italic>false</italic>
                                             <bold>false</bold>
                                            </font>
@@ -6026,7 +5891,6 @@ QSlider::handle:vertical:pressed {
                                       <property name="font">
                                        <font>
                                         <pointsize>10</pointsize>
-                                        <weight>50</weight>
                                         <italic>false</italic>
                                         <bold>false</bold>
                                        </font>
@@ -6089,7 +5953,6 @@ QSlider::handle:vertical:pressed {
                                        <property name="font">
                                         <font>
                                          <pointsize>10</pointsize>
-                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6138,9 +6001,7 @@ QSlider::handle:vertical:pressed {
                                        </property>
                                        <property name="font">
                                         <font>
-                                         <family>Arial</family>
                                          <pointsize>10</pointsize>
-                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6189,9 +6050,7 @@ QSlider::handle:vertical:pressed {
                                        </property>
                                        <property name="font">
                                         <font>
-                                         <family>Arial</family>
                                          <pointsize>10</pointsize>
-                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6237,9 +6096,7 @@ QSlider::handle:vertical:pressed {
                                        </property>
                                        <property name="font">
                                         <font>
-                                         <family>Arial</family>
                                          <pointsize>10</pointsize>
-                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6285,9 +6142,7 @@ QSlider::handle:vertical:pressed {
                                        </property>
                                        <property name="font">
                                         <font>
-                                         <family>Arial</family>
                                          <pointsize>10</pointsize>
-                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6336,9 +6191,7 @@ QSlider::handle:vertical:pressed {
                                        </property>
                                        <property name="font">
                                         <font>
-                                         <family>Arial</family>
                                          <pointsize>10</pointsize>
-                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6387,9 +6240,7 @@ QSlider::handle:vertical:pressed {
                                        </property>
                                        <property name="font">
                                         <font>
-                                         <family>Arial</family>
                                          <pointsize>10</pointsize>
-                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6435,9 +6286,7 @@ QSlider::handle:vertical:pressed {
                                        </property>
                                        <property name="font">
                                         <font>
-                                         <family>Arial</family>
                                          <pointsize>10</pointsize>
-                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6481,9 +6330,7 @@ QSlider::handle:vertical:pressed {
                                        </property>
                                        <property name="font">
                                         <font>
-                                         <family>Arial</family>
                                          <pointsize>10</pointsize>
-                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6529,9 +6376,7 @@ QSlider::handle:vertical:pressed {
                                        </property>
                                        <property name="font">
                                         <font>
-                                         <family>Arial</family>
                                          <pointsize>10</pointsize>
-                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6572,9 +6417,7 @@ QSlider::handle:vertical:pressed {
                                        </property>
                                        <property name="font">
                                         <font>
-                                         <family>Arial</family>
                                          <pointsize>10</pointsize>
-                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6615,9 +6458,7 @@ QSlider::handle:vertical:pressed {
                                        </property>
                                        <property name="font">
                                         <font>
-                                         <family>Arial</family>
                                          <pointsize>10</pointsize>
-                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6661,9 +6502,7 @@ QSlider::handle:vertical:pressed {
                                        </property>
                                        <property name="font">
                                         <font>
-                                         <family>Arial</family>
                                          <pointsize>10</pointsize>
-                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6709,9 +6548,7 @@ QSlider::handle:vertical:pressed {
                                        </property>
                                        <property name="font">
                                         <font>
-                                         <family>Arial</family>
                                          <pointsize>10</pointsize>
-                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6755,9 +6592,7 @@ QSlider::handle:vertical:pressed {
                                        </property>
                                        <property name="font">
                                         <font>
-                                         <family>Arial</family>
                                          <pointsize>10</pointsize>
-                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6803,9 +6638,7 @@ QSlider::handle:vertical:pressed {
                                        </property>
                                        <property name="font">
                                         <font>
-                                         <family>Arial</family>
                                          <pointsize>10</pointsize>
-                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6851,9 +6684,7 @@ QSlider::handle:vertical:pressed {
                                        </property>
                                        <property name="font">
                                         <font>
-                                         <family>Arial</family>
                                          <pointsize>10</pointsize>
-                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6902,9 +6733,7 @@ QSlider::handle:vertical:pressed {
                                        </property>
                                        <property name="font">
                                         <font>
-                                         <family>Arial</family>
                                          <pointsize>10</pointsize>
-                                         <weight>50</weight>
                                          <italic>false</italic>
                                          <bold>false</bold>
                                         </font>
@@ -6967,7 +6796,6 @@ QSlider::handle:vertical:pressed {
                                          <property name="font">
                                           <font>
                                            <pointsize>10</pointsize>
-                                           <weight>50</weight>
                                            <italic>false</italic>
                                            <bold>false</bold>
                                           </font>
@@ -7008,7 +6836,6 @@ QSlider::handle:vertical:pressed {
                                          </property>
                                          <property name="font">
                                           <font>
-                                           <family>Arial</family>
                                            <pointsize>10</pointsize>
                                           </font>
                                          </property>

@@ -1,5 +1,3 @@
-import math
-from ast import arguments
 import multiprocessing
 import vlc
 import subprocess
