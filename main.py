@@ -1,5 +1,5 @@
-from concurrent.futures import thread
 from getopt import getopt
+from inspect import _empty
 import multiprocessing
 # import multiprocessing
 from logger import Logger
@@ -243,7 +243,16 @@ class Rov_state:
 
     def get_from_queue(self):
         """Takes data from the queue and sends it to the correct handler"""
-        id, packet = self.queue.get()
+        id = -1
+        packet = ""
+
+        if self.queue.qsize() > 0:
+            try:
+                id, packet = self.queue.get(block=False)
+            except Exception as e:
+                print(f"Error when trying to get from queue. \n{e}")
+                return
+
         if id == 1: # controller data update
             self.data = packet
         elif id == GUI_loop.PROFILE_UPDATE_ID:
@@ -502,13 +511,14 @@ class Rov_state:
 
 
     def recieve_data_from_rov(self, network: Network, t_watch: Threadwatcher, id: int):
+        incomplete_packet = ""
         while t_watch.should_run(id):
             try:
                 data = network.receive()
                 # print(data)
                 if data is None:
                     continue
-                decoded = decode_packets(data)
+                decoded, incomplete_packet = decode_packets(data, incomplete_packet)
                 if decoded == []:
                     continue
 
@@ -516,8 +526,6 @@ class Rov_state:
                     # print(message)
                     self.handle_data_from_rov(message)
 
-
-                    
                     # Rov_state.send_sensordata_to_gui(Rov_state, message)
 
             except json.JSONDecodeError as e:
@@ -527,7 +535,7 @@ class Rov_state:
 
     def handle_data_from_rov(self, message: dict):
         self.logger.sensor_logger.info(message)
-        # print(message)
+        print(f"{message =}")
         if "ERROR" in message or "info" in message:
             print(message)
             return
@@ -626,18 +634,16 @@ def update_camera_tilt(camera_to_update: int, move_speed: int, time_delta: int, 
 
 
 # Decodes the tcp packet/s recieved from the rov
-def decode_packets(tcp_data: bytes, ) -> list:
-    start_not_complete_packet = ""
-    end_not_complete_packet = ""
+def decode_packets(tcp_data: bytes, end_not_complete_packet="") -> list:
     try:
-        json_strings = bytes.decode(tcp_data, "utf-8")
-        if not json_strings.startswith('"*"'): # pakken er ikke hel
-            start_not_complete_packet = json_strings[:json_strings.index("*")-1]
-            json_strings = json_strings[json_strings.index("*")+2:]
+        json_strings = end_not_complete_packet+bytes.decode(tcp_data, "utf-8")
+
+        if not json_strings.startswith('"*"'): # pakken er ikke hel. Dette skal aldri skje så pakken burde bli forkasta
+            print(f"Packet did not start with '*' something is wrong. {end_not_complete_packet}")
+            return [], ""
         if not json_strings.endswith('"*"'): # pakken er ikke hel
             end_not_complete_packet = json_strings[json_strings.rfind("*")-1:]
-            json_strings = json_strings[:json_strings.rfind("*")+2] # til, men ikke med indexen
-
+            json_strings = json_strings[:json_strings.rfind("*")-1] # fjerner den ukomplette pakken. til, men ikke med indexen
 
         json_list = json_strings.split(json.dumps("*"))
     except Exception as e:
@@ -647,7 +653,7 @@ def decode_packets(tcp_data: bytes, ) -> list:
 
     for item in json_list:
 
-        if item == '' or item == json.dumps("heartbeat"):
+        if item == '' or item == json.dumps("heartbeat") or item == ' ':
             # print(f"{item = }")
             continue
 
@@ -662,7 +668,7 @@ def decode_packets(tcp_data: bytes, ) -> list:
                 
                 # exit(0)
             decoded_items.append(item)
-    return decoded_items, start_not_complete_packet, end_not_complete_packet
+    return decoded_items, end_not_complete_packet
 
 
 
@@ -688,8 +694,8 @@ if __name__ == "__main__":
         start_time_sec = time.time()
         run_gui = True
         run_get_controllerdata = True
-        run_network = True
-        run_craft_packet = False
+        run_network = False
+        run_craft_packet = True
         run_send_fake_sensordata = False
         manual_input_rotation = False
         
@@ -739,6 +745,8 @@ if __name__ == "__main__":
                 sensordata["power_consumption"] = [power_list[count%101]*13, power_list[count%101]*2.4, power_list[count%101]*0.65]
                 sensordata["gyro"] = [(time_since_start*2)%60, time_since_start%90, time_since_start%90]
                 sensordata["time"] = [time_since_start]
+                sensordata["thrust"] = [thrust_list[(0+count)%201], thrust_list[(13+count)%201], thrust_list[(25+count)%201], thrust_list[(38+count)%201], thrust_list[(37+count)%201], thrust_list[(50+count)%201], thrust_list[(63+count)%201], thrust_list[(75+count)%201], thrust_list[(88+count)%201], thrust_list[(107+count)%201]]
+                # sensordata["thrust"] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
                 gui_parent_pipe.send(sensordata)
                 time.sleep(1)
 

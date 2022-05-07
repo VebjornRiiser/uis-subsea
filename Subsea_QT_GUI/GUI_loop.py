@@ -1,8 +1,6 @@
-import math
-from ast import arguments
 import multiprocessing
-from typing import Type
 import vlc
+import subprocess
 #from tkinter import Widget
 from PyQt5 import QtCore, QtGui, QtWidgets, Qt
 from PyQt5.QtWidgets import QMainWindow, QWidget, QCheckBox, QLabel, QFileDialog, QApplication, QWidget, QVBoxLayout, QSizeGrip, QFrame, QMessageBox, QStyleFactory, QSizeGrip, QGraphicsDropShadowEffect, QPushButton, QComboBox, QDesktopWidget
@@ -23,8 +21,6 @@ import pyqtgraph as pg
 import pyqtgraph.opengl as gl
 import numpy as np
 from stl import mesh
-import matplotlib.pyplot as plt
-import matplotlib
 import time
 from Subsea_QT_GUI.py_toggle import PyToggle
 
