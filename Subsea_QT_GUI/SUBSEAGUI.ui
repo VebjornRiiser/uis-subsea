@@ -4933,7 +4933,7 @@ QSlider::handle:vertical:pressed {
                                     <normaloff>:/icons/images/icons/cil-media-play.png</normaloff>:/icons/images/icons/cil-media-play.png</iconset>
                                   </property>
                                   <property name="checkable">
-                                   <bool>false</bool>
+                                   <bool>true</bool>
                                   </property>
                                  </widget>
                                 </item>
@@ -5005,7 +5005,7 @@ QSlider::handle:vertical:pressed {
                                     <normaloff>:/icons/images/icons/cil-media-play.png</normaloff>:/icons/images/icons/cil-media-play.png</iconset>
                                   </property>
                                   <property name="checkable">
-                                   <bool>false</bool>
+                                   <bool>true</bool>
                                   </property>
                                  </widget>
                                 </item>
@@ -5531,8 +5531,8 @@ QSlider::handle:vertical:pressed {
                               <rect>
                                <x>0</x>
                                <y>0</y>
-                               <width>1120</width>
-                               <height>816</height>
+                               <width>471</width>
+                               <height>887</height>
                               </rect>
                              </property>
                              <layout class="QVBoxLayout" name="verticalLayout_18">

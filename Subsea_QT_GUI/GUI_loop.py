@@ -845,7 +845,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         # height translation
         height_diff = sensordata[0]-self.rov_3d_coordinates[0]
-        self.meshitem.translate(0,0, height_diff)
+        self.meshitem.translate(0,0, -height_diff)
 
         self.rov_3d_coordinates = sensordata
 

@@ -249,7 +249,7 @@ class Rov_state:
 
         if self.queue.qsize() > 0:
             try:
-                id, packet = self.queue.get(block=False)
+                id, packet = self.queue.get()
             except Exception as e:
                 # print(f"Error when trying to get from queue. \n{e}")
                 return
@@ -357,7 +357,7 @@ class Rov_state:
         if self.right_joystick_toggle_wait_counter == 0:
             self.camera_tilt_control_active = not self.camera_tilt_control_active
             print(f"{self.camera_tilt_control_active = }")
-            self.right_joystick_toggle_wait_counter = 7
+            self.right_joystick_toggle_wait_counter = 14
 
     def update_light_value(self, light_intensity_forward: int, ligth_forward_is_on: bool, light_intensity_down: int, ligth_down_is_on: bool):
         self.light_intensity_forward = light_intensity_forward
@@ -642,7 +642,7 @@ def decode_packets(tcp_data: bytes, end_not_complete_packet="") -> list:
         json_strings = end_not_complete_packet+bytes.decode(tcp_data, "utf-8")
 
         if not json_strings.startswith('"*"'): # pakken er ikke hel. Dette skal aldri skje så pakken burde bli forkasta
-            print(f"Packet did not start with '*' something is wrong. {end_not_complete_packet}")
+            # print(f"Packet did not start with '*' something is wrong. {end_not_complete_packet}")
             return [], ""
         if not json_strings.endswith('"*"'): # pakken er ikke hel
             end_not_complete_packet = json_strings[json_strings.rfind("*")-1:]
