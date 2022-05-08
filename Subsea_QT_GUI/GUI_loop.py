@@ -232,7 +232,10 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         # CLOSE APPLICATION
         self.closeAppBtn.clicked.connect(self.shutdown)
 
-        self.font_size = 8
+        # Set font size
+        self.font_size = 10
+        self.padding = 10
+        
         self.btn_zoom_in.clicked.connect(self.zoom_in)
         self.btn_zoom_out.clicked.connect(self.zoom_out)
         self.btn_change_theme.clicked.connect(self.change_theme)
@@ -282,16 +285,28 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
     
     def zoom_out(self):
-        if self.font_size > 6:
-            self.bgApp.setStyleSheet(f"font-size: {self.font_size}pt;")
-            print("zoomed out")
+        if self.font_size > 7:
             self.font_size -= 1
+            self.padding -= 1
+            self.bgApp.setStyleSheet(f"QFrame {{ font-size: {self.font_size}pt; }} #pagesContainer QPushButton {{ font-size: {self.font_size}pt; padding: {self.padding}px; }}")
+        else:
+            dlg = QMessageBox(self)
+            dlg.setWindowTitle("Minste skriftstørrelse er nådd!")
+            dlg.setText("Skriftstørrelsen kan ikke settes som mindre.")
+            dlg.setIcon(QMessageBox.Information)
+            dlg.exec()
     
     def zoom_in(self):
-        if self.font_size < 19:
-            self.bgApp.setStyleSheet(f"font-size: {self.font_size}pt;")
-            print("zoomed out")
+        if self.font_size < 25:
             self.font_size += 1
+            self.padding += 1
+            self.bgApp.setStyleSheet(f"QFrame {{ font-size: {self.font_size}pt; }} #pagesContainer QPushButton {{ font-size: {self.font_size}pt; padding: {self.padding}px; }}")
+        else:
+            dlg = QMessageBox(self)
+            dlg.setWindowTitle("Største skriftstørrelse er nådd!")
+            dlg.setText("Skriftstørrelsen kan ikke settes som større.")
+            dlg.setIcon(QMessageBox.Information)
+            dlg.exec()
 
     def load_theme(self):
         print("theme loaded")
