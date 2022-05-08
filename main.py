@@ -128,11 +128,12 @@ class Rov_state:
         self.send_startup_commands()
 
     def send_startup_commands(self):
-        self.packets_to_send.append([200, {"tilt": self.camera_tilt[0]}])
-        self.packets_to_send.append([201, {"tilt": self.camera_tilt[1]}])
+        self.packets_to_send.append([200, {"tilt": self.camera_tilt[0], "on": True}])
+        self.packets_to_send.append([201, {"tilt": self.camera_tilt[1], "on": True}])
         self.packets_to_send.append([64,  []])
         self.packets_to_send.append([96,  []])
-        self.packets_to_send.append([71,  [11, 0.7]])
+        # self.packets_to_send.append([71,  [11, 0.7]])
+        
 
         # self.packets_to_send.append([128, []])
         
@@ -250,7 +251,7 @@ class Rov_state:
             try:
                 id, packet = self.queue.get(block=False)
             except Exception as e:
-                print(f"Error when trying to get from queue. \n{e}")
+                # print(f"Error when trying to get from queue. \n{e}")
                 return
 
         if id == 1: # controller data update
@@ -290,7 +291,7 @@ class Rov_state:
         self.thruster_struping = sensordata
 
     def set_depth_zeroing(self, sensordata=None):
-        self.packets_to_send.append([129, []])
+        self.packets_to_send.append([126, []])
         # self.packets_to_send.append([96,  []])
 
 
@@ -506,8 +507,8 @@ class Rov_state:
 
         if manual_input_rotation:
             self.send_sensordata_to_gui({"time": [time_since_start], "manipulator": [grip_percent, in_out, rotation, self.manipulator_active]})
-        else:
-            self.send_sensordata_to_gui({"time": [time_since_start], "manipulator": [grip_percent, in_out, rotation, self.manipulator_active]})
+
+        self.send_sensordata_to_gui({"time": [time_since_start], "manipulator": [grip_percent, in_out, rotation, self.manipulator_active]})
 
 
     def recieve_data_from_rov(self, network: Network, t_watch: Threadwatcher, id: int):
@@ -535,7 +536,8 @@ class Rov_state:
 
     def handle_data_from_rov(self, message: dict):
         self.logger.sensor_logger.info(message)
-        print(f"{message =}")
+        # print(f"{message =}")
+        message_name = ""
         if "ERROR" in message or "info" in message:
             print(message)
             return
@@ -627,7 +629,7 @@ def update_camera_tilt(camera_to_update: int, move_speed: int, time_delta: int, 
 
     camera_tilt[camera_to_update] = round(camera_tilt[camera_to_update])
 
-    return camera_tilt, camera_to_update
+    return -camera_tilt, camera_to_update
 
 
 
@@ -635,6 +637,7 @@ def update_camera_tilt(camera_to_update: int, move_speed: int, time_delta: int, 
 
 # Decodes the tcp packet/s recieved from the rov
 def decode_packets(tcp_data: bytes, end_not_complete_packet="") -> list:
+    end_not_complete_packet = ""
     try:
         json_strings = end_not_complete_packet+bytes.decode(tcp_data, "utf-8")
 
@@ -653,7 +656,7 @@ def decode_packets(tcp_data: bytes, end_not_complete_packet="") -> list:
 
     for item in json_list:
 
-        if item == '' or item == json.dumps("heartbeat") or item == ' ':
+        if item == '' or item == json.dumps("heartbeat"):
             # print(f"{item = }")
             continue
 
@@ -665,6 +668,7 @@ def decode_packets(tcp_data: bytes, end_not_complete_packet="") -> list:
                 print(f"{e = }\n {item = }, {tcp_data = }")
                 with open("errors.txt", 'ab') as f:
                     f.write(tcp_data)
+                continue
                 
                 # exit(0)
             decoded_items.append(item)
@@ -694,7 +698,7 @@ if __name__ == "__main__":
         start_time_sec = time.time()
         run_gui = True
         run_get_controllerdata = True
-        run_network = False
+        run_network = True
         run_craft_packet = True
         run_send_fake_sensordata = False
         manual_input_rotation = False
