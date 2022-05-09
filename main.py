@@ -345,8 +345,9 @@ class Rov_state:
         for packet in self.packets_to_send:
             if packet[0] != 70:
                 pass
-            print(f"{packet = }")
-        self.logger.sensor_logger.info(self.packets_to_send)
+                print(f"{packet = }")
+        if run_network:
+            self.logger.sensor_logger.info(self.packets_to_send)
         if self.network_handler is None:
             self.packets_to_send = []
             return
@@ -536,7 +537,8 @@ class Rov_state:
 
 
     def handle_data_from_rov(self, message: dict):
-        self.logger.sensor_logger.info(message)
+        if run_network:
+            self.logger.sensor_logger.info(message)
         # print(f"{message =}")
         message_name = ""
         if "ERROR" in message or "info" in message:
