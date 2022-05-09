@@ -1,6 +1,7 @@
 import multiprocessing
 import vlc
 import subprocess
+import Subsea_QT_GUI.stopwatch as stopwatch
 #from tkinter import Widget
 from PyQt5 import QtCore, QtGui, QtWidgets, Qt
 from PyQt5.QtWidgets import QMainWindow, QWidget, QCheckBox, QLabel, QFileDialog, QApplication, QWidget, QVBoxLayout, QSizeGrip, QFrame, QMessageBox, QStyleFactory, QSizeGrip, QGraphicsDropShadowEffect, QPushButton, QComboBox, QDesktopWidget
@@ -250,6 +251,10 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         if self.camera_windows_opened:
             self.start_camera_windows()
         
+        self.stopwatch = stopwatch.Stopwatch(self.gui_stopwatch_update)
+        self.btn_start_tidtaker.clicked.connect(self.stopwatch.start)
+        self.btn_reset_tidtaker.clicked.connect(self.stopwatch.reset)
+
         self.recieve = threading.Thread(target=self.recieve_sensordata, daemon=True, args=(self.pipe_conn_only_rcv,))
         self.recieve.start()
         
@@ -471,7 +476,15 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
     def ta_bilde(self, kamera_id):
         self.send_command_to_rov(["take_pic", kamera_id])
+        # if not self.is_retrieving_pic:
+        #     self.is_retrieving_pic = True
+        #     threading.Thread()
 
+    def get_pics(display_after=True):
+        os.system("scp rov:~'/UiS-subsea-Bildebehandling/python/vid_\*' .") # Gets all files in the python folder that is starting with vid_
+
+    def display_last_modified_pic():
+        pass
     # KJØREMODUS
     def manuell_btn_clicked(self):
         print("manuell btn clicked")
@@ -683,17 +696,32 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         
     def decide_gui_update(self, sensordata):
         self.sensor_update_function = {
-        "lekk_temp": self.gui_lekk_temp_update, 
+        "lekk_temp": self.gui_lekk_temp_update,
         "thrust" : self.gui_thrust_update,
         "accel": self.gui_acceleration_update,
         "gyro": self.gui_gyro_update,
         "time": self.gui_time_update,
         "manipulator": self.gui_manipulator_update,
         "power_consumption": self.gui_watt_update,
-        "manipulator_toggled": self.gui_manipulator_state_update}
+        "manipulator_toggled": self.gui_manipulator_state_update
+        }
         for key in sensordata.keys():
             if key in self.sensor_update_function:
                 self.sensor_update_function[key](sensordata[key])
+
+    def gui_stopwatch_update(self, seconds_passed: int):
+        hours = seconds_passed // 3600
+        seconds_passed -= hours * 3600
+
+        mins = seconds_passed // 60
+        seconds_passed -= mins * 60
+
+        secs = seconds_passed
+
+        self.label_tidtaker.setText(f"{self.pad_num(hours)}:{self.pad_num(mins)}:{self.pad_num(secs)}")
+    
+    def pad_num(self, num: int) -> str:
+        return str(num).rjust(2, '0')
 
     def gui_manipulator_state_update(self, sensordata):
         self.toggle_mani.setChecked(sensordata[0])

@@ -112,6 +112,8 @@ class Rov_state:
         self.packets_to_send = []
         self.start_time = time.time() 
 
+
+        self.time_since_packet_update = []
         self.valid_gui_commands = ["lekk_temp", "thrust", "accel", "gyro", "time", "manipulator", "power_consumption", "manipulator_toggled"]
 
         self.manipulator_active = True
@@ -247,12 +249,11 @@ class Rov_state:
         id = -1
         packet = ""
 
-        if self.queue.qsize() > 0:
-            try:
-                id, packet = self.queue.get()
-            except Exception as e:
-                # print(f"Error when trying to get from queue. \n{e}")
-                return
+        try:
+            id, packet = self.queue.get()
+        except Exception as e:
+            # print(f"Error when trying to get from queue. \n{e}")
+            return
 
         if id == 1: # controller data update
             self.data = packet
@@ -344,7 +345,7 @@ class Rov_state:
         for packet in self.packets_to_send:
             if packet[0] != 70:
                 pass
-                print(f"{packet = }")
+            print(f"{packet = }")
         self.logger.sensor_logger.info(self.packets_to_send)
         if self.network_handler is None:
             self.packets_to_send = []
@@ -357,7 +358,7 @@ class Rov_state:
         if self.right_joystick_toggle_wait_counter == 0:
             self.camera_tilt_control_active = not self.camera_tilt_control_active
             print(f"{self.camera_tilt_control_active = }")
-            self.right_joystick_toggle_wait_counter = 14
+            self.right_joystick_toggle_wait_counter = 7
 
     def update_light_value(self, light_intensity_forward: int, ligth_forward_is_on: bool, light_intensity_down: int, ligth_down_is_on: bool):
         self.light_intensity_forward = light_intensity_forward
