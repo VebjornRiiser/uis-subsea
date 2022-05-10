@@ -79,6 +79,19 @@ class AnotherWindow(QWidget):
             self.showMaximized()
             # self.showFullScreen()
 
+class WarningWindow(QWidget):
+     def __init__(self):
+        super().__init__()
+        self.resize(400, 300)
+
+        # Label
+        self.label = QLabel(self)
+        self.label.setGeometry(0, 0, 400, 300)
+        self.label.setText('Sub Window')
+        self.label.setAlignment(Qt.AlignCenter)
+        self.label.setStyleSheet('font-size:40px')
+
+
 PROFILE_UPDATE_ID = 2
 COMMAND_TO_ROV_ID = 3
 
@@ -186,6 +199,13 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.slider_struping_thrustere.valueChanged.connect(self.send_thruster_struping)
 
         self.send_current_ligth_intensity()
+
+        # Warning Window
+        self.warning_window = WarningWindow()
+
+        # Button Event
+        self.btn_manuell.clicked.connect(self.warning_window.show)
+
 
 
         # CONTROLLER PAGE:

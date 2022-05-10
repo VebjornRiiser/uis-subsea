@@ -11,19 +11,16 @@
 }
 /* ------------------------ */
 
-
-
-#motorContainer QFrame[frameStyle='innerCircle'] {
-	border-radius: 25px;
-	background-color: rgba(77, 77, 127, 255);
-	color: white;
+#pagesContainer  QFrame[frameStyle='outerCircle'] {
+	border-radius: 30px;
+	background-color: rgba(77, 77, 127, 100); 
 }
 
-/*#motorOuterContainer QFrame {
-	border-radius: 30px;
-	background-color: rgba(77, 77, 127, 100);
-}*/
-
+#pagesContainer QFrame[frameStyle='innerCircle'] {
+	border-radius: 25px;
+	background-color: white;
+	color: black;
+}
 
 /* stackedWidget */
 #informasjon, #home, #kontroller { background-color: transparent; }
@@ -226,6 +223,7 @@ QComboBox::drop-down {
 	background-position: center;
 	background-repeat: no-repeat;
 }
+
 QComboBox QAbstractItemView {
 	color: rgb(177, 185, 194);	
 	background-color: rgb(168, 168, 168);
