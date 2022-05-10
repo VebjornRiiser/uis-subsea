@@ -4,7 +4,7 @@ import subprocess
 #from tkinter import Widget
 from PyQt5 import QtCore, QtGui, QtWidgets, Qt
 from PyQt5.QtWidgets import QMainWindow, QWidget, QCheckBox, QLabel, QFileDialog, QApplication, QWidget, QVBoxLayout, QSizeGrip, QFrame, QMessageBox, QStyleFactory, QSizeGrip, QGraphicsDropShadowEffect, QPushButton, QComboBox, QDesktopWidget
-from PyQt5.QtWebEngineWidgets import * 
+#from PyQt5.QtWebEngineWidgets import * 
 from PyQt5.Qt import *
 from PyQt5.QtGui import QColor, QIcon, QCursor, QFont, QPixmap
 from PyQt5.QtCore import Qt, QtMsgType, QTimer, QEvent
@@ -238,6 +238,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         
         self.btn_zoom_in.clicked.connect(self.zoom_in)
         self.btn_zoom_out.clicked.connect(self.zoom_out)
+        
         self.btn_change_theme.clicked.connect(self.change_theme)
         #test
         self.load_theme()
@@ -288,7 +289,8 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         if self.font_size > 7:
             self.font_size -= 1
             self.padding -= 1
-            self.bgApp.setStyleSheet(f"QFrame {{ font-size: {self.font_size}pt; }} #pagesContainer QPushButton {{ font-size: {self.font_size}pt; padding: {self.padding}px; }}")
+            # 
+            self.bgApp.setStyleSheet(f"* {{ font-size: {self.font_size}px; }}pt; #bgApp QPushButton {{ padding: {self.padding}px; }}")
         else:
             dlg = QMessageBox(self)
             dlg.setWindowTitle("Minste skriftstørrelse er nådd!")
@@ -300,7 +302,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         if self.font_size < 25:
             self.font_size += 1
             self.padding += 1
-            self.bgApp.setStyleSheet(f"QFrame {{ font-size: {self.font_size}pt; }} #pagesContainer QPushButton {{ font-size: {self.font_size}pt; padding: {self.padding}px; }}")
+            self.bgApp.setStyleSheet(f"* {{ font-size: {self.font_size}px; }}pt; #bgApp QPushButton {{ padding: {self.padding}px; }}")
         else:
             dlg = QMessageBox(self)
             dlg.setWindowTitle("Største skriftstørrelse er nådd!")
@@ -321,14 +323,35 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             sshFile="light_theme.qss"
             with open(sshFile,"r") as qssfile:
                 self.styleSheet.setStyleSheet(qssfile.read())
+            self.make_icons_black(self, "infoicon", "button", "btn_kontroller_info", "white", "black")
         else:
             print("changed to dark mode theme")
             sshFile="dark_theme.qss"
             with open(sshFile,"r") as qssfile:
                 self.styleSheet.setStyleSheet(qssfile.read())
+            self.make_icons_white()
+    
+    def make_icons_black(self, filename, widget_type, objectName, color1, color2):
+        if widget_type == "button":
+            self.pixmap = QPixmap(f"Subsea_QT_GUI/images/{filename}.png")
+            mask = self.pixmap.createMaskFromColor(QColor(f'{color1}'), Qt.MaskOutColor)
+            self.pixmap.fill((QColor(f'{color2}')))
+            self.pixmap.setMask(mask)
+            self.objectName.setIcon(QIcon(self.pixmap_infoicon))
+        if widget_type == "label":
+            self.pixmap = QPixmap("Subsea_QT_GUI/images/{filename}.png")
+            mask = self.pixmap.createMaskFromColor(QColor('white'), Qt.MaskOutColor)
+            self.pixmap.fill((QColor('black')))
+            self.pixmap.setMask(mask)
+            self.objectName.setIcon(QIcon(self.pixmap_infoicon))
 
 
-
+    def make_icons_white(self):
+        mask = self.pixmap.createMaskFromColor(QColor('black'), Qt.MaskOutColor)
+        self.pixmap_info.iconfill((QColor('white')))
+        self.pixmap_infoiconsetMask(mask)
+        self.btn_kontroller_info.setIcon(QIcon(self.pixmap_infoicon))
+    
 
     def make_viewer_opts(self):
         print(self.viewer.opts)
