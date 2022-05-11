@@ -65,15 +65,8 @@
     <string notr="true">/* STYLE SHEET - DARK THEME */
 
 
-#pagesContainer QFrame[frameStyle='outerCircle'] {
-	border-radius: 30px;
-	background-color: rgba(77, 77, 127, 100); 
-}
 
-#pagesContainer QFrame[frameStyle='innerCircle'] {
-	border-radius: 25px;
-	background-color: rgba(77, 77, 127, 255); 
-}
+#pagesContainer QFrame[frameStyle='innerCircle'] { border-radius: 25px; background-color: white; }
 
 
 /* stackedWidget */
@@ -357,23 +350,7 @@ QSlider::handle:vertical:pressed {
 .QSlider {
     min-height: 68px;
     max-height: 68px;
-}
-/*
-.QSlider::groove:horizontal {
-    border: 1px solid #262626;
-    height: 5px;
-    background: #393939;
-    margin: 0 12px;
-}
-
-.QSlider::handle:horizontal {
-    background: #22B14C;
-    border: 5px solid #B5E61D;
-    width: 23px;
-    height: 100px;
-    margin: -24px -12px;
-}*/
-</string>
+}</string>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_14">
     <property name="leftMargin">
@@ -1138,6 +1115,49 @@ QSlider::handle:vertical:pressed {
                    <enum>QFrame::Raised</enum>
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout_5">
+                   <item>
+                    <widget class="QLabel" name="label_lekkasje_varsel">
+                     <property name="enabled">
+                      <bool>true</bool>
+                     </property>
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>0</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">QLabel { color: rgba(255, 255, 255, 255); background-color: rgba(179, 32, 36, 255); }</string>
+                     </property>
+                     <property name="text">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:24pt;&quot;&gt;ADVARSEL:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:24pt;&quot;&gt;VANNLEKKASJE I ROV&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignCenter</set>
+                     </property>
+                     <property name="wordWrap">
+                      <bool>true</bool>
+                     </property>
+                     <property name="margin">
+                      <number>0</number>
+                     </property>
+                     <property name="indent">
+                      <number>0</number>
+                     </property>
+                    </widget>
+                   </item>
                    <item>
                     <widget class="QStackedWidget" name="stackedWidget">
                      <property name="minimumSize">
@@ -3023,49 +3043,6 @@ QSlider::handle:vertical:pressed {
                            </widget>
                           </item>
                           <item>
-                           <widget class="QLabel" name="label_lekkasje_varsel">
-                            <property name="enabled">
-                             <bool>true</bool>
-                            </property>
-                            <property name="sizePolicy">
-                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                              <horstretch>0</horstretch>
-                              <verstretch>0</verstretch>
-                             </sizepolicy>
-                            </property>
-                            <property name="minimumSize">
-                             <size>
-                              <width>0</width>
-                              <height>0</height>
-                             </size>
-                            </property>
-                            <property name="maximumSize">
-                             <size>
-                              <width>0</width>
-                              <height>0</height>
-                             </size>
-                            </property>
-                            <property name="styleSheet">
-                             <string notr="true">QLabel { color: rgba(255, 255, 255, 0); background-color: rgba(179, 32, 36, 0); }</string>
-                            </property>
-                            <property name="text">
-                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:24pt;&quot;&gt;ADVARSEL:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:24pt;&quot;&gt;VANNLEKKASJE I ROV&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                            </property>
-                            <property name="alignment">
-                             <set>Qt::AlignCenter</set>
-                            </property>
-                            <property name="wordWrap">
-                             <bool>true</bool>
-                            </property>
-                            <property name="margin">
-                             <number>0</number>
-                            </property>
-                            <property name="indent">
-                             <number>0</number>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
                            <widget class="QFrame" name="column2">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -3247,14 +3224,14 @@ QSlider::handle:vertical:pressed {
                                    <property name="autoFillBackground">
                                     <bool>false</bool>
                                    </property>
+                                   <property name="styleSheet">
+                                    <string notr="true">QFrame { 	border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
+                                   </property>
                                    <property name="frameShape">
                                     <enum>QFrame::NoFrame</enum>
                                    </property>
                                    <property name="frameShadow">
                                     <enum>QFrame::Raised</enum>
-                                   </property>
-                                   <property name="frameStyle" stdset="0">
-                                    <string>outerCircle</string>
                                    </property>
                                    <widget class="QFrame" name="frame_VHB_circle">
                                     <property name="geometry">
@@ -3269,7 +3246,7 @@ QSlider::handle:vertical:pressed {
                                      <bool>false</bool>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true"/>
+                                     <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
                                     </property>
                                     <property name="frameShape">
                                      <enum>QFrame::NoFrame</enum>
@@ -3324,14 +3301,14 @@ QSlider::handle:vertical:pressed {
                                      <height>60</height>
                                     </rect>
                                    </property>
+                                   <property name="styleSheet">
+                                    <string notr="true">QFrame { 	border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
+                                   </property>
                                    <property name="frameShape">
                                     <enum>QFrame::NoFrame</enum>
                                    </property>
                                    <property name="frameShadow">
                                     <enum>QFrame::Raised</enum>
-                                   </property>
-                                   <property name="frameStyle" stdset="0">
-                                    <string>outerCircle</string>
                                    </property>
                                    <widget class="QFrame" name="frame_HHB_circle">
                                     <property name="geometry">
@@ -3342,8 +3319,11 @@ QSlider::handle:vertical:pressed {
                                       <height>50</height>
                                      </rect>
                                     </property>
+                                    <property name="styleSheet">
+                                     <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
+                                    </property>
                                     <property name="frameShape">
-                                     <enum>QFrame::StyledPanel</enum>
+                                     <enum>QFrame::NoFrame</enum>
                                     </property>
                                     <property name="frameShadow">
                                      <enum>QFrame::Raised</enum>
@@ -3395,14 +3375,14 @@ QSlider::handle:vertical:pressed {
                                      <height>60</height>
                                     </rect>
                                    </property>
+                                   <property name="styleSheet">
+                                    <string notr="true">QFrame { 	border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
+                                   </property>
                                    <property name="frameShape">
                                     <enum>QFrame::NoFrame</enum>
                                    </property>
                                    <property name="frameShadow">
                                     <enum>QFrame::Raised</enum>
-                                   </property>
-                                   <property name="frameStyle" stdset="0">
-                                    <string>outerCircle</string>
                                    </property>
                                    <widget class="QFrame" name="frame_VVB_circle">
                                     <property name="geometry">
@@ -3413,8 +3393,11 @@ QSlider::handle:vertical:pressed {
                                       <height>50</height>
                                      </rect>
                                     </property>
+                                    <property name="styleSheet">
+                                     <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
+                                    </property>
                                     <property name="frameShape">
-                                     <enum>QFrame::StyledPanel</enum>
+                                     <enum>QFrame::NoFrame</enum>
                                     </property>
                                     <property name="frameShadow">
                                      <enum>QFrame::Raised</enum>
@@ -3466,14 +3449,14 @@ QSlider::handle:vertical:pressed {
                                      <height>60</height>
                                     </rect>
                                    </property>
+                                   <property name="styleSheet">
+                                    <string notr="true">QFrame { 	border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
+                                   </property>
                                    <property name="frameShape">
                                     <enum>QFrame::NoFrame</enum>
                                    </property>
                                    <property name="frameShadow">
                                     <enum>QFrame::Raised</enum>
-                                   </property>
-                                   <property name="frameStyle" stdset="0">
-                                    <string>outerCircle</string>
                                    </property>
                                    <widget class="QFrame" name="frame_VHF_circle">
                                     <property name="geometry">
@@ -3484,8 +3467,11 @@ QSlider::handle:vertical:pressed {
                                       <height>50</height>
                                      </rect>
                                     </property>
+                                    <property name="styleSheet">
+                                     <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
+                                    </property>
                                     <property name="frameShape">
-                                     <enum>QFrame::StyledPanel</enum>
+                                     <enum>QFrame::NoFrame</enum>
                                     </property>
                                     <property name="frameShadow">
                                      <enum>QFrame::Raised</enum>
@@ -3537,14 +3523,14 @@ QSlider::handle:vertical:pressed {
                                      <height>60</height>
                                     </rect>
                                    </property>
+                                   <property name="styleSheet">
+                                    <string notr="true">QFrame { 	border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
+                                   </property>
                                    <property name="frameShape">
                                     <enum>QFrame::NoFrame</enum>
                                    </property>
                                    <property name="frameShadow">
                                     <enum>QFrame::Raised</enum>
-                                   </property>
-                                   <property name="frameStyle" stdset="0">
-                                    <string>outerCircle</string>
                                    </property>
                                    <widget class="QFrame" name="frame_HVF_circle">
                                     <property name="geometry">
@@ -3554,6 +3540,9 @@ QSlider::handle:vertical:pressed {
                                       <width>50</width>
                                       <height>50</height>
                                      </rect>
+                                    </property>
+                                    <property name="styleSheet">
+                                     <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
                                     </property>
                                     <property name="frameShape">
                                      <enum>QFrame::NoFrame</enum>
@@ -3605,14 +3594,14 @@ QSlider::handle:vertical:pressed {
                                      <height>60</height>
                                     </rect>
                                    </property>
+                                   <property name="styleSheet">
+                                    <string notr="true">QFrame { 	border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
+                                   </property>
                                    <property name="frameShape">
                                     <enum>QFrame::NoFrame</enum>
                                    </property>
                                    <property name="frameShadow">
                                     <enum>QFrame::Raised</enum>
-                                   </property>
-                                   <property name="frameStyle" stdset="0">
-                                    <string>outerCircle</string>
                                    </property>
                                    <widget class="QFrame" name="frame_HHF_circle">
                                     <property name="geometry">
@@ -3622,6 +3611,9 @@ QSlider::handle:vertical:pressed {
                                       <width>50</width>
                                       <height>50</height>
                                      </rect>
+                                    </property>
+                                    <property name="styleSheet">
+                                     <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
                                     </property>
                                     <property name="frameShape">
                                      <enum>QFrame::NoFrame</enum>
@@ -3676,14 +3668,14 @@ QSlider::handle:vertical:pressed {
                                      <height>60</height>
                                     </rect>
                                    </property>
+                                   <property name="styleSheet">
+                                    <string notr="true">QFrame { 	border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
+                                   </property>
                                    <property name="frameShape">
                                     <enum>QFrame::NoFrame</enum>
                                    </property>
                                    <property name="frameShadow">
                                     <enum>QFrame::Raised</enum>
-                                   </property>
-                                   <property name="frameStyle" stdset="0">
-                                    <string>outerCircle</string>
                                    </property>
                                    <widget class="QFrame" name="frame_VVF_circle">
                                     <property name="geometry">
@@ -3694,8 +3686,11 @@ QSlider::handle:vertical:pressed {
                                       <height>50</height>
                                      </rect>
                                     </property>
+                                    <property name="styleSheet">
+                                     <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
+                                    </property>
                                     <property name="frameShape">
-                                     <enum>QFrame::StyledPanel</enum>
+                                     <enum>QFrame::NoFrame</enum>
                                     </property>
                                     <property name="frameShadow">
                                      <enum>QFrame::Raised</enum>
@@ -3747,14 +3742,14 @@ QSlider::handle:vertical:pressed {
                                      <height>60</height>
                                     </rect>
                                    </property>
+                                   <property name="styleSheet">
+                                    <string notr="true">QFrame { 	border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
+                                   </property>
                                    <property name="frameShape">
                                     <enum>QFrame::NoFrame</enum>
                                    </property>
                                    <property name="frameShadow">
                                     <enum>QFrame::Raised</enum>
-                                   </property>
-                                   <property name="frameStyle" stdset="0">
-                                    <string>outerCircle</string>
                                    </property>
                                    <widget class="QFrame" name="frame_HVB_circle">
                                     <property name="geometry">
@@ -3765,8 +3760,11 @@ QSlider::handle:vertical:pressed {
                                       <height>50</height>
                                      </rect>
                                     </property>
+                                    <property name="styleSheet">
+                                     <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
+                                    </property>
                                     <property name="frameShape">
-                                     <enum>QFrame::StyledPanel</enum>
+                                     <enum>QFrame::NoFrame</enum>
                                     </property>
                                     <property name="frameShadow">
                                      <enum>QFrame::Raised</enum>
@@ -3944,14 +3942,14 @@ QSlider::handle:vertical:pressed {
                                     <height>60</height>
                                    </rect>
                                   </property>
+                                  <property name="styleSheet">
+                                   <string notr="true">QFrame { 	border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
+                                  </property>
                                   <property name="frameShape">
                                    <enum>QFrame::NoFrame</enum>
                                   </property>
                                   <property name="frameShadow">
                                    <enum>QFrame::Raised</enum>
-                                  </property>
-                                  <property name="frameStyle" stdset="0">
-                                   <string>outerCircle</string>
                                   </property>
                                   <widget class="QFrame" name="struping_circle">
                                    <property name="geometry">
@@ -3962,8 +3960,11 @@ QSlider::handle:vertical:pressed {
                                      <height>50</height>
                                     </rect>
                                    </property>
+                                   <property name="styleSheet">
+                                    <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
+                                   </property>
                                    <property name="frameShape">
-                                    <enum>QFrame::StyledPanel</enum>
+                                    <enum>QFrame::NoFrame</enum>
                                    </property>
                                    <property name="frameShadow">
                                     <enum>QFrame::Raised</enum>
@@ -4136,23 +4137,56 @@ QSlider::handle:vertical:pressed {
                                     <bool>true</bool>
                                    </property>
                                   </widget>
+                                  <widget class="QLabel" name="text_manipulator">
+                                   <property name="geometry">
+                                    <rect>
+                                     <x>-10</x>
+                                     <y>-10</y>
+                                     <width>376</width>
+                                     <height>34</height>
+                                    </rect>
+                                   </property>
+                                   <property name="font">
+                                    <font>
+                                     <pointsize>10</pointsize>
+                                    </font>
+                                   </property>
+                                   <property name="styleSheet">
+                                    <string notr="true">color: rgb(113, 126, 149);</string>
+                                   </property>
+                                   <property name="lineWidth">
+                                    <number>1</number>
+                                   </property>
+                                   <property name="text">
+                                    <string>MANIPULATOR</string>
+                                   </property>
+                                   <property name="alignment">
+                                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                                   </property>
+                                   <property name="margin">
+                                    <number>10</number>
+                                   </property>
+                                   <property name="colorStyle" stdset="0">
+                                    <string>subTitle</string>
+                                   </property>
+                                  </widget>
                                   <widget class="QFrame" name="frame_mani_1">
                                    <property name="geometry">
                                     <rect>
-                                     <x>10</x>
-                                     <y>37</y>
+                                     <x>20</x>
+                                     <y>30</y>
                                      <width>60</width>
                                      <height>60</height>
                                     </rect>
+                                   </property>
+                                   <property name="styleSheet">
+                                    <string notr="true">QFrame { 	border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
                                    </property>
                                    <property name="frameShape">
                                     <enum>QFrame::NoFrame</enum>
                                    </property>
                                    <property name="frameShadow">
                                     <enum>QFrame::Raised</enum>
-                                   </property>
-                                   <property name="frameStyle" stdset="0">
-                                    <string>outerCircle</string>
                                    </property>
                                    <widget class="QFrame" name="mani_circle_1">
                                     <property name="geometry">
@@ -4162,6 +4196,9 @@ QSlider::handle:vertical:pressed {
                                       <width>50</width>
                                       <height>50</height>
                                      </rect>
+                                    </property>
+                                    <property name="styleSheet">
+                                     <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
                                     </property>
                                     <property name="frameShape">
                                      <enum>QFrame::NoFrame</enum>
@@ -4207,14 +4244,17 @@ QSlider::handle:vertical:pressed {
                                     </widget>
                                    </widget>
                                   </widget>
-                                  <widget class="QFrame" name="frame_mani_3">
+                                  <widget class="QFrame" name="frame_mani_2">
                                    <property name="geometry">
                                     <rect>
-                                     <x>150</x>
-                                     <y>87</y>
+                                     <x>250</x>
+                                     <y>50</y>
                                      <width>60</width>
                                      <height>60</height>
                                     </rect>
+                                   </property>
+                                   <property name="styleSheet">
+                                    <string notr="true">QFrame { 	border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
                                    </property>
                                    <property name="frameShape">
                                     <enum>QFrame::NoFrame</enum>
@@ -4222,8 +4262,79 @@ QSlider::handle:vertical:pressed {
                                    <property name="frameShadow">
                                     <enum>QFrame::Raised</enum>
                                    </property>
-                                   <property name="frameStyle" stdset="0">
-                                    <string>outerCircle</string>
+                                   <widget class="QFrame" name="mani_circle_2">
+                                    <property name="geometry">
+                                     <rect>
+                                      <x>5</x>
+                                      <y>5</y>
+                                      <width>50</width>
+                                      <height>50</height>
+                                     </rect>
+                                    </property>
+                                    <property name="styleSheet">
+                                     <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
+                                    </property>
+                                    <property name="frameShape">
+                                     <enum>QFrame::NoFrame</enum>
+                                    </property>
+                                    <property name="frameShadow">
+                                     <enum>QFrame::Raised</enum>
+                                    </property>
+                                    <property name="frameStyle" stdset="0">
+                                     <string>innerCircle</string>
+                                    </property>
+                                    <widget class="QLabel" name="label_percentage_mani_2">
+                                     <property name="geometry">
+                                      <rect>
+                                       <x>0</x>
+                                       <y>10</y>
+                                       <width>50</width>
+                                       <height>30</height>
+                                      </rect>
+                                     </property>
+                                     <property name="font">
+                                      <font>
+                                       <pointsize>9</pointsize>
+                                      </font>
+                                     </property>
+                                     <property name="autoFillBackground">
+                                      <bool>false</bool>
+                                     </property>
+                                     <property name="styleSheet">
+                                      <string notr="true">background: transparent;</string>
+                                     </property>
+                                     <property name="text">
+                                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;span&gt;0&lt;/span&gt;&lt;span style=&quot;vertical-align:super;&quot;&gt;%&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                     </property>
+                                     <property name="scaledContents">
+                                      <bool>false</bool>
+                                     </property>
+                                     <property name="alignment">
+                                      <set>Qt::AlignCenter</set>
+                                     </property>
+                                     <property name="wordWrap">
+                                      <bool>false</bool>
+                                     </property>
+                                    </widget>
+                                   </widget>
+                                  </widget>
+                                  <widget class="QFrame" name="frame_mani_3">
+                                   <property name="geometry">
+                                    <rect>
+                                     <x>150</x>
+                                     <y>80</y>
+                                     <width>60</width>
+                                     <height>60</height>
+                                    </rect>
+                                   </property>
+                                   <property name="styleSheet">
+                                    <string notr="true">QFrame { 	border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
+                                   </property>
+                                   <property name="frameShape">
+                                    <enum>QFrame::NoFrame</enum>
+                                   </property>
+                                   <property name="frameShadow">
+                                    <enum>QFrame::Raised</enum>
                                    </property>
                                    <widget class="QFrame" name="mani_circle_3">
                                     <property name="geometry">
@@ -4234,8 +4345,11 @@ QSlider::handle:vertical:pressed {
                                       <height>50</height>
                                      </rect>
                                     </property>
+                                    <property name="styleSheet">
+                                     <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
+                                    </property>
                                     <property name="frameShape">
-                                     <enum>QFrame::StyledPanel</enum>
+                                     <enum>QFrame::NoFrame</enum>
                                     </property>
                                     <property name="frameShadow">
                                      <enum>QFrame::Raised</enum>
@@ -4278,110 +4392,6 @@ QSlider::handle:vertical:pressed {
                                     </widget>
                                    </widget>
                                   </widget>
-                                  <widget class="QFrame" name="frame_mani_2">
-                                   <property name="geometry">
-                                    <rect>
-                                     <x>250</x>
-                                     <y>47</y>
-                                     <width>60</width>
-                                     <height>60</height>
-                                    </rect>
-                                   </property>
-                                   <property name="frameShape">
-                                    <enum>QFrame::NoFrame</enum>
-                                   </property>
-                                   <property name="frameShadow">
-                                    <enum>QFrame::Raised</enum>
-                                   </property>
-                                   <property name="frameStyle" stdset="0">
-                                    <string>outerCircle</string>
-                                   </property>
-                                   <widget class="QFrame" name="mani_circle_2">
-                                    <property name="geometry">
-                                     <rect>
-                                      <x>5</x>
-                                      <y>5</y>
-                                      <width>50</width>
-                                      <height>50</height>
-                                     </rect>
-                                    </property>
-                                    <property name="frameShape">
-                                     <enum>QFrame::StyledPanel</enum>
-                                    </property>
-                                    <property name="frameShadow">
-                                     <enum>QFrame::Raised</enum>
-                                    </property>
-                                    <property name="frameStyle" stdset="0">
-                                     <string>innerCircle</string>
-                                    </property>
-                                    <widget class="QLabel" name="label_percentage_mani_2">
-                                     <property name="geometry">
-                                      <rect>
-                                       <x>10</x>
-                                       <y>10</y>
-                                       <width>31</width>
-                                       <height>30</height>
-                                      </rect>
-                                     </property>
-                                     <property name="font">
-                                      <font>
-                                       <pointsize>9</pointsize>
-                                      </font>
-                                     </property>
-                                     <property name="autoFillBackground">
-                                      <bool>false</bool>
-                                     </property>
-                                     <property name="styleSheet">
-                                      <string notr="true">background: transparent;</string>
-                                     </property>
-                                     <property name="text">
-                                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;span&gt;0&lt;/span&gt;&lt;span style=&quot;vertical-align:super;&quot;&gt;%&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                                     </property>
-                                     <property name="scaledContents">
-                                      <bool>false</bool>
-                                     </property>
-                                     <property name="alignment">
-                                      <set>Qt::AlignCenter</set>
-                                     </property>
-                                     <property name="wordWrap">
-                                      <bool>false</bool>
-                                     </property>
-                                    </widget>
-                                   </widget>
-                                  </widget>
-                                  <widget class="QLabel" name="text_manipulator">
-                                   <property name="geometry">
-                                    <rect>
-                                     <x>-10</x>
-                                     <y>-10</y>
-                                     <width>376</width>
-                                     <height>34</height>
-                                    </rect>
-                                   </property>
-                                   <property name="font">
-                                    <font>
-                                     <pointsize>10</pointsize>
-                                    </font>
-                                   </property>
-                                   <property name="styleSheet">
-                                    <string notr="true">color: rgb(113, 126, 149);</string>
-                                   </property>
-                                   <property name="lineWidth">
-                                    <number>1</number>
-                                   </property>
-                                   <property name="text">
-                                    <string>MANIPULATOR</string>
-                                   </property>
-                                   <property name="alignment">
-                                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                                   </property>
-                                   <property name="margin">
-                                    <number>10</number>
-                                   </property>
-                                   <property name="colorStyle" stdset="0">
-                                    <string>subTitle</string>
-                                   </property>
-                                  </widget>
                                  </widget>
                                 </item>
                                </layout>
@@ -4403,14 +4413,14 @@ QSlider::handle:vertical:pressed {
                                     <height>60</height>
                                    </rect>
                                   </property>
+                                  <property name="styleSheet">
+                                   <string notr="true">QFrame { 	border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
+                                  </property>
                                   <property name="frameShape">
                                    <enum>QFrame::NoFrame</enum>
                                   </property>
                                   <property name="frameShadow">
                                    <enum>QFrame::Raised</enum>
-                                  </property>
-                                  <property name="frameStyle" stdset="0">
-                                   <string>outerCircle</string>
                                   </property>
                                   <widget class="QFrame" name="lys_forward_circle">
                                    <property name="geometry">
@@ -4421,8 +4431,11 @@ QSlider::handle:vertical:pressed {
                                      <height>50</height>
                                     </rect>
                                    </property>
+                                   <property name="styleSheet">
+                                    <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
+                                   </property>
                                    <property name="frameShape">
-                                    <enum>QFrame::StyledPanel</enum>
+                                    <enum>QFrame::NoFrame</enum>
                                    </property>
                                    <property name="frameShadow">
                                     <enum>QFrame::Raised</enum>
@@ -4478,14 +4491,14 @@ QSlider::handle:vertical:pressed {
                                     <height>60</height>
                                    </rect>
                                   </property>
+                                  <property name="styleSheet">
+                                   <string notr="true">QFrame { 	border-radius: 30px; background-color: rgba(77, 77, 127, 100); }</string>
+                                  </property>
                                   <property name="frameShape">
                                    <enum>QFrame::NoFrame</enum>
                                   </property>
                                   <property name="frameShadow">
                                    <enum>QFrame::Raised</enum>
-                                  </property>
-                                  <property name="frameStyle" stdset="0">
-                                   <string>outerCircle</string>
                                   </property>
                                   <widget class="QFrame" name="lys_down_circle">
                                    <property name="geometry">
@@ -4496,8 +4509,11 @@ QSlider::handle:vertical:pressed {
                                      <height>50</height>
                                     </rect>
                                    </property>
+                                   <property name="styleSheet">
+                                    <string notr="true">QFrame { border-radius: 25px; background-color: rgba(77, 77, 127, 255); }</string>
+                                   </property>
                                    <property name="frameShape">
-                                    <enum>QFrame::StyledPanel</enum>
+                                    <enum>QFrame::NoFrame</enum>
                                    </property>
                                    <property name="frameShadow">
                                     <enum>QFrame::Raised</enum>
@@ -5188,31 +5204,147 @@ QSlider::handle:vertical:pressed {
                                   </property>
                                  </widget>
                                 </item>
-                                <item row="0" column="0">
-                                 <widget class="QLabel" name="title_start_videoopptak">
-                                  <property name="maximumSize">
-                                   <size>
-                                    <width>16777215</width>
-                                    <height>16777215</height>
-                                   </size>
+                                <item row="1" column="2">
+                                 <widget class="QFrame" name="tiltFrameFront">
+                                  <property name="frameShape">
+                                   <enum>QFrame::NoFrame</enum>
                                   </property>
-                                  <property name="font">
-                                   <font>
-                                    <pointsize>10</pointsize>
-                                    <weight>50</weight>
-                                    <italic>false</italic>
-                                    <bold>false</bold>
-                                   </font>
+                                  <property name="frameShadow">
+                                   <enum>QFrame::Raised</enum>
                                   </property>
-                                  <property name="styleSheet">
-                                   <string notr="true">color: rgb(113, 126, 149);</string>
-                                  </property>
-                                  <property name="text">
-                                   <string>Start og stopp videoopptak</string>
-                                  </property>
-                                  <property name="colorStyle" stdset="0">
-                                   <string>subTitle</string>
-                                  </property>
+                                  <layout class="QVBoxLayout" name="verticalLayout_11">
+                                   <property name="spacing">
+                                    <number>0</number>
+                                   </property>
+                                   <property name="leftMargin">
+                                    <number>0</number>
+                                   </property>
+                                   <property name="topMargin">
+                                    <number>0</number>
+                                   </property>
+                                   <property name="rightMargin">
+                                    <number>0</number>
+                                   </property>
+                                   <property name="bottomMargin">
+                                    <number>0</number>
+                                   </property>
+                                   <item>
+                                    <widget class="QPushButton" name="btn_front_tilt_opp">
+                                     <property name="sizePolicy">
+                                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                                       <horstretch>0</horstretch>
+                                       <verstretch>0</verstretch>
+                                      </sizepolicy>
+                                     </property>
+                                     <property name="minimumSize">
+                                      <size>
+                                       <width>0</width>
+                                       <height>0</height>
+                                      </size>
+                                     </property>
+                                     <property name="maximumSize">
+                                      <size>
+                                       <width>16777215</width>
+                                       <height>16777215</height>
+                                      </size>
+                                     </property>
+                                     <property name="font">
+                                      <font>
+                                       <pointsize>10</pointsize>
+                                       <weight>50</weight>
+                                       <italic>false</italic>
+                                       <bold>false</bold>
+                                      </font>
+                                     </property>
+                                     <property name="cursor">
+                                      <cursorShape>PointingHandCursor</cursorShape>
+                                     </property>
+                                     <property name="toolTip">
+                                      <string/>
+                                     </property>
+                                     <property name="text">
+                                      <string/>
+                                     </property>
+                                     <property name="icon">
+                                      <iconset resource="resources.qrc">
+                                       <normaloff>:/icons/images/icons/cil-arrow-top-2.png</normaloff>:/icons/images/icons/cil-arrow-top-2.png</iconset>
+                                     </property>
+                                     <property name="checkable">
+                                      <bool>false</bool>
+                                     </property>
+                                     <property name="checked">
+                                      <bool>false</bool>
+                                     </property>
+                                     <property name="autoRepeat">
+                                      <bool>false</bool>
+                                     </property>
+                                     <property name="default">
+                                      <bool>false</bool>
+                                     </property>
+                                     <property name="flat">
+                                      <bool>false</bool>
+                                     </property>
+                                    </widget>
+                                   </item>
+                                   <item>
+                                    <widget class="QPushButton" name="btn_front_tilt_ned">
+                                     <property name="sizePolicy">
+                                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                                       <horstretch>0</horstretch>
+                                       <verstretch>0</verstretch>
+                                      </sizepolicy>
+                                     </property>
+                                     <property name="minimumSize">
+                                      <size>
+                                       <width>0</width>
+                                       <height>0</height>
+                                      </size>
+                                     </property>
+                                     <property name="maximumSize">
+                                      <size>
+                                       <width>16777215</width>
+                                       <height>16777215</height>
+                                      </size>
+                                     </property>
+                                     <property name="font">
+                                      <font>
+                                       <pointsize>10</pointsize>
+                                       <weight>50</weight>
+                                       <italic>false</italic>
+                                       <bold>false</bold>
+                                      </font>
+                                     </property>
+                                     <property name="cursor">
+                                      <cursorShape>PointingHandCursor</cursorShape>
+                                     </property>
+                                     <property name="toolTip">
+                                      <string/>
+                                     </property>
+                                     <property name="text">
+                                      <string/>
+                                     </property>
+                                     <property name="icon">
+                                      <iconset resource="resources.qrc">
+                                       <normaloff>:/icons/images/icons/cil-arrow-bottom-2.png</normaloff>:/icons/images/icons/cil-arrow-bottom-2.png</iconset>
+                                     </property>
+                                     <property name="checkable">
+                                      <bool>false</bool>
+                                     </property>
+                                     <property name="checked">
+                                      <bool>false</bool>
+                                     </property>
+                                     <property name="autoRepeat">
+                                      <bool>false</bool>
+                                     </property>
+                                     <property name="default">
+                                      <bool>false</bool>
+                                     </property>
+                                     <property name="flat">
+                                      <bool>false</bool>
+                                     </property>
+                                    </widget>
+                                   </item>
+                                  </layout>
                                  </widget>
                                 </item>
                                 <item row="4" column="2">
@@ -5358,147 +5490,61 @@ QSlider::handle:vertical:pressed {
                                   </layout>
                                  </widget>
                                 </item>
-                                <item row="1" column="2">
-                                 <widget class="QFrame" name="tiltFrameFront">
-                                  <property name="frameShape">
-                                   <enum>QFrame::NoFrame</enum>
+                                <item row="0" column="1">
+                                 <widget class="QLabel" name="title_start_videoopptak">
+                                  <property name="maximumSize">
+                                   <size>
+                                    <width>16777215</width>
+                                    <height>16777215</height>
+                                   </size>
                                   </property>
-                                  <property name="frameShadow">
-                                   <enum>QFrame::Raised</enum>
+                                  <property name="font">
+                                   <font>
+                                    <pointsize>10</pointsize>
+                                    <weight>50</weight>
+                                    <italic>false</italic>
+                                    <bold>false</bold>
+                                   </font>
                                   </property>
-                                  <layout class="QVBoxLayout" name="verticalLayout_11">
-                                   <property name="spacing">
-                                    <number>0</number>
-                                   </property>
-                                   <property name="leftMargin">
-                                    <number>0</number>
-                                   </property>
-                                   <property name="topMargin">
-                                    <number>0</number>
-                                   </property>
-                                   <property name="rightMargin">
-                                    <number>0</number>
-                                   </property>
-                                   <property name="bottomMargin">
-                                    <number>0</number>
-                                   </property>
-                                   <item>
-                                    <widget class="QPushButton" name="btn_front_tilt_opp">
-                                     <property name="sizePolicy">
-                                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                                       <horstretch>0</horstretch>
-                                       <verstretch>0</verstretch>
-                                      </sizepolicy>
-                                     </property>
-                                     <property name="minimumSize">
-                                      <size>
-                                       <width>0</width>
-                                       <height>0</height>
-                                      </size>
-                                     </property>
-                                     <property name="maximumSize">
-                                      <size>
-                                       <width>16777215</width>
-                                       <height>16777215</height>
-                                      </size>
-                                     </property>
-                                     <property name="font">
-                                      <font>
-                                       <pointsize>10</pointsize>
-                                       <weight>50</weight>
-                                       <italic>false</italic>
-                                       <bold>false</bold>
-                                      </font>
-                                     </property>
-                                     <property name="cursor">
-                                      <cursorShape>PointingHandCursor</cursorShape>
-                                     </property>
-                                     <property name="toolTip">
-                                      <string/>
-                                     </property>
-                                     <property name="text">
-                                      <string/>
-                                     </property>
-                                     <property name="icon">
-                                      <iconset resource="resources.qrc">
-                                       <normaloff>:/icons/images/icons/cil-arrow-top-2.png</normaloff>:/icons/images/icons/cil-arrow-top-2.png</iconset>
-                                     </property>
-                                     <property name="checkable">
-                                      <bool>false</bool>
-                                     </property>
-                                     <property name="checked">
-                                      <bool>false</bool>
-                                     </property>
-                                     <property name="autoRepeat">
-                                      <bool>false</bool>
-                                     </property>
-                                     <property name="default">
-                                      <bool>false</bool>
-                                     </property>
-                                     <property name="flat">
-                                      <bool>false</bool>
-                                     </property>
-                                    </widget>
-                                   </item>
-                                   <item>
-                                    <widget class="QPushButton" name="btn_front_tilt_ned">
-                                     <property name="sizePolicy">
-                                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                                       <horstretch>0</horstretch>
-                                       <verstretch>0</verstretch>
-                                      </sizepolicy>
-                                     </property>
-                                     <property name="minimumSize">
-                                      <size>
-                                       <width>0</width>
-                                       <height>0</height>
-                                      </size>
-                                     </property>
-                                     <property name="maximumSize">
-                                      <size>
-                                       <width>16777215</width>
-                                       <height>16777215</height>
-                                      </size>
-                                     </property>
-                                     <property name="font">
-                                      <font>
-                                       <pointsize>10</pointsize>
-                                       <weight>50</weight>
-                                       <italic>false</italic>
-                                       <bold>false</bold>
-                                      </font>
-                                     </property>
-                                     <property name="cursor">
-                                      <cursorShape>PointingHandCursor</cursorShape>
-                                     </property>
-                                     <property name="toolTip">
-                                      <string/>
-                                     </property>
-                                     <property name="text">
-                                      <string/>
-                                     </property>
-                                     <property name="icon">
-                                      <iconset resource="resources.qrc">
-                                       <normaloff>:/icons/images/icons/cil-arrow-bottom-2.png</normaloff>:/icons/images/icons/cil-arrow-bottom-2.png</iconset>
-                                     </property>
-                                     <property name="checkable">
-                                      <bool>false</bool>
-                                     </property>
-                                     <property name="checked">
-                                      <bool>false</bool>
-                                     </property>
-                                     <property name="autoRepeat">
-                                      <bool>false</bool>
-                                     </property>
-                                     <property name="default">
-                                      <bool>false</bool>
-                                     </property>
-                                     <property name="flat">
-                                      <bool>false</bool>
-                                     </property>
-                                    </widget>
-                                   </item>
-                                  </layout>
+                                  <property name="styleSheet">
+                                   <string notr="true">color: rgb(113, 126, 149);</string>
+                                  </property>
+                                  <property name="text">
+                                   <string>Start/stopp videoopptak</string>
+                                  </property>
+                                  <property name="colorStyle" stdset="0">
+                                   <string>subTitle</string>
+                                  </property>
+                                 </widget>
+                                </item>
+                                <item row="0" column="2">
+                                 <widget class="QLabel" name="title_tilt_kamera">
+                                  <property name="maximumSize">
+                                   <size>
+                                    <width>16777215</width>
+                                    <height>16777215</height>
+                                   </size>
+                                  </property>
+                                  <property name="font">
+                                   <font>
+                                    <pointsize>10</pointsize>
+                                    <weight>50</weight>
+                                    <italic>false</italic>
+                                    <bold>false</bold>
+                                   </font>
+                                  </property>
+                                  <property name="styleSheet">
+                                   <string notr="true">color: rgb(113, 126, 149);</string>
+                                  </property>
+                                  <property name="text">
+                                   <string>Tilt kamera</string>
+                                  </property>
+                                  <property name="indent">
+                                   <number>1</number>
+                                  </property>
+                                  <property name="colorStyle" stdset="0">
+                                   <string>subTitle</string>
+                                  </property>
                                  </widget>
                                 </item>
                                </layout>
@@ -5869,10 +5915,6 @@ QSlider::handle:vertical:pressed {
                            </widget>
                           </item>
                          </layout>
-                         <zorder>column1</zorder>
-                         <zorder>column2</zorder>
-                         <zorder>column3</zorder>
-                         <zorder>label_lekkasje_varsel</zorder>
                         </widget>
                        </item>
                       </layout>
@@ -5935,7 +5977,7 @@ QSlider::handle:vertical:pressed {
                                <x>0</x>
                                <y>0</y>
                                <width>1133</width>
-                               <height>839</height>
+                               <height>829</height>
                               </rect>
                              </property>
                              <layout class="QVBoxLayout" name="verticalLayout_18">
@@ -7220,7 +7262,7 @@ QSlider::handle:vertical:pressed {
                                      </widget>
                                     </item>
                                     <item>
-                                     <widget class="QFrame" name="frame_4">
+                                     <widget class="QFrame" name="saveBtnFrame">
                                       <property name="frameShape">
                                        <enum>QFrame::NoFrame</enum>
                                       </property>
