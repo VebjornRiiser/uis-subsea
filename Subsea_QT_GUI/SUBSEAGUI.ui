@@ -5976,8 +5976,8 @@ QSlider::handle:vertical:pressed {
                               <rect>
                                <x>0</x>
                                <y>0</y>
-                               <width>1133</width>
-                               <height>829</height>
+                               <width>374</width>
+                               <height>817</height>
                               </rect>
                              </property>
                              <layout class="QVBoxLayout" name="verticalLayout_18">
