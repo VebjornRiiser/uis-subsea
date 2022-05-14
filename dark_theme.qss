@@ -1,5 +1,16 @@
 /* STYLE SHEET - DARK THEME */
 
+
+#pagesContainer QFrame[frameStyle='outerCircle'] {
+	border-radius: 30px;
+	background-color: rgba(77, 77, 127, 100); 
+}
+
+#pagesContainer QFrame[frameStyle='innerCircle'] {
+	border-radius: 25px;
+	background-color: rgba(77, 77, 127, 255); 
+}
+
 /* stackedWidget */
 #informasjon, #home, #kontroller { background-color: transparent; }
 
@@ -282,18 +293,3 @@ QSlider::handle:vertical:pressed {
     min-height: 68px;
     max-height: 68px;
 }
-/*
-.QSlider::groove:horizontal {
-    border: 1px solid #262626;
-    height: 5px;
-    background: #393939;
-    margin: 0 12px;
-}
-
-.QSlider::handle:horizontal {
-    background: #22B14C;
-    border: 5px solid #B5E61D;
-    width: 23px;
-    height: 100px;
-    margin: -24px -12px;
-}*/

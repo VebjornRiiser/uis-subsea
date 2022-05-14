@@ -1,14 +1,17 @@
 <RCC>
   <qresource prefix="images">
+    <file>images/6dofinfo.png</file>
+    <file>images/6dofkontroller.png</file>
+    <file>images/infoicon.png</file>
     <file>images/nylogo2.png</file>
     <file>images/rovmotorpaadrag2.png</file>
     <file>images/nylogo.png</file>
     <file>images/underwater.png</file>
     <file>images/back.png</file>
     <file>images/xboxOne.png</file>
+    <file>images/motorpaadrag.png</file>
     <file>images/camera.png</file>
     <file>images/eksempelbilde.png</file>
-    <file>images/information.png</file>
     <file>images/kontroller.png</file>
     <file>images/line.png</file>
     <file>images/logo.png</file>
@@ -48,6 +51,7 @@
     <file>images/icons/cil-battery-3.png</file>
     <file>images/icons/cil-battery-5.png</file>
     <file>images/icons/cil-battery-alert.png</file>
+    <file>images/icons/cil-arrow-top-2.png</file>
     <file>images/icons/cil-battery-slash.png</file>
     <file>images/icons/cil-bell.png</file>
     <file>images/icons/cil-bluetooth.png</file>
