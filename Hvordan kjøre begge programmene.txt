@@ -1,0 +1,27 @@
+koble til minipc:
+ssh subsea@10.0.0.2
+passord = *********
+
+på mini-pcen:
+bytt mappe:
+c
+eller skriv (c er lagt inn som en shortcut):
+cd UiS-subsea-Bildebehandling/python/
+
+start programmet på mini-pcen
+python mercury.py
+
+
+
+start deretter programmet på din pc:
+vær i mappa 
+cd path\til\programmet\uis-subsea-master
+python main.py
+
+
+For å avslutte:
+ctrl+c
+på mini-pc og egen pc
+
+sudo shutdown now
+for å stoppe mini-pcen
