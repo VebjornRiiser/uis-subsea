@@ -826,14 +826,11 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         text = f"Advarsel vannlekkasje oppdaget på sensor: {str(', '.join(sensor_nr_liste))}"
         self.label_lekkasje_varsel.setText(text)
         self.label_lekkasje_varsel.setStyleSheet("QLabel { color: rgba(255, 255, 255, 200); background-color: rgba(179, 32, 36, 200); font-size: 24pt;}")
-        self.audio = vlc.MediaPlayer("file:///ække normalt.mp3")
+        self.audio = vlc.MediaPlayer("file:///siren.wav")
         self.audio.play()          
-        time.sleep(2)
+        time.sleep(8)
         self.label_lekkasje_varsel.setStyleSheet("QLabel { color: rgba(255, 255, 255, 0); background-color: rgba(179, 32, 36, 0); font-size: 24pt;}")
         self.label_lekkasje_varsel.lower()
-        self.audio = vlc.MediaPlayer("file:///synker.mp3")
-        self.audio.play()
-        time.sleep(1)
         self.lekkasje_varsel_is_running = False
         self.label_lekkasje_varsel.setMaximumSize(0,0)
         self.label_lekkasje_varsel.setMinimumSize(0,0)
