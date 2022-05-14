@@ -785,11 +785,11 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.update_round_percent_visualizer(0, self.label_percentage_mani_3, self.frame_mani_3)
         if sensordata[3]:
             if sensordata[0] != 0: # åpne/lukke manipulator
-                self.update_round_percent_visualizer(sensordata[0], self.label_percentage_mani_1, self.frame_mani_1)
+                self.update_round_percent_visualizer(round(sensordata[0]*0.35), self.label_percentage_mani_1, self.frame_mani_1)
             elif sensordata[2] != 0: # rotere manipulator
-                self.update_round_percent_visualizer(sensordata[2], self.label_percentage_mani_2, self.frame_mani_2)
-            elif sensordata[1] != 0: # inn ut med manipulator
-                self.update_round_percent_visualizer(sensordata[1], self.label_percentage_mani_3, self.frame_mani_3)
+                self.update_round_percent_visualizer(round(sensordata[2]*0.35), self.label_percentage_mani_2, self.frame_mani_2)
+            elif sensordata[1] != 0: # inn ut med manipulator1
+                self.update_round_percent_visualizer(round(sensordata[1]*0.35), self.label_percentage_mani_3, self.frame_mani_3)
 
     def gui_thrust_update(self, sensordata):
         # print(f"ran gui_thrust_update {sensordata = }")
@@ -818,10 +818,18 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         sensordata.append(average_temp)
         for i in range(4):
             temp_label_list[i].setText(str(sensordata[i+3]))
-            if sensordata[i+3] > 65:
-                temp_label_list[i].setStyleSheet("background-color: #ff0000; border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
-            else:
-                temp_label_list[i].setStyleSheet("background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
+        if sensordata[3] > 61: # Høyeste temp sett ved kjøring i bassenget på skolen | Hovedkort
+            temp_label_list[i].setStyleSheet("background-color: #ff0000; border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
+        else:
+            temp_label_list[i].setStyleSheet("background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
+        if sensordata[4] > 51: # Høyeste temp sett ved kjøring i bassenget på skolen | Kraftkort
+            temp_label_list[i].setStyleSheet("background-color: #ff0000; border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
+        else:
+            temp_label_list[i].setStyleSheet("background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
+        if sensordata[5] > 46: # Høyeste temp sett ved kjøring i bassenget på skolen | Sensorkort
+            temp_label_list[i].setStyleSheet("background-color: #ff0000; border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
+        else:
+            temp_label_list[i].setStyleSheet("background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
 
         id_with_lekkasje = []
         for lekkasje_nr, is_lekkasje in enumerate(lekkasje_liste):
@@ -841,14 +849,11 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         text = f"Advarsel vannlekkasje oppdaget på sensor: {str(', '.join(sensor_nr_liste))}"
         self.label_lekkasje_varsel.setText(text)
         self.label_lekkasje_varsel.setStyleSheet("QLabel { color: rgba(255, 255, 255, 200); background-color: rgba(179, 32, 36, 200); font-size: 24pt;}")
-        self.audio = vlc.MediaPlayer("file:///ække normalt.mp3")
+        self.audio = vlc.MediaPlayer("file:///siren.wav")
         self.audio.play()          
-        time.sleep(2)
+        time.sleep(8)
         self.label_lekkasje_varsel.setStyleSheet("QLabel { color: rgba(255, 255, 255, 0); background-color: rgba(179, 32, 36, 0); font-size: 24pt;}")
         self.label_lekkasje_varsel.lower()
-        self.audio = vlc.MediaPlayer("file:///synker.mp3")
-        self.audio.play()
-        time.sleep(1)
         self.lekkasje_varsel_is_running = False
         self.label_lekkasje_varsel.setMaximumSize(0,0)
         self.label_lekkasje_varsel.setMinimumSize(0,0)

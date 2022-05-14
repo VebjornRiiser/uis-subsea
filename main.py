@@ -212,7 +212,7 @@ class Rov_state:
         for index, button in enumerate(buttons):
             if button: # is pressed
                 self.button_function_list[self.button_to_function_map[index]](index)
-                # print(f"button with {index = } is pressed")
+                self.data["buttons"][index] = 0
 
     
     def toggle_active_camera(self, button_index):
@@ -267,13 +267,15 @@ class Rov_state:
             "manipulator_toggle": self.toggle_manipulator_enabled, "reset_sikring": self.reset_fuse_on_power_supply,
             "toggle_regulator": self.switch_power_supply_regulator, "thruster_struping": self.set_thruster_struping,
             "STOP": self.shutdown, "video_toggle": self.video_toggle,
-            "regulering": self.toggle_regulering}
+            "regulering": self.toggle_regulering, "tilt": self.tilt_from_gui}
 
             if packet[0] not in commands:
                 print(f"Got unrecognized command from gui {packet}")
                 return
             commands[packet[0]](*packet[1:]) # * unpacks list
             
+    def tilt_from_gui(self, sensordata):
+        pass
 
     def toggle_regulering(self, sensordata):
         sensordata.append(1)
@@ -373,7 +375,8 @@ class Rov_state:
         # print(f"Lys oppdatert. verdien vi sender er {[142, ligth_forward, ligth_down]}")
         self.packets_to_send.append([142, [ligth_forward, ligth_down]])
 
-    def update_camera_tilt(self):
+    def update_camera_tilt(self, new_tilt=None):
+
         # print("camera tilt update func")
         if self.camera_tilt_control_active and self.camera_tilt_allowed[self.active_camera]:
             camera_movement = self.data.get('camera_movement')
@@ -398,13 +401,13 @@ class Rov_state:
                     # [[200/201, {"video_recording": True, "take_pic": True}]]
 
     def build_styredata(self):
-        #  X, Y, Z, rotasjon, (m.teleskop, m.vri, m.klype, enable), fri, regulering_av_på,  throttle  ##########
+        #  X, Y, Z, rotasjon, (m.teleskop, m.vri, m.klype, aktiv), rull(ikke implementert), stamp(ikke implementert), struping
         if self.data == {}:
             return
         styredata = []
         styredata.append(self.data["joysticks"][X_axis])
         styredata.append(self.data["joysticks"][Y_axis])
-        styredata.append(-self.data["joysticks"][Z_axis]) # positive direction is downwards
+        styredata.append(-self.data["joysticks"][Z_axis]) # Nedover er definert som positiv retning
         if not self.camera_tilt_control_active:
             styredata.append(self.data["joysticks"][ROTATION_axis])
         else:
@@ -414,14 +417,6 @@ class Rov_state:
         styredata.append(0)
         styredata.append(self.thruster_struping)
         self.packets_to_send.append([70, styredata])
-
-    def build_regulering_byte(self):
-        values = list(self.regulering_state.values())
-        sum = 0
-        for i in range(3):
-            # Multiplies the each bit with the bolean value controlling the regulator
-            sum += 2**i*list(self.regulering_state.values())[i]
-        return sum
 
     def build_manipulator_byte(self):
         data = list(self.data["dpad"])
@@ -447,6 +442,16 @@ class Rov_state:
             byte_val = byte_val | 64  # enables manipulator
 
         return byte_val
+
+
+    def build_regulering_byte(self):
+        values = list(self.regulering_state.values())
+        sum = 0
+        for i in range(3):
+            # ganger hver bit med den boolske verdien som kontrollerer reguleringen
+            sum += 2**i*list(self.regulering_state.values())[i]
+        return sum
+
 
     def send_sensordata_to_gui(self, data):
         # print(f"sending data from main to gui: {data =}")
@@ -582,9 +587,9 @@ def run(network_handler: Network, t_watch: Threadwatcher, id: int, queue_for_rov
             rov_state.get_rotation_input()
 
         rov_state.get_from_queue()
-        rov_state.send_local_sensordata()
         if run_get_controllerdata and rov_state.data != {}:
             rov_state.check_controls()
+        rov_state.send_local_sensordata()
         rov_state.send_packets()
         rov_state.data = {}
 
@@ -614,7 +619,7 @@ def check_camera_command(camera_command):
 # Handles the update of tilting of the camera motor
 def update_camera_tilt(camera_to_update: int, move_speed: int, time_delta: int, camera_tilt: list[float], tilt_lock: list[bool]):
     if move_speed == 0:  # no change
-        return camera_tilt, -1  # -1 means no camera has changed
+        return -camera_tilt, -1  # -1 means no camera has changed
 
     tilt_time_sec = 2  # time in seconds for the camera to move from one side to the other
     # tilt_time_sec = 2 # time in seconds for the camera to move from one side to the other
@@ -702,7 +707,7 @@ if __name__ == "__main__":
         run_gui = True
         run_get_controllerdata = False
         run_network = False
-        run_craft_packet = False
+        run_craft_packet = True
         run_send_fake_sensordata = False
         manual_input_rotation = False
         
