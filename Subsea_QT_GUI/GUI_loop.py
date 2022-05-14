@@ -318,20 +318,20 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     def load_theme(self):
         print("theme loaded")
         sshFile="dark_theme.qss"
-        with open("dark_theme.qss" ,"r") as qssfile:
+        with open("themes/dark_theme.qss" ,"r") as qssfile:
             self.styleSheet.setStyleSheet(qssfile.read())
 
     
     def change_theme(self):
         if self.btn_change_theme.isChecked():
             print("changed to light mode theme")
-            sshFile="light_theme.qss"
+            sshFile="themes/light_theme.qss"
             with open(sshFile,"r") as qssfile:
                 self.styleSheet.setStyleSheet(qssfile.read())
             self.make_icons_black(self, "infoicon", "button", "btn_kontroller_info", "white", "black")
         else:
             print("changed to dark mode theme")
-            sshFile="dark_theme.qss"
+            sshFile="themes/dark_theme.qss"
             with open(sshFile,"r") as qssfile:
                 self.styleSheet.setStyleSheet(qssfile.read())
             self.make_icons_white()
