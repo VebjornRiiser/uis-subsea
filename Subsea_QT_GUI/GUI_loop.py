@@ -951,7 +951,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         # self.w2.stream1.load(QtCore.QUrl("http://vg.no"))
     
     def change_current_widget(self, index):
-        print(f"should change to widget {index}")
+        # print(f"should change to widget {index}")
         self.stackedWidget.setCurrentIndex(index)
     
     

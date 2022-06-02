@@ -202,6 +202,9 @@ class Rov_state:
     def check_controls(self):
         self.button_handling()
         self.update_camera_tilt_controller()
+        if self.image_processing_mode[0] == 2 or self.image_processing_mode[1] == 2:
+            # print("Sender ikke styredata")
+            return
         self.build_styredata()
 
 
@@ -574,6 +577,13 @@ class Rov_state:
             self.logger.sensor_logger.info(message)
         # print(f"{message =}")
         message_name = ""
+        if not isinstance(message, dict):
+            try:
+                print(message)
+                return
+            except Exception as e:
+                print(e)
+                return
         if "ERROR" in message or "info" in message:
             print(message)
             return
