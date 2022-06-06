@@ -201,7 +201,10 @@ class Rov_state:
     #checks which buttons were pressed and calls the appropiate function
     def check_controls(self):
         self.button_handling()
-        self.update_camera_tilt()
+        self.update_camera_tilt_controller()
+        if self.image_processing_mode[0] == 2 or self.image_processing_mode[1] == 2:
+            # print("Sender ikke styredata")
+            return
         self.build_styredata()
 
 
@@ -267,7 +270,7 @@ class Rov_state:
             "manipulator_toggle": self.toggle_manipulator_enabled, "reset_sikring": self.reset_fuse_on_power_supply,
             "toggle_regulator": self.switch_power_supply_regulator, "thruster_struping": self.set_thruster_struping,
             "STOP": self.shutdown, "video_toggle": self.video_toggle,
-            "regulering": self.toggle_regulering, "tilt": self.tilt_from_gui}
+            "regulering": self.toggle_regulering, "update_tilt": self.tilt_from_gui}
 
             if packet[0] not in commands:
                 print(f"Got unrecognized command from gui {packet}")
@@ -275,7 +278,12 @@ class Rov_state:
             commands[packet[0]](*packet[1:]) # * unpacks list
             
     def tilt_from_gui(self, sensordata):
-        pass
+        if sensordata[1] == "up":
+            delta_tilt = 5
+        if sensordata[1] == "down":
+            delta_tilt = -5
+
+        self.calculate_new_tilt(sensordata[0], delta_tilt)
 
     def toggle_regulering(self, sensordata):
         sensordata.append(1)
@@ -375,7 +383,7 @@ class Rov_state:
         # print(f"Lys oppdatert. verdien vi sender er {[142, ligth_forward, ligth_down]}")
         self.packets_to_send.append([142, [ligth_forward, ligth_down]])
 
-    def update_camera_tilt(self, new_tilt=None):
+    def update_camera_tilt_controller(self):
 
         # print("camera tilt update func")
         if self.camera_tilt_control_active and self.camera_tilt_allowed[self.active_camera]:
@@ -385,20 +393,43 @@ class Rov_state:
             if abs(camera_movement) > 0:
                 old_tilt = self.camera_tilt[self.active_camera]
                 tilt_time_sec = 2  # time in seconds for the camera to move from one side to the other
-                total_degrees = 80
+                total_degrees = 60
                 tilt_per_ms = total_degrees/(tilt_time_sec*1000)
-                self.camera_tilt[self.active_camera] += (camera_movement/100)*self.data["time_between_updates"]*tilt_per_ms
-                if self.camera_tilt[self.active_camera] > total_degrees/2:
-                    self.camera_tilt[self.active_camera] = total_degrees//2
 
-                elif self.camera_tilt[self.active_camera] < -total_degrees/2:
-                    self.camera_tilt[self.active_camera] = -total_degrees//2
+                delta_tilt = (camera_movement/100)*self.data["time_between_updates"]*tilt_per_ms
 
-                self.camera_tilt[self.active_camera] = round(self.camera_tilt[self.active_camera])
+                self.calculate_new_tilt(self.active_camera, delta_tilt)
 
-                if old_tilt != self.camera_tilt[self.active_camera]:
-                    self.packets_to_send.append([200 + self.active_camera, {"tilt": int(self.camera_tilt[self.active_camera])}])
-                    # [[200/201, {"video_recording": True, "take_pic": True}]]
+                # self.camera_tilt[self.active_camera] += (camera_movement/100)*self.data["time_between_updates"]*tilt_per_ms
+                # if self.camera_tilt[self.active_camera] > total_degrees/2:
+                #     self.camera_tilt[self.active_camera] = total_degrees//2
+
+                # elif self.camera_tilt[self.active_camera] < -total_degrees/2:
+                #     self.camera_tilt[self.active_camera] = -total_degrees//2
+
+                # self.camera_tilt[self.active_camera] = round(self.camera_tilt[self.active_camera])
+
+                # if old_tilt != self.camera_tilt[self.active_camera]:
+                #     self.packets_to_send.append([200 + self.active_camera, {"tilt": int(self.camera_tilt[self.active_camera])}])
+
+
+    def calculate_new_tilt(self, camera_to_tilt: int, delta_tilt: float) -> None:
+        total_degrees = 60
+
+        old_tilt = self.camera_tilt[camera_to_tilt]
+
+        self.camera_tilt[camera_to_tilt] += delta_tilt
+
+        if self.camera_tilt[camera_to_tilt] > total_degrees/2:
+                    self.camera_tilt[camera_to_tilt] = total_degrees//2
+
+        elif self.camera_tilt[camera_to_tilt] < -total_degrees/2:
+            self.camera_tilt[camera_to_tilt] = -total_degrees//2
+
+        self.camera_tilt[camera_to_tilt] = round(self.camera_tilt[camera_to_tilt])
+
+        if old_tilt != self.camera_tilt[camera_to_tilt]:
+            self.packets_to_send.append([200 + camera_to_tilt, {"tilt": int(self.camera_tilt[camera_to_tilt])}])
 
     def build_styredata(self):
         #  X, Y, Z, rotasjon, (m.teleskop, m.vri, m.klype, aktiv), rull(ikke implementert), stamp(ikke implementert), struping
@@ -546,6 +577,13 @@ class Rov_state:
             self.logger.sensor_logger.info(message)
         # print(f"{message =}")
         message_name = ""
+        if not isinstance(message, dict):
+            try:
+                print(message)
+                return
+            except Exception as e:
+                print(e)
+                return
         if "ERROR" in message or "info" in message:
             print(message)
             return
@@ -617,7 +655,7 @@ def check_camera_command(camera_command):
 
 
 # Handles the update of tilting of the camera motor
-def update_camera_tilt(camera_to_update: int, move_speed: int, time_delta: int, camera_tilt: list[float], tilt_lock: list[bool]):
+def update_camera_tilt_controller(camera_to_update: int, move_speed: int, time_delta: int, camera_tilt: list[float], tilt_lock: list[bool]):
     if move_speed == 0:  # no change
         return -camera_tilt, -1  # -1 means no camera has changed
 

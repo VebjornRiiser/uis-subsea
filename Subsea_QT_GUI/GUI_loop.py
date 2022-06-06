@@ -81,7 +81,8 @@ class AnotherWindow(QWidget):
 
 PROFILE_UPDATE_ID = 2
 COMMAND_TO_ROV_ID = 3
-
+FRONT_CAM_ID = 0
+BACK_CAM_ID = 1
 
 class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     def __init__(self, pipe_conn_only_rcv, queue: multiprocessing.Queue, t_watch: Threadwatcher, id: int, parent=None):
@@ -181,6 +182,11 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         # self.slider_lys_down.setValue(100)
         # self.slider_lys_forward.setValue(100)
 
+        self.btn_front_tilt_opp.clicked.connect(lambda: self.tilt_clicked(FRONT_CAM_ID, "up"))
+        self.btn_front_tilt_ned.clicked.connect(lambda: self.tilt_clicked(FRONT_CAM_ID, "down"))
+
+        self.btn_havbunn_tilt_opp.clicked.connect(lambda: self.tilt_clicked(BACK_CAM_ID, "up"))
+        self.btn_havbunn_tilt_ned.clicked.connect(lambda: self.tilt_clicked(BACK_CAM_ID, "down"))
         
         # Struping-slider
         self.slider_struping_thrustere.valueChanged.connect(self.send_thruster_struping)
@@ -288,6 +294,9 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.maximize_restore()
         self.slider_lys_down.valueChanged.connect(self.send_current_ligth_intensity)
         self.slider_lys_forward.valueChanged.connect(self.send_current_ligth_intensity)
+
+    def tilt_clicked(self, cam_id: int, direction: str) -> None:
+        self.send_command_to_rov(["update_tilt", [cam_id, direction]])
 
     
     def zoom_out(self):
@@ -942,7 +951,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         # self.w2.stream1.load(QtCore.QUrl("http://vg.no"))
     
     def change_current_widget(self, index):
-        print(f"should change to widget {index}")
+        # print(f"should change to widget {index}")
         self.stackedWidget.setCurrentIndex(index)
     
     
