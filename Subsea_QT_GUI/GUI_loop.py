@@ -178,6 +178,9 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         # Ta bilde
         self.btn_ta_bilde_frontkamera.clicked.connect(lambda: self.ta_bilde(0))
         self.btn_ta_bilde_havbunn.clicked.connect(lambda: self.ta_bilde(1))
+
+        self.btn_HUD.clicked.connect(self.toggle_hud)
+        self.btn_avslutt_stitching.clicked.connect(self.stop_stich)
         
         # self.slider_lys_down.setValue(100)
         # self.slider_lys_forward.setValue(100)
@@ -294,6 +297,12 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.maximize_restore()
         self.slider_lys_down.valueChanged.connect(self.send_current_ligth_intensity)
         self.slider_lys_forward.valueChanged.connect(self.send_current_ligth_intensity)
+
+    def stop_stich(self):
+        self.send_command_to_rov(["stop_stitch"])
+
+    def toggle_hud(self):
+        self.send_command_to_rov(["toggle_hud", 0])
 
     def tilt_clicked(self, cam_id: int, direction: str) -> None:
         self.send_command_to_rov(["update_tilt", [cam_id, direction]])

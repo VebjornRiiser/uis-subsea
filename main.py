@@ -99,7 +99,7 @@ class Rov_state:
         # self.cam_is_enabled = [True, True]
         # list of functions that can be triggered by buttons. # need a function to tell it to grip and release and not do it by button like we do in build manipulator byte
         # theese functions need to line up their indexes with the line in button_config.txt
-        self.button_function_list = [self.skip, self.toggle_active_camera, self.toggle_between_rotation_and_camera_tilt, self.toggle_manipulator_enabled, self.manipulator_release, self.manipulator_grip, self.update_bildebehandlingsmodus_controller, self.skip]
+        self.button_function_list = [self.skip, self.toggle_active_camera, self.toggle_between_rotation_and_camera_tilt, self.toggle_manipulator_enabled, self.manipulator_release, self.manipulator_grip, self.update_bildebehandlingsmodus_controller, lambda:self.take_pic(1)]
         #maps a button to a index in button_function_list Can be changed from gui
         self.button_to_function_map = [0, 6, 0, 1, 4, 5, 0, 0, 3, 2]
         self.camera_is_on = [True, True]
@@ -109,6 +109,7 @@ class Rov_state:
         self.camera_modes = [0,1,2,3,4,5]
         # determines which camera is controlled
         self.active_camera = 0
+        self.hud_status = [True, False]
         self.packets_to_send = []
         self.start_time = time.time() 
 
@@ -269,13 +270,21 @@ class Rov_state:
             "update_bildebehandling": self.update_bildebehandlingsmodus, "take_pic": self.take_pic,
             "manipulator_toggle": self.toggle_manipulator_enabled, "reset_sikring": self.reset_fuse_on_power_supply,
             "toggle_regulator": self.switch_power_supply_regulator, "thruster_struping": self.set_thruster_struping,
-            "STOP": self.shutdown, "video_toggle": self.video_toggle,
-            "regulering": self.toggle_regulering, "update_tilt": self.tilt_from_gui}
+            "STOP": self.shutdown, "video_toggle": self.video_toggle, "regulering": self.toggle_regulering,
+            "update_tilt": self.tilt_from_gui, "stop_stitch": self.stop_stitch, "toggle_hud": self.hud_toggle}
 
             if packet[0] not in commands:
                 print(f"Got unrecognized command from gui {packet}")
                 return
             commands[packet[0]](*packet[1:]) # * unpacks list
+
+    def hud_toggle(self, id):
+        # self.hud_status = [True, False]
+        self.hud_status[id] = not self.hud_status[id]
+        self.packets_to_send.append([200+id, {"hud" : self.hud_status[id]}])
+
+    def stop_stitch(self):
+        self.packets_to_send.append([201, {"bildebehandling" : "stitch"}])
             
     def tilt_from_gui(self, sensordata):
         if sensordata[1] == "up":
@@ -743,7 +752,7 @@ if __name__ == "__main__":
         global run_craft_packet
         start_time_sec = time.time()
         run_gui = True
-        run_get_controllerdata = False
+        run_get_controllerdata = True
         run_network = False
         run_craft_packet = True
         run_send_fake_sensordata = False

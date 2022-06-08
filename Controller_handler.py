@@ -238,7 +238,7 @@ class Controller:
         # self.connection.close()            
 
 
-def run(queue_to_rov, t_watch: Threadwatcher, id, debug=True, debug_all=False):
+def run(queue_to_rov, t_watch: Threadwatcher, id, debug=True, debug_all=True):
     debug_all = False
     c = Controller(queue_to_rov, t_watch, id)
     c.get_events_loop(t_watch, id, debug=debug, debug_all=debug_all)
