@@ -857,7 +857,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         text = f"Advarsel vannlekkasje oppdaget på sensor: {str(', '.join(sensor_nr_liste))}"
         self.label_lekkasje_varsel.setText(text)
         self.label_lekkasje_varsel.setStyleSheet("QLabel { color: rgba(255, 255, 255, 200); background-color: rgba(179, 32, 36, 200); font-size: 24pt;}")
-        subprocess.call('ffplay -nodisp -autoexit "./siren.wav"', stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)          
+        subprocess.call(('./ffplay', '-autoexit', '-nodisp', './siren.wav'), stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)          
         self.label_lekkasje_varsel.setStyleSheet("QLabel { color: rgba(255, 255, 255, 0); background-color: rgba(179, 32, 36, 0); font-size: 24pt;}")
         self.label_lekkasje_varsel.lower()
         self.lekkasje_varsel_is_running = False
