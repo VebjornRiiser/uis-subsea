@@ -84,6 +84,8 @@ class Rov_state:
         self.manipulator_toggle_wait_counter: int = 0
         # prevents the image processing toggle from toggling back again immediately if we hold the button down
         self.image_processing_mode_wait_counter: int = 0
+        # for controller
+        self.take_pic_controller_wait_counter: int = 0
         # Tilt in degrees of the camera servo motors
         self.camera_tilt: list[float] = [0, 0]
         # turn of the ability to change camera tilt, when camera processing is happening on the camera
@@ -99,9 +101,9 @@ class Rov_state:
         # self.cam_is_enabled = [True, True]
         # list of functions that can be triggered by buttons. # need a function to tell it to grip and release and not do it by button like we do in build manipulator byte
         # theese functions need to line up their indexes with the line in button_config.txt
-        self.button_function_list = [self.skip, self.toggle_active_camera, self.toggle_between_rotation_and_camera_tilt, self.toggle_manipulator_enabled, self.manipulator_release, self.manipulator_grip, self.update_bildebehandlingsmodus_controller, lambda:self.take_pic(1)]
+        self.button_function_list = [self.skip, self.toggle_active_camera, self.toggle_between_rotation_and_camera_tilt, self.toggle_manipulator_enabled, self.manipulator_release, self.manipulator_grip, self.update_bildebehandlingsmodus_controller, self.take_pic, self.rull, self.reverse_flip] 
         #maps a button to a index in button_function_list Can be changed from gui
-        self.button_to_function_map = [0, 6, 0, 1, 4, 5, 0, 0, 3, 2]
+        self.button_to_function_map = [0, 6, 7, 1, 4, 5, 0, 0, 3, 2]
         self.camera_is_on = [True, True]
         self.camera_command: list[list[int, dict]] = None
         self.joystick_moves_camera = False
@@ -115,8 +117,7 @@ class Rov_state:
 
 
         self.time_since_packet_update = []
-        self.valid_gui_commands = ["lekk_temp", "thrust", "accel", "gyro", "time", "manipulator", "power_consumption", "manipulator_toggled"]
-
+        self.valid_gui_commands = ["lekk_temp", "thrust", "accel", "gyro", "time", "manipulator", "power_consumption", "manipulator_toggled", "regulator_strom_status", "regulering_status", "settpunkt"]
         self.manipulator_active = True
         self.regulator_active: list[bool] = [True, True, True]
         self.video_recording_active = [False, False]
@@ -124,7 +125,7 @@ class Rov_state:
         self.ligth_forward_is_on = True
         self.regulering_state = {"rull": True, "stamp": True, "hiv": True}
         self.thruster_struping = 0
-
+        self.rull = 0
         self.light_intensity_down = 100
         self.ligth_down_is_on = True
 
@@ -142,6 +143,11 @@ class Rov_state:
         
         self.set_depth_zeroing()
 
+    def rull(self, button_index):
+        self.rull = 100
+
+    def reverse_flip(self, button_index):
+        self.rull = -100
 
     def skip(self, button_index):
         pass
@@ -158,7 +164,7 @@ class Rov_state:
 
 
     def toggle_manipulator_enabled(self, button_index = None, state = None):
-        
+
         if state is not None and button_index is None:
             # print(f"{state=}, {button_index=}")
             self.manipulator_active = state
@@ -197,26 +203,27 @@ class Rov_state:
         if self.image_processing_mode_wait_counter > 0:
             self.image_processing_mode_wait_counter -= 1
 
+        if self.take_pic_controller_wait_counter > 0:
+            self.take_pic_controller_wait_counter -= 1
+
 
 
     #checks which buttons were pressed and calls the appropiate function
     def check_controls(self):
         self.button_handling()
         self.update_camera_tilt_controller()
-        if self.image_processing_mode[0] == 2 or self.image_processing_mode[1] == 2:
-            # print("Sender ikke styredata")
-            return
         self.build_styredata()
 
 
     def button_handling(self):
         buttons = self.data.get("buttons")
+        # print(buttons)
         if buttons is None:
             return
         for index, button in enumerate(buttons):
             if button: # is pressed
                 self.button_function_list[self.button_to_function_map[index]](index)
-                self.data["buttons"][index] = 0
+                # self.data["buttons"][index] = 0
 
     
     def toggle_active_camera(self, button_index):
@@ -261,6 +268,7 @@ class Rov_state:
 
         if id == 1: # controller data update
             self.data = packet
+            # print(packet)
         elif id == GUI_loop.PROFILE_UPDATE_ID:
             # print("Updated profile")
             # print(id, packet)
@@ -284,13 +292,13 @@ class Rov_state:
         self.packets_to_send.append([200+id, {"hud" : self.hud_status[id]}])
 
     def stop_stitch(self):
-        self.packets_to_send.append([201, {"bildebehandling" : "stitch"}])
+        self.packets_to_send.append([201, {"stitch": True}])
             
     def tilt_from_gui(self, sensordata):
         if sensordata[1] == "up":
-            delta_tilt = 5
-        if sensordata[1] == "down":
             delta_tilt = -5
+        if sensordata[1] == "down":
+            delta_tilt = 5
 
         self.calculate_new_tilt(sensordata[0], delta_tilt)
 
@@ -393,13 +401,13 @@ class Rov_state:
         self.packets_to_send.append([142, [ligth_forward, ligth_down]])
 
     def update_camera_tilt_controller(self):
-
         # print("camera tilt update func")
         if self.camera_tilt_control_active and self.camera_tilt_allowed[self.active_camera]:
             camera_movement = self.data.get('camera_movement')
             if camera_movement is None:
                 return
             if abs(camera_movement) > 0:
+                print("should tilt camera")
                 old_tilt = self.camera_tilt[self.active_camera]
                 tilt_time_sec = 2  # time in seconds for the camera to move from one side to the other
                 total_degrees = 60
@@ -454,7 +462,8 @@ class Rov_state:
             styredata.append(0)
         styredata.append(self.build_manipulator_byte())
         styredata.append(0)
-        styredata.append(0)
+        styredata.append(self.rull)
+        self.rull = 0
         styredata.append(self.thruster_struping)
         self.packets_to_send.append([70, styredata])
 
@@ -502,8 +511,14 @@ class Rov_state:
         self.video_recording_active[camera_id] = not self.video_recording_active[camera_id]
         self.packets_to_send.append([200+camera_id, {"video_recording": self.video_recording_active[camera_id]}])
 
-    def take_pic(self, camera_id):
+    def take_pic(self, button_id, camera_id=1):
         """sends a command to the rov to take a picture. Which camera the picture is taken on depends on the id"""
+        if button_id != -1:
+            if self.take_pic_controller_wait_counter > 0:
+                return
+
+            self.take_pic_controller_wait_counter = 7
+
         self.packets_to_send.append([200+camera_id, {"take_pic": True}])
 
     def update_bildebehandlingsmodus(self, camera_id: int, mode: int):
@@ -608,7 +623,7 @@ class Rov_state:
             self.send_sensordata_to_gui(message)
         else:
             pass
-            # print(f"\n\nMESSAGE NOT RECOGNISED AS VALID GUI COMMAND\n{message}\n")
+            print(f"\n\nMESSAGE NOT RECOGNISED AS VALID GUI COMMAND\n{message}\n")
 
 
     def handle_gyro(self, sensordata):
@@ -676,11 +691,11 @@ def update_camera_tilt_controller(camera_to_update: int, move_speed: int, time_d
     camera_tilt[camera_to_update] += (move_speed/100) * time_delta * tilt_per_ms
     if camera_tilt[camera_to_update] > total_degrees/2:
         camera_tilt[camera_to_update] = total_degrees/2
-        return camera_tilt, -1  # -1 means no camera has changed
+        return -camera_tilt, -1  # -1 means no camera has changed
 
     elif camera_tilt[camera_to_update] < -total_degrees/2:
         camera_tilt[camera_to_update] = -total_degrees/2
-        return camera_tilt, -1  # -1 means no camera has changed
+        return -camera_tilt, -1  # -1 means no camera has changed
 
     camera_tilt[camera_to_update] = round(camera_tilt[camera_to_update])
 
@@ -753,7 +768,7 @@ if __name__ == "__main__":
         start_time_sec = time.time()
         run_gui = True
         run_get_controllerdata = True
-        run_network = False
+        run_network = True
         run_craft_packet = True
         run_send_fake_sensordata = False
         manual_input_rotation = False
