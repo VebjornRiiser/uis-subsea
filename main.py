@@ -84,6 +84,8 @@ class Rov_state:
         self.manipulator_toggle_wait_counter: int = 0
         # prevents the image processing toggle from toggling back again immediately if we hold the button down
         self.image_processing_mode_wait_counter: int = 0
+        # for controller
+        self.take_pic_controller_wait_counter: int = 0
         # Tilt in degrees of the camera servo motors
         self.camera_tilt: list[float] = [0, 0]
         # turn of the ability to change camera tilt, when camera processing is happening on the camera
@@ -99,9 +101,9 @@ class Rov_state:
         # self.cam_is_enabled = [True, True]
         # list of functions that can be triggered by buttons. # need a function to tell it to grip and release and not do it by button like we do in build manipulator byte
         # theese functions need to line up their indexes with the line in button_config.txt
-        self.button_function_list = [self.skip, self.toggle_active_camera, self.toggle_between_rotation_and_camera_tilt, self.toggle_manipulator_enabled, self.manipulator_release, self.manipulator_grip, self.update_bildebehandlingsmodus_controller, self.skip]
+        self.button_function_list = [self.skip, self.toggle_active_camera, self.toggle_between_rotation_and_camera_tilt, self.toggle_manipulator_enabled, self.manipulator_release, self.manipulator_grip, self.update_bildebehandlingsmodus_controller, self.take_pic, self.rull, self.reverse_flip] 
         #maps a button to a index in button_function_list Can be changed from gui
-        self.button_to_function_map = [0, 6, 0, 1, 4, 5, 0, 0, 3, 2]
+        self.button_to_function_map = [0, 6, 7, 1, 4, 5, 0, 0, 3, 2]
         self.camera_is_on = [True, True]
         self.camera_command: list[list[int, dict]] = None
         self.joystick_moves_camera = False
@@ -109,11 +111,13 @@ class Rov_state:
         self.camera_modes = [0,1,2,3,4,5]
         # determines which camera is controlled
         self.active_camera = 0
+        self.hud_status = [True, False]
         self.packets_to_send = []
         self.start_time = time.time() 
 
-        self.valid_gui_commands = ["lekk_temp", "thrust", "accel", "gyro", "time", "manipulator", "power_consumption", "manipulator_toggled"]
 
+        self.time_since_packet_update = []
+        self.valid_gui_commands = ["lekk_temp", "thrust", "accel", "gyro", "time", "manipulator", "power_consumption", "manipulator_toggled", "regulator_strom_status", "regulering_status", "settpunkt"]
         self.manipulator_active = True
         self.regulator_active: list[bool] = [True, True, True]
         self.video_recording_active = [False, False]
@@ -121,7 +125,7 @@ class Rov_state:
         self.ligth_forward_is_on = True
         self.regulering_state = {"rull": True, "stamp": True, "hiv": True}
         self.thruster_struping = 0
-
+        self.rull = 0
         self.light_intensity_down = 100
         self.ligth_down_is_on = True
 
@@ -139,6 +143,11 @@ class Rov_state:
         
         self.set_depth_zeroing()
 
+    def rull(self, button_index):
+        self.rull = 100
+
+    def reverse_flip(self, button_index):
+        self.rull = -100
 
     def skip(self, button_index):
         pass
@@ -155,7 +164,7 @@ class Rov_state:
 
 
     def toggle_manipulator_enabled(self, button_index = None, state = None):
-        
+
         if state is not None and button_index is None:
             # print(f"{state=}, {button_index=}")
             self.manipulator_active = state
@@ -194,23 +203,27 @@ class Rov_state:
         if self.image_processing_mode_wait_counter > 0:
             self.image_processing_mode_wait_counter -= 1
 
+        if self.take_pic_controller_wait_counter > 0:
+            self.take_pic_controller_wait_counter -= 1
+
 
 
     #checks which buttons were pressed and calls the appropiate function
     def check_controls(self):
         self.button_handling()
-        self.update_camera_tilt()
+        self.update_camera_tilt_controller()
         self.build_styredata()
 
 
     def button_handling(self):
         buttons = self.data.get("buttons")
+        # print(buttons)
         if buttons is None:
             return
         for index, button in enumerate(buttons):
             if button: # is pressed
                 self.button_function_list[self.button_to_function_map[index]](index)
-                # print(f"button with {index = } is pressed")
+                # self.data["buttons"][index] = 0
 
     
     def toggle_active_camera(self, button_index):
@@ -247,15 +260,15 @@ class Rov_state:
         id = -1
         packet = ""
 
-        if self.queue.qsize() > 0:
-            try:
-                id, packet = self.queue.get()
-            except Exception as e:
-                # print(f"Error when trying to get from queue. \n{e}")
-                return
+        try:
+            id, packet = self.queue.get()
+        except Exception as e:
+            # print(f"Error when trying to get from queue. \n{e}")
+            return
 
         if id == 1: # controller data update
             self.data = packet
+            # print(packet)
         elif id == GUI_loop.PROFILE_UPDATE_ID:
             # print("Updated profile")
             # print(id, packet)
@@ -265,14 +278,29 @@ class Rov_state:
             "update_bildebehandling": self.update_bildebehandlingsmodus, "take_pic": self.take_pic,
             "manipulator_toggle": self.toggle_manipulator_enabled, "reset_sikring": self.reset_fuse_on_power_supply,
             "toggle_regulator": self.switch_power_supply_regulator, "thruster_struping": self.set_thruster_struping,
-            "STOP": self.shutdown, "video_toggle": self.video_toggle,
-            "regulering": self.toggle_regulering}
+            "STOP": self.shutdown, "video_toggle": self.video_toggle, "regulering": self.toggle_regulering,
+            "update_tilt": self.tilt_from_gui, "stop_stitch": self.stop_stitch, "toggle_hud": self.hud_toggle}
 
             if packet[0] not in commands:
                 print(f"Got unrecognized command from gui {packet}")
                 return
             commands[packet[0]](*packet[1:]) # * unpacks list
+
+    def hud_toggle(self, id):
+        # self.hud_status = [True, False]
+        self.hud_status[id] = not self.hud_status[id]
+        self.packets_to_send.append([200+id, {"hud" : self.hud_status[id]}])
+
+    def stop_stitch(self):
+        self.packets_to_send.append([201, {"stitch": True}])
             
+    def tilt_from_gui(self, sensordata):
+        if sensordata[1] == "up":
+            delta_tilt = -5
+        if sensordata[1] == "down":
+            delta_tilt = 5
+
+        self.calculate_new_tilt(sensordata[0], delta_tilt)
 
     def toggle_regulering(self, sensordata):
         sensordata.append(1)
@@ -345,7 +373,8 @@ class Rov_state:
             if packet[0] != 70:
                 pass
                 print(f"{packet = }")
-        self.logger.sensor_logger.info(self.packets_to_send)
+        if run_network:
+            self.logger.sensor_logger.info(self.packets_to_send)
         if self.network_handler is None:
             self.packets_to_send = []
             return
@@ -357,7 +386,7 @@ class Rov_state:
         if self.right_joystick_toggle_wait_counter == 0:
             self.camera_tilt_control_active = not self.camera_tilt_control_active
             print(f"{self.camera_tilt_control_active = }")
-            self.right_joystick_toggle_wait_counter = 14
+            self.right_joystick_toggle_wait_counter = 7
 
     def update_light_value(self, light_intensity_forward: int, ligth_forward_is_on: bool, light_intensity_down: int, ligth_down_is_on: bool):
         self.light_intensity_forward = light_intensity_forward
@@ -371,55 +400,72 @@ class Rov_state:
         # print(f"Lys oppdatert. verdien vi sender er {[142, ligth_forward, ligth_down]}")
         self.packets_to_send.append([142, [ligth_forward, ligth_down]])
 
-    def update_camera_tilt(self):
+    def update_camera_tilt_controller(self):
         # print("camera tilt update func")
         if self.camera_tilt_control_active and self.camera_tilt_allowed[self.active_camera]:
             camera_movement = self.data.get('camera_movement')
             if camera_movement is None:
                 return
             if abs(camera_movement) > 0:
+                print("should tilt camera")
                 old_tilt = self.camera_tilt[self.active_camera]
                 tilt_time_sec = 2  # time in seconds for the camera to move from one side to the other
-                total_degrees = 80
+                total_degrees = 60
                 tilt_per_ms = total_degrees/(tilt_time_sec*1000)
-                self.camera_tilt[self.active_camera] += (camera_movement/100)*self.data["time_between_updates"]*tilt_per_ms
-                if self.camera_tilt[self.active_camera] > total_degrees/2:
-                    self.camera_tilt[self.active_camera] = total_degrees//2
 
-                elif self.camera_tilt[self.active_camera] < -total_degrees/2:
-                    self.camera_tilt[self.active_camera] = -total_degrees//2
+                delta_tilt = (camera_movement/100)*self.data["time_between_updates"]*tilt_per_ms
 
-                self.camera_tilt[self.active_camera] = round(self.camera_tilt[self.active_camera])
+                self.calculate_new_tilt(self.active_camera, delta_tilt)
 
-                if old_tilt != self.camera_tilt[self.active_camera]:
-                    self.packets_to_send.append([200 + self.active_camera, {"tilt": int(self.camera_tilt[self.active_camera])}])
-                    # [[200/201, {"video_recording": True, "take_pic": True}]]
+                # self.camera_tilt[self.active_camera] += (camera_movement/100)*self.data["time_between_updates"]*tilt_per_ms
+                # if self.camera_tilt[self.active_camera] > total_degrees/2:
+                #     self.camera_tilt[self.active_camera] = total_degrees//2
+
+                # elif self.camera_tilt[self.active_camera] < -total_degrees/2:
+                #     self.camera_tilt[self.active_camera] = -total_degrees//2
+
+                # self.camera_tilt[self.active_camera] = round(self.camera_tilt[self.active_camera])
+
+                # if old_tilt != self.camera_tilt[self.active_camera]:
+                #     self.packets_to_send.append([200 + self.active_camera, {"tilt": int(self.camera_tilt[self.active_camera])}])
+
+
+    def calculate_new_tilt(self, camera_to_tilt: int, delta_tilt: float) -> None:
+        total_degrees = 60
+
+        old_tilt = self.camera_tilt[camera_to_tilt]
+
+        self.camera_tilt[camera_to_tilt] += delta_tilt
+
+        if self.camera_tilt[camera_to_tilt] > total_degrees/2:
+                    self.camera_tilt[camera_to_tilt] = total_degrees//2
+
+        elif self.camera_tilt[camera_to_tilt] < -total_degrees/2:
+            self.camera_tilt[camera_to_tilt] = -total_degrees//2
+
+        self.camera_tilt[camera_to_tilt] = round(self.camera_tilt[camera_to_tilt])
+
+        if old_tilt != self.camera_tilt[camera_to_tilt]:
+            self.packets_to_send.append([200 + camera_to_tilt, {"tilt": int(self.camera_tilt[camera_to_tilt])}])
 
     def build_styredata(self):
-        #  X, Y, Z, rotasjon, (m.teleskop, m.vri, m.klype, enable), fri, regulering_av_på,  throttle  ##########
+        #  X, Y, Z, rotasjon, (m.teleskop, m.vri, m.klype, aktiv), rull(ikke implementert), stamp(ikke implementert), struping
         if self.data == {}:
             return
         styredata = []
         styredata.append(self.data["joysticks"][X_axis])
         styredata.append(self.data["joysticks"][Y_axis])
-        styredata.append(-self.data["joysticks"][Z_axis]) # positive direction is downwards
+        styredata.append(-self.data["joysticks"][Z_axis]) # Nedover er definert som positiv retning
         if not self.camera_tilt_control_active:
             styredata.append(self.data["joysticks"][ROTATION_axis])
         else:
             styredata.append(0)
         styredata.append(self.build_manipulator_byte())
         styredata.append(0)
-        styredata.append(0)
+        styredata.append(self.rull)
+        self.rull = 0
         styredata.append(self.thruster_struping)
         self.packets_to_send.append([70, styredata])
-
-    def build_regulering_byte(self):
-        values = list(self.regulering_state.values())
-        sum = 0
-        for i in range(3):
-            # Multiplies the each bit with the bolean value controlling the regulator
-            sum += 2**i*list(self.regulering_state.values())[i]
-        return sum
 
     def build_manipulator_byte(self):
         data = list(self.data["dpad"])
@@ -446,6 +492,16 @@ class Rov_state:
 
         return byte_val
 
+
+    def build_regulering_byte(self):
+        values = list(self.regulering_state.values())
+        sum = 0
+        for i in range(3):
+            # ganger hver bit med den boolske verdien som kontrollerer reguleringen
+            sum += 2**i*list(self.regulering_state.values())[i]
+        return sum
+
+
     def send_sensordata_to_gui(self, data):
         # print(f"sending data from main to gui: {data =}")
         self.gui_pipe.send(data)
@@ -455,8 +511,14 @@ class Rov_state:
         self.video_recording_active[camera_id] = not self.video_recording_active[camera_id]
         self.packets_to_send.append([200+camera_id, {"video_recording": self.video_recording_active[camera_id]}])
 
-    def take_pic(self, camera_id):
+    def take_pic(self, button_id, camera_id=1):
         """sends a command to the rov to take a picture. Which camera the picture is taken on depends on the id"""
+        if button_id != -1:
+            if self.take_pic_controller_wait_counter > 0:
+                return
+
+            self.take_pic_controller_wait_counter = 7
+
         self.packets_to_send.append([200+camera_id, {"take_pic": True}])
 
     def update_bildebehandlingsmodus(self, camera_id: int, mode: int):
@@ -535,9 +597,17 @@ class Rov_state:
 
 
     def handle_data_from_rov(self, message: dict):
-        self.logger.sensor_logger.info(message)
+        if run_network:
+            self.logger.sensor_logger.info(message)
         # print(f"{message =}")
         message_name = ""
+        if not isinstance(message, dict):
+            try:
+                print(message)
+                return
+            except Exception as e:
+                print(e)
+                return
         if "ERROR" in message or "info" in message:
             print(message)
             return
@@ -553,7 +623,7 @@ class Rov_state:
             self.send_sensordata_to_gui(message)
         else:
             pass
-            # print(f"\n\nMESSAGE NOT RECOGNISED AS VALID GUI COMMAND\n{message}\n")
+            print(f"\n\nMESSAGE NOT RECOGNISED AS VALID GUI COMMAND\n{message}\n")
 
 
     def handle_gyro(self, sensordata):
@@ -579,9 +649,9 @@ def run(network_handler: Network, t_watch: Threadwatcher, id: int, queue_for_rov
             rov_state.get_rotation_input()
 
         rov_state.get_from_queue()
-        rov_state.send_local_sensordata()
         if run_get_controllerdata and rov_state.data != {}:
             rov_state.check_controls()
+        rov_state.send_local_sensordata()
         rov_state.send_packets()
         rov_state.data = {}
 
@@ -609,9 +679,9 @@ def check_camera_command(camera_command):
 
 
 # Handles the update of tilting of the camera motor
-def update_camera_tilt(camera_to_update: int, move_speed: int, time_delta: int, camera_tilt: list[float], tilt_lock: list[bool]):
+def update_camera_tilt_controller(camera_to_update: int, move_speed: int, time_delta: int, camera_tilt: list[float], tilt_lock: list[bool]):
     if move_speed == 0:  # no change
-        return camera_tilt, -1  # -1 means no camera has changed
+        return -camera_tilt, -1  # -1 means no camera has changed
 
     tilt_time_sec = 2  # time in seconds for the camera to move from one side to the other
     # tilt_time_sec = 2 # time in seconds for the camera to move from one side to the other
@@ -621,11 +691,11 @@ def update_camera_tilt(camera_to_update: int, move_speed: int, time_delta: int, 
     camera_tilt[camera_to_update] += (move_speed/100) * time_delta * tilt_per_ms
     if camera_tilt[camera_to_update] > total_degrees/2:
         camera_tilt[camera_to_update] = total_degrees/2
-        return camera_tilt, -1  # -1 means no camera has changed
+        return -camera_tilt, -1  # -1 means no camera has changed
 
     elif camera_tilt[camera_to_update] < -total_degrees/2:
         camera_tilt[camera_to_update] = -total_degrees/2
-        return camera_tilt, -1  # -1 means no camera has changed
+        return -camera_tilt, -1  # -1 means no camera has changed
 
     camera_tilt[camera_to_update] = round(camera_tilt[camera_to_update])
 

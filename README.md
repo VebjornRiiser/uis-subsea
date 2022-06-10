@@ -1,8 +1,23 @@
-# UiS Subsea
-This project is the gui, network handler and handler for controller input.
+# UiS Subsea - ROV Topside System
+#### DATBAC-1 21H - Bacheloroppgave i datateknologi
 
-Installing is done by (assumes that you have python 3.10 and pip installed and added to path):
-* Downloading the project
-* Running "pip install -r requirements.txt" to install all the required librarys
-* Opening port 6900 for tcp communication in and out on your operating system
-* Running the project with "python main.py"
+This project consist of:
+* The GUI
+* Network handler
+* Handler for controller input
+
+
+### How to install
+Installing is done by (assumes that you have Python 3.10 and pip installed and added to path):
+
+* Download the project.
+* Make sure VLC is installed on your computer. https://www.videolan.org/
+* To install all the required Python libraries run:
+```
+pip install -r requirements.txt
+```
+* Open port 6900 for TCP communication for receiving and sending.
+* Start the program by running:
+```
+python main.py
+```

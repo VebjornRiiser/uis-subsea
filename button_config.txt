@@ -5,3 +5,6 @@ Manipulator av/på
 Gripe manipulator
 Slippe manipulator
 Bytt bildebehandlingsmodus
+Ta bilde kamera bak
+flip
+reverse flip

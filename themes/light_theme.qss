@@ -1,0 +1,286 @@
+/* STYLE SHEET - LIGHT THEME */
+
+/* ------------------------ */
+/* white theme: */
+#pagesContainer QLabel[labelStyle2='whiteBg'] {
+	background-color: rgb(255, 255, 255);
+	border-radius: 5px;
+	border: 1px solid rgb(193, 193, 193);
+	padding: 10px;
+	color: black;
+}
+/* ------------------------ */
+
+#pagesContainer  QFrame[frameStyle='outerCircle'] {
+	border-radius: 30px;
+	background-color: rgba(77, 77, 127, 100); 
+}
+
+#pagesContainer QFrame[frameStyle='innerCircle'] {
+	border-radius: 25px;
+	background-color: white;
+	color: black;
+}
+
+/* stackedWidget */
+#informasjon, #home, #kontroller { background-color: transparent; }
+
+/* ScrollArea */
+QScrollArea { background: transparent; }
+QScrollArea > QWidget > QWidget { background: transparent; }
+
+QWidget { color: black; }
+
+QFrame#column1, #column2, #column3 { width: 100%; }
+
+/* Labels */
+QLabel { padding: 1px; }
+
+/* Buttons */
+QPushButton {
+	padding: 10px;
+	margin: 1px;
+}
+
+#pagesContainer QPushButton[btnStyle='redBtn'] {
+	border-color: rgb(190, 93, 95);
+	background-color: rgb(197, 134, 138); 
+}
+
+#pagesContainer QPushButton[btnStyle='redBtn']:hover {
+	background-color: rgb(168, 124, 127); 
+}
+
+#pagesContainer QPushButton[btnStyle='redBtn']:hover:pressed {
+	background-color: rgb(181, 116, 121); 
+	color: black;
+}
+
+QPushButton:disabled {
+	background-color:  rgb(165, 165, 165);
+	border: 2px solid rgb(109, 109, 109);
+	border-radius: 5px;
+}
+
+#pagesContainer QPushButton {
+	background-color: rgb(246, 245, 255);
+	border: 2px solid rgb(184, 188, 194);
+	border-radius: 5px;
+}
+
+#pagesContainer QPushButton:hover {
+	background-color: rgb(196, 196, 196);
+}
+
+#pagesContainer QPushButton:hover:pressed {
+	background-color: rgb(141, 147, 160);
+	border-color: rgb(111, 116, 128);
+}
+
+#pagesContainer QPushButton:checked {
+	background-color: rgb(153, 161, 176);
+	border: 1px solid rgb(23, 27, 37);
+}
+
+/* Tooltip */
+QToolTip {
+	padding: 5px;
+	color: rgb(44, 49, 58);
+	background-color: rgb(195, 202, 211, 200);
+	border: 1px solid #ffffff;
+}
+
+/* Bg App */
+#bgApp {	
+	background-color: rgb(240, 240, 240);
+	border: 1px solid rgb(51, 55, 63);
+}
+
+/* Left Menu */
+#leftMenuBg {	
+	background-color: rgb(86, 95, 108);
+}
+
+/* Top Menu */
+#topMenu .QPushButton {	
+	border: none;
+	background-color: transparent;
+}
+
+#topMenu .QPushButton:hover {
+	background-color: rgb(255, 255, 255);
+}
+
+#topMenu .QPushButton:pressed {	
+	background-color: rgb(255, 255, 255);
+	color: rgb(74, 82, 91)
+}
+
+/* Content App */
+#contentTopBg{	
+	background-color: rgb(63, 78, 103);
+}
+
+#contentBottom{
+	border-top: 3px solid rgb(91, 102, 118);
+}
+/* Top Buttons */
+#rightButtons .QPushButton { background-color: rgba(212, 205, 205, 0); border: none;  border-radius: 5px; }
+#rightButtons .QPushButton:hover { background-color: rgb(201, 207, 217); border-style: solid; border-radius: 4px; }
+#rightButtons .QPushButton:pressed { background-color: rgb(214, 220, 227); border-style: solid; border-radius: 4px; }
+
+/* Bottom Bar */
+#bottomBar { background-color: rgb(77, 87, 105); }
+
+/*ScrollBars */
+QScrollBar:horizontal {
+    	border: none;
+    	background: rgb(52, 59, 72);
+    	height: 8px;
+    	margin: 0px 21px 0 21px;
+	border-radius: 0px;
+}
+QScrollBar::handle:horizontal {
+	background: rgb(74, 82, 91);
+	min-width: 25px;
+	border-radius: 4px
+}
+QScrollBar::add-line:horizontal {
+    	border: none;
+    	background: rgb(55, 63, 77);
+    	width: 20px;
+	border-top-right-radius: 4px;
+    	border-bottom-right-radius: 4px;
+}
+QScrollBar::sub-line:horizontal {
+    	border: none;
+    	background: rgb(55, 63, 77);
+    	width: 20px;
+	border-top-left-radius: 4px;
+    	border-bottom-left-radius: 4px;
+}
+QScrollBar::up-arrow:horizontal, QScrollBar::down-arrow:horizontal {
+	background: none;
+}
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+     background: none;
+}
+ QScrollBar:vertical {
+	border: none;
+    	background: rgb(52, 59, 72);
+    	width: 8px;
+    	margin: 21px 0 21px 0;
+	border-radius: 0px;
+ }
+ QScrollBar::handle:vertical {	
+	background: rgb(74, 82, 91);
+	min-height: 25px;
+	border-radius: 4px
+ }
+ QScrollBar::add-line:vertical {
+    border: none;
+    background: rgb(55, 63, 77);
+    height: 20px;
+	border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+ }
+ QScrollBar::sub-line:vertical {
+	border: none;
+    background: rgb(55, 63, 77);
+    height: 20px;
+	border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+ }
+ QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+     background: none;
+ }
+ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+     background: none;
+ }
+
+
+/* ComboBox */
+QComboBox{
+	background-color: rgb(224, 227, 237);
+	border-radius: 5px;
+	border: 2px solid rgb(145, 151, 161);
+	padding-left: 10px;
+	width: 5px;
+}
+QComboBox:hover{
+	border: 2px solid rgb(128, 134, 149);
+}
+QComboBox::drop-down {
+	subcontrol-origin: padding;
+	subcontrol-position: top right;
+	width: 25px;
+	border-left-width: 3px;
+	border-left-color: rgba(39, 44, 54, 150);
+	border-left-style: solid;
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;	
+	background-image: url(:/icons/images/icons/cil-arrow-bottom.png);
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+QComboBox QAbstractItemView {
+	color: rgb(177, 185, 194);	
+	background-color: rgb(168, 168, 168);
+	padding: 10px;
+	selection-background-color: rgb(117, 117, 117);
+}
+
+/* Sliders */
+QSlider::groove:horizontal {
+    	border-radius: 8px;
+    	height: 16px;
+	margin: 0px;
+	background-color: rgb(52, 59, 72);
+}
+QSlider::groove:horizontal:hover {
+	background-color: rgb(80, 85, 97);
+}
+QSlider::handle:horizontal {
+    background-color: rgb(206, 203, 230);
+    border: none;
+    height: 16px;
+    width: 16px;
+    margin: 0px;
+	border-radius: 8px;
+}
+QSlider::handle:horizontal:hover {
+    background-color: rgb(255, 255, 255);
+}
+QSlider::handle:horizontal:pressed {
+    background-color: rgb(143, 141, 160);
+}
+
+QSlider::groove:vertical {
+    border-radius: 8px;
+    width: 16px;
+    margin: 0px;
+	background-color: rgb(52, 59, 72);
+}
+QSlider::groove:vertical:hover {
+	background-color: rgb(80, 85, 97);
+}
+QSlider::handle:vertical {
+    background-color: rgb(206, 203, 230);
+	border: none;
+    height: 16px;
+    width: 16px;
+    margin: 0px;
+	border-radius: 8px;
+}
+QSlider::handle:vertical:hover {
+    background-color: rgb(255, 255, 255);
+}
+QSlider::handle:vertical:pressed {
+    background-color: rgb(143, 141, 160);
+}
+
+.QSlider {
+    min-height: 68px;
+    max-height: 68px;
+}

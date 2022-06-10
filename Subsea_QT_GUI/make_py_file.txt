@@ -1,2 +1,0 @@
-# Run in terminal: source make_py_file
-pyuic5 -x SUBSEAGUI.ui -o SUBSEAGUI.py

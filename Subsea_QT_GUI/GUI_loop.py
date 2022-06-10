@@ -1,10 +1,10 @@
 import multiprocessing
-import vlc
 import subprocess
+import Subsea_QT_GUI.stopwatch as stopwatch
 #from tkinter import Widget
 from PyQt5 import QtCore, QtGui, QtWidgets, Qt
 from PyQt5.QtWidgets import QMainWindow, QWidget, QCheckBox, QLabel, QFileDialog, QApplication, QWidget, QVBoxLayout, QSizeGrip, QFrame, QMessageBox, QStyleFactory, QSizeGrip, QGraphicsDropShadowEffect, QPushButton, QComboBox, QDesktopWidget
-from PyQt5.QtWebEngineWidgets import * 
+#from PyQt5.QtWebEngineWidgets import * 
 from PyQt5.Qt import *
 from PyQt5.QtGui import QColor, QIcon, QCursor, QFont, QPixmap
 from PyQt5.QtCore import Qt, QtMsgType, QTimer, QEvent
@@ -80,7 +80,8 @@ class AnotherWindow(QWidget):
 
 PROFILE_UPDATE_ID = 2
 COMMAND_TO_ROV_ID = 3
-
+FRONT_CAM_ID = 0
+BACK_CAM_ID = 1
 
 class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     def __init__(self, pipe_conn_only_rcv, queue: multiprocessing.Queue, t_watch: Threadwatcher, id: int, parent=None):
@@ -95,6 +96,8 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.rov_3d_coordinates = [0, 0, 0]
         self.rotation_counter = 0
         self.last_rotation = [0, 0]
+        self.gir_verdier = [0,0,0,0,0,0,0,0,0,0]
+        self.run_count = 0
 
         # Remove frame around window
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
@@ -176,13 +179,22 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         # Ta bilde
         self.btn_ta_bilde_frontkamera.clicked.connect(lambda: self.ta_bilde(0))
         self.btn_ta_bilde_havbunn.clicked.connect(lambda: self.ta_bilde(1))
+
+        self.btn_HUD.clicked.connect(self.toggle_hud)
+        self.btn_avslutt_stitching.clicked.connect(self.stop_stich)
         
         # self.slider_lys_down.setValue(100)
         # self.slider_lys_forward.setValue(100)
 
+        self.btn_front_tilt_opp.clicked.connect(lambda: self.tilt_clicked(FRONT_CAM_ID, "up"))
+        self.btn_front_tilt_ned.clicked.connect(lambda: self.tilt_clicked(FRONT_CAM_ID, "down"))
+
+        self.btn_havbunn_tilt_opp.clicked.connect(lambda: self.tilt_clicked(BACK_CAM_ID, "up"))
+        self.btn_havbunn_tilt_ned.clicked.connect(lambda: self.tilt_clicked(BACK_CAM_ID, "down"))
         
         # Struping-slider
         self.slider_struping_thrustere.valueChanged.connect(self.send_thruster_struping)
+        self.btn_lav_struping.clicked.connect(self.set_lav_struping)
 
         self.send_current_ligth_intensity()
 
@@ -238,6 +250,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         
         self.btn_zoom_in.clicked.connect(self.zoom_in)
         self.btn_zoom_out.clicked.connect(self.zoom_out)
+        
         self.btn_change_theme.clicked.connect(self.change_theme)
         #test
         self.load_theme()
@@ -250,6 +263,10 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         if self.camera_windows_opened:
             self.start_camera_windows()
         
+        self.stopwatch = stopwatch.Stopwatch(self.gui_stopwatch_update)
+        self.btn_start_tidtaker.clicked.connect(self.stopwatch.start)
+        self.btn_reset_tidtaker.clicked.connect(self.stopwatch.reset)
+
         self.recieve = threading.Thread(target=self.recieve_sensordata, daemon=True, args=(self.pipe_conn_only_rcv,))
         self.recieve.start()
         
@@ -283,12 +300,31 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.slider_lys_down.valueChanged.connect(self.send_current_ligth_intensity)
         self.slider_lys_forward.valueChanged.connect(self.send_current_ligth_intensity)
 
+    def set_lav_struping(self):
+        value_to_set = 30
+        if self.slider_struping_thrustere.value() == 30:
+            value_to_set = 0
+        self.slider_struping_thrustere.setValue(value_to_set)
+
+
+    def stop_stich(self):
+        self.send_command_to_rov(["stop_stitch"])
+
+
+    def toggle_hud(self):
+        self.send_command_to_rov(["toggle_hud", 0])
+
+
+    def tilt_clicked(self, cam_id: int, direction: str) -> None:
+        self.send_command_to_rov(["update_tilt", [cam_id, direction]])
+
     
     def zoom_out(self):
         if self.font_size > 7:
             self.font_size -= 1
             self.padding -= 1
-            self.bgApp.setStyleSheet(f"QFrame {{ font-size: {self.font_size}pt; }} #pagesContainer QPushButton {{ font-size: {self.font_size}pt; padding: {self.padding}px; }}")
+            # 
+            self.bgApp.setStyleSheet(f"* {{ font-size: {self.font_size}px; }}pt; #bgApp QPushButton {{ padding: {self.padding}px; }}")
         else:
             dlg = QMessageBox(self)
             dlg.setWindowTitle("Minste skriftstørrelse er nådd!")
@@ -300,7 +336,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         if self.font_size < 25:
             self.font_size += 1
             self.padding += 1
-            self.bgApp.setStyleSheet(f"QFrame {{ font-size: {self.font_size}pt; }} #pagesContainer QPushButton {{ font-size: {self.font_size}pt; padding: {self.padding}px; }}")
+            self.bgApp.setStyleSheet(f"* {{ font-size: {self.font_size}px; }}pt; #bgApp QPushButton {{ padding: {self.padding}px; }}")
         else:
             dlg = QMessageBox(self)
             dlg.setWindowTitle("Største skriftstørrelse er nådd!")
@@ -311,24 +347,45 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
     def load_theme(self):
         print("theme loaded")
         sshFile="dark_theme.qss"
-        with open("dark_theme.qss" ,"r") as qssfile:
+        with open("themes/dark_theme.qss" ,"r") as qssfile:
             self.styleSheet.setStyleSheet(qssfile.read())
 
     
     def change_theme(self):
         if self.btn_change_theme.isChecked():
             print("changed to light mode theme")
-            sshFile="light_theme.qss"
+            sshFile="themes/light_theme.qss"
             with open(sshFile,"r") as qssfile:
                 self.styleSheet.setStyleSheet(qssfile.read())
+            self.make_icons_black(self, "infoicon", "button", "btn_kontroller_info", "white", "black")
         else:
             print("changed to dark mode theme")
-            sshFile="dark_theme.qss"
+            sshFile="themes/dark_theme.qss"
             with open(sshFile,"r") as qssfile:
                 self.styleSheet.setStyleSheet(qssfile.read())
+            self.make_icons_white()
+    
+    def make_icons_black(self, filename, widget_type, objectName, color1, color2):
+        if widget_type == "button":
+            self.pixmap = QPixmap(f"Subsea_QT_GUI/images/{filename}.png")
+            mask = self.pixmap.createMaskFromColor(QColor(f'{color1}'), Qt.MaskOutColor)
+            self.pixmap.fill((QColor(f'{color2}')))
+            self.pixmap.setMask(mask)
+            self.objectName.setIcon(QIcon(self.pixmap_infoicon))
+        if widget_type == "label":
+            self.pixmap = QPixmap("Subsea_QT_GUI/images/{filename}.png")
+            mask = self.pixmap.createMaskFromColor(QColor('white'), Qt.MaskOutColor)
+            self.pixmap.fill((QColor('black')))
+            self.pixmap.setMask(mask)
+            self.objectName.setIcon(QIcon(self.pixmap_infoicon))
 
 
-
+    def make_icons_white(self):
+        mask = self.pixmap.createMaskFromColor(QColor('black'), Qt.MaskOutColor)
+        self.pixmap_info.iconfill((QColor('white')))
+        self.pixmap_infoiconsetMask(mask)
+        self.btn_kontroller_info.setIcon(QIcon(self.pixmap_infoicon))
+    
 
     def make_viewer_opts(self):
         print(self.viewer.opts)
@@ -340,6 +397,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.toggle_rull_regulering = PyToggle()
         self.toggle_frontlys = PyToggle()
         self.toggle_havbunnslys = PyToggle()
+        self.regulering_status_wait_counter: int = 0
         
         self.toggle_hiv_regulering.stateChanged.connect(lambda: self.update_regulering(3))
         self.toggle_rull_regulering.stateChanged.connect(lambda: self.update_regulering(4))
@@ -411,6 +469,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         
 
     def update_regulering(self, id: int):
+        
         self.send_command_to_rov(["regulering", [id]])
 
     def video_toggle(self, btn, id: int):
@@ -427,6 +486,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.send_command_to_rov(["reset_sikring", nr])
 
     def toggle_manipulator_enable(self):
+        self.regulering_status_wait_counter = 7
         if self.toggle_mani.checkState() != 0:
             self.send_command_to_rov(["manipulator_toggle", None, True])
         else:
@@ -470,8 +530,16 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
 
     def ta_bilde(self, kamera_id):
-        self.send_command_to_rov(["take_pic", kamera_id])
+        self.send_command_to_rov(["take_pic", -1, kamera_id])
+        # if not self.is_retrieving_pic:
+        #     self.is_retrieving_pic = True
+        #     threading.Thread()
 
+    def get_pics(display_after=True):
+        os.system("scp rov:~'/UiS-subsea-Bildebehandling/python/vid_\*' .") # Gets all files in the python folder that is starting with vid_
+
+    def display_last_modified_pic():
+        pass
     # KJØREMODUS
     def manuell_btn_clicked(self):
         print("manuell btn clicked")
@@ -672,6 +740,8 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             # print("waiting for sensordata")
             data_is_ready = conn.poll()
             # print(self.viewer.cameraPosition())
+            if self.regulering_status_wait_counter > 0:
+                self.regulering_status_wait_counter -= 1
             if data_is_ready:
                 sensordata: dict = conn.recv()
                 self.communicate.data_signal.emit(sensordata)
@@ -683,17 +753,75 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         
     def decide_gui_update(self, sensordata):
         self.sensor_update_function = {
-        "lekk_temp": self.gui_lekk_temp_update, 
+        "lekk_temp": self.gui_lekk_temp_update,
         "thrust" : self.gui_thrust_update,
         "accel": self.gui_acceleration_update,
         "gyro": self.gui_gyro_update,
         "time": self.gui_time_update,
         "manipulator": self.gui_manipulator_update,
         "power_consumption": self.gui_watt_update,
-        "manipulator_toggled": self.gui_manipulator_state_update}
+        "manipulator_toggled": self.gui_manipulator_state_update,
+        "regulator_strom_status": self.regulator_strom_status,
+        "regulering_status": self.gui_regulering_state_update,
+        "settpunkt": self.print_data
+        }
         for key in sensordata.keys():
             if key in self.sensor_update_function:
                 self.sensor_update_function[key](sensordata[key])
+
+    def print_data(self, sensordata):
+        pass
+        # print(sensordata)
+
+    def gui_regulering_state_update(self, sensordata):
+        # [regulering_stamp, regulering_rull, regulering_hiv, regulering_gir, hiv_pause, gir_pause]
+        # print(sensordata)
+        # print(f"{self.toggle_stamp_regulering.checkState() != sensordata[0]}")
+        # print(f"{self.toggle_rull_regulering.checkState() = }")
+        # print(f"{self.toggle_hiv_regulering.checkState() = }")
+        # if self.toggle_stamp_regulering.checkState() != sensordata[0]:
+            # print(f"setter stamp status til {sensordata[0]}")
+        self.text_stamp_regulering.setText("stamp-regulering: " + str(sensordata[0]))
+            # self.regulering_status_wait_counter = 7
+
+
+        # if self.toggle_rull_regulering.checkState() != sensordata[1]:
+            # print(f"setter rull status til {sensordata[1]}")
+        self.text_rull_regulering.setText("rull-regulering: " + str(sensordata[1]))
+            # self.toggle_rull_regulering.setText(sensordata[1])
+            # self.toggle_rull_regulering.setChecked(sensordata[1])
+            # self.regulering_status_wait_counter = 7
+
+        # if self.toggle_hiv_regulering.checkState() != sensordata[2]:
+            # print(f"setter hiv status til {sensordata[2]}")
+        self.text_hiv_regulering.setText("hiv-regulering: " + str(sensordata[2]))
+            # self.toggle_hiv_regulering.setChecked(sensordata[2])
+            # self.regulering_status_wait_counter = 7
+
+        # print(f"{self.toggle_hiv_regulering.checkState() =}")
+        # print(f"{self.toggle_rull_regulering.checkState() =}")
+        # print(f"{self.toggle_stamp_regulering.checkState() =}")
+        # self.toggle_hiv_regulering.setChecked(True) # Is off by default
+        # self.toggle_rull_regulering.setChecked(True) # Is off by default
+        # self.toggle_stamp_regulering.setChecked(True) # Is off by default
+        # print(sensordata)
+        
+    def regulator_strom_status(self, sensordata):
+        pass
+
+    def gui_stopwatch_update(self, seconds_passed: int):
+        hours = seconds_passed // 3600
+        seconds_passed -= hours * 3600
+
+        mins = seconds_passed // 60
+        seconds_passed -= mins * 60
+
+        secs = seconds_passed
+
+        self.label_tidtaker.setText(f"{self.pad_num(hours)}:{self.pad_num(mins)}:{self.pad_num(secs)}")
+    
+    def pad_num(self, num: int) -> str:
+        return str(num).rjust(2, '0')
 
     def gui_manipulator_state_update(self, sensordata):
         self.toggle_mani.setChecked(sensordata[0])
@@ -734,11 +862,11 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.update_round_percent_visualizer(0, self.label_percentage_mani_3, self.frame_mani_3)
         if sensordata[3]:
             if sensordata[0] != 0: # åpne/lukke manipulator
-                self.update_round_percent_visualizer(sensordata[0], self.label_percentage_mani_1, self.frame_mani_1)
+                self.update_round_percent_visualizer(round(sensordata[0]*0.35), self.label_percentage_mani_1, self.frame_mani_1)
             elif sensordata[2] != 0: # rotere manipulator
-                self.update_round_percent_visualizer(sensordata[2], self.label_percentage_mani_2, self.frame_mani_2)
-            elif sensordata[1] != 0: # inn ut med manipulator
-                self.update_round_percent_visualizer(sensordata[1], self.label_percentage_mani_3, self.frame_mani_3)
+                self.update_round_percent_visualizer(round(sensordata[2]*0.35), self.label_percentage_mani_2, self.frame_mani_2)
+            elif sensordata[1] != 0: # inn ut med manipulator1
+                self.update_round_percent_visualizer(round(sensordata[1]*0.35), self.label_percentage_mani_3, self.frame_mani_3)
 
     def gui_thrust_update(self, sensordata):
         # print(f"ran gui_thrust_update {sensordata = }")
@@ -767,10 +895,18 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         sensordata.append(average_temp)
         for i in range(4):
             temp_label_list[i].setText(str(sensordata[i+3]))
-            if sensordata[i+3] > 65:
-                temp_label_list[i].setStyleSheet("background-color: #ff0000; border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
-            else:
-                temp_label_list[i].setStyleSheet("background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
+        if sensordata[3] > 61: # Høyeste temp sett ved kjøring i bassenget på skolen | Hovedkort
+            temp_label_list[i].setStyleSheet("background-color: #ff0000; border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
+        else:
+            temp_label_list[i].setStyleSheet("background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
+        if sensordata[4] > 51: # Høyeste temp sett ved kjøring i bassenget på skolen | Kraftkort
+            temp_label_list[i].setStyleSheet("background-color: #ff0000; border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
+        else:
+            temp_label_list[i].setStyleSheet("background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
+        if sensordata[5] > 46: # Høyeste temp sett ved kjøring i bassenget på skolen | Sensorkort
+            temp_label_list[i].setStyleSheet("background-color: #ff0000; border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
+        else:
+            temp_label_list[i].setStyleSheet("background-color: rgb(30, 33, 38); border-radius: 5px; border: 1px solid rgb(30, 30, 30);")
 
         id_with_lekkasje = []
         for lekkasje_nr, is_lekkasje in enumerate(lekkasje_liste):
@@ -783,21 +919,19 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
                 # self.update_round_percent_visualizer(sensordata[0], self.label_percentage_HHB, self.frame_HHB)
 
     def lekkasje_varsel(self, sensor_nr_liste):
-        self.label_lekkasje_varsel.setMaximumSize(500,500)
-        self.label_lekkasje_varsel.setMinimumSize(500,400)
+        self.label_lekkasje_varsel.setMaximumSize(16777215,150)
+        self.label_lekkasje_varsel.setMinimumSize(16777215,150)
         self.label_lekkasje_varsel.raise_()
         sensor_nr_liste = [str(item) for item in sensor_nr_liste]
         text = f"Advarsel vannlekkasje oppdaget på sensor: {str(', '.join(sensor_nr_liste))}"
         self.label_lekkasje_varsel.setText(text)
         self.label_lekkasje_varsel.setStyleSheet("QLabel { color: rgba(255, 255, 255, 200); background-color: rgba(179, 32, 36, 200); font-size: 24pt;}")
-        self.audio = vlc.MediaPlayer("file:///ække normalt.mp3")
-        self.audio.play()          
-        time.sleep(2)
+        if "win" in sys.platform:
+            subprocess.call(('./ffplay.exe -autoexit -nodisp ./siren.wav'), stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
+        else:
+            subprocess.call(('./ffplay', '-autoexit', '-nodisp', './siren.wav'), stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
         self.label_lekkasje_varsel.setStyleSheet("QLabel { color: rgba(255, 255, 255, 0); background-color: rgba(179, 32, 36, 0); font-size: 24pt;}")
         self.label_lekkasje_varsel.lower()
-        self.audio = vlc.MediaPlayer("file:///synker.mp3")
-        self.audio.play()
-        time.sleep(1)
         self.lekkasje_varsel_is_running = False
         self.label_lekkasje_varsel.setMaximumSize(0,0)
         self.label_lekkasje_varsel.setMinimumSize(0,0)
@@ -835,8 +969,10 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         # Removes the previous rotation. We do not have yaw rotation
         # so it is not necesarry to reset or rotate it
         # print(f"{sensordata = }")
-        # hiv, rull, stamp
-        # print(f"gyro update inside gui = {sensordata = }")
+        # hiv, rull, stamp, gir
+        # self.gir_verdier[self.run_count%10] = sensordata[3]
+        # print(f"gir = {sum(self.gir_verdier)/10}")
+        self.run_count += 1
         self.meshitem.rotate(self.rov_3d_coordinates[1], 1, 0, 0, local=True)
         self.meshitem.rotate(self.rov_3d_coordinates[2], 0, 1, 0, local=True)
 
@@ -886,7 +1022,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         # self.w2.stream1.load(QtCore.QUrl("http://vg.no"))
     
     def change_current_widget(self, index):
-        print(f"should change to widget {index}")
+        # print(f"should change to widget {index}")
         self.stackedWidget.setCurrentIndex(index)
     
     
