@@ -16,7 +16,7 @@ import time
 import json
 import sys
 import os
-
+STYREDATAID = 70
 
 # takes a python object and prepares it for sending over network
 def network_format(data) -> bytes:
@@ -101,7 +101,7 @@ class Rov_state:
         # self.cam_is_enabled = [True, True]
         # list of functions that can be triggered by buttons. # need a function to tell it to grip and release and not do it by button like we do in build manipulator byte
         # theese functions need to line up their indexes with the line in button_config.txt
-        self.button_function_list = [self.skip, self.toggle_active_camera, self.toggle_between_rotation_and_camera_tilt, self.toggle_manipulator_enabled, self.manipulator_release, self.manipulator_grip, self.update_bildebehandlingsmodus_controller, self.take_pic, self.rull, self.reverse_flip] 
+        self.button_function_list = [self.skip, self.toggle_active_camera, self.toggle_between_rotation_and_camera_tilt, self.toggle_manipulator_enabled, self.manipulator_release, self.manipulator_grip, self.update_bildebehandlingsmodus_controller, self.take_pic, self.skip, self.skip] 
         #maps a button to a index in button_function_list Can be changed from gui
         self.button_to_function_map = [0, 6, 7, 1, 4, 5, 0, 0, 3, 2]
         self.camera_is_on = [True, True]
@@ -126,6 +126,7 @@ class Rov_state:
         self.regulering_state = {"rull": True, "stamp": True, "hiv": True}
         self.thruster_struping = 0
         self.rull = 0
+        self.dpad_for_roll_and_tilt = True
         self.light_intensity_down = 100
         self.ligth_down_is_on = True
 
@@ -143,11 +144,6 @@ class Rov_state:
         
         self.set_depth_zeroing()
 
-    def rull(self, button_index):
-        self.rull = 100
-
-    def reverse_flip(self, button_index):
-        self.rull = -100
 
     def skip(self, button_index):
         pass
@@ -461,14 +457,21 @@ class Rov_state:
         else:
             styredata.append(0)
         styredata.append(self.build_manipulator_byte())
-        styredata.append(0)
-        styredata.append(self.rull)
-        self.rull = 0
+        rull = 0
+        stamp = 0
+        if self.dpad_for_roll_and_tilt:
+            rull = self.data.get("dpad", [0,0])[0]*100
+            stamp = self.data.get("dpad", [0,0])[1]*100
+        
+        styredata.append(rull)
+        styredata.append(stamp)
         styredata.append(self.thruster_struping)
         self.packets_to_send.append([70, styredata])
 
     def build_manipulator_byte(self):
-        data = list(self.data["dpad"])
+        data = [0, 0] # no working rotation and in out motion on manipulator
+        if not self.dpad_for_roll_and_tilt:
+            data = list(self.data.get("dpad", [0, 0]))
         data.append(self.data["buttons"][BUTTON_GRAB])
         data.append(self.data["buttons"][BUTTON_RELEASE])
         # print(f"{data = }")
@@ -511,7 +514,7 @@ class Rov_state:
         self.video_recording_active[camera_id] = not self.video_recording_active[camera_id]
         self.packets_to_send.append([200+camera_id, {"video_recording": self.video_recording_active[camera_id]}])
 
-    def take_pic(self, button_id, camera_id=1):
+    def take_pic(self, button_id, camera_id=0):
         """sends a command to the rov to take a picture. Which camera the picture is taken on depends on the id"""
         if button_id != -1:
             if self.take_pic_controller_wait_counter > 0:

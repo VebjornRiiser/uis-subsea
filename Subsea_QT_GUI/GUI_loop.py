@@ -970,7 +970,8 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         # so it is not necesarry to reset or rotate it
         # print(f"{sensordata = }")
         # hiv, rull, stamp, gir
-        # self.gir_verdier[self.run_count%10] = sensordata[3]
+        # print(sensordata[3])
+        self.gir_verdier[self.run_count%10] = sensordata[2]
         # print(f"gir = {sum(self.gir_verdier)/10}")
         self.run_count += 1
         self.meshitem.rotate(self.rov_3d_coordinates[1], 1, 0, 0, local=True)
