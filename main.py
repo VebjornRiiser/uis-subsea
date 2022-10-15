@@ -62,7 +62,15 @@ def create_test_sensordata(delta, old_sensordata=None):
         sensordata["temp_rov"] = old_sensordata["temp_rov"] + 0.3*delta
     return sensordata
 
-
+ID_CAMERA_FORWARD = 200
+ID_CAMERA_DOWN = 201
+ID_DIRECTIONCOMMAND = 70
+ID_DIRECTIONCOMMAND_PARAMETERS = 71
+ID_STARTUP_DIRECTION_CARD = 64
+ID_STARTUP_SENSOR_CARD = 96
+ID_RESET_DEPTH = 126
+ID_FUSE_RESET_OR_TOGGLE = 139
+ID_LIGHTS = 142
 
 MANIPULATOR_IN_OUT = 1
 MANIPULATOR_ROTATE = 0
@@ -130,8 +138,12 @@ class Rov_state:
         self.light_intensity_down = 100
         self.ligth_down_is_on = True
 
+        self.set_canbus_ids()
+        
+
         self.send_startup_commands()
 
+    
     def send_startup_commands(self):
         self.packets_to_send.append([200, {"tilt": self.camera_tilt[0], "on": True}])
         self.packets_to_send.append([201, {"tilt": self.camera_tilt[1], "on": True}])
@@ -144,6 +156,12 @@ class Rov_state:
         
         self.set_depth_zeroing()
 
+    def set_canbus_ids(self):
+        self.canbus_id = {
+            "camera_forward": 200,
+            "camera_down": 201,
+            "camera_down": 70,
+        }
 
     def skip(self, button_index):
         pass
@@ -180,7 +198,7 @@ class Rov_state:
             id = self.active_camera
         print(f"toggle camera was called")
         self.camera_is_on[id] = not self.camera_is_on[id]
-        self.packets_to_send.append([200+id, {"on": self.camera_is_on}])
+        self.packets_to_send.append([ID_CAMERA_FORWARD+id, {"on": self.camera_is_on}])
 
 
     # updates variables that needs to be done each tick
@@ -285,10 +303,10 @@ class Rov_state:
     def hud_toggle(self, id):
         # self.hud_status = [True, False]
         self.hud_status[id] = not self.hud_status[id]
-        self.packets_to_send.append([200+id, {"hud" : self.hud_status[id]}])
+        self.packets_to_send.append([ID_CAMERA_FORWARD+id, {"hud" : self.hud_status[id]}])
 
     def stop_stitch(self):
-        self.packets_to_send.append([201, {"stitch": True}])
+        self.packets_to_send.append([ID_CAMERA_DOWN, {"stitch": True}])
             
     def tilt_from_gui(self, sensordata):
         if sensordata[1] == "up":
@@ -304,7 +322,7 @@ class Rov_state:
 
     def video_toggle(self, data):
         # print(f"{data=}")
-        self.packets_to_send.append([200+data[1], {"video_recording": data[0]}])
+        self.packets_to_send.append([ID_CAMERA_FORWARD+data[1], {"video_recording": data[0]}])
     
     def shutdown(self):
         print("recieved shutdown from gui")
@@ -315,11 +333,13 @@ class Rov_state:
         self.thruster_struping = sensordata
 
     def set_depth_zeroing(self, sensordata=None):
-        self.packets_to_send.append([126, []])
+        """Resets the zeroing on the depth sensor. Should be done on the surface"""
+        self.packets_to_send.append([ID_RESET_DEPTH, []])
         # self.packets_to_send.append([96,  []])
 
 
     def get_rotation_input(self):
+        """Used to rotate the 3d model"""
         # rotate_input = input("Rotate theta degrees around x,y,z axis")
         # rotation = [int(item.strip()) for item in rotate_input.split(",")]
         # if len(rotation) != 4:
@@ -360,22 +380,22 @@ class Rov_state:
                 print(f"Error when parsing input\n {e}")
                 continue
 
-            self.packets_to_send.append([71, var])
+            self.packets_to_send.append([ID_DIRECTIONCOMMAND_PARAMETERS, var])
 
     def send_packets(self):
         """Sends the created network packets and clears it"""
-
-        for packet in self.packets_to_send:
-            if packet[0] != 70:
+        
+        copied_packets = self.packets_to_send
+        self.packets_to_send = []
+        for packet in copied_packets:
+            if packet[0] != ID_DIRECTIONCOMMAND:
                 pass
                 print(f"{packet = }")
         if run_network:
-            self.logger.sensor_logger.info(self.packets_to_send)
+            self.logger.sensor_logger.info(copied_packets)
         if self.network_handler is None:
-            self.packets_to_send = []
             return
-        self.network_handler.send(network_format(self.packets_to_send))
-        self.packets_to_send = []
+        self.network_handler.send(network_format(copied_packets))
         
 
     def toggle_between_rotation_and_camera_tilt(self, button_index):
@@ -394,7 +414,7 @@ class Rov_state:
         ligth_down = self.light_intensity_down * self.ligth_down_is_on
         ligth_forward = self.light_intensity_forward * self.ligth_forward_is_on
         # print(f"Lys oppdatert. verdien vi sender er {[142, ligth_forward, ligth_down]}")
-        self.packets_to_send.append([142, [ligth_forward, ligth_down]])
+        self.packets_to_send.append([ID_LIGHTS, [ligth_forward, ligth_down]])
 
     def update_camera_tilt_controller(self):
         # print("camera tilt update func")
@@ -442,7 +462,7 @@ class Rov_state:
         self.camera_tilt[camera_to_tilt] = round(self.camera_tilt[camera_to_tilt])
 
         if old_tilt != self.camera_tilt[camera_to_tilt]:
-            self.packets_to_send.append([200 + camera_to_tilt, {"tilt": int(self.camera_tilt[camera_to_tilt])}])
+            self.packets_to_send.append([ID_CAMERA_FORWARD + camera_to_tilt, {"tilt": int(self.camera_tilt[camera_to_tilt])}])
 
     def build_styredata(self):
         #  X, Y, Z, rotasjon, (m.teleskop, m.vri, m.klype, aktiv), rull(ikke implementert), stamp(ikke implementert), struping
@@ -466,7 +486,7 @@ class Rov_state:
         styredata.append(rull)
         styredata.append(stamp)
         styredata.append(self.thruster_struping)
-        self.packets_to_send.append([70, styredata])
+        self.packets_to_send.append([ID_DIRECTIONCOMMAND, styredata])
 
     def build_manipulator_byte(self):
         data = [0, 0] # no working rotation and in out motion on manipulator
@@ -512,7 +532,7 @@ class Rov_state:
     def toggle_video_recording(self, camera_id):
         """toggle_video_recording turns of video recording on the rov and changes the state topside"""
         self.video_recording_active[camera_id] = not self.video_recording_active[camera_id]
-        self.packets_to_send.append([200+camera_id, {"video_recording": self.video_recording_active[camera_id]}])
+        self.packets_to_send.append([ID_CAMERA_FORWARD+camera_id, {"video_recording": self.video_recording_active[camera_id]}])
 
     def take_pic(self, button_id, camera_id=0):
         """sends a command to the rov to take a picture. Which camera the picture is taken on depends on the id"""
@@ -522,12 +542,12 @@ class Rov_state:
 
             self.take_pic_controller_wait_counter = 7
 
-        self.packets_to_send.append([200+camera_id, {"take_pic": True}])
+        self.packets_to_send.append([ID_CAMERA_FORWARD+camera_id, {"take_pic": True}])
 
     def update_bildebehandlingsmodus(self, camera_id: int, mode: int):
         # print(f"{camera_id=}, {mode=}")
         self.image_processing_mode[camera_id] = self.camera_modes.index(mode)
-        self.packets_to_send.append([200+camera_id, {"bildebehandlingsmodus": mode}])
+        self.packets_to_send.append([ID_CAMERA_FORWARD+camera_id, {"bildebehandlingsmodus": mode}])
         if self.image_processing_mode[camera_id] == 0 or self.image_processing_mode[camera_id] == 1:
             self.camera_tilt_allowed[camera_id] = True
         else:
@@ -544,7 +564,7 @@ class Rov_state:
             else:
                 self.image_processing_mode[camera_id] = mode
 
-            self.packets_to_send.append([200+camera_id, {"bildebehandlingsmodus": self.camera_modes[self.image_processing_mode[camera_id]]}])
+            self.packets_to_send.append([ID_CAMERA_FORWARD+camera_id, {"bildebehandlingsmodus": self.camera_modes[self.image_processing_mode[camera_id]]}])
 
             if self.image_processing_mode[camera_id] == 0 or self.image_processing_mode[camera_id] == 1:
                 self.camera_tilt_allowed[camera_id] = True
@@ -676,7 +696,7 @@ def check_camera_command(camera_command):
     for command in camera_command:
         if "bildebehandlingsmodus" in command[1]:
             if command[1]["bildebehandlingsmodus"] != 0:
-                lock[command[0]-200] = True
+                lock[command[0]-ID_CAMERA_FORWARD] = True
     # return lock
     return lock
 
@@ -755,6 +775,27 @@ def get_args():
     print(getopt(sys.argv, "n:g:c:", "network=gui=controller="))
 
 
+def send_fake_sensordata(t_watch: Threadwatcher, gui_pipe: multiprocessing.Pipe):
+    thrust_list = [num for num in range(-100,101)]
+    power_list = [num for num in range(0, 101)]
+    count = -1
+    sensordata = {}
+    while t_watch.should_run(0):
+        time_since_start = round(time.time()-start_time_sec)
+        count += 1
+        sensordata["lekk_temp"] = [True, True, True, (25+count)%99, (37+count)%99, (61+count)%99]
+        sensordata["thrust"] = [thrust_list[(0+count)%201], thrust_list[(13+count)%201], thrust_list[(25+count)%201], thrust_list[(38+count)%201], thrust_list[(37+count)%201], thrust_list[(50+count)%201], thrust_list[(63+count)%201], thrust_list[(75+count)%201], thrust_list[(88+count)%201], thrust_list[(107+count)%201]]
+        sensordata["power_consumption"] = [power_list[count%101]*13, power_list[count%101]*2.4, power_list[count%101]*0.65]
+        sensordata["gyro"] = [(time_since_start*2)%60, time_since_start%90, time_since_start%90]
+        sensordata["time"] = [time_since_start]
+        sensordata["thrust"] = [thrust_list[(0+count)%201], thrust_list[(13+count)%201], thrust_list[(25+count)%201], thrust_list[(38+count)%201], thrust_list[(37+count)%201], thrust_list[(50+count)%201], thrust_list[(63+count)%201], thrust_list[(75+count)%201], thrust_list[(88+count)%201], thrust_list[(107+count)%201]]
+        # sensordata["thrust"] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        gui_pipe.send(sensordata)
+        time.sleep(1)
+
+def test_gui_leak_response(gui_pipe: multiprocessing.Pipe):
+    sensordata = {"lekk_temp": [False,  False, False, -1, -1, -1]}
+    gui_pipe.send(sensordata)
 
 
 if __name__ == "__main__":        
@@ -772,8 +813,8 @@ if __name__ == "__main__":
         run_gui = True
         run_get_controllerdata = False
         run_network = False
-        run_craft_packet = False
-        run_send_fake_sensordata = False
+        run_craft_packet = True
+        run_send_fake_sensordata = True
         manual_input_rotation = False
         
         queue_for_rov = multiprocessing.Queue()
@@ -805,27 +846,13 @@ if __name__ == "__main__":
         main_driver_loop.start()
 
 
-        sensordata = {"lekk_temp": [False,  False, False, -1, -1, -1]}
-        gui_parent_pipe.send(sensordata)
-
 
         if run_send_fake_sensordata:
-            thrust_list = [num for num in range(-100,101)]
-            power_list = [num for num in range(0, 101)]
-            count = -1
-            sensordata = {}
-            while t_watch.should_run(0):
-                time_since_start = round(time.time()-start_time_sec)
-                count += 1
-                sensordata["lekk_temp"] = [True, True, True, (25+count)%99, (37+count)%99, (61+count)%99]
-                sensordata["thrust"] = [thrust_list[(0+count)%201], thrust_list[(13+count)%201], thrust_list[(25+count)%201], thrust_list[(38+count)%201], thrust_list[(37+count)%201], thrust_list[(50+count)%201], thrust_list[(63+count)%201], thrust_list[(75+count)%201], thrust_list[(88+count)%201], thrust_list[(107+count)%201]]
-                sensordata["power_consumption"] = [power_list[count%101]*13, power_list[count%101]*2.4, power_list[count%101]*0.65]
-                sensordata["gyro"] = [(time_since_start*2)%60, time_since_start%90, time_since_start%90]
-                sensordata["time"] = [time_since_start]
-                sensordata["thrust"] = [thrust_list[(0+count)%201], thrust_list[(13+count)%201], thrust_list[(25+count)%201], thrust_list[(38+count)%201], thrust_list[(37+count)%201], thrust_list[(50+count)%201], thrust_list[(63+count)%201], thrust_list[(75+count)%201], thrust_list[(88+count)%201], thrust_list[(107+count)%201]]
-                # sensordata["thrust"] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-                gui_parent_pipe.send(sensordata)
-                time.sleep(1)
+            id = t_watch.add_thread()
+            datafaker = threading.Thread(target=send_fake_sensordata, args=(t_watch, gui_parent_pipe), daemon=True)
+            datafaker.start()
+
+        test_gui_leak_response(gui_parent_pipe)
 
         while True:
             time.sleep(5)
