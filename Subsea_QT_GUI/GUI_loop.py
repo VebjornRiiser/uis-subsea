@@ -27,8 +27,6 @@ from Subsea_QT_GUI.py_toggle import PyToggle
 # QApplication.setAttribute(Qt.AA_UseDesktopOpenGL)
 QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)  # enable highdpi scaling 
 QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)  # use highdpi icons
-#QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
-#QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True) #use highdpi icons
 os.environ["QT_FONT_DPI"] = "96" # FIX Problem for High DPI and Scale above 100%
 
 # GLOBALS:
@@ -37,6 +35,7 @@ os.environ["QT_FONT_DPI"] = "96" # FIX Problem for High DPI and Scale above 100%
 GLOBAL_STATE = False
 GLOBAL_TITLE_BAR = True
 
+#Using this gave bad performance. Use browser instead
 class AnotherWindow(QWidget):
     """
     This "window" is a QWidget. If it has no parent, it
@@ -89,12 +88,11 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.lekkasje_varsel_is_running = False
 
         self.setWindowIcon(QtGui.QIcon('Subsea_QT_GUI/images/logo.png'))
-        self.queue = queue
-        self.pipe_conn_only_rcv = pipe_conn_only_rcv
-        self.t_watch = t_watch
+        self.queue: multiprocessing.Queue = queue # queue for sending data to main
+        self.pipe_conn_only_rcv = pipe_conn_only_rcv # pipe for taking in sensordata
+        self.t_watch: Threadwatcher = t_watch 
         self.id = id
-        self.rov_3d_coordinates = [0, 0, 0]
-        self.rotation_counter = 0
+        self.rov_3d_coordinates: list[float] = [0, 0, 0]
         self.last_rotation = [0, 0]
         self.gir_verdier = [0,0,0,0,0,0,0,0,0,0]
         self.run_count = 0
@@ -104,117 +102,44 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
 
         self.setup_gui_with_folder_change()
 
+        self.set_style_info()
+
+        self.create_and_connect_controls()
+        self.connect_sliders_to_gui()
+
+        self.load_theme()
+        
+
+        # Decides whether to open qt camera viewer or not
+        self.camera_windows_opened = False
+        if self.camera_windows_opened:
+            self.start_camera_windows()
+
+        #Starts the thread that receives the sensordata from main
+        self.recieve = threading.Thread(target=self.recieve_sensordata, daemon=True, args=(self.pipe_conn_only_rcv,))
+        self.recieve.start()
+        
+
+        self.set_default_profile()
+        self.send_profile_to_main()
+
+
+        self.send_current_ligth_intensity()
+        self.set_bildebehandlingsmodus(-1, -1, "Manuell kjøring")
+
+        self.change_current_widget(1)
+        self.maximize_restore()
+
+
+    def set_style_info(self):
         # Set the stylesheet of the application
         #self.set_style(self, self.auto_btn)
         #self.styleSheet.setStyleSheet(s)
 
-
-        # STL viewer for ROV 3D model
-        self.view_STL()
-       
-        button = QtGui.QPushButton()
-        button.setText('Rotate')
-        xyz = [0, 360, 0]
-        button.clicked.connect(lambda: self.update(xyz))
-        #self.layout.addWidget(button)
-
-        '''
-        def set_plotdata(self, name, points, color, width):
-                self.traces[name].setData(pos=points, color=color, width=width)
-        '''
-
-        # GUI buttons clicked
-        
-        # KJØREMODUS
-
-        # Toggle buttons 
-        # https://www.youtube.com/watch?v=NnJFi285s3M&ab_channel=Wanderson
-        self.make_toggle_btns()
-
-        # BILDEBEHANDLING
-        #self.beregn_strl_btn(self.beregn_strl)
-        #self.fotomoasaikk_btn(self.fotomoasaikk)
-
-        # VIDEO
-        #self.start_video_btn(self.start_video)
-        #self.stopp_video_btn(self.stop_video)
-
-        # KAMERA
-        #self.ta_bilde_frontkamera_btn(self.ta_bilde_frontkamera)
-        #self.ta_bilde_havbunn_btn(self.ta_bilde_havbunnskamera)
-        #self.slett_bilde_btn(self.slett_siste_bilde)
-
-        # Vis siste bildet:
-        #self.show_image
-        
-        # Menu button clicked
-        # self.btn_toggle.clicked.connect(lambda: self.change_current_widget(0))
-        self.btn_kontroller.clicked.connect(lambda: self.change_current_widget(2))
-        self.btn_informasjon.clicked.connect(lambda: self.change_current_widget(1))
-
-        # Kjøremodus
-        self.btn_manuell.clicked.connect(lambda: self.set_bildebehandlingsmodus(0, -1, "Manuell kjøring"))
-        self.btn_finn_fisk.clicked.connect(lambda: self.set_bildebehandlingsmodus(1, 0, "Finn fisk"))
-        self.btn_autonom_merd.clicked.connect(lambda: self.set_bildebehandlingsmodus(2, 0, "Autonom merd"))
-        self.btn_bildemoasaikk.clicked.connect(lambda: self.set_bildebehandlingsmodus(0, 3, "Bildemosaikk"))
-        self.btn_autonom_parkering.clicked.connect(lambda: self.set_bildebehandlingsmodus(4, 0, "Autonom parkering"))
-
-        # Reset sikring
-        self.btn_reset_sikring_elektronikk.clicked.connect(lambda: self.reset_sikring(0))
-        self.btn_reset_sikring_manipulator.clicked.connect(lambda: self.reset_sikring(1))
-        self.btn_reset_sikring_thrustere.clicked.connect(lambda: self.reset_sikring(2))
-
-        # Reset nullpunkt
-        self.btn_reset_nullpunkt.clicked.connect(self.set_start_point_depth_sensor)
-
-        # Start video
-        self.btn_start_video_frontkamera.clicked.connect(lambda: self.video_toggle(self.btn_start_video_frontkamera, 0))
-        self.btn_start_video_havbunn.clicked.connect(lambda: self.video_toggle(self.btn_start_video_havbunn, 1))
-
-        # Av/På-effektforbruk
-        self.btn_regulator_elektronikk.clicked.connect(lambda: self.toggle_regulator(0, self.btn_regulator_elektronikk))
-        self.btn_regulator_manipulator.clicked.connect(lambda: self.toggle_regulator(1, self.btn_regulator_manipulator))
-        self.btn_regulator_thrustere.clicked.connect(lambda: self.toggle_regulator(2, self.btn_regulator_thrustere))
-
-        # Ta bilde
-        self.btn_ta_bilde_frontkamera.clicked.connect(lambda: self.ta_bilde(0))
-        self.btn_ta_bilde_havbunn.clicked.connect(lambda: self.ta_bilde(1))
-
-        self.btn_HUD.clicked.connect(self.toggle_hud)
-        self.btn_avslutt_stitching.clicked.connect(self.stop_stich)
-        
-        # self.slider_lys_down.setValue(100)
-        # self.slider_lys_forward.setValue(100)
-
-        self.btn_front_tilt_opp.clicked.connect(lambda: self.tilt_clicked(FRONT_CAM_ID, "up"))
-        self.btn_front_tilt_ned.clicked.connect(lambda: self.tilt_clicked(FRONT_CAM_ID, "down"))
-
-        self.btn_havbunn_tilt_opp.clicked.connect(lambda: self.tilt_clicked(BACK_CAM_ID, "up"))
-        self.btn_havbunn_tilt_ned.clicked.connect(lambda: self.tilt_clicked(BACK_CAM_ID, "down"))
-        
-        # Struping-slider
-        self.slider_struping_thrustere.valueChanged.connect(self.send_thruster_struping)
-        self.btn_lav_struping.clicked.connect(self.set_lav_struping)
-
-        self.send_current_ligth_intensity()
-
-
-        # CONTROLLER PAGE:
-        # "Lag ny profil"-button clicked
-        self.btn_make_new_profile.clicked.connect(self.make_new_profile)
-        #self.make_new_profile_btn.clicked.connect(self.make_new_profile)
-
-        # "Reset"-button clicked
-        self.btn_reset.clicked.connect(self.reset_profile)
-
-        # "Lagre"-button clicked
-        self.btn_save_profile.clicked.connect(lambda: self.save_profile())
-        self.btn_save_profile.setEnabled(False)
-        self.text_ingen_endringer.setVisible(True)
-
         # -----------------------------------
         # LEGGES INN I EN ANNEN FIL:
         #self.init_drop_shadow()
+        
 
         self.titleRightInfo.mouseDoubleClickEvent = self.dobleClickMaximizeRestore
         self.maximizeRestoreAppBtn.mouseDoubleClickEvent = self.dobleClickMaximizeRestore
@@ -235,42 +160,11 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.sizegrip = QSizeGrip(self.frame_size_grip)
         self.sizegrip.setStyleSheet("width: 20px; height: 20px; margin 0px; padding: 0px;")
 
-        # MINIMIZE
-        self.minimizeAppBtn.clicked.connect(self.minimize)
-        
-        # MAXIMIZE/RESTORE
-        self.maximizeRestoreAppBtn.clicked.connect(self.maximize_restore)
-
-        # CLOSE APPLICATION
-        self.closeAppBtn.clicked.connect(self.shutdown)
-
         # Set font size
         self.font_size = 10
         self.padding = 10
-        
-        self.btn_zoom_in.clicked.connect(self.zoom_in)
-        self.btn_zoom_out.clicked.connect(self.zoom_out)
-        
-        self.btn_change_theme.clicked.connect(self.change_theme)
-        #test
-        self.load_theme()
-        
-        
-        self.connect_sliders_to_gui()
 
-        #hest
-        self.camera_windows_opened = False
-        if self.camera_windows_opened:
-            self.start_camera_windows()
-        
-        self.stopwatch = stopwatch.Stopwatch(self.gui_stopwatch_update)
-        self.btn_start_tidtaker.clicked.connect(self.stopwatch.start)
-        self.btn_reset_tidtaker.clicked.connect(self.stopwatch.reset)
-
-        self.recieve = threading.Thread(target=self.recieve_sensordata, daemon=True, args=(self.pipe_conn_only_rcv,))
-        self.recieve.start()
-        
-        # print(f"type of self.widget: {type(self.widget)}")
+    def create_remappings_controls(self):
         # these need to match up with the indexes of the buttons on the controller
         self.btn_combobox_list:list[QComboBox] = [self.comboBox_A_btn, self.comboBox_B_btn, self.comboBox_X_btn, self.comboBox_Y_btn, self.comboBox_RB_btn, self.comboBox_LB_btn, self.comboBox_view_btn, self.comboBox_menu_btn, self.comboBox_left_stick_btn, self.comboBox_right_stick_btn]
         btn_command_list:list[str] = []
@@ -281,22 +175,122 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             btn.clear()  # removes the options already in the combobox
             btn.addItems(btn_command_list) # adds the possible commands
             btn.currentIndexChanged.connect(self.updated_profile_settings)
-        self.btn_slett_bilde.clicked.connect(self.make_viewer_opts)
 
+    def create_and_connect_controls(self):
 
-        self.set_default_profile()
-        self.send_profile_to_main()
+        # STL viewer for ROV 3D model
+        self.view_STL()
+
+        # Toggle buttons 
+        # https://www.youtube.com/watch?v=NnJFi285s3M&ab_channel=Wanderson
+        self.make_toggle_btns()
 
         self.comboBox_velg_profil.currentIndexChanged.connect(self.load_selected_profile)
+
         self.toggle_frontlys.setChecked(True)
         self.toggle_havbunnslys.setChecked(True)
-        self.send_current_ligth_intensity()
-        self.set_bildebehandlingsmodus(-1, -1, "Manuell kjøring")
-        # self.setTestValue(self.slider_lys_forward, self.label_percentage_lys_forward, self.frame_lys_forward, "rgba(85, 170, 255, 255)")
-        # self.setTestValue(self.slider_lys_down, self.label_percentage_lys_down, self.frame_lys_down, "rgba(85, 170, 255, 255)")
-        # self.setTestValue(self.slider_struping_thrustere, self.label_percentage_struping, self.frame_struping, "rgba(85, 170, 255, 255)")
-        self.change_current_widget(1)
-        self.maximize_restore()
+
+        # MINIMIZE
+        self.minimizeAppBtn.clicked.connect(self.minimize)
+        
+        # MAXIMIZE/RESTORE
+        self.maximizeRestoreAppBtn.clicked.connect(self.maximize_restore)
+
+        # CLOSE APPLICATION
+        self.closeAppBtn.clicked.connect(self.shutdown)
+
+        # BILDEBEHANDLING
+        #self.beregn_strl_btn(self.beregn_strl)
+        #self.fotomoasaikk_btn(self.fotomoasaikk)
+
+        # VIDEO
+        #self.start_video_btn(self.start_video)
+        #self.stopp_video_btn(self.stop_video)
+
+        # KAMERA
+        #self.ta_bilde_frontkamera_btn(self.ta_bilde_frontkamera)
+        #self.ta_bilde_havbunn_btn(self.ta_bilde_havbunnskamera)
+        #self.slett_bilde_btn(self.slett_siste_bilde)
+
+        # Vis siste bildet:
+        #self.show_image
+
+        self.btn_zoom_in.clicked.connect(self.zoom_in)
+        self.btn_zoom_out.clicked.connect(self.zoom_out)
+        
+        self.btn_change_theme.clicked.connect(self.change_theme)
+        
+        # Change view page clicked
+        # self.btn_toggle.clicked.connect(lambda: self.change_current_widget(0))
+        self.btn_kontroller.clicked.connect(lambda: self.change_current_widget(2))
+        self.btn_informasjon.clicked.connect(lambda: self.change_current_widget(1))
+
+        # Kjøremodus
+        self.btn_manuell.clicked.connect(lambda: self.set_bildebehandlingsmodus(0, -1, "Manuell kjøring"))
+        self.btn_finn_fisk.clicked.connect(lambda: self.set_bildebehandlingsmodus(1, 0, "Finn fisk"))
+        self.btn_autonom_merd.clicked.connect(lambda: self.set_bildebehandlingsmodus(2, 0, "Autonom merd"))
+        self.btn_bildemoasaikk.clicked.connect(lambda: self.set_bildebehandlingsmodus(0, 3, "Bildemosaikk"))
+        self.btn_autonom_parkering.clicked.connect(lambda: self.set_bildebehandlingsmodus(4, 0, "Autonom parkering"))
+
+        # Reset sikring
+        self.btn_reset_sikring_elektronikk.clicked.connect(lambda: self.reset_sikring(0))
+        self.btn_reset_sikring_manipulator.clicked.connect(lambda: self.reset_sikring(1))
+        self.btn_reset_sikring_thrustere.clicked.connect(lambda: self.reset_sikring(2))
+
+        # Reset nullpunkt for depth sensor
+        self.btn_reset_nullpunkt.clicked.connect(self.set_start_point_depth_sensor)
+
+        # Start video
+        self.btn_start_video_frontkamera.clicked.connect(lambda: self.video_toggle(self.btn_start_video_frontkamera, 0))
+        self.btn_start_video_havbunn.clicked.connect(lambda: self.video_toggle(self.btn_start_video_havbunn, 1))
+
+        # Av/På-effektforbruk
+        self.btn_regulator_elektronikk.clicked.connect(lambda: self.toggle_regulator(0, self.btn_regulator_elektronikk))
+        self.btn_regulator_manipulator.clicked.connect(lambda: self.toggle_regulator(1, self.btn_regulator_manipulator))
+        self.btn_regulator_thrustere.clicked.connect(lambda: self.toggle_regulator(2, self.btn_regulator_thrustere))
+
+        # Ta bilde
+        self.btn_ta_bilde_frontkamera.clicked.connect(lambda: self.ta_bilde(0))
+        self.btn_ta_bilde_havbunn.clicked.connect(lambda: self.ta_bilde(1))
+
+        self.btn_HUD.clicked.connect(self.toggle_hud)
+        self.btn_avslutt_stitching.clicked.connect(self.stop_stich)
+        
+        self.btn_slett_bilde.clicked.connect(self.make_viewer_opts)
+
+        #Sets the light value
+        # self.slider_lys_down.setValue(100)
+        # self.slider_lys_forward.setValue(100)
+
+        #Enables tilting camera from GUI
+        self.btn_front_tilt_opp.clicked.connect(lambda: self.tilt_clicked(FRONT_CAM_ID, "up"))
+        self.btn_front_tilt_ned.clicked.connect(lambda: self.tilt_clicked(FRONT_CAM_ID, "down"))
+
+        self.btn_havbunn_tilt_opp.clicked.connect(lambda: self.tilt_clicked(BACK_CAM_ID, "up"))
+        self.btn_havbunn_tilt_ned.clicked.connect(lambda: self.tilt_clicked(BACK_CAM_ID, "down"))
+        
+        # Struping-slider
+        self.slider_struping_thrustere.valueChanged.connect(self.send_thruster_struping)
+        self.btn_lav_struping.clicked.connect(self.set_lav_struping)
+
+        # Adds the controls for the stopwatch
+        self.stopwatch = stopwatch.Stopwatch(self.gui_stopwatch_update)
+        self.btn_start_tidtaker.clicked.connect(self.stopwatch.start)
+        self.btn_reset_tidtaker.clicked.connect(self.stopwatch.reset)
+
+        # CONTROLLER PAGE:
+        # "Lag ny profil"-button clicked
+        self.btn_make_new_profile.clicked.connect(self.make_new_profile)
+        #self.make_new_profile_btn.clicked.connect(self.make_new_profile)
+
+        # "Reset"-button clicked
+        self.btn_reset.clicked.connect(self.reset_profile)
+
+        # "Lagre"-button clicked
+        self.btn_save_profile.clicked.connect(lambda: self.save_profile())
+        self.btn_save_profile.setEnabled(False)
+        self.text_ingen_endringer.setVisible(True)
+
         self.slider_lys_down.valueChanged.connect(self.send_current_ligth_intensity)
         self.slider_lys_forward.valueChanged.connect(self.send_current_ligth_intensity)
 
@@ -476,7 +470,6 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.send_command_to_rov(["video_toggle", [btn.isChecked(), id]])
 
     def send_thruster_struping(self):
-        # print(self.viewer.opts)
         self.send_command_to_rov(["thruster_struping", self.slider_struping_thrustere.value()])
 
     def toggle_regulator(self, nr: int, btn: QPushButton):
@@ -565,6 +558,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         #     raise Exception("Error! could not get default userprofile!")
         #     # [0, 0, 0, 1, 0, 3, 0, 2, 0, 0] default profile
         # options = json.loads(profiledata[0])
+        self.create_remappings_controls()
 
         options = self.get_profile_from_file("Standard profil.userprofile")
 
@@ -970,7 +964,8 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         # so it is not necesarry to reset or rotate it
         # print(f"{sensordata = }")
         # hiv, rull, stamp, gir
-        # self.gir_verdier[self.run_count%10] = sensordata[3]
+        # print(sensordata[3])
+        self.gir_verdier[self.run_count%10] = sensordata[2]
         # print(f"gir = {sum(self.gir_verdier)/10}")
         self.run_count += 1
         self.meshitem.rotate(self.rov_3d_coordinates[1], 1, 0, 0, local=True)
