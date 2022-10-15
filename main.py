@@ -770,9 +770,9 @@ if __name__ == "__main__":
         global run_craft_packet
         start_time_sec = time.time()
         run_gui = True
-        run_get_controllerdata = True
-        run_network = True
-        run_craft_packet = True
+        run_get_controllerdata = False
+        run_network = False
+        run_craft_packet = False
         run_send_fake_sensordata = False
         manual_input_rotation = False
         
