@@ -812,9 +812,9 @@ if __name__ == "__main__":
         start_time_sec = time.time()
         run_gui = True
         run_get_controllerdata = False
-        run_network = False
+        run_network = True
         run_craft_packet = True
-        run_send_fake_sensordata = True
+        run_send_fake_sensordata = False
         manual_input_rotation = False
         
         queue_for_rov = multiprocessing.Queue()
@@ -837,7 +837,8 @@ if __name__ == "__main__":
         # Network is blocking
         network = None
         if run_network:
-            network = Network(is_server=False, port=6900, connect_addr="10.0.0.2")
+            # network = Network(is_server=False, port=6900, connect_addr="10.0.0.2")
+            network = Network()
             print("network started")
 
         print("starting send to rov")

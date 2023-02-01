@@ -15,32 +15,37 @@ import subprocess
 class Network:
     # bind_addr needs to be set if is_server is false and connect_addr needs to be set if is_server is false  
     def __init__(self, is_server=False, bind_addr="127.0.0.1", port=6900, connect_addr="127.0.0.1"):
+        #Will start as client if this is false
         self.is_server = is_server
+        #The address the server will listen bind to
         self.bind_addr = bind_addr
+        #The address the client will connect to
         self.connect_addr = connect_addr
+        #Port to connect or bind to depending on the is_server flag
         self.port = port
+        #If waiting_for_conn is true we are already trying to establish a new connection.
         self.waiting_for_conn = True
         self.conn = None
-        self.running = True
-        self.timeout = -1
 
         self.new_conn()
-        self.heartbeat = threading.Thread(target=self.beat, daemon=True)
-        self.heartbeat.start()
+        # self.heartbeat = threading.Thread(target=self.beat, daemon=True)
+        # self.heartbeat.start()
 
     def beat(self):
-        while self.running:
-            heartbeat_packet = bytes(json.dumps("*"), "utf-8") + bytes(json.dumps("heartbeat"), "utf-8") + bytes(json.dumps("*"), "utf-8")
-            self.send(heartbeat_packet)
-            time.sleep(0.3)
+        """Intended to notice if the tcp connection drops, quicker. Is not needed to work"""
+        heartbeat_packet = bytes(json.dumps("*"), "utf-8") + bytes(json.dumps("heartbeat"), "utf-8") + bytes(json.dumps("*"), "utf-8")
+        self.send(heartbeat_packet)
+        time.sleep(0.3)
 
     def new_conn(self):
+        """Creates a new connection."""
+        # Should be split into a seperate function function for client and server
         self.conn = None
         self.waiting_for_conn = True
+        #Creates a new socket which works over ipv4 and is tcp
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        #These options can prevent some situations where the port is blocked, after a connection drops
         self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        if not self.running:
-            return
         if self.is_server:
             print(f"trying to bind with {self.bind_addr, self.port}")
             self.socket.bind((self.bind_addr, self.port))
@@ -48,6 +53,7 @@ class Network:
             print("starting wait for conn")
             wait_for_conn = threading.Thread(target=self.wait_for_conn, daemon=True)
             wait_for_conn.start()
+            # The server side has now started a new thread that will accept a connection and make it availabe
         else:
             print(f"Client is trying to connect to {self.connect_addr, self.port}")
             while True:
@@ -84,6 +90,10 @@ class Network:
         print(f"New connection from {addr}. conn: {self.conn}, addr")
 
 
+    def string_to_bytes(s: str) -> bytes:
+        """Converts the string to utf-8 encoded bytes"""
+        return bytes(s, "utf-8")
+
     def send(self, bytes_to_send: bytes) -> None:
         if self.conn is None and not self.waiting_for_conn:
             raise Exception("Client tried sending with a non existing connection")
@@ -108,7 +118,7 @@ class Network:
 
 
     def receive(self) -> bytes:
-        # print(self.conn)
+        """The receive method is a wrapper arround socket.connection.recv() that handles some errors"""
         if self.conn is None:
             if not self.waiting_for_conn:
                 print("conn is none and we are not waiting for conn.")
@@ -123,17 +133,13 @@ class Network:
         except socket.error as e:
             print(f"tried recieving but got Exception: {e}")
 
-
-# Do not get error here if
 def send_forever(conn: socket.socket):
+    """Test method that will keep sending test data forever"""
     print("sending forever")
     data = {"test": 2, "abc": [1,2,34]}
     data = bytes(json.dumps(data), "utf-8")
     while True:
         conn.send(data)
-
-def recieve_forever():
-    pass
 
 if __name__ == "__main__":
     print(sys.platform)
