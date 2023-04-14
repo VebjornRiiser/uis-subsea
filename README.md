@@ -10,8 +10,9 @@ This program consist of:
 <br>
 <hr>
 <img src="images/gui_view.png" width=60%>
+<img src="images/controller_view.png" width=49%>
 <img src="images/controller.png" width=49%>
-<img src="images/datamaskinoppsett.png" width=49%>
+<img src="images/datamaskinoppsett.png" width=65%>
 <hr>
 <br>
 
