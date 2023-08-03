@@ -3,7 +3,7 @@ charset-normalizer==3.2.0
 idna==3.4
 pygame==2.5.0
 requests==2.31.0
-urllib3==1.26.8
+urllib3==2.0.4
 PyQt5
 PyQtWebEngine
 pyqtgraph
