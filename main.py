@@ -1,17 +1,14 @@
 from getopt import getopt
-from inspect import _empty
 import multiprocessing
 # import multiprocessing
 from logger import Logger
-from os import pipe
 from Subsea_QT_GUI import GUI_loop
-from multiprocessing import Pipe, Process, Queue
+from multiprocessing import Pipe, Process
 from Subsea_QT_GUI import *
 from Threadwatch import Threadwatcher
 from network_handler import Network
 import Controller_handler as controller
 import threading
-import random
 import time
 import json
 import sys
@@ -39,15 +36,6 @@ def relay_data_from_controller(connection_controller, t_watch: Threadwatcher, id
             # print(controllerdata_to_json(controller_data), end="            \r")
             # print(controllerdata_to_json(controller_data))
             pass
-
-
-def recieve_commands_from_gui(conn, t_watch: Threadwatcher, id):
-    #Probably deprecated
-    while t_watch.should_run(id):
-        if conn.poll():
-            print(f" Inside recieve_commands_from_gui {conn.recv() = }")
-        # print("recieve commands from gui")
-    print("t_watch is false")
 
 
 def create_test_sensordata(delta, old_sensordata=None):
@@ -165,7 +153,6 @@ class Rov_state:
 
     def skip(self, button_index):
         pass
-        # print("pass was called")
 
     # bit hacky since we overwrite the actual value of the button
     # Need to clear the button that sets this value so that the original function does not altso trigger
@@ -338,25 +325,25 @@ class Rov_state:
         # self.packets_to_send.append([96,  []])
 
 
-    def get_rotation_input(self):
+    def get_rotation_input(self, Rotation=None):
         """Used to rotate the 3d model"""
         # rotate_input = input("Rotate theta degrees around x,y,z axis")
         # rotation = [int(item.strip()) for item in rotate_input.split(",")]
         # if len(rotation) != 4:
         #     rotation = [0]*4
         # sensordata = {"rotate": [rotation[0], rotation[1], rotation[2], rotation[3]]}
-
-        rotate_input = input()
-        try:
-            rotation = [float(item.strip()) for item in rotate_input.split(",")]
-        except Exception:
-            print("wrong input")
-            return
-        if len(rotation) != 2:
-            rotation = [0, 0]
-        sensordata = {"gyro": [rotation[0], rotation[1], 0]}
-
-        # self.send_sensordata_to_gui(sensordata)
+        if Rotation == None:
+            rotate_input = input("x, y: ")
+            try:
+                rotation = [float(item.strip()) for item in rotate_input.split(",")]
+            except Exception:
+                print("wrong input")
+                return
+            if len(rotation) != 2:
+                rotation = [0, 0]
+        sensordata = {"gyro": [0, rotation[0], rotation[1]]}
+        print("Sending")
+        self.send_sensordata_to_gui(sensordata)
 
 
 
@@ -390,7 +377,7 @@ class Rov_state:
         for packet in copied_packets:
             if packet[0] != ID_DIRECTIONCOMMAND:
                 pass
-                print(f"{packet = }")
+                # print(f"{packet = }")
         if run_network:
             self.logger.sensor_logger.info(copied_packets)
         if self.network_handler is None:
@@ -812,10 +799,10 @@ if __name__ == "__main__":
         start_time_sec = time.time()
         run_gui = True
         run_get_controllerdata = False
-        run_network = True
-        run_craft_packet = True
+        run_network = False
+        run_craft_packet = False
         run_send_fake_sensordata = False
-        manual_input_rotation = False
+        manual_input_rotation = True
         
         queue_for_rov = multiprocessing.Queue()
 
@@ -853,7 +840,7 @@ if __name__ == "__main__":
             datafaker = threading.Thread(target=send_fake_sensordata, args=(t_watch, gui_parent_pipe), daemon=True)
             datafaker.start()
 
-        test_gui_leak_response(gui_parent_pipe)
+        #test_gui_leak_response(gui_parent_pipe)
 
         while True:
             time.sleep(5)

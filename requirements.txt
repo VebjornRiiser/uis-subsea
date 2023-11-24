@@ -11,3 +11,4 @@ PyOpengl
 numpy-stl
 matplotlib
 python-vlc
+scipy==1.11.4

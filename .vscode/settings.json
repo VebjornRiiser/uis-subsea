@@ -3,5 +3,7 @@
     "python.linting.flake8Enabled": true,
     "python.linting.enabled": false,
     "python.linting.pylintEnabled": false,
-    "editor.bracketPairColorization.independentColorPoolPerBracketType": true
+    "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+    "python.missingPackage.severity": "Warning",
+    "editor.defaultFormatter": "ms-python.vscode-pylance"
 }

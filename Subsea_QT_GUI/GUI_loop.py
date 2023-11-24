@@ -1,29 +1,29 @@
+import sys
 import multiprocessing
 import subprocess
+
+import pyqtgraph
 import Subsea_QT_GUI.stopwatch as stopwatch
 #from tkinter import Widget
 from PyQt5 import QtCore, QtGui, QtWidgets, Qt
-from PyQt5.QtWidgets import QMainWindow, QWidget, QCheckBox, QLabel, QFileDialog, QApplication, QWidget, QVBoxLayout, QSizeGrip, QFrame, QMessageBox, QStyleFactory, QSizeGrip, QGraphicsDropShadowEffect, QPushButton, QComboBox, QDesktopWidget
+from PyQt5.QtWidgets import QMainWindow, QWidget, QLabel, QFileDialog, QApplication, QWidget, QSizeGrip, QMessageBox, QSizeGrip, QGraphicsDropShadowEffect, QPushButton, QComboBox, QDesktopWidget
 #from PyQt5.QtWebEngineWidgets import * 
 from PyQt5.Qt import *
-from PyQt5.QtGui import QColor, QIcon, QCursor, QFont, QPixmap
-from PyQt5.QtCore import Qt, QtMsgType, QTimer, QEvent
-from multiprocessing import Pipe, Value
+from PyQt5.QtGui import QColor, QIcon, QPixmap
+from PyQt5.QtCore import Qt, QTimer, QEvent
 from Threadwatch import Threadwatcher
-import sys
 import threading
 import json
 import os
 import Subsea_QT_GUI.SUBSEAGUI as SUBSEAGUI
-from Subsea_QT_GUI.custom_grips import CustomGrip, Widgets
+from Subsea_QT_GUI.custom_grips import CustomGrip
 from pyqtgraph.Qt import QtCore, QtGui
-import pyqtgraph as pg
 import pyqtgraph.opengl as gl
 import numpy as np
+from scipy.spatial.transform import Rotation
 from stl import mesh
 import time
 from Subsea_QT_GUI.py_toggle import PyToggle
-
 # QApplication.setAttribute(Qt.AA_UseDesktopOpenGL)
 QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)  # enable highdpi scaling 
 QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)  # use highdpi icons
@@ -339,10 +339,10 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
             dlg.exec()
 
     def load_theme(self):
-        print("theme loaded")
         sshFile="dark_theme.qss"
         with open("themes/dark_theme.qss" ,"r") as qssfile:
             self.styleSheet.setStyleSheet(qssfile.read())
+            # print("theme loaded")
 
     
     def change_theme(self):
@@ -959,6 +959,24 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         pass
         # print(f"gui_acceleration_update {sensordata = }")
 
+
+
+    import numpy as np
+
+    def rotation_matrix_x(self, angle):
+        # Rotation matrix for rotation around X-axis
+        rad = np.radians(angle)
+        return np.array([[1, 0, 0],
+                        [0, np.cos(rad), -np.sin(rad)],
+                        [0, np.sin(rad), np.cos(rad)]])
+
+    def rotation_matrix_y(self, angle):
+        # Rotation matrix for rotation around Y-axis
+        rad = np.radians(angle)
+        return np.array([[np.cos(rad), 0, np.sin(rad)],
+                        [0, 1, 0],
+                        [-np.sin(rad), 0, np.cos(rad)]])
+
     def gui_gyro_update(self, sensordata):
         # Removes the previous rotation. We do not have yaw rotation
         # so it is not necesarry to reset or rotate it
@@ -968,16 +986,33 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         self.gir_verdier[self.run_count%10] = sensordata[2]
         # print(f"gir = {sum(self.gir_verdier)/10}")
         self.run_count += 1
+
+
+        # Assuming 'mesh' is your gl.MeshItem instance
+        # and 'angle_x', 'angle_y', 'height_z' are your provided values
+
+        # Calculate the combined rotation matrix
+        rotation_matrix_x = self.rotation_matrix_x(sensordata[1])
+        rotation_matrix_y = self.rotation_matrix_y(sensordata[2])
+        rotation_matrix = np.dot(self.rotation_matrix_x(sensordata[1]), self.rotation_matrix_y(sensordata[2]))
+        rotation = Rotation.from_matrix(rotation_matrix)
+        print(rotation.as_rotvec())
+        print(np.linalg.norm(rotation.as_rotvec()))
+        # Apply the rotation
+        a = pyqtgraph.Transform3D.matrix(rotation_matrix)
+        self.meshitem.applyTransform(*rotation_matrix, local=True)
+        self.meshitem.setTransform(rotation_matrix)
+        
         self.meshitem.rotate(self.rov_3d_coordinates[1], 1, 0, 0, local=True)
         self.meshitem.rotate(self.rov_3d_coordinates[2], 0, 1, 0, local=True)
 
         self.meshitem.rotate(-sensordata[2], 0, 1, 0, local=True)
         self.meshitem.rotate(-sensordata[1], 1, 0, 0, local=True)
 
+        
         # height translation
         height_diff = sensordata[0]-self.rov_3d_coordinates[0]
         self.meshitem.translate(0,0, -height_diff)
-
         self.rov_3d_coordinates = sensordata
 
         self.label_dybde.setText(str(round(self.rov_3d_coordinates[0]))+ " cm")
