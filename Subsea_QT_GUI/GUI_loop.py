@@ -963,7 +963,7 @@ class Window(QMainWindow, SUBSEAGUI.Ui_MainWindow):
         # Removes the previous rotation. We do not have yaw rotation
         # so it is not necesarry to reset or rotate it
         # print(f"{sensordata = }")
-        # hiv, rull, stamp, gir
+        # hiv, rull, stamp, gir 
         # print(sensordata[3])
         self.gir_verdier[self.run_count%10] = sensordata[2]
         # print(f"gir = {sum(self.gir_verdier)/10}")
