@@ -1,7 +1,6 @@
 from getopt import getopt
 from inspect import _empty
 import multiprocessing
-# import multiprocessing
 from logger import Logger
 from os import pipe
 from Subsea_QT_GUI import GUI_loop
@@ -11,11 +10,11 @@ from Threadwatch import Threadwatcher
 from network_handler import Network
 import Controller_handler as controller
 import threading
-import random
 import time
 import json
-import sys
 import os
+import sys
+import argparse
 STYREDATAID = 70
 
 # takes a python object and prepares it for sending over network
@@ -40,18 +39,10 @@ def relay_data_from_controller(connection_controller, t_watch: Threadwatcher, id
             # print(controllerdata_to_json(controller_data))
             pass
 
-
-def recieve_commands_from_gui(conn, t_watch: Threadwatcher, id):
-    #Probably deprecated
-    while t_watch.should_run(id):
-        if conn.poll():
-            print(f" Inside recieve_commands_from_gui {conn.recv() = }")
-        # print("recieve commands from gui")
-    print("t_watch is false")
-
-
 def create_test_sensordata(delta, old_sensordata=None):
-    # test function
+    """
+    Creates test sensordata for testing the system
+    """
     sensordata = {}
     if old_sensordata is None:
         sensordata = {"tid": int(time.time()-start_time_sec), "dybde": -2500.0, "spenning": 48.0, "temp_rov": 26.0}
@@ -165,7 +156,6 @@ class Rov_state:
 
     def skip(self, button_index):
         pass
-        # print("pass was called")
 
     # bit hacky since we overwrite the actual value of the button
     # Need to clear the button that sets this value so that the original function does not altso trigger
@@ -370,9 +360,6 @@ class Rov_state:
                 if not isinstance(var[0], int):
                     print("Error: parameter id was not an int! try again.")
                     continue
-                # if not isinstance(var[1], int) or not isinstance(var[1], float):
-                #     print("Error: parameter id was not an int or float! try again.")
-                #     continue
                 if len(var) != 2:
                     print("Error: list was not length 2")
                     continue
@@ -413,11 +400,9 @@ class Rov_state:
 
         ligth_down = self.light_intensity_down * self.ligth_down_is_on
         ligth_forward = self.light_intensity_forward * self.ligth_forward_is_on
-        # print(f"Lys oppdatert. verdien vi sender er {[142, ligth_forward, ligth_down]}")
         self.packets_to_send.append([ID_LIGHTS, [ligth_forward, ligth_down]])
 
     def update_camera_tilt_controller(self):
-        # print("camera tilt update func")
         if self.camera_tilt_control_active and self.camera_tilt_allowed[self.active_camera]:
             camera_movement = self.data.get('camera_movement')
             if camera_movement is None:
@@ -803,19 +788,30 @@ if __name__ == "__main__":
     # get_args()
     # exit(0)
     try:
-        global time_since_start
         global start_time_sec
-        global run_gui
+        start_time_sec = time.time()
+        global time_since_start
+        
         global manual_input_rotation
         global run_network
         global run_craft_packet
-        start_time_sec = time.time()
-        run_gui = True
-        run_get_controllerdata = True
-        run_network = True
-        run_craft_packet = False
-        run_send_fake_sensordata = False
-        manual_input_rotation = False
+
+        parser = argparse.ArgumentParser()
+        parser.add_argument("--disable-gui", "-dg", help="Run GUI", action="store_true")
+        parser.add_argument("--disable-controller", "-dc", help="Turns off controller", action="store_true")
+        parser.add_argument("--disable-network", "-dn", help="Disable network", action="store_true")
+        parser.add_argument("--run_craft_packet", "-rcp", help="Enable sending configuration packets to rov from console", action="store_true")
+        parser.add_argument("--run-fake-sensordata", "-rfs", help="Send fake sensordata to gui for testing", action="store_true")
+        parser.add_argument("--manual_input_rotation", help="Manual input rotation", action="store_true")
+
+        args = parser.parse_args()
+
+        run_gui = not args.disable_gui
+        run_get_controllerdata = not args.disable_controller
+        run_network = not args.disable_network
+        run_craft_packet = args.run_craft_packet
+        run_send_fake_sensordata = args.run_fake_sensordata
+        manual_input_rotation = args.manual_input_rotation
         
         queue_for_rov = multiprocessing.Queue()
 
